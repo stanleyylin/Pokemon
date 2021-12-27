@@ -14,16 +14,18 @@ public class Driver {
 		}
 		Scanner in = new Scanner (System.in);
 		
-		String temp = in.nextLine();
-		System.out.println(Pokemon.pokeStats.get(temp));
+//		String temp = in.nextLine();
+//		System.out.println(Pokemon.pokeStats.get(temp));
 		
 		
 		ArrayList <Pokemon> myPokemon = new ArrayList<Pokemon>();
 		
-		myPokemon.add(new Pokemon ("Charizard", "fire", 25));
+		myPokemon.add(new Pokemon ("Charizard", "fire", 80));
 		System.out.println(myPokemon.get(0));
+		myPokemon.get(0).updateAllStats();
+		System.out.println(myPokemon.get(0));
+
 		
-		System.out.println("test");
 
 	}
 
