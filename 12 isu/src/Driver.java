@@ -24,6 +24,7 @@ public class Driver {
 		System.out.println(myPokemon.get(0));
 		myPokemon.get(0).updateAllStats();
 		System.out.println(myPokemon.get(0));
+		System.out.println("helo pranav");
 
 		
 
