@@ -1,0 +1,1064 @@
+adaptability:
+    name: Adaptability
+    gen: 4
+    release: Powers up moves of the same type as the Pokémon.
+aerilate:
+    name: Aerilate
+    gen: 6
+    release: Normal-type moves become Flying-type moves. The power of those moves is boosted a little.
+aftermath:
+    name: Aftermath
+    gen: 4
+    release: Damages the attacker if it contacts the Pokémon with a finishing hit.
+air-lock:
+    name: Air Lock
+    gen: 3
+    release: Eliminates the effects of weather.
+analytic:
+    name: Analytic
+    gen: 5
+    release: Boosts move power when the Pokémon moves last.
+anger-point:
+    name: Anger Point
+    gen: 4
+    release: The Pokémon is angered when it takes a critical hit, and that maxes its Attack stat.
+anticipation:
+    name: Anticipation
+    gen: 4
+    release: The Pokémon can sense an opposing Pokémon's dangerous moves.
+arena-trap:
+    name: Arena Trap
+    gen: 3
+    release: Prevents opposing Pokémon from fleeing.
+aroma-veil:
+    name: Aroma Veil
+    gen: 6
+    release: Protects itself and its allies from attacks that limit their move choices.
+as-one:
+    name: As One
+    gen: 8
+    release: This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's/Glastrier's Chilling Neigh Ability.	
+aura-break:
+    name: Aura Break
+    gen: 6
+    release: The effects of "Aura" Abilities are reversed to lower the power of affected moves.
+bad-dreams:
+    name: Bad Dreams
+    gen: 4
+    release: Reduces the HP of sleeping opposing Pokémon.
+ball-fetch:
+    name: Ball Fetch
+    gen: 8
+    release: If the Pokémon is not holding an item, it will fetch the Poké Ball from the first failed throw of the battle.
+battery:
+    name: Battery
+    gen: 7
+    release: Powers up ally Pokémon's special moves.
+battle-armor:
+    name: Battle Armor
+    gen: 3
+    release: Hard armor protects the Pokémon from critical hits.
+battle-bond:
+    name: Battle Bond
+    gen: 7
+    release: Defeating an opposing Pokémon strengthens the Pokémon's bond with its Trainer, and it becomes Ash-Greninja. Water Shuriken gets more powerful.
+beast-boost:
+    name: Beast Boost
+    gen: 7
+    release: The Pokémon boosts its most proficient stat each time it knocks out a Pokémon.
+berserk:
+    name: Berserk
+    gen: 7
+    release: Boosts the Pokémon's Sp. Atk stat when it takes a hit that causes its HP to become half or less.
+big-pecks:
+    name: Big Pecks
+    gen: 5
+    release: Protects the Pokémon from Defense-lowering effects.
+blaze:
+    name: Blaze
+    gen: 3
+    release: Powers up Fire-type moves when the Pokémon's HP is low.
+bulletproof:
+    name: Bulletproof
+    gen: 6
+    release: Protects the Pokémon from some ball and bomb moves.
+cheek-pouch:
+    name: Cheek Pouch
+    gen: 6
+    release: Restores HP as well when the Pokémon eats a Berry.
+chilling-neigh:
+    name: Chilling Neigh
+    gen: 8
+    release: When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack stat.
+chlorophyll:
+    name: Chlorophyll
+    gen: 3
+    release: Boosts the Pokémon's Speed stat in harsh sunlight.
+clear-body:
+    name: Clear Body
+    gen: 3
+    release: Prevents other Pokémon's moves or Abilities from lowering the Pokémon's stats.
+cloud-nine:
+    name: Cloud Nine
+    gen: 3
+    release: Eliminates the effects of weather.
+color-change:
+    name: Color Change
+    gen: 3
+    release: The Pokémon's type becomes the type of the move used on it.
+comatose:
+    name: Comatose
+    gen: 7
+    release: It's always drowsing and will never wake up. It can attack without waking up.
+competitive:
+    name: Competitive
+    gen: 6
+    release: Boosts the Sp. Atk stat sharply when a stat is lowered.	
+compound-eyes:
+    name: Compound Eyes
+    gen: 3
+    release: The Pokémon's compound eyes boost its accuracy.
+contrary:
+    name: Contrary
+    gen: 5
+    release: Makes stat changes have an opposite effect.
+corrosion:
+    name: Corrosion
+    gen: 7
+    release: The Pokémon can poison the target even if it's a Steel or Poison type.
+cotton-down:
+    name: Cotton Down
+    gen: 8
+    release: When the Pokémon is hit by an attack, it scatters cotton fluff around and lowers the Speed stat of all Pokémon except itself.
+curious-medicine:
+    name: Curious Medicine
+    gen: 8
+    release: When the Pokémon enters a battle, it scatters medicine from its shell, which removes all stat changes from allies.
+cursed-body:
+    name: Cursed Body
+    gen: 5
+    release: May disable a move used on the Pokémon.
+cute-charm:
+    name: Cute Charm
+    gen: 3
+    release: Contact with the Pokémon may cause infatuation.
+damp:
+    name: Damp
+    gen: 3
+    release: Prevents the use of explosive moves, such as Self-Destruct, by dampening its surroundings.
+dancer:
+    name: Dancer
+    gen: 7
+    release: When another Pokémon uses a dance move, it can use a dance move following it regardless of its Speed.
+dark-aura:
+    name: Dark Aura
+    gen: 6
+    release: Powers up each Pokémon's Dark-type moves.
+dauntless-shield:
+    name: Dauntless Shield
+    gen: 8
+    release: Boosts the Pokémon's Defense stat when the Pokémon enters a battle.
+dazzling:
+    name: Dazzling
+    gen: 7
+    release: Surprises the opposing Pokémon, making it unable to attack using priority moves.
+defeatist:
+    name: Defeatist
+    gen: 5
+    release: Halves the Pokémon's Attack and Sp. Atk stats when its HP becomes half or less.
+defiant:
+    name: Defiant
+    gen: 5
+    release: Boosts the Pokémon's Attack stat sharply when its stats are lowered.
+delta-stream:
+    name: Delta Stream
+    gen: 6
+    release: The Pokémon changes the weather to eliminate all of the Flying type's weaknesses.	
+desolate-land:
+    name: Desolate Land
+    gen: 6
+    release: The Pokémon changes the weather to nullify Water-type attacks.
+disguise:
+    name: Disguise
+    gen: 7
+    release: Once per battle, the shroud that covers the Pokémon can protect it from an attack.
+download:
+    name: Download
+    gen: 4
+    release: Compares an opposing Pokémon's Defense and Sp. Def stats before raising its own Attack or Sp. Atk stat—whichever will be more effective.
+dragons-maw:
+    name: Dragon's Maw
+    gen: 8
+    release: Powers up Dragon-type moves.
+drizzle:
+    name: Drizzle
+    gen: 3
+    release: The Pokémon makes it rain when it enters a battle.
+drought:
+    name: Drought
+    gen: 3
+    release: Turns the sunlight harsh when the Pokémon enters a battle.
+dry-skin:
+    name: Dry Skin
+    gen: 4
+    release: Restores HP in rain or when hit by Water-type moves. Reduces HP in harsh sunlight, and increases the damage received from Fire-type moves.
+early-bird:
+    name: Early Bird
+    gen: 3
+    release: The Pokémon awakens from sleep twice as fast as other Pokémon.
+effect-spore:
+    name: Effect Spore
+    gen: 3
+    release: Contact with the Pokémon may inflict poison, sleep, or paralysis on its attacker.
+electric-surge:
+    name: Electric Surge
+    gen: 7
+    release: Turns the ground into Electric Terrain when the Pokémon enters a battle.
+emergency-exit:
+    name: Emergency Exit
+    gen: 7
+    release: The Pokémon, sensing danger, switches out when its HP becomes half or less.
+fairy-aura:
+    name: Fairy Aura
+    gen: 6
+    release: Powers up each Pokémon's Fairy-type moves.
+filter:
+    name: Filter
+    gen: 4
+    release: Reduces the power of supereffective attacks taken.
+flame-body:
+    name: Flame Body
+    gen: 3
+    release: Contact with the Pokémon may burn the attacker.
+flare-boost:
+    name: Flare Boost
+    gen: 5
+    release: Powers up special attacks when the Pokémon is burned.
+flash-fire:
+    name: Flash Fire
+    gen: 3
+    release: Powers up the Pokémon's Fire-type moves if it's hit by one.
+flower-gift:
+    name: Flower Gift
+    gen: 4
+    release: Boosts the Attack and Sp. Def stats of itself and allies in harsh sunlight.
+flower-veil:
+    name: Flower Veil
+    gen: 6
+    release: Ally Grass-type Pokémon are protected from status conditions and the lowering of their stats.
+fluffy:
+    name: Fluffy
+    gen: 7
+    release: Halves the damage taken from moves that make direct contact, but doubles that of Fire-type moves.
+forecast:
+    name: Forecast
+    gen: 3
+    release: The Pokémon transforms with the weather to change its type to Water, Fire, or Ice.
+forewarn:
+    name: Forewarn
+    gen: 4
+    release: When it enters a battle, the Pokémon can tell one of the moves an opposing Pokémon has.
+friend-guard:
+    name: Friend Guard
+    gen: 5
+    release: Reduces damage done to allies.
+frisk:
+    name: Frisk
+    gen: 4
+    release: When it enters a battle, the Pokémon can check an opposing Pokémon's held item.
+full-metal-body:
+    name: Full Metal Body
+    gen: 7
+    release: Prevents other Pokémon's moves or Abilities from lowering the Pokémon's stats.
+fur-coat:
+    name: Fur Coat
+    gen: 6
+    release: Halves the damage from physical moves.
+gale-wings:
+    name: Gale Wings
+    gen: 6
+    release: Gives priority to Flying-type moves when the Pokémon's HP is full.
+galvanize:
+    name: Galvanize
+    gen: 7
+    release: Normal-type moves become Electric-type moves. The power of those moves is boosted a little.
+gluttony:
+    name: Gluttony
+    gen: 4
+    release: Makes the Pokémon eat a held Berry when its HP drops to half or less, which is sooner than usual.
+gooey:
+    name: Gooey
+    gen: 6
+    release: Contact with the Pokémon lowers the attacker's Speed stat.
+gorilla-tactics:
+    name: Gorilla Tactics
+    gen: 8
+    release: Boosts the Pokémon's Attack stat but only allows the use of the first selected move.
+grass-pelt:
+    name: Grass Pelt
+    gen: 6
+    release: Boosts the Pokémon's Defense stat on Grassy Terrain.
+grassy-surge:
+    name: Grassy Surge
+    gen: 7
+    release: Turns the ground into Grassy Terrain when the Pokémon enters a battle.
+grim-neigh:
+    name: Grim Neigh
+    gen: 8
+    release: When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk stat.
+gulp-missile:
+    name: Gulp Missile
+    gen: 8
+    release: When the Pokémon uses Surf or Dive, it will come back with prey. When it takes damage, it will spit out the prey to attack.
+guts:
+    name: Guts
+    gen: 3
+    release: It's so gutsy that having a status condition boosts the Pokémon's Attack stat.
+harvest:
+    name: Harvest
+    gen: 5
+    release: May create another Berry after one is used.
+healer:
+    name: Healer
+    gen: 5
+    release: Sometimes heals an ally's status condition.
+heatproof:
+    name: Heatproof
+    gen: 4
+    release: The heatproof body of the Pokémon halves the damage from Fire-type moves that hit it.
+heavy-metal:
+    name: Heavy Metal
+    gen: 5
+    release: Doubles the Pokémon's weight.
+honey-gather:
+    name: Honey Gather
+    gen: 4
+    release: The Pokémon may gather Honey after a battle.
+huge-power:
+    name: Huge Power
+    gen: 3
+    release: Doubles the Pokémon's Attack stat.
+hunger-switch:
+    name: Hunger Switch
+    gen: 8
+    release: The Pokémon changes its form, alternating between its Full Belly Mode and Hangry Mode after the end of each turn.
+hustle:
+    name: Hustle
+    gen: 3
+    release: Boosts the Attack stat, but lowers accuracy.
+hydration:
+    name: Hydration
+    gen: 4
+    release: Heals status conditions if it's raining.
+hyper-cutter:
+    name: Hyper Cutter
+    gen: 3
+    release: The Pokémon's proud of its powerful pincers. They prevent other Pokémon from lowering its Attack stat.
+ice-body:
+    name: Ice Body
+    gen: 4
+    release: The Pokémon gradually regains HP in a hailstorm.
+ice-face:
+    name: Ice Face
+    gen: 8
+    release: The Pokémon's ice head can take a physical attack as a substitute, but the attack also changes the Pokémon's appearance. The ice will be restored when it hails.
+ice-scales:
+    name: Ice Scales
+    gen: 8
+    release: The Pokémon is protected by ice scales, which halve the damage taken from special moves.
+illuminate:
+    name: Illuminate
+    gen: 3
+    release: Raises the likelihood of meeting wild Pokémon by illuminating the surroundings.
+illusion:
+    name: Illusion
+    gen: 5
+    release: Comes out disguised as the Pokémon in the party's last spot.
+immunity:
+    name: Immunity
+    gen: 3
+    release: The immune system of the Pokémon prevents it from getting poisoned.
+imposter:
+    name: Imposter
+    gen: 5
+    release: The Pokémon transforms itself into the Pokémon it's facing.
+infiltrator:
+    name: Infiltrator
+    gen: 5
+    release: Passes through the opposing Pokémon's barrier, substitute, and the like and strikes.
+innards-out:
+    name: Innards Out
+    gen: 7
+    release: Damages the attacker landing the finishing hit by the amount equal to its last HP.
+inner-focus:
+    name: Inner Focus
+    gen: 3
+    release: The Pokémon's intensely focused, and that protects the Pokémon from flinching.
+insomnia:
+    name: Insomnia
+    gen: 3
+    release: The Pokémon is suffering from insomnia and cannot fall asleep.
+intimidate:
+    name: Intimidate
+    gen: 3
+    release: The Pokémon intimidates opposing Pokémon upon entering battle, lowering their Attack stat.
+intrepid-sword:
+    name: Intrepid Sword
+    gen: 8
+    release: Boosts the Pokémon's Attack stat when the Pokémon enters a battle.
+iron-barbs:
+    name: Iron Barbs
+    gen: 5
+    release: Inflicts damage on the attacker upon contact with iron barbs.
+iron-fist:
+    name: Iron Fist
+    gen: 4
+    release: Powers up punching moves.
+justified:
+    name: Justified
+    gen: 5
+    release: Being hit by a Dark-type move boosts the Attack stat of the Pokémon, for justice.
+keen-eye:
+    name: Keen Eye
+    gen: 3
+    release: Keen eyes prevent other Pokémon from lowering this Pokémon's accuracy.
+klutz:
+    name: Klutz
+    gen: 4
+    release: The Pokémon can't use any held items.
+leaf-guard:
+    name: Leaf Guard
+    gen: 4
+    release: Prevents status conditions in harsh sunlight.
+levitate:
+    name: Levitate
+    gen: 3
+    release: By floating in the air, the Pokémon receives full immunity to all Ground-type moves.
+libero:
+    name: Libero
+    gen: 8
+    release: Changes the Pokémon's type to the type of the move it's about to use.
+light-metal:
+    name: Light Metal
+    gen: 5
+    release: Halves the Pokémon's weight.
+lightning-rod:
+    name: Lightning Rod
+    gen: 3
+    release: The Pokémon draws in all Electric-type moves. Instead of being hit by Electric-type moves, it boosts its Sp. Atk.
+limber:
+    name: Limber
+    gen: 3
+    release: Its limber body protects the Pokémon from paralysis.
+liquid-ooze:
+    name: Liquid Ooze
+    gen: 3
+    release: The oozed liquid has a strong stench, which damages attackers using any draining move.
+liquid-voice:
+    name: Liquid Voice
+    gen: 7
+    release: All sound-based moves become Water-type moves.
+long-reach:
+    name: Long Reach
+    gen: 7
+    release: The Pokémon uses its moves without making contact with the target.
+magic-bounce:
+    name: Magic Bounce
+    gen: 5
+    release: Reflects status moves instead of getting hit by them.
+magic-guard:
+    name: Magic Guard
+    gen: 4
+    release: The Pokémon only takes damage from attacks.
+magician:
+    name: Magician
+    gen: 6
+    release: The Pokémon steals the held item of a Pokémon it hits with a move.
+magma-armor:
+    name: Magma Armor
+    gen: 3
+    release: The Pokémon is covered with hot magma, which prevents the Pokémon from becoming frozen.
+magnet-pull:
+    name: Magnet Pull
+    gen: 3
+    release: Prevents Steel-type Pokémon from escaping using its magnetic force.
+marvel-scale:
+    name: Marvel Scale
+    gen: 3
+    release: The Pokémon's marvelous scales boost the Defense stat if it has a status condition.
+mega-launcher:
+    name: Mega Launcher
+    gen: 6
+    release: Powers up aura and pulse moves.
+merciless:
+    name: Merciless
+    gen: 7
+    release: The Pokémon's attacks become critical hits if the target is poisoned.
+mimicry:
+    name: Mimicry
+    gen: 8
+    release: Changes the Pokémon's type depending on the terrain.
+minus:
+    name: Minus
+    gen: 3
+    release: Boosts the Sp. Atk stat of the Pokémon if an ally with the Plus or Minus Ability is also in battle.
+mirror-armor:
+    name: Mirror Armor
+    gen: 8
+    release: Bounces back only the stat-lowering effects that the Pokémon receives.
+misty-surge:
+    name: Misty Surge
+    gen: 7
+    release: Turns the ground into Misty Terrain when the Pokémon enters a battle.
+mold-breaker:
+    name: Mold Breaker
+    gen: 4
+    release: Moves can be used on the target regardless of its Abilities.
+moody:
+    name: Moody
+    gen: 5
+    release: Raises one stat sharply and lowers another every turn.
+motor-drive:
+    name: Motor Drive
+    gen: 4
+    release: Boosts its Speed stat if hit by an Electric-type move instead of taking damage.
+moxie:
+    name: Moxie
+    gen: 5
+    release: The Pokémon shows moxie, and that boosts the Attack stat after knocking out any Pokémon.
+multiscale:
+    name: Multiscale
+    gen: 5
+    release: Reduces the amount of damage the Pokémon takes while its HP is full.
+multitype:
+    name: Multitype
+    gen: 4
+    release: Changes the Pokémon's type to match the Plate or Z-Crystal it holds.
+mummy:
+    name: Mummy
+    gen: 5
+    release: Contact with the Pokémon changes the attacker's Ability to Mummy.
+natural-cure:
+    name: Natural Cure
+    gen: 3
+    release: All status conditions heal when the Pokémon switches out.
+neuroforce:
+    name: Neuroforce
+    gen: 7
+    release: Powers up moves that are super effective.
+neutralizing-gas:
+    name: Neutralizing Gas
+    gen: 8
+    release: If the Pokémon with Neutralizing Gas is in the battle, the effects of all Pokémon's Abilities will be nullified or will not be triggered.
+no-guard:
+    name: No Guard
+    gen: 4
+    release: The Pokémon employs no-guard tactics to ensure incoming and outgoing attacks always land.
+normalize:
+    name: Normalize
+    gen: 4
+    release: All the Pokémon's moves become Normal type. The power of those moves is boosted a little.
+oblivious:
+    name: Oblivious
+    gen: 3
+    release: The Pokémon is oblivious, and that keeps it from being infatuated or falling for taunts.
+overcoat:
+    name: Overcoat
+    gen: 5
+    release: Protects the Pokémon from things like sand, hail, and powder.
+overgrow:
+    name: Overgrow
+    gen: 3
+    release: Powers up Grass-type moves when the Pokémon's HP is low.
+own-tempo:
+    name: Own Tempo
+    gen: 3
+    release: This Pokémon has its own tempo, and that prevents it from becoming confused.
+parental-bond:
+    name: Parental Bond
+    gen: 6
+    release: Parent and child each attacks.
+pastel-veil:
+    name: Pastel Veil
+    gen: 8
+    release: Protects the Pokémon and its ally Pokémon from being poisoned.
+perish-body:
+    name: Perish Body
+    gen: 8
+    release: When hit by a move that makes direct contact, the Pokémon and the attacker will faint after three turns unless they switch out of battle.
+pickpocket:
+    name: Pickpocket
+    gen: 5
+    release: Steals an item from an attacker that made direct contact.
+pickup:
+    name: Pickup
+    gen: 3
+    release: The Pokémon may pick up the item an opposing Pokémon used during a battle. It may pick up items outside of battle, too.
+pixilate:
+    name: Pixilate
+    gen: 6
+    release: Normal-type moves become Fairy-type moves. The power of those moves is boosted a little.
+plus:
+    name: Plus
+    gen: 3
+    release: Boosts the Sp. Atk stat of the Pokémon if an ally with the Plus or Minus Ability is also in battle.
+poison-heal:
+    name: Poison Heal
+    gen: 4
+    release: Restores HP if the Pokémon is poisoned instead of losing HP.
+poison-point:
+    name: Poison Point
+    gen: 3
+    release: Contact with the Pokémon may poison the attacker.
+poison-touch:
+    name: Poison Touch
+    gen: 5
+    release: May poison a target when the Pokémon makes contact.
+power-construct:
+    name: Power Construct
+    gen: 7
+    release: Other Cells gather to aid when its HP becomes half or less. Then the Pokémon changes its form to Complete Forme.
+power-of-alchemy:
+    name: Power of Alchemy
+    gen: 7
+    release: The Pokémon copies the Ability of a defeated ally.
+power-spot:
+    name: Power Spot
+    gen: 8
+    release: Just being next to the Pokémon powers up moves.
+prankster:
+    name: Prankster
+    gen: 5
+    release: Gives priority to a status move.
+pressure:
+    name: Pressure
+    gen: 3
+    release: By putting pressure on the opposing Pokémon, it raises their PP usage.
+primordial-sea:
+    name: Primordial Sea
+    gen: 6
+    release: The Pokémon changes the weather to nullify Fire-type attacks.
+prism-armor:
+    name: Prism Armor
+    gen: 7
+    release: Reduces the power of supereffective attacks taken.
+propeller-tail:
+    name: Propeller Tail
+    gen: 8
+    release: Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves.
+protean:
+    name: Protean
+    gen: 6
+    release: Changes the Pokémon's type to the type of the move it's about to use.
+psychic-surge:
+    name: Psychic Surge
+    gen: 7
+    release: Turns the ground into Psychic Terrain when the Pokémon enters a battle.
+punk-rock:
+    name: Punk Rock
+    gen: 8
+    release: Boosts the power of sound-based moves. The Pokémon also takes half the damage from these kinds of moves.
+pure-power:
+    name: Pure Power
+    gen: 3
+    release: Using its pure power, the Pokémon doubles its Attack stat.
+queenly-majesty:
+    name: Queenly Majesty
+    gen: 7
+    release: Its majesty pressures the opposing Pokémon, making it unable to attack using priority moves.
+quick-draw:
+    name: Quick Draw
+    gen: 8
+    release: Enables the Pokémon to move first occasionally.
+quick-feet:
+    name: Quick Feet
+    gen: 4
+    release: Boosts the Speed stat if the Pokémon has a status condition.
+rain-dish:
+    name: Rain Dish
+    gen: 3
+    release: The Pokémon gradually regains HP in rain.	
+rattled:
+    name: Rattled
+    gen: 5
+    release: Dark-, Ghost-, and Bug-type moves scare the Pokémon and boost its Speed stat.
+receiver:
+    name: Receiver
+    gen: 7
+    release: The Pokémon copies the Ability of a defeated ally.
+reckless:
+    name: Reckless
+    gen: 4
+    release: Powers up moves that have recoil damage.
+refrigerate:
+    name: Refrigerate
+    gen: 6
+    release: Normal-type moves become Ice-type moves. The power of those moves is boosted a little.
+regenerator:
+    name: Regenerator
+    gen: 5
+    release: Restores a little HP when withdrawn from battle.
+ripen:
+    name: Ripen
+    gen: 8
+    release: Ripens Berries and doubles their effect.
+rivalry:
+    name: Rivalry
+    gen: 4
+    release: Becomes competitive and deals more damage to Pokémon of the same gender, but deals less to Pokémon of the opposite gender.
+rks-system:
+    name: RKS System
+    gen: 7
+    release: Changes the Pokémon's type to match the memory disc it holds.
+rock-head:
+    name: Rock Head
+    gen: 3
+    release: Protects the Pokémon from recoil damage.
+rough-skin:
+    name: Rough Skin
+    gen: 3
+    release: This Pokémon inflicts damage with its rough skin to the attacker on contact.
+run-away:
+    name: Run Away
+    gen: 3
+    release: Enables a sure getaway from wild Pokémon.
+sand-force:
+    name: Sand Force
+    gen: 5
+    release: Boosts the power of Rock-, Ground-, and Steel-type moves in a sandstorm.
+sand-rush:
+    name: Sand Rush
+    gen: 5
+    release: Boosts the Pokémon's Speed stat in a sandstorm.
+sand-spit:
+    name: Sand Spit
+    gen: 8
+    release: The Pokémon creates a sandstorm when it's hit by an attack.
+sand-stream:
+    name: Sand Stream
+    gen: 3
+    release: The Pokémon summons a sandstorm when it enters a battle.
+sand-veil:
+    name: Sand Veil
+    gen: 3
+    release: Boosts the Pokémon's evasiveness in a sandstorm.
+sap-sipper:
+    name: Sap Sipper
+    gen: 5
+    release: Boosts the Attack stat if hit by a Grass-type move instead of taking damage.
+schooling:
+    name: Schooling
+    gen: 7
+    release: When it has a lot of HP, the Pokémon forms a powerful school. It stops schooling when its HP is low.
+scrappy:
+    name: Scrappy
+    gen: 4
+    release: The Pokémon can hit Ghost-type Pokémon with Normal- and Fighting-type moves.
+screen-cleaner:
+    name: Screen Cleaner
+    gen: 8
+    release: When the Pokémon enters a battle, the effects of Light Screen, Reflect, and Aurora Veil are nullified for both opposing and ally Pokémon.
+serene-grace:
+    name: Serene Grace
+    gen: 3
+    release: Boosts the likelihood of additional effects occurring when attacking.
+shadow-shield:
+    name: Shadow Shield
+    gen: 7
+    release: Reduces the amount of damage the Pokémon takes while its HP is full.
+shadow-tag:
+    name: Shadow Tag
+    gen: 3
+    release: This Pokémon steps on the opposing Pokémon's shadow to prevent it from escaping.
+shed-skin:
+    name: Shed Skin
+    gen: 3
+    release: The Pokémon may heal its own status conditions by shedding its skin
+sheer-force:
+    name: Sheer Force
+    gen: 5
+    release: Removes additional effects to increase the power of moves when attacking.
+shell-armor:
+    name: Shell Armor
+    gen: 3
+    release: A hard shell protects the Pokémon from critical hits.
+shield-dust:
+    name: Shield Dust
+    gen: 3
+    release: This Pokémon's dust blocks the additional effects of attacks taken.
+shields-down:
+    name: Shields Down
+    gen: 7
+    release: When its HP becomes half or less, the Pokémon's shell breaks and it becomes aggressive.
+simple:
+    name: Simple
+    gen: 4
+    release: The stat changes the Pokémon receives are doubled.
+skill-link:
+    name: Skill Link
+    gen: 4
+    release: Maximizes the number of times multistrike moves hit.
+slow-start:
+    name: Slow Start
+    gen: 4
+    release: For five turns, the Pokémon's Attack and Speed stats are halved.
+slush-rush:
+    name: Slush Rush
+    gen: 7
+    release: Boosts the Pokémon's Speed stat in a hailstorm.
+sniper:
+    name: Sniper
+    gen: 4
+    release: Powers up moves if they become critical hits when attacking.
+snow-cloak:
+    name: Snow Cloak
+    gen: 4
+    release: Boosts evasiveness in a hailstorm.
+snow-warning:
+    name: Snow Warning
+    gen: 4
+    release: The Pokémon summons a hailstorm when it enters a battle.
+solar-power:
+    name: Solar Power
+    gen: 4
+    release: Boosts the Sp. Atk stat in harsh sunlight, but HP decreases every turn.
+solid-rock:
+    name: Solid Rock
+    gen: 4
+    release: Reduces the power of supereffective attacks taken.
+soul-heart:
+    name: Soul-Heart
+    gen: 7
+    release: Boosts its Sp. Atk stat every time a Pokémon faints.
+soundproof:
+    name: Soundproof
+    gen: 3
+    release: Soundproofing gives the Pokémon full immunity to all sound-based moves.
+speed-boost:
+    name: Speed Boost
+    gen: 3
+    release: Its Speed stat is boosted every turn.
+stakeout:
+    name: Stakeout
+    gen: 7
+    release: Doubles the damage dealt to the target's replacement if the target switches out.
+stall:
+    name: Stall
+    gen: 4
+    release: The Pokémon moves after all other Pokémon do.
+stalwart:
+    name: Stalwart
+    gen: 8
+    release: Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves.
+stamina:
+    name: Stamina
+    gen: 7
+    release: Boosts the Defense stat when hit by an attack.
+stance-change:
+    name: Stance Change
+    gen: 6
+    release: The Pokémon changes its form to Blade Forme when it uses an attack move and changes to Shield Forme when it uses King's Shield.
+static:
+    name: Static
+    gen: 3
+    release: The Pokémon is charged with static electricity, so contact with it may cause paralysis.
+steadfast:
+    name: Steadfast
+    gen: 4
+    release: The Pokémon's determination boosts the Speed stat each time the Pokémon flinches.
+steam-engine:
+    name: Steam Engine
+    gen: 8
+    release: Boosts the Pokémon's Speed stat drastically if hit by a Fire- or Water-type move.
+steelworker:
+    name: Steelworker
+    gen: 7
+    release: Powers up Steel-type moves.
+steely-spirit:
+    name: Steely Spirit
+    gen: 8
+    release: Powers up ally Pokémon's Steel-type moves.
+stench:
+    name: Stench
+    gen: 3
+    release: By releasing stench when attacking, this Pokémon may cause the target to flinch.
+sticky-hold:
+    name: Sticky Hold
+    gen: 3
+    release: Items held by the Pokémon are stuck fast and cannot be removed by other Pokémon.
+storm-drain:
+    name: Storm Drain
+    gen: 4
+    release: Draws in all Water-type moves. Instead of being hit by Water-type moves, it boosts its Sp. Atk.
+strong-jaw:
+    name: Strong Jaw
+    gen: 6
+    release: The Pokémon's strong jaw boosts the power of its biting moves.
+sturdy:
+    name: Sturdy
+    gen: 3
+    release: It cannot be knocked out with one hit. One-hit KO moves cannot knock it out, either.
+suction-cups:
+    name: Suction Cups
+    gen: 3
+    release: This Pokémon uses suction cups to stay in one spot to negate all moves and items that force switching out.
+super-luck:
+    name: Super Luck
+    gen: 4
+    release: The Pokémon is so lucky that the critical-hit ratios of its moves are boosted.
+surge-surfer:
+    name: Surge Surfer
+    gen: 7
+    release: Doubles the Pokémon's Speed stat on Electric Terrain.
+swarm:
+    name: Swarm
+    gen: 3
+    release: Powers up Bug-type moves when the Pokémon's HP is low.
+sweet-veil:
+    name: Sweet Veil
+    gen: 6
+    release: Prevents itself and ally Pokémon from falling asleep.
+swift-swim:
+    name: Swift Swim
+    gen: 3
+    release: Boosts the Pokémon's Speed stat in rain.
+symbiosis:
+    name: Symbiosis
+    gen: 6
+    release: The Pokémon passes its item to an ally that has used up an item.
+synchronize:
+    name: Synchronize
+    gen: 3
+    release: The attacker will receive the same status condition if it inflicts a burn, poison, or paralysis to the Pokémon.
+tangled-feet:
+    name: Tangled Feet
+    gen: 4
+    release: Raises evasiveness if the Pokémon is confused.
+tangling-hair:
+    name: Tangling Hair
+    gen: 7
+    release: Contact with the Pokémon lowers the attacker's Speed stat.
+technician:
+    name: Technician
+    gen: 4
+    release: Powers up the Pokémon's weaker moves.
+telepathy:
+    name: Telepathy
+    gen: 5
+    release: Anticipates an ally's attack and dodges it.
+teravolt:
+    name: Teravolt
+    gen: 5
+    release: Moves can be used on the target regardless of its Abilities.
+thick-fat:
+    name: Thick Fat
+    gen: 3
+    release: The Pokémon is protected by a layer of thick fat, which halves the damage taken from Fire- and Ice-type moves.
+tinted-lens:
+    name: Tinted Lens
+    gen: 4
+    release: The Pokémon can use "not very effective" moves to deal regular damage.
+torrent:
+    name: Torrent
+    gen: 3
+    release: Powers up Water-type moves when the Pokémon's HP is low.
+tough-claws:
+    name: Powers up moves that make direct contact.
+    gen: 6
+    release: Powers up moves that make direct contact.
+toxic-boost:
+    name: Toxic Boost
+    gen: 5
+    release: Powers up physical attacks when the Pokémon is poisoned.
+trace:
+    name: Trace
+    gen: 3
+    release: When it enters a battle, the Pokémon copies an opposing Pokémon's Ability.
+transistor:
+    name: Transistor
+    gen: 8
+    release: Powers up Electric-type moves.
+triage:
+    name: Triage
+    gen: 7
+    release: Gives priority to a healing move.
+truant:
+    name: Truant
+    gen: 3
+    release: The Pokémon can't use a move if it had used a move on the previous turn.
+turboblaze:
+    name: Turboblaze
+    gen: 5
+    release: Moves can be used on the target regardless of its Abilities.
+unaware:
+    name: Unaware
+    gen: 4
+    release: When attacking, the Pokémon ignores the target Pokémon's stat changes.
+unburden:
+    name: Unburden
+    gen: 4
+    release: Boosts the Speed stat if the Pokémon's held item is used or lost.
+unnerve:
+    name: Unnerve
+    gen: 5
+    release: Unnerves opposing Pokémon and makes them unable to eat Berries.
+unseen-fist:
+    name: Unseen Fist
+    gen: 8
+    release: If the Pokémon uses moves that make direct contact, it can attack the target even if the target protects itself.
+victory-star:
+    name: Victory Star
+    gen: 5
+    release: Boosts the accuracy of its allies and itself.
+vital-spirit:
+    name: Vital Spirit
+    gen: 3
+    release: The Pokémon is full of vitality, and that prevents it from falling asleep.
+volt-absorb:
+    name: Volt Absorb
+    gen: 3
+    release: Restores HP if hit by an Electric-type move instead of taking damage.
+wandering-spirit:
+    name: Wandering Spirit
+    gen: 8
+    release: The Pokémon exchanges Abilities with a Pokémon that hits it with a move that makes direct contact.
+water-absorb:
+    name: Water Absorb
+    gen: 3
+    release: Restores HP if hit by a Water-type move instead of taking damage.
+water-bubble:
+    name: Water Bubble
+    gen: 7
+    release: Lowers the power of Fire-type moves done to the Pokémon and prevents the Pokémon from getting a burn.
+water-compaction:
+    name: Water Compaction
+    gen: 7
+    release: Boosts the Pokémon's Defense stat sharply when hit by a Water-type move.
+water-veil:
+    name: Water Veil
+    gen: 3
+    release: The Pokémon is covered with a water veil, which prevents the Pokémon from getting a burn.
+weak-armor:
+    name: Weak Armor
+    gen: 5
+    release: Physical attacks to the Pokémon lower its Defense stat but sharply raise its Speed stat.
+white-smoke:
+    name: White Smoke
+    gen: 3
+    release: The Pokémon is protected by its white smoke, which prevents other Pokémon from lowering its stats.
+wimp-out:
+    name: Wimp Out
+    gen: 7
+    release: The Pokémon cowardly switches out when its HP becomes half or less.
+wonder-guard:
+    name: Wonder Guard
+    gen: 3
+    release: Its mysterious power only lets supereffective moves hit the Pokémon.
+wonder-skin:
+    name: Wonder Skin
+    gen: 5
+    release: Makes status moves more likely to miss.
+zen-mode:
+    name: Zen Mode
+    gen: 5
+    release: Changes the Pokémon's shape when HP is half or less.

@@ -14,7 +14,7 @@ public class Pokemon {
 	String name; //name of mon
 	String nickname; //u can give your pokemon nicknames
 	int xpValue; //value of xp it gives when killed
-	String ability; //*******MAKE ABILITY CLASS
+	Ability ability; //ability class
 
 
 	int HPstat;
@@ -70,15 +70,20 @@ public class Pokemon {
 		this.IVs[3] = (int) Math.floor(Math.random()*(31)+1); 
 		this.IVs[4] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[5] = (int) Math.floor(Math.random()*(31)+1);
+		
+		this.ability = BlankMon.abilityList.get("Overgrow");
 
 
 	}
 
+	
+	
 	public String toString () {
-		return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d]", 
+		return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s", 
 				this.level, this.nickname, this.name, this.ID, 
 				this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
-				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5]);
+				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
+				this.ability.toString());
 	}
 
 	public void updateHpStat () {
@@ -92,7 +97,7 @@ public class Pokemon {
 		//3 -- sp attack
 		//4 -- sp defense
 		//5 -- speed
-		int newStat = (int) Math.floor(((2 * baseStats[stat] + IVs[stat]) * this.level)/100   +5);
+		int newStat = (int) Math.floor(((2 * this.baseStats[stat] + this.IVs[stat]) * this.level)/100   +5);
 		if (stat == 1)
 			this.atkStat = newStat;
 		else if (stat == 2)
