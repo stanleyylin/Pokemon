@@ -7,15 +7,17 @@ public class Player {
 	public int screenY;
 	
 	public String direction;
-	public boolean moving;
+	public int moving; // 0 - rest, 1 - left foot, 2 - right foot
 	
-	public Player(int x, int y)
+	public Player(int x, int y, int screenX, int screenY)
 	{
 		this.x = x;
 		this.y = y;
+		this.screenX = screenX;
+		this.screenY = screenY;
 		
 		direction = "down";
-		moving = false;
+		moving = 0;
 
 	}
 	

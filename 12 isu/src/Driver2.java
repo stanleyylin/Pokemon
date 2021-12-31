@@ -9,13 +9,13 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 {
 	private Thread thread;
 	
-	private final int FPS = 60;
+	private final int FPS = 50;
 	private int screenWidth;
 	private int screenHeight;
 	
 	// Player Variables
 	private BufferedImage spriteSheet;
-	private final int speed = 20;
+	private final int speed = 3;
 
 	public int worldX;
 	public int worldY;
@@ -47,19 +47,19 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		catch(IOException e) {}
 		try
 		{
-			spriteSheet = loader.loadImage("res/char.png");
+			spriteSheet = loader.loadImage("res/char1.png");
 		}
 		catch(IOException e) {}
 		
 		// Player, temp
-		main = new Player(100, 200);
+		main = new Player(100, 200, 300, 200);
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
 		playerSprites = player.getSprites(32, 32);
 		worldX = 340;
 		worldY = 380;
 
-//		thread = new Thread(this);
-//	    thread.start();
+		thread = new Thread(this);
+	    thread.start();
 	}
 	
 	public void keyTyped(KeyEvent e) {}
@@ -69,36 +69,36 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		
 		if(key == KeyEvent.VK_A)
 		{
-			main.moving = true;
+			main.moving = 1;
 			main.direction = "left";
 		}
 		else if(key == KeyEvent.VK_D) 
 		{
-			main.moving = true;
+			main.moving = 1;
 			main.direction = "right";
-		}
-		else if(key == KeyEvent.VK_W) 
-		{
-			main.moving = true;
-			main.direction = "up";
 		}
 		else if(key == KeyEvent.VK_S) 
 		{
-			main.moving = true;
+			main.moving = 1;
 			main.direction = "down";
+		}
+		else if(key == KeyEvent.VK_W) 
+		{
+			main.moving = 1;
+			main.direction = "up";
 		}
 	}
 	public void keyReleased(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_D || key == KeyEvent.VK_W || key == KeyEvent.VK_S) 
-			main.moving = false;
+			main.moving = 0;
 	}
 
 	public void run() 
 	{
 		while(true) {
-			update();
+			move();
 			this.repaint();
 			try {
 				Thread.sleep(1000/FPS);
@@ -108,8 +108,27 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		}
 	}
 	
-	void move() {
-		
+	void move() 
+	{
+		if(main.moving > 0)
+		{
+			if(main.direction.equals("left"))
+			{
+				worldX -= speed;
+			}
+			else if(main.direction.equals("right"))
+			{
+				worldX += speed;
+			}
+			else if(main.direction.equals("up"))
+			{
+				worldY -= speed;
+			}
+			else if(main.direction.equals("down"))
+			{
+				worldY += speed;
+			}
+		}
 	}
 	
 	public void update() {
@@ -119,9 +138,44 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, this);
-		g2.drawImage(playerSprites[3], 300, 200, 45, 45, this);
+		if(main.moving >= 1 && main.moving <= 3)
+		{
+			if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[4], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[1], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("left"))
+				g2.drawImage(playerSprites[10], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("right"))
+				g2.drawImage(playerSprites[7], main.screenX, main.screenY, 45, 45, this);
+			main.moving++;
+		}
+		else if(main.moving >= 4 && main.moving <= 6)
+		{
+			if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[5], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[2], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("left"))
+				g2.drawImage(playerSprites[11], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("right"))
+				g2.drawImage(playerSprites[8], main.screenX, main.screenY, 45, 45, this);
+			main.moving++;
+			if(main.moving == 6)
+				main.moving = 1;
+		}
+		else if(main.moving == 0)
+		{
+			if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[3], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[0], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("left"))
+				g2.drawImage(playerSprites[9], main.screenX, main.screenY, 45, 45, this);
+			else if(main.direction.equals("right"))
+				g2.drawImage(playerSprites[6], main.screenX, main.screenY, 45, 45, this);
+		}
 	}
-	
 	
 	public static void main(String[] args)
 	{
