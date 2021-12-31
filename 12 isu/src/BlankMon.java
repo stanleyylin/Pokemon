@@ -20,12 +20,15 @@ public class BlankMon {
 	int speed;
 	int generation;
 	boolean isLegendary;
+	Ability ability1;
+	Ability ability2;
 	
 	static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
 	
 	
 
-	public BlankMon(int ID, String name, String type1, String type2, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, int generation, boolean isLegendary) {
+	public BlankMon(int ID, String name, String type1, String type2, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, 
+			int generation, boolean isLegendary, Ability ability1, Ability ability2) {
 		this.ID = ID;
 		this.name = name;
 		this.type = new Type(type1, type2);
@@ -37,6 +40,9 @@ public class BlankMon {
 		this.speed = speed;
 		this.generation = generation;
 		this.isLegendary = isLegendary;
+		this.ability1 = ability1;
+		if (ability2!=null)
+			this.ability2 = ability2;
 	}
 	
 	public String toString () {
@@ -106,6 +112,13 @@ public class BlankMon {
 		return this.speed;
 	}
 	
+	public Ability getAbility1() {
+		return this.ability1;
+	}
+	
+	public Ability getAbility2() {
+		return this.ability2;
+	}
 	
 	
 }

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -14,7 +15,10 @@ public class Pokemon {
 	String name; //name of mon
 	String nickname; //u can give your pokemon nicknames
 	int xpValue; //value of xp it gives when killed
-	Ability ability; //ability class
+	Ability ability1; //ability class
+	Ability ability2;
+	
+	Ability ability;
 
 
 	int HPstat;
@@ -28,16 +32,11 @@ public class Pokemon {
 	//IVs are a random number generated from 1-31 that affect the actual pokestats
 	int[] IVs = new int[6];
 
-	/*
-	 * 
-	 * 
-	 * theres a lot of stuff here with EV's & IV's that determine the final attack/defense/hp/speed etc
-	 * i think the best strategy is to make a seperate Blankmon class with the unchangable poke info (ex. bulbasaur by default is grass, etc)
-	 */
-
+	
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
-	Type type; //maybe make a type class
+	Type type; //type class
+	Random random = new Random();//random class (literally that) for the nextBoolean to function
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
@@ -64,33 +63,60 @@ public class Pokemon {
 		this.baseStats[4] = pokeStats.get(name).getBaseSpDefense();
 		this.baseStats[5] = pokeStats.get(name).getBaseSpeed();	
 
+		//setting the pokemons base IVs
 		this.IVs[0] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[1] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[2] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[3] = (int) Math.floor(Math.random()*(31)+1); 
 		this.IVs[4] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[5] = (int) Math.floor(Math.random()*(31)+1);
+
+		this.ability1 = pokeStats.get(name).getAbility1();
+		this.ability2 = pokeStats.get(name).getAbility2();
 		
-		this.ability = BlankMon.abilityList.get("Overgrow");
+		if (pokeStats.get(name).getAbility2() == null)
+			this.ability =  pokeStats.get(name).getAbility1();
+		else {
+			if (random.nextBoolean())
+				this.ability =  pokeStats.get(name).getAbility1();
+			else
+				this.ability =  pokeStats.get(name).getAbility2();
+
+				
+		}
+		
+
 
 
 	}
+	
+	
 
-	
-	
+
+
 	public String toString () {
-		return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s", 
-				this.level, this.nickname, this.name, this.ID, 
-				this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
-				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
-				this.ability.toString());
+		
+//		if (this.ability2 == null)
+			return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s", 
+					this.level, this.nickname, this.name, this.ID, 
+					this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
+					this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
+					this.ability.toString());
+
+		
+		
+//		return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s & %s", 
+//				this.level, this.nickname, this.name, this.ID, 
+//				this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
+//				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
+//				this.ability1.toString(), this.ability2.toString());
 	}
 
 	public void updateHpStat () {
 		int hp = (int) Math.floor(((2 * this.baseStats[0] + this.IVs[0])*this.level)/100) + this.level + 10;
 		this.HPstat = hp;
 	}
-	
+
 	public void updateOtherStat (int stat) {
 		//1 -- attack
 		//2 -- defense
@@ -109,7 +135,7 @@ public class Pokemon {
 		else if (stat == 5)
 			this.spdStat = newStat;
 	}
-	
+
 	public void updateAllStats() {
 		this.updateHpStat();
 		this.updateOtherStat(1);
@@ -145,6 +171,8 @@ public class Pokemon {
 			int curSpeed = 0;
 			int generation = 0;
 			boolean isLegendary = false;
+			String curAbilityStr = "";
+			String curAbilityStr2 = "";
 
 			String[] curItems = curLine.split(",");
 			curID = Integer.parseInt(curItems[0]);
@@ -160,8 +188,20 @@ public class Pokemon {
 			curSpeed = Integer.parseInt(curItems[10]);
 			generation = Integer.parseInt(curItems[11]);
 			isLegendary = Boolean.parseBoolean(curItems[12]);
+			curAbilityStr = curItems[13];
+			if (curItems.length == 15)
+				curAbilityStr2 = curItems[14];
 
-			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary));
+			Ability a1 = BlankMon.abilityList.get(curAbilityStr);
+			Ability a2 = null;
+			if (!curAbilityStr2.isEmpty()) {
+				a2 = BlankMon.abilityList.get(curAbilityStr2);
+			}
+			
+			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2));
+
+
+
 
 			curLine = br.readLine();
 
