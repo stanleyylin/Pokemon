@@ -131,13 +131,15 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		}
 	}
 	
-	public void update() {
+	public void update() 
+	{
 		move();
 	}
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, this);
+		
 		if(main.moving >= 1 && main.moving <= 3)
 		{
 			if(main.direction.equals("up"))
