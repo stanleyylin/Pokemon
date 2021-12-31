@@ -32,11 +32,6 @@ public class Driver extends JPanel{
 		}
 		Scanner in = new Scanner (System.in);
 		
-//		String temp = in.nextLine();
-//		System.out.println(Pokemon.pokeStats.get(temp));
-		
-//		System.out.println(BlankMon.abilityList);
-//		System.out.println(BlankMon.abilityList.get("Overgrow"));
 		ArrayList <Pokemon> myPokemon = new ArrayList<Pokemon>();
 		
 		myPokemon.add(new Pokemon ("Bulbasaur", "leaf", 80));
@@ -47,7 +42,7 @@ public class Driver extends JPanel{
 		
 		myPokemon.add(new Pokemon ("Litwick", "candle", 40));
 		System.out.println(myPokemon.get(1));
-		myPokemon.get(0).updateAllStats();
+		myPokemon.get(1).updateAllStats();
 		System.out.println(myPokemon.get(1));
 
 

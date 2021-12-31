@@ -15,10 +15,7 @@ public class Pokemon {
 	String name; //name of mon
 	String nickname; //u can give your pokemon nicknames
 	int xpValue; //value of xp it gives when killed
-	Ability ability1; //ability class
-	Ability ability2;
-	
-	Ability ability;
+	Ability ability;//ability class
 
 
 	int HPstat;
@@ -71,9 +68,7 @@ public class Pokemon {
 		this.IVs[4] = (int) Math.floor(Math.random()*(31)+1);
 		this.IVs[5] = (int) Math.floor(Math.random()*(31)+1);
 
-		this.ability1 = pokeStats.get(name).getAbility1();
-		this.ability2 = pokeStats.get(name).getAbility2();
-		
+		//grabbing pokemons Ability
 		if (pokeStats.get(name).getAbility2() == null)
 			this.ability =  pokeStats.get(name).getAbility1();
 		else {
@@ -96,20 +91,12 @@ public class Pokemon {
 
 	public String toString () {
 		
-//		if (this.ability2 == null)
 			return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s", 
 					this.level, this.nickname, this.name, this.ID, 
 					this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
 					this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
 					this.ability.toString());
 
-		
-		
-//		return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s & %s", 
-//				this.level, this.nickname, this.name, this.ID, 
-//				this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
-//				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
-//				this.ability1.toString(), this.ability2.toString());
 	}
 
 	public void updateHpStat () {
