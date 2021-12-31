@@ -9,7 +9,7 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 {
 	private Thread thread;
 	
-	private final int FPS = 50;
+	private final int FPS = 50; // Frames per second? wut does dis even mean lol
 	private int screenWidth;
 	private int screenHeight;
 	
@@ -17,13 +17,14 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 	private BufferedImage spriteSheet;
 	private final int speed = 3;
 
+	// the camera? but i need to make a class so lol
 	public int worldX;
 	public int worldY;
 	
 	// temp
-	private BufferedImage[] playerSprites;
-	private BufferedImage background;
-	private Player main;
+	private BufferedImage[] playerSprites; // all da sprites
+	private BufferedImage background; // background
+	private Player main; // player class ? rn its just keeping track of coordinates
 	
 	public Driver2()
 	{
@@ -38,7 +39,7 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
 		
-	    // Loading the images (for now, just the bg and the player sprites
+	    // Loading the images (for now, just the bg and the player sprites)
 	    LoadImage loader = new LoadImage();
 		try
 		{
@@ -55,6 +56,8 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		main = new Player(100, 200, 300, 200);
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
 		playerSprites = player.getSprites(32, 32);
+		
+		// initial starting coordinates of the camera in the bg
 		worldX = 340;
 		worldY = 380;
 
@@ -63,10 +66,12 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 	}
 	
 	public void keyTyped(KeyEvent e) {}
+	// Moving
 	public void keyPressed(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
 		
+		// main.moving - if its 0, its resting, if its above 0 its moving
 		if(key == KeyEvent.VK_A)
 		{
 			main.moving = 1;
@@ -88,6 +93,8 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 			main.direction = "up";
 		}
 	}
+	
+	// resting
 	public void keyReleased(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
@@ -95,19 +102,21 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 			main.moving = 0;
 	}
 
+	// this is da threading?
 	public void run() 
 	{
 		while(true) {
 			move();
 			this.repaint();
 			try {
-				Thread.sleep(1000/FPS);
+				Thread.sleep(1000/FPS); // maybe play with this to fix the weird walking
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
+	// moving da character
 	void move() 
 	{
 		if(main.moving > 0)
@@ -131,6 +140,7 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		}
 	}
 	
+	// lol dis is kinda useless for now but will be useful when more things are happening
 	public void update() 
 	{
 		move();
@@ -140,6 +150,10 @@ public class Driver2 extends JPanel implements Runnable, KeyListener
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, this);
 		
+		// i set moving to 1-3 for the first moving sprite and then 4-6 for the second moving sprite
+		// to try and slow the animation down but like idk how to fix
+		// also if the frames are too low or the interval is bigger, it like stops switching after a while
+		// ill probably watch a tutorial to see how they do it but idk lul
 		if(main.moving >= 1 && main.moving <= 3)
 		{
 			if(main.direction.equals("up"))
