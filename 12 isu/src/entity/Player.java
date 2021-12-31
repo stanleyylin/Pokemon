@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 	
-	private int moving;
 	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
 	public final int speed;
@@ -23,7 +22,6 @@ public class Player extends Entity {
 		this.speed = 3;
 		
 		direction = "down";
-		moving = 0;
 		
 		LoadImage loader = new LoadImage();
 		
@@ -41,17 +39,6 @@ public class Player extends Entity {
 	{
 		return sprites;
 	}
-	public int getMoving()
-	{
-		return moving;
-	}
-	public void setMoving(int moving)
-	{
-		this.moving = moving;
-	}
-	public void incrMoving()
-	{
-		this.moving++;
-	}
+
 		
 }

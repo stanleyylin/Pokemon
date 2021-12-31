@@ -3,15 +3,19 @@ package main;
 
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+
+import entity.Moving;
 import entity.Player;
 
 public class KeyHandler implements KeyListener {
 	
 	private Player main;
+	private boolean pressed;
 	
 	public KeyHandler(Player main)
 	{
 		this.main = main;
+		pressed = false;
 	}
 	
 	// keyTyped is unused.
@@ -27,22 +31,38 @@ public class KeyHandler implements KeyListener {
 		// main.moving - if its 0, its resting, if its above 0 its moving
 		if(key == KeyEvent.VK_A)
 		{
-			main.setMoving(1);
+			if(!pressed)
+			{
+				Moving.moving = 1;
+				pressed = true;
+			}
 			main.direction = "left";
 		}
 		else if(key == KeyEvent.VK_D) 
 		{
-			main.setMoving(1);
+			if(!pressed)
+			{
+				Moving.moving = 1;
+				pressed = true;
+			}
 			main.direction = "right";
 		}
 		else if(key == KeyEvent.VK_S) 
 		{
-			main.setMoving(1);
+			if(!pressed)
+			{
+				Moving.moving = 1;
+				pressed = true;
+			}
 			main.direction = "down";
 		}
 		else if(key == KeyEvent.VK_W) 
 		{
-			main.setMoving(1);
+			if(!pressed)
+			{
+				Moving.moving = 1;
+				pressed = true;
+			}
 			main.direction = "up";
 		}
 	}
@@ -52,7 +72,11 @@ public class KeyHandler implements KeyListener {
 	{
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_D || key == KeyEvent.VK_W || key == KeyEvent.VK_S) 
-			main.setMoving(0);
+		{
+			Moving.moving = 0;
+			pressed = false;
+		}
+	
 	}
 
 }

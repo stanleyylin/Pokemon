@@ -59,34 +59,29 @@ public class Driver2 extends JPanel implements Runnable
 	// this is da threading?
 	public void run() 
 	{
-		long curTime;
 		double paintInterval = 1000000000/FPS;
-		double delta = 0;
-		long prevTime = System.nanoTime();
-		long timer = 0; // FPS
-		int drawCount = 0; // FPS
+		double nextPaint = System.nanoTime() + paintInterval;
 		
-		while(gameThread != null) 
+		while(true) 
 		{
-			curTime = System.nanoTime();
-			delta += (curTime - prevTime) / paintInterval;
-			timer += (curTime - prevTime); // FPS
-			prevTime = curTime;
+			update();
+			repaint();
 			
-			if(delta >= 1)
+			try
 			{
-				update();
-				repaint();
-				delta -= 1;
-				drawCount++; // FPS
+				double remaining = nextPaint - System.nanoTime();
+				remaining /= 1000000;
+				
+				if(remaining < 0)
+					remaining = 0;
+					
+				Thread.sleep((long) remaining);
+				
+				nextPaint += paintInterval;
 			}
-			
-			// tracking FPS
-			if(timer >= 1000000000)
+			catch(InterruptedException e)
 			{
-				System.out.println("FPS: " + drawCount);
-				drawCount = 0;
-				timer = 0;
+				e.printStackTrace();
 			}
 		}
 	}
