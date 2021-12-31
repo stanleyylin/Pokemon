@@ -1,5 +1,4 @@
-import java.awt.Image;
-import java.awt.Toolkit;
+package getimages;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;

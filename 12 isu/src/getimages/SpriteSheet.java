@@ -1,3 +1,4 @@
+package getimages;
 import java.awt.image.*;
 
 public class SpriteSheet {
