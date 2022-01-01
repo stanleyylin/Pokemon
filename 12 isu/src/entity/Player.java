@@ -11,12 +11,11 @@ public class Player extends Entity {
 	
 	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
+	public final int size = 45;
 	public final int speed;
 	
-	public Player(int x, int y, int screenX, int screenY)
+	public Player(int screenX, int screenY)
 	{
-		this.x = x;
-		this.y = y;
 		this.screenX = screenX;
 		this.screenY = screenY;
 		this.speed = 3;
@@ -38,6 +37,15 @@ public class Player extends Entity {
 	public BufferedImage[] getSprites()
 	{
 		return sprites;
+	}
+	
+	public void setScreenX(int set)
+	{
+		screenX = set;
+	}
+	public void setScreenY(int set)
+	{
+		screenY = set;
 	}
 
 		

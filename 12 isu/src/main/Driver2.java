@@ -45,13 +45,13 @@ public class Driver2 extends JPanel implements Runnable
 		
 		
 		// Player, temp
-		main = new Player(100, 200, 300, 200);
+		main = new Player(300, 200);
 		keyHandler = new KeyHandler(main);
 		
 		// Setting up the camera
-	    camera = new Camera(340, 380, background);
+	    camera = new Camera(340, 380, background, false, false);
 	    moving = new Moving(main, camera);
-		
+
 	    gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -88,7 +88,16 @@ public class Driver2 extends JPanel implements Runnable
 	
 	public void update() 
 	{
-		moving.move();
+		moving.changeSprite();
+		if(camera.getEdgeReachedX())
+			moving.movePlayerX();
+		else
+			moving.moveCameraX();
+		
+		if(camera.getEdgeReachedY())
+			moving.movePlayerY();
+		else
+			moving.moveCameraY();
 	}
 	
 	public void paintComponent(Graphics g) {

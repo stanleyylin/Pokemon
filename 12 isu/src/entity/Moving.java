@@ -4,6 +4,8 @@ import map.Camera;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import main.Driver2;
+
 public class Moving {
 	
 	private static Player main;
@@ -22,26 +24,108 @@ public class Moving {
 		spriteCounter = 0;
 	}
 	
-	// moving da character
-	public void move() 
+	public void changeSprite()
+	{
+		spriteCounter += 1;
+		if(spriteCounter > 12)
+		{
+			if(moving == 1)
+			{
+				moving = 2;
+				spriteCounter = 0;
+			} 
+			else if (moving == 2)
+			{
+				moving = 1;
+				spriteCounter = 0;
+			}
+		}
+	}
+	
+	public void movePlayerX()
 	{
 		if(moving > 0)
 		{
-			spriteCounter += 1;
-			if(spriteCounter > 12)
+			if(main.direction.equals("left"))
 			{
-				if(moving == 1)
-				{
-					moving = 2;
-					spriteCounter = 0;
-				} 
-				else if (moving == 2)
-				{
-					moving = 1;
-					spriteCounter = 0;
-				}
+				main.setScreenX(main.getScreenX() - main.speed);
 			}
-			
+			else if(main.direction.equals("right"))
+			{
+				main.setScreenX(main.getScreenX() + main.speed);
+			}
+		}
+		else
+		{
+			spriteCounter = 0;
+		}
+		
+		if(main.getScreenX() < 0)
+			main.setScreenX(0);
+		else if(main.getScreenX() > Driver2.screenWidth - main.size)
+			main.setScreenX(Driver2.screenWidth - main.size);
+		
+		// Check if player is in center
+		if(camera.getX() == 0)
+		{
+			if(main.getScreenX() > 300)
+			{
+				camera.setEdgeReachedX(false);
+			}
+		}
+		else if(camera.getX() == camera.getMaxX()-Driver2.screenWidth)
+		{
+			if(main.getScreenX() < 300)
+			{
+				camera.setEdgeReachedX(false);
+			}
+		}
+	}
+	
+	public void movePlayerY()
+	{
+		if(moving > 0)
+		{
+			if(main.direction.equals("up"))
+			{
+				main.setScreenY(main.getScreenY() - main.speed);
+			}
+			else if(main.direction.equals("down"))
+			{
+				main.setScreenY(main.getScreenY() + main.speed);
+			}
+		}
+		else
+		{
+			spriteCounter = 0;
+		}
+		
+		if(main.getScreenY() < 0)
+			main.setScreenY(0);
+		else if(main.getScreenY() > Driver2.screenHeight - main.size)
+			main.setScreenY(Driver2.screenHeight - main.size);
+		
+		// Check if player is in center
+		if(camera.getY() == 0)
+		{
+			if(main.getScreenY() > 200)
+			{
+				camera.setEdgeReachedY(false);
+			}
+		}
+		else if(camera.getY() == camera.getMaxY()-Driver2.screenHeight)
+		{
+			if(main.getScreenY() < 200)
+			{
+				camera.setEdgeReachedY(false);
+			}
+		}
+	}
+	
+	public void moveCameraX() 
+	{
+		if(moving > 0)
+		{
 			if(main.direction.equals("left"))
 			{
 				camera.setX(camera.getX() - main.speed);
@@ -49,8 +133,20 @@ public class Moving {
 			else if(main.direction.equals("right"))
 			{
 				camera.setX(camera.getX() + main.speed);
-			}
-			else if(main.direction.equals("up"))
+			}	
+		}
+		else
+		{
+			spriteCounter = 0;
+		}
+		
+	}
+	
+	public void moveCameraY()
+	{
+		if(moving > 0)
+		{
+			if(main.direction.equals("up"))
 			{
 				camera.setY(camera.getY() - main.speed);
 			}
@@ -58,10 +154,11 @@ public class Moving {
 			{
 				camera.setY(camera.getY() + main.speed);
 			}
-			
 		}
 		else
+		{
 			spriteCounter = 0;
+		}
 	}
 	
 	public void draw(Graphics2D g2)
