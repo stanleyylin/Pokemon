@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class BlankMon {
 	
@@ -70,6 +71,24 @@ public class BlankMon {
 				curDescription = curLine;
 			}
 			abilityList.put(curName, new Ability(curName, curGen, curDescription));
+		}
+	}
+	
+	public static void getAllMoves() throws IOException, FileNotFoundException{
+		BufferedReader br = new BufferedReader (new FileReader (new File("All_Moves.csv")));
+		String curLine = "";
+		String[] curLineSplit;
+		for (int i = 0; i <622; i++) {
+			curLine = br.readLine();
+			curLineSplit = curLine.split(",");
+			System.out.print(curLineSplit.length + "  ");
+			
+			StringTokenizer st = new StringTokenizer(curLine, ",");
+			System.out.println(st.countTokens());
+			
+			
+			
+			
 		}
 	}
 	

@@ -26,6 +26,7 @@ public class Driver extends JPanel{
 		
 		
 		try {
+			BlankMon.getAllMoves();
 			BlankMon.getAllAbilities();
 			Pokemon.addAllPokemon();
 		} catch (IOException e) {
