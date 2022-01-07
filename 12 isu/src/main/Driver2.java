@@ -21,8 +21,8 @@ public class Driver2 extends JPanel implements Runnable
 	private Camera camera;
 	private Moving moving;
 	private final int FPS = 60;
-	public final static int screenWidth = 600;
-	public final static int screenHeight = 454;
+	public final static int screenWidth = 1080;
+	public final static int screenHeight = 720;
 	
 	// Player Variables
 	
@@ -45,7 +45,7 @@ public class Driver2 extends JPanel implements Runnable
 		
 		
 		// Player, temp
-		main = new Player(300, 200);
+		main = new Player(screenWidth/2, screenHeight/2);
 		keyHandler = new KeyHandler(main);
 		
 		// Setting up the camera
@@ -102,6 +102,7 @@ public class Driver2 extends JPanel implements Runnable
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
 		camera.draw(g2);
 		moving.draw(g2);
 	}

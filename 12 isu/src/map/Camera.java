@@ -22,7 +22,12 @@ public class Camera {
 	{
 		this.worldX = worldX;
 		this.worldY = worldY;
-		location = starting;
+		Image tmp = starting.getScaledInstance(1600, 1600, Image.SCALE_SMOOTH);
+		location = new BufferedImage(1600, 1600, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = location.createGraphics();
+		g2d.drawImage(tmp, 0, 0, null);
+		g2d.dispose();
+		
 		maxX = location.getWidth();
 		maxY = location.getHeight();
 		this.edgeReachedX = edgeReachedX;

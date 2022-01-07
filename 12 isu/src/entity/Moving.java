@@ -54,6 +54,8 @@ public class Moving {
 			{
 				main.setScreenX(main.getScreenX() + main.speed);
 			}
+			else
+				return;
 		}
 		else
 		{
@@ -68,14 +70,14 @@ public class Moving {
 		// Check if player is in center
 		if(camera.getX() == 0)
 		{
-			if(main.getScreenX() > 300)
+			if(main.getScreenX() > Driver2.screenWidth/2)
 			{
 				camera.setEdgeReachedX(false);
 			}
 		}
 		else if(camera.getX() == camera.getMaxX()-Driver2.screenWidth)
 		{
-			if(main.getScreenX() < 300)
+			if(main.getScreenX() < Driver2.screenWidth/2)
 			{
 				camera.setEdgeReachedX(false);
 			}
@@ -94,6 +96,8 @@ public class Moving {
 			{
 				main.setScreenY(main.getScreenY() + main.speed);
 			}
+			else
+				return;
 		}
 		else
 		{
@@ -108,14 +112,14 @@ public class Moving {
 		// Check if player is in center
 		if(camera.getY() == 0)
 		{
-			if(main.getScreenY() > 200)
+			if(main.getScreenY() > Driver2.screenHeight/2)
 			{
 				camera.setEdgeReachedY(false);
 			}
 		}
 		else if(camera.getY() == camera.getMaxY()-Driver2.screenHeight)
 		{
-			if(main.getScreenY() < 200)
+			if(main.getScreenY() < Driver2.screenHeight/2)
 			{
 				camera.setEdgeReachedY(false);
 			}
