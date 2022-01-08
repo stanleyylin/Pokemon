@@ -23,14 +23,17 @@ public class Driver extends JPanel{
 //		frame.setVisible(true);
 //		
 		
-		
+
 		
 		try {
 			BlankMon.getAllMoves();
+			BlankMon.getAllMoveLists();
 			BlankMon.getAllAbilities();
 			Pokemon.addAllPokemon();
 		} catch (IOException e) {
 		}
+		System.out.println(BlankMon.movesByMon.get("Ivysaur"));
+
 		Scanner in = new Scanner (System.in);
 		
 		ArrayList <Pokemon> myPokemon = new ArrayList<Pokemon>();

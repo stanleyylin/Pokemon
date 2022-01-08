@@ -76,10 +76,9 @@ public class Pokemon {
 				this.ability =  pokeStats.get(name).getAbility1();
 			else
 				this.ability =  pokeStats.get(name).getAbility2();
-
-				
 		}
 		
+		this.attacks[1] = BlankMon.moveList.get("Surf");
 
 
 
@@ -91,11 +90,12 @@ public class Pokemon {
 
 	public String toString () {
 		
-			return String.format("Your level %d %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s", 
+			return String.format("Your level '%d' %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s\n"
+					+ "current moves: [%s,%s,%s,%s]\n", 
 					this.level, this.nickname, this.name, this.ID, 
 					this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
 					this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
-					this.ability.toString());
+					this.ability.toString(), attacks[0],attacks[1],attacks[2],attacks[3]);
 
 	}
 
@@ -134,7 +134,7 @@ public class Pokemon {
 	}
 
 
-
+	//must be done after all the blankmon methods
 	public static void addAllPokemon () throws IOException, FileNotFoundException {
 
 		BufferedReader br = new BufferedReader (new FileReader(new File("Pokemon.csv")));

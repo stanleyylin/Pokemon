@@ -1,4 +1,3 @@
-Name,Type,Category,Effect,Power,Acc,PP,TM,Prob.(%),Gen
 Absorb,Grass,Special,User recovers half the HP inflicted on opponent.,20,100,25,,-,1
 Acid,Poison,Special,May lower opponent's Special Defense.,40,100,30,,10,1
 Acid Armor,Poison,Status,Sharply raises user's Defense.,-,-,20,,-,1
@@ -534,7 +533,7 @@ Submission,Fighting,Physical,User receives recoil damage.,80,80,20,,-,1
 Substitute,Normal,Status,Uses HP to creates a decoy that takes hits.,-,-,10,TM90,-,1
 Sucker Punch,Dark,Physical,"User attacks first, but only works if opponent is readying an attack.",70,100,5,,-,4
 Sunny Day,Fire,Status,Makes it sunny for 5 turns.,-,-,5,TM11,-,2
-Sunsteel Strike,Steel,Physical,Ignores the target's ability.,100,100,5,,,3
+Sunsteel Strike,Steel,Physical,Ignores the target's ability.,100,100,5,,-,3
 Super Fang,Normal,Physical,Always takes off half of the opponent's HP.,-,90,10,,-,1
 Superpower,Fighting,Physical,Lowers user's Attack and Defense.,120,100,5,,-,3
 Supersonic,Normal,Status,Confuses opponent.,-,55,20,,-,1

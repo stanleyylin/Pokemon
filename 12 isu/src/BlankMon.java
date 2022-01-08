@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 public class BlankMon {
 	
@@ -23,8 +24,19 @@ public class BlankMon {
 	boolean isLegendary;
 	Ability ability1;
 	Ability ability2;
+	HashMap<Integer,Move> possibleMoves = new HashMap<Integer,Move>();
 	
+	//hashmap contains ability name,ability
 	static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
+	//hashmap contains movename,move
+	static HashMap<String, Move> moveList = new HashMap<String, Move>();
+	//hashmap contains the name of pokemon, (list of [level u get move, actual move])
+	static HashMap<String,HashMap<Move,Integer>> movesByMon = new HashMap<String,HashMap<Move,Integer>>();
+	
+	
+//	static HashMap<Pair<String,Integer>, Move> movesByMon = new HashMap<Pair<String,Integer>,Move>();
+	
+	
 	
 	
 
@@ -50,6 +62,47 @@ public class BlankMon {
 		return String.format("No: %d, Name: %s, Type: %s, %d, %d, %d, %d, %d, %d, gen %d, legendary? %b", 
 				this.ID, this.name, this.type.toString(), this.HP, this.attack, this.defense, this.sp_attack, this.sp_defense, this.speed, this.generation, this.isLegendary);
 	}
+	
+	
+	
+	public void getCurMoves () {
+		
+	}
+	
+	public static void getAllMoveLists() throws IOException, FileNotFoundException {
+		//must be done AFTER getAllMoves
+		BufferedReader br = new BufferedReader (new FileReader (new File ("movesByMon.txt")));
+		String curLine = "";
+		String curName = "";
+		String curLevel = "";
+		String curMove = "";
+		String[] curMoveArray;
+		HashMap<Move,Integer> curMap = new HashMap<Move,Integer>();
+		
+		for (int i = 0; i < 100; i++) {
+			curLine = br.readLine();
+			
+			curName = curLine.substring(0,curLine.indexOf("-"));
+			curLine = curLine.substring(curLine.indexOf("-")+1);
+
+			
+			curMoveArray = curLine.split(";");
+			for (String s : curMoveArray) {
+				System.out.println(s);
+				curLevel = s.substring(0,s.indexOf(","));
+				s = s.substring(s.indexOf(",")+1);
+				curMove = s;
+				
+				curMap.put(moveList.get(curMove),Integer.parseInt(curLevel));
+			}
+			System.out.println("______");
+			
+			movesByMon.put(curName, curMap);
+			curMap.clear();
+		}
+		
+	}
+	
 	
 	public static void getAllAbilities() throws IOException, FileNotFoundException{
 		
@@ -80,17 +133,64 @@ public class BlankMon {
 		String[] curLineSplit;
 		for (int i = 0; i <622; i++) {
 			curLine = br.readLine();
-			curLineSplit = curLine.split(",");
-			System.out.print(curLineSplit.length + "  ");
 			
-			StringTokenizer st = new StringTokenizer(curLine, ",");
-			System.out.println(st.countTokens());
+//			curLineSplit = curLine.split(",");
+//			System.out.print(curLineSplit.length + "  ");
+//			
+//			StringTokenizer st = new StringTokenizer(curLine, ",");
+//			System.out.println(st.countTokens());
 			
 			
+			String curEffect = "";
 			
+			String curName = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			Type curType = new Type(curLine.substring(0,curLine.indexOf(",")));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			String curCategory = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
 			
+			if (curLine.substring(0,1).equals("\"")) {
+				curLine = curLine.substring(1);
+				 curEffect = curLine.substring(0,curLine.indexOf("\""));
+				 curLine = curLine.substring(curLine.indexOf("\"")+2);
+			}
+			else {
+				 curEffect = curLine.substring(0,curLine.indexOf(","));
+					curLine = curLine.substring(curLine.indexOf(",")+1);
+			}
+			
+			String curPower = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			String curAccuracy = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			String curPP = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			String curTM = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			String curProb = curLine.substring(0,curLine.indexOf(","));
+			curLine = curLine.substring(curLine.indexOf(",")+1);
+			int curGen = Integer.parseInt(curLine);
+			
+			if (curPower.trim().equals("-"))
+				curPower = "0";
+			if (curAccuracy.trim().equals("-"))
+				curAccuracy = "-1";
+			else if (curAccuracy.trim().equals("∞"))
+				curAccuracy = "10000";
+			if (curProb.trim().equals("-"))
+				curProb = "-1";
+			if (curPP.trim().equals("-"))
+				curPP = "-1";
+//			System.out.println(i);
+//			System.out.println(curName+ ",," +curType+ ",," +curCategory + ",," + curEffect+",," +curPower+",," +curAccuracy+",," +curPP+",," +curTM+",," +curProb+",," +curGen);
+
+			
+			moveList.put(curName, new Move(curName, curType, curCategory, Integer.parseInt(curPower), 
+					Integer.parseInt(curAccuracy), Integer.parseInt(curPP), curTM, Integer.parseInt(curProb), curGen));
 		}
 	}
+	
 	
 	
 	

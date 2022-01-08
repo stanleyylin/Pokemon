@@ -13,10 +13,15 @@ public class Type {
 		this.type2 = type2;
 	}
 
+	public Type (String type) {
+		this.type1 = type;
+	}
+
 	public String toString () {
-		if (!this.type2.isBlank())
-			return String.format("%s & %s", this.type1, this.type2);
-		return this.type1;
+		if (this.type2 == null || this.type2.isBlank() )
+			return this.type1;
+
+		return String.format("%s & %s", this.type1, this.type2);
 	}
 
 
