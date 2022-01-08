@@ -89,15 +89,20 @@ public class Driver2 extends JPanel implements Runnable
 	public void update() 
 	{
 		moving.changeSprite();
-		if(camera.getEdgeReachedX())
-			moving.movePlayerX();
-		else
-			moving.moveCameraX();
-		
-		if(camera.getEdgeReachedY())
-			moving.movePlayerY();
-		else
-			moving.moveCameraY();
+		if(main.direction.equals("left") || main.direction.equals("right"))
+		{
+			if(camera.getEdgeReachedX())
+				moving.movePlayerX();
+			else
+				moving.moveCameraX();
+		}
+		else if(main.direction.equals("up") || main.direction.equals("down"))
+		{
+			if(camera.getEdgeReachedY())
+				moving.movePlayerY();
+			else
+				moving.moveCameraY();
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
