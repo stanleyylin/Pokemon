@@ -33,6 +33,17 @@ public class Move {
 				
 	}
 	
+	public Type getType() {
+		return this.type;
+	}
+	
+	public int getDamage() {
+		return this.damage;
+	}
+	public String getCategory() {
+		return this.category;
+	}
+	
 	
 
 }

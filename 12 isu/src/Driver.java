@@ -32,22 +32,36 @@ public class Driver extends JPanel{
 			Pokemon.addAllPokemon();
 		} catch (IOException e) {
 		}
-		System.out.println(BlankMon.movesByMon.get("Ivysaur"));
 
 		Scanner in = new Scanner (System.in);
 		
 		ArrayList <Pokemon> myPokemon = new ArrayList<Pokemon>();
 		
-		myPokemon.add(new Pokemon ("Bulbasaur", "leaf", 80));
+		myPokemon.add(new Pokemon ("Oddish", "leaf", 21));
 		System.out.println(myPokemon.get(0));
 		myPokemon.get(0).updateAllStats();
-		System.out.println(myPokemon.get(0));
+		System.out.println("\n\n\n");
+		
+		Pokemon purr = new Pokemon("Meowth", "purr", 30);
+		
+		Pokemon vul = new Pokemon("Vulpix", "flam", 34);
+		
+		System.out.println(purr);		
+		System.out.println(vul);
+
+		vul.attack(0, purr);
+		
+		System.out.println(purr);		
+		System.out.println(vul);
+
+		
+//		System.out.println(myPokemon.get(0).getPossibleMoves());
 		
 		
-		myPokemon.add(new Pokemon ("Litwick", "candle", 40));
-		System.out.println(myPokemon.get(1));
-		myPokemon.get(1).updateAllStats();
-		System.out.println(myPokemon.get(1));
+//		myPokemon.add(new Pokemon ("Litwick", "candle", 40));
+//		System.out.println(myPokemon.get(1));
+//		myPokemon.get(1).updateAllStats();
+//		System.out.println(myPokemon.get(1));
 
 
 		

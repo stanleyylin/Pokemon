@@ -3,10 +3,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 //pokemon class
 public class Pokemon {
@@ -16,6 +20,7 @@ public class Pokemon {
 	String nickname; //u can give your pokemon nicknames
 	int xpValue; //value of xp it gives when killed
 	Ability ability;//ability class
+	int curHP;
 
 
 	int HPstat;
@@ -30,6 +35,7 @@ public class Pokemon {
 	int[] IVs = new int[6];
 
 	
+	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
 	Type type; //type class
@@ -78,10 +84,12 @@ public class Pokemon {
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
 		
-		this.attacks[1] = BlankMon.moveList.get("Surf");
+		possibleMoves = new TreeMap<Integer,Move>(BlankMon.movesByMon.get(this.name));
+		
+		generateMoves();
+		updateAllStats();
 
-
-
+		curHP = this.HPstat;
 	}
 	
 	
@@ -90,20 +98,61 @@ public class Pokemon {
 
 	public String toString () {
 		
-			return String.format("Your level '%d' %s is a %s, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s\n"
+			return String.format("Your level '%d' %s is a %s has %d/%d, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s\n"
 					+ "current moves: [%s,%s,%s,%s]\n", 
-					this.level, this.nickname, this.name, this.ID, 
+					this.level, this.nickname, this.name, this.curHP,this.HPstat,      this.ID, 
 					this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
 					this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
 					this.ability.toString(), attacks[0],attacks[1],attacks[2],attacks[3]);
 
 	}
+	
+	//takes in which attack it is (from attack aray) and enemy in battle (sometimes it wont hit enemy and is a self move tho)
+	public void attack (Integer attack, Pokemon enemy) {
+		Move curMove = attacks[attack];
+		int A = 0;
+		int D = 0;
+		if (curMove.getCategory().equals("Special")) {
+			A = this.spAtkStat;
+			D = enemy.getSpDefense();
+		}
+		else if (curMove.getCategory().equals("Physical")){
+			A = this.atkStat;
+			D = enemy.getDefense();
+		}
+		
+		double STAB = 1.0;
+//		if (this.type.equals(enemy.getType()))
+//			STAB = 1.5;
+		int damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
+		enemy.setCurHP(damage);
+		
+	}
+	
+	
+	//generates 4 best moves based on current pokeLevel
+	public void generateMoves() {
+		ArrayList<Move> tempMoves = new ArrayList<Move>();
+		for (Integer i : possibleMoves.descendingKeySet()) {
+			if (i <= this.level) 
+				tempMoves.add(possibleMoves.get(i));
+			
+			if (tempMoves.size() == 4)
+				break;
+		}
+		
+		for (int i = 0; i < tempMoves.size(); i++) {
+			attacks[i] = tempMoves.get(i);
+		}
+	}
 
+	//updates the HP stat based on formula
 	public void updateHpStat () {
 		int hp = (int) Math.floor(((2 * this.baseStats[0] + this.IVs[0])*this.level)/100) + this.level + 10;
 		this.HPstat = hp;
 	}
-
+	
+	//updates stat based on formula
 	public void updateOtherStat (int stat) {
 		//1 -- attack
 		//2 -- defense
@@ -123,6 +172,7 @@ public class Pokemon {
 			this.spdStat = newStat;
 	}
 
+	//updates all stats
 	public void updateAllStats() {
 		this.updateHpStat();
 		this.updateOtherStat(1);
@@ -191,11 +241,29 @@ public class Pokemon {
 
 
 			curLine = br.readLine();
-
 		}
 
-
-
+	}
+	
+	public TreeMap getPossibleMoves() {
+		return this.possibleMoves;
+	}
+	
+	public int getDefense () {
+		return this.defStat;
+	}
+	
+	public int getSpDefense() {
+		return this.spDefStat;
+	}
+	
+	public Type getType() {
+		return this.type;
+	}
+	
+	
+	public void setCurHP(int i) {
+		this.curHP  = i;
 	}
 
 

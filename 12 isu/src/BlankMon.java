@@ -31,7 +31,7 @@ public class BlankMon {
 	//hashmap contains movename,move
 	static HashMap<String, Move> moveList = new HashMap<String, Move>();
 	//hashmap contains the name of pokemon, (list of [level u get move, actual move])
-	static HashMap<String,HashMap<Move,Integer>> movesByMon = new HashMap<String,HashMap<Move,Integer>>();
+	static HashMap<String,TreeMap<Integer,Move>> movesByMon = new HashMap<String,TreeMap<Integer,Move>>();
 	
 	
 //	static HashMap<Pair<String,Integer>, Move> movesByMon = new HashMap<Pair<String,Integer>,Move>();
@@ -65,19 +65,20 @@ public class BlankMon {
 	
 	
 	
-	public void getCurMoves () {
-		
-	}
+
 	
 	public static void getAllMoveLists() throws IOException, FileNotFoundException {
 		//must be done AFTER getAllMoves
+		//ideally this should be redone with pair arraylists BUT its fine if not....
+		//otherwise the text file can be changed so there is just no lvl1  moves
+		//or this can just have a seperate list of lvl 1 moves (since i change to treemap)
 		BufferedReader br = new BufferedReader (new FileReader (new File ("movesByMon.txt")));
 		String curLine = "";
 		String curName = "";
 		String curLevel = "";
 		String curMove = "";
 		String[] curMoveArray;
-		HashMap<Move,Integer> curMap = new HashMap<Move,Integer>();
+		TreeMap<Integer,Move> curMap = new TreeMap<Integer,Move>();
 		
 		for (int i = 0; i < 100; i++) {
 			curLine = br.readLine();
@@ -88,18 +89,16 @@ public class BlankMon {
 			
 			curMoveArray = curLine.split(";");
 			for (String s : curMoveArray) {
-				System.out.println(s);
+//				System.out.println(s);
 				curLevel = s.substring(0,s.indexOf(","));
 				s = s.substring(s.indexOf(",")+1);
 				curMove = s;
-				
-				curMap.put(moveList.get(curMove),Integer.parseInt(curLevel));
+				curMap.put(Integer.parseInt(curLevel),moveList.get(curMove));
 			}
-			System.out.println("______");
-			
-			movesByMon.put(curName, curMap);
+			movesByMon.put(curName.trim(), new TreeMap<Integer,Move>(curMap));
 			curMap.clear();
 		}
+		
 		
 	}
 	
