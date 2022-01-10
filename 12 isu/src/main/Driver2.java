@@ -42,6 +42,11 @@ public class Driver2 extends JPanel implements Runnable
 		try
 		{
 			background = loader.loadImage("res/hearthome.jpeg");
+			Image tmp = background.getScaledInstance(3000, 2292, Image.SCALE_SMOOTH);
+			background = new BufferedImage(3000, 2292, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = background.createGraphics();
+			g2d.drawImage(tmp, 0, 0, null);
+			g2d.dispose();
 		}
 		catch(IOException e) {}
 		

@@ -29,7 +29,6 @@ public class Player extends Entity {
 			spriteSheet = loader.loadImage("res/char1.png");
 		}
 		catch(IOException e) {}
-		System.out.println(spriteSheet.getHeight());
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
 		sprites = player.getSprites(size, size);
 	}

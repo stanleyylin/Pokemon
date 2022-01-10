@@ -34,7 +34,7 @@ public class Moving {
 	
 	void checkCollision(Rectangle collision, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), 32, 32);
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.size, Player.size);
 		if(player.intersects(collision))
 		{
 			double left1 = player.getX(); // player
@@ -55,7 +55,7 @@ public class Moving {
 				}
 				else
 				{
-					main.setScreenX(collision.x-camera.getX() - main.size);
+					main.setScreenX(collision.x-camera.getX() - Player.size);
 				}
 	        }
 	        else if(left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1)
@@ -79,7 +79,7 @@ public class Moving {
 				}
 				else
 				{
-					main.setScreenY(collision.y-camera.getY() - main.size);
+					main.setScreenY(collision.y-camera.getY() - Player.size);
 				}
 	            //rect collides from top side of the wall
 	        	// rect.y = wall.y - rect.height;
@@ -141,8 +141,8 @@ public class Moving {
 		
 		if(main.getScreenX() < 0)
 			main.setScreenX(0);
-		else if(main.getScreenX() > Driver2.screenWidth - main.size)
-			main.setScreenX(Driver2.screenWidth - main.size);
+		else if(main.getScreenX() > Driver2.screenWidth - Player.size)
+			main.setScreenX(Driver2.screenWidth - Player.size);
 		
 		checkCollision(test, !camera.getEdgeReachedY(), !camera.getEdgeReachedY());
 		checkCollision(test2, !camera.getEdgeReachedX(), !camera.getEdgeReachedY());
@@ -187,8 +187,8 @@ public class Moving {
 		
 		if(main.getScreenY() < 0)
 			main.setScreenY(0);
-		else if(main.getScreenY() > Driver2.screenHeight - main.size)
-			main.setScreenY(Driver2.screenHeight - main.size);
+		else if(main.getScreenY() > Driver2.screenHeight - Player.size)
+			main.setScreenY(Driver2.screenHeight - Player.size);
 		
 		checkCollision(test, !camera.getEdgeReachedX(), !camera.getEdgeReachedY());
 		checkCollision(test2, !camera.getEdgeReachedX(), !camera.getEdgeReachedY());
