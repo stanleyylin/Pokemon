@@ -11,14 +11,14 @@ public class Player extends Entity {
 	
 	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
-	public final static int size = 32;
-	public final int speed;
+	
+	public final static int size = 64;
+	public final int speed = 3;
 	
 	public Player(int screenX, int screenY)
 	{
 		this.screenX = screenX;
 		this.screenY = screenY;
-		this.speed = 5;
 		
 		direction = "down";
 		
@@ -29,9 +29,9 @@ public class Player extends Entity {
 			spriteSheet = loader.loadImage("res/char1.png");
 		}
 		catch(IOException e) {}
-		
+		System.out.println(spriteSheet.getHeight());
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
-		sprites = player.getSprites(32, 32);
+		sprites = player.getSprites(size, size);
 	}
 	
 	public BufferedImage[] getSprites()

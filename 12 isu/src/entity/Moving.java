@@ -16,10 +16,11 @@ public class Moving {
 	private BufferedImage[] playerSprites; // the player sprites
 	private int spriteCounter; // used to switch sprites
 	Rectangle test = new Rectangle(128, 150, 150, 115);
-	Rectangle test2 = new Rectangle(449, 419, 215, 115);
+	Rectangle test2 = new Rectangle(452, 410, 205, 105);
 	public static int moving; // whether or not the player is moving, 0 - not moving, 1 - first moving sprite
 	// 2 - second moving sprite
-	
+	public static boolean stopped;
+
 	// Constructor
 	public Moving(Player player, Camera camera)
 	{
@@ -28,11 +29,12 @@ public class Moving {
 		playerSprites = main.getSprites();
 		moving = 0;
 		spriteCounter = 0;
+		stopped = false;
 	}
 	
 	void checkCollision(Rectangle collision, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX()+main.getScreenX(), camera.getY()+main.getScreenY(), 32, 32);
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), 32, 32);
 		if(player.intersects(collision))
 		{
 			double left1 = player.getX(); // player
@@ -43,14 +45,6 @@ public class Moving {
 			double right2 = collision.getX() + collision.getWidth();
 			double top2 = collision.getY();
 			double bottom2 = collision.getY() + collision.getHeight();
-//			System.out.println("left 1: " + left1);
-//			System.out.println("left 2: " + left2);
-//			System.out.println("top 1: " + top1);
-//			System.out.println("top 2: " + top2);
-//			System.out.println("bottom 1: " + bottom1);
-//			System.out.println("bottom 2: " + bottom2);
-//			System.out.println("right 1: " + right1);
-//			System.out.println("right 2: " + right2);
 			
 			if(right1 > left2 && left1 < left2 && right1 - left2 < bottom1 - top2 && right1 - left2 < bottom2 - top1)
 	        {
@@ -263,35 +257,35 @@ public class Moving {
 		if(moving == 1)
 		{
 			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[4], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[4], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[1], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[1], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[10], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[10], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[7], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[7], main.screenX, main.screenY, Player.size, Player.size, null);
 		}
 		else if(moving == 2)
 		{
 			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[5], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[5], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[2], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[2], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[11], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[11], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[8], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[8], main.screenX, main.screenY, Player.size, Player.size, null);
 		}
 		else if(moving == 0)
 		{
 			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[3], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[3], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[0], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[0], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[9], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[9], main.screenX, main.screenY, Player.size, Player.size, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[6], main.screenX, main.screenY, 45, 45, null);
+				g2.drawImage(playerSprites[6], main.screenX, main.screenY, Player.size, Player.size, null);
 		}
 	}
 }

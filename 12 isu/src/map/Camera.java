@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import entity.Moving;
+import entity.NPC;
 import main.Driver2;
 
 public class Camera {
@@ -14,6 +15,8 @@ public class Camera {
 	private BufferedImage location;
 	private boolean edgeReachedX; 
 	private boolean edgeReachedY; 
+	private Map currMap;
+	private boolean inBuilding;
 	
 	private final int screenWidth = Driver2.screenWidth;
 	private final int screenHeight = Driver2.screenHeight;
@@ -28,11 +31,19 @@ public class Camera {
 //		Graphics2D g2d = location.createGraphics();
 //		g2d.drawImage(tmp, 0, 0, null);
 //		g2d.dispose();
-		
 		maxX = location.getWidth();
 		maxY = location.getHeight();
 		this.edgeReachedX = edgeReachedX;
 		this.edgeReachedY = edgeReachedY;
+		inBuilding = false;
+	}
+
+	public void checkNPC()
+	{
+		for(NPC curr : currMap.getNPCs())
+		{
+			
+		}
 	}
 	
 	// Drawing the terrain

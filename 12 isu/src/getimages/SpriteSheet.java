@@ -38,7 +38,7 @@ public class SpriteSheet {
 	// Getting an individual sprite, used by the above method
 	public BufferedImage getImage(int col, int row, int width, int height)
 	{
-		BufferedImage sprite = image.getSubimage(col*32, row*32, width, height);
+		BufferedImage sprite = image.getSubimage(col*width, row*height, width, height);
 		return sprite;
 	}
 }

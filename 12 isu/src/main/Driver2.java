@@ -11,6 +11,7 @@ import entity.Player;
 import getimages.LoadImage;
 import getimages.SpriteSheet;
 import map.Camera;
+import map.Map;
 
 @SuppressWarnings("serial")
 public class Driver2 extends JPanel implements Runnable
@@ -27,6 +28,7 @@ public class Driver2 extends JPanel implements Runnable
 	// Player Variables
 	
 	private BufferedImage background; // background
+	private Map[] maps;
 	private Player main; // player class ? rn its just keeping track of coordinates
 	
 	public Driver2()
@@ -39,7 +41,7 @@ public class Driver2 extends JPanel implements Runnable
 	    LoadImage loader = new LoadImage();
 		try
 		{
-			background = loader.loadImage("res/map.png");
+			background = loader.loadImage("res/hearthome.jpeg");
 		}
 		catch(IOException e) {}
 		
@@ -49,9 +51,11 @@ public class Driver2 extends JPanel implements Runnable
 		keyHandler = new KeyHandler(main);
 		
 		// Setting up the camera
-	    camera = new Camera(340, 380, background, false, false);
+		maps = new Map[1];
+		// maps[0] = new Map();
+	    camera = new Camera(340, 520, background, false, false);
 	    moving = new Moving(main, camera);
-
+	    
 	    gameThread = new Thread(this);
 		gameThread.start();
 	}
