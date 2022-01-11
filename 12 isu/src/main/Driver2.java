@@ -52,7 +52,7 @@ public class Driver2 extends JPanel implements Runnable
 		
 		
 		// Player, temp
-		main = new Player(screenWidth/2, screenHeight/2);
+		main = new Player(screenWidth/2-Player.size/2, screenHeight/2-Player.size/2);
 		keyHandler = new KeyHandler(main);
 		
 		// Setting up the camera

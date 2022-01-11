@@ -5,6 +5,8 @@ import java.io.IOException;
 import getimages.LoadImage;
 import getimages.SpriteSheet;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -12,7 +14,7 @@ public class Player extends Entity {
 	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
 	
-	public final static int size = 64;
+	public final static int size = 80;
 	public final int speed = 3;
 	
 	public Player(int screenX, int screenY)
@@ -27,6 +29,11 @@ public class Player extends Entity {
 		try
 		{
 			spriteSheet = loader.loadImage("res/char1.png");
+			Image tmp = spriteSheet.getScaledInstance(240, 320, Image.SCALE_SMOOTH);
+			spriteSheet = new BufferedImage(240, 320, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = spriteSheet.createGraphics();
+			g2d.drawImage(tmp, 0, 0, null);
+			g2d.dispose();
 		}
 		catch(IOException e) {}
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
