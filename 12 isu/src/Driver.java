@@ -54,6 +54,11 @@ public class Driver extends JPanel{
 		System.out.println(purr);		
 		System.out.println(vul);
 
+		purr.heal();
+		
+		System.out.println(purr);		
+		System.out.println(vul);
+
 		
 //		System.out.println(myPokemon.get(0).getPossibleMoves());
 		

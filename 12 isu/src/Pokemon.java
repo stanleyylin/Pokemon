@@ -145,6 +145,17 @@ public class Pokemon {
 			attacks[i] = tempMoves.get(i);
 		}
 	}
+	
+	//heals pokemon to full
+	public void heal() {
+		//just in case hp stat is not updated
+		this.updateHpStat();
+		this.curHP = this.HPstat;
+	}
+	
+	public void heal(int amt) {
+		this.setCurHP(this.curHP + amt);
+	}
 
 	//updates the HP stat based on formula
 	public void updateHpStat () {
