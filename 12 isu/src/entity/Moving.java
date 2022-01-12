@@ -109,7 +109,7 @@ public class Moving {
 	void doorEntered(Building[] buildings)
 	{
 		Rectangle player = new Rectangle(camera.getX() + main.getScreenX()-10, camera.getY() + main.getScreenY()-10, Player.size-10, Player.size-10);
-		if(camera.getBuilding() != null)
+		if(camera.getBuilding() == null)
 		{
 			for(int i = 0; i < buildings.length; i++)
 			{
@@ -124,16 +124,16 @@ public class Moving {
 		}
 		else
 		{
-			for(int i = 0; i < buildings.length; i++)
-			{
-				if(player.intersects(buildings[i].exit))
-				{
-					camera.setBuilding(null);
-					main.setScreenX((int) camera.getLocation());
-					main.setScreenY((int) camera.getBuilding().exit.getY() + Player.size);
-					return;
-				}
-			}
+//			for(int i = 0; i < buildings.length; i++)
+//			{
+//				if(player.intersects(buildings[i].exit))
+//				{
+//					camera.setBuilding(null);
+//					main.setScreenX();
+//					main.setScreenY((int) camera.getBuilding().exit.getY() + Player.size);
+//					return;
+//				}
+//			}
 		}
 	}
 	

@@ -28,14 +28,13 @@ public class Driver2 extends JPanel implements Runnable
 	// Player Variables
 	
 	private Location[][] worldMap;
-	private Player main; // player class ? rn its just keeping track of coordinates
+	private Player main; 
 	
 	public Driver2()
 	{	
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
-		
 	    BufferedImage map1 = null, pokecentre1 = null;
 	    
 	    // Loading the images (for now, just the bg and the player sprites)
@@ -72,7 +71,7 @@ public class Driver2 extends JPanel implements Runnable
 		Rectangle[] collisions1 = new Rectangle[1];
 		collisions1[0] = new Rectangle(700, 690, 430, 160);
 		Building[] buildings1 = new Building[1];
-		buildings1[0] = new Building(new Rectangle(810, 850, 10, 15), new Rectangle(500, 460, 85, 40), null, null, pokecentre1);
+		buildings1[0] = new Building(new Rectangle(810, 850, 1, 15), new Rectangle(500, 460, 85, 40), null, null, pokecentre1);
 		
 		worldMap[0][0] = new Location(map1, collisions1, buildings1, null, null);
 		// maps[0] = new Map();
@@ -140,6 +139,11 @@ public class Driver2 extends JPanel implements Runnable
 		camera.draw(g2);
 		moving.draw(g2);
 
+	}
+	
+	public Player getPlayer()
+	{
+		return main;
 	}
 	
 	public static void main(String[] args)

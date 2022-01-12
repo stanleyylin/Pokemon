@@ -124,6 +124,7 @@ public class MainMenu extends JPanel implements MouseListener
 		{
 			currButtons[0] = buttons[0];
 			repaint();
+			Main.loadGame();
 		}
 		else if(x>=340 && x<=340+currButtons[0].getWidth() && y>=390 && y <=390+currButtons[0].getHeight())
 		{
@@ -179,6 +180,7 @@ public class MainMenu extends JPanel implements MouseListener
 			// title
 			if(counter >= 10 && counter <= 18)
 			{
+				System.out.println(counter);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
 				opacity[0] += 0.1f;

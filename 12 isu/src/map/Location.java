@@ -26,7 +26,7 @@ public class Location {
 	private int cameraX;
 	private int cameraY;
 	
-	public Location( BufferedImage bg, Rectangle[] collisions, Building[] locations, NPC[] npcs, int[][] startingPoints)
+	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, NPC[] npcs, int[][] startingPoints)
 	{
 		background = bg;
 		this.collisions = collisions;
