@@ -21,8 +21,8 @@ public class Location {
 	public final int maxX;
 	public final int maxY;
 	
-	private int screenX;
-	private int screenY;
+	private int lastX;
+	private int lastY;
 	private int cameraX;
 	private int cameraY;
 	
@@ -66,6 +66,23 @@ public class Location {
 		return yEdgeReached;
 	}
 	
+	public int[] getLastPosition()
+	{
+		int[] coordinates = new int[4];
+		coordinates[0] = lastX;
+		coordinates[1] = lastY;
+		coordinates[2] = cameraX;
+		coordinates[3] = cameraY;
+		return coordinates;
+	}
+	
+	public void setLastPosition(int x, int y, int cameraX, int cameraY)
+	{
+		lastX = x;
+		lastY = y;
+		this.cameraX = cameraX;
+		this.cameraY = cameraY;
+	}
 	public void setEdgeReachedX(boolean edge)
 	{
 		xEdgeReached = edge;

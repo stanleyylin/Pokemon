@@ -16,16 +16,16 @@ public class Main {
 		frame.addKeyListener(keyHandler);
 	}
 
-	public static void main(String[] args) {
-		frame = new JFrame ("Pokemon: Wong Edition");
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainGame = new Driver2();
-		menu = new MainMenu();
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-	}
+//	public static void main(String[] args) {
+//		frame = new JFrame ("Pokemon: Wong Edition");
+//		frame.setResizable(false);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		mainGame = new Driver2();
+//		menu = new MainMenu();
+//		frame.setContentPane(menu);
+//		frame.setVisible(true);
+//		frame.pack();
+//		frame.setLocationRelativeTo(null);
+//	}
 
 }

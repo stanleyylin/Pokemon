@@ -61,7 +61,6 @@ public class Camera {
 		else
 		{
 			g2.drawImage(building.getBG(), building.screenX, building.screenY, building.maxX, building.maxY, 0, 0, building.getBG().getWidth(), building.getBG().getHeight(), null);
-			System.out.println();
 		}
 	}
 	

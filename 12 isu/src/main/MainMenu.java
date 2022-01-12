@@ -180,7 +180,6 @@ public class MainMenu extends JPanel implements MouseListener
 			// title
 			if(counter >= 10 && counter <= 18)
 			{
-				System.out.println(counter);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
 				opacity[0] += 0.1f;

@@ -71,7 +71,7 @@ public class Driver2 extends JPanel implements Runnable
 		Rectangle[] collisions1 = new Rectangle[1];
 		collisions1[0] = new Rectangle(700, 690, 430, 160);
 		Building[] buildings1 = new Building[1];
-		buildings1[0] = new Building(new Rectangle(810, 850, 1, 15), new Rectangle(500, 460, 85, 40), null, null, pokecentre1);
+		buildings1[0] = new Building(new Rectangle(810, 870, 1, 15), new Rectangle(497, 593, 20, 20), null, null, pokecentre1);
 		
 		worldMap[0][0] = new Location(map1, collisions1, buildings1, null, null);
 		// maps[0] = new Map();
@@ -107,10 +107,7 @@ public class Driver2 extends JPanel implements Runnable
 				
 				nextPaint += paintInterval;
 			}
-			catch(InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			catch(InterruptedException e) {}
 		}
 	}
 	
