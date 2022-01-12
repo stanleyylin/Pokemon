@@ -1,25 +1,84 @@
 package map;
 
 import entity.NPC;
+import main.Driver2;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Building {
-	
-	private int[] startingPoint; // contains: screenX, screenY, cameraX, cameraY
 	private NPC[] npcs;
 	private Rectangle[] collisions;
-	private boolean edgeReachedX;
-	private boolean edgeReachedY;
-	private BufferedImage bg;
 	
-	public Building(int[] sP, NPC[] npcs, Rectangle[] collisions, boolean eRX, boolean eRY, BufferedImage bg)
+	public final Rectangle entrance;
+	public final Rectangle exit;
+	
+	private BufferedImage bg;
+	public final int maxX;
+	public final int maxY;
+	public final int screenX;
+	public final int screenY;
+	
+	private boolean xEdgeReached;
+	private boolean yEdgeReached;
+	
+	public Building(Rectangle entrance, Rectangle exit, NPC[] npcs, Rectangle[] collisions,  BufferedImage bg)
 	{
-		startingPoint = sP;
+		this.entrance = entrance;
+		this.exit = exit;
 		this.npcs = npcs;
 		this.collisions = collisions;
-		edgeReachedX = eRX;
-		edgeReachedY = eRY;
 		this.bg = bg;
+		
+		if(bg.getWidth() < Driver2.screenWidth)
+		{
+			screenX = Driver2.screenWidth/2 - bg.getWidth()/2;
+			maxX = screenX + bg.getWidth();
+			xEdgeReached = true;
+		}
+		else
+		{
+			screenX = 0;
+			maxX = bg.getWidth();
+			xEdgeReached = false;
+		}
+		
+		if(bg.getHeight() < Driver2.screenHeight)
+		{
+			screenY = Driver2.screenHeight/2 - bg.getHeight()/2;
+			maxY = screenY + bg.getHeight();
+			yEdgeReached = true;
+		}
+		else
+		{
+			screenY = 0;
+			maxY = bg.getHeight();
+			yEdgeReached = false;
+		}
+	}
+	
+	public BufferedImage getBG()
+	{
+		return bg;
+	}
+	public Rectangle[] getCollisions()
+	{
+		return collisions;
+	}
+	public boolean getEdgeReachedX()
+	{
+		return xEdgeReached;
+	}
+	public boolean getEdgeReachedY()
+	{
+		return yEdgeReached;
+	}
+	public void setEdgeReachedX(boolean edge)
+	{
+		xEdgeReached = edge;
+	}
+	public void setEdgeReachedY(boolean edge)
+	{
+		yEdgeReached = edge;
 	}
 }

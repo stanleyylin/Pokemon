@@ -19,8 +19,8 @@ public class NPC extends Entity {
 	{
 		return worldX;
 	}
-	public int getWorldX()
+	public int getWorldY()
 	{
-		return worldX;
+		return worldY;
 	}
 }

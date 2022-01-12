@@ -10,68 +10,59 @@ public class Camera {
 	
 	private int worldX;
 	private int worldY;
-	private int maxX;
-	private int maxY;
-	private BufferedImage location;
-	private boolean edgeReachedX; 
-	private boolean edgeReachedY; 
-	private Map currMap;
-	private boolean inBuilding;
-	
+	private Location location;
+	private Building building;
+
 	private final int screenWidth = Driver2.screenWidth;
 	private final int screenHeight = Driver2.screenHeight;
 	
-	public Camera(int worldX, int worldY, BufferedImage starting, boolean edgeReachedX, boolean edgeReachedY)
+	public Camera(Location location, int worldX, int worldY)
 	{
+		this.location = location;
 		this.worldX = worldX;
 		this.worldY = worldY;
-		location = starting;
-//		Image tmp = starting.getScaledInstance(1200, 1200, Image.SCALE_SMOOTH);
-//		location = new BufferedImage(1200, 1200, BufferedImage.TYPE_INT_ARGB);
-//		Graphics2D g2d = location.createGraphics();
-//		g2d.drawImage(tmp, 0, 0, null);
-//		g2d.dispose();
-		maxX = location.getWidth();
-		maxY = location.getHeight();
-		this.edgeReachedX = edgeReachedX;
-		this.edgeReachedY = edgeReachedY;
-		inBuilding = false;
 	}
 
-	public void checkNPC()
-	{
-		for(NPC curr : currMap.getNPCs())
-		{
-			
-		}
-	}
+//	public void checkNPC()
+//	{
+//		for(NPC curr : currMap.getNPCs())
+//		{
+//			
+//		}
+//	}
 	
 	// Drawing the terrain
 	public void draw(Graphics2D g2)
 	{
 		if(worldX < 0)
 		{
-			edgeReachedX = true;
+			location.setEdgeReachedX(true);
 			worldX = 0;
 		}
-		else if (worldX > maxX-screenWidth)
+		else if (worldX > screenWidth)
 		{
-			edgeReachedX = true;
-			worldX = maxX-screenWidth;
+			location.setEdgeReachedX(true);
+			worldX = location.maxX-screenWidth;
 		}
 		
 		if(worldY < 0)
 		{
-			edgeReachedY = true;
+			location.setEdgeReachedY(true);
 			worldY = 0;
 		}
-		else if (worldY > maxY-screenHeight)
+		else if (worldY > location.maxY-screenHeight)
 		{
-			edgeReachedY = true;
-			worldY = maxY-screenHeight;
+			location.setEdgeReachedY(true);
+			worldY = location.maxY-screenHeight;
 		}
 		
-		g2.drawImage(location, 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, null);
+		if(building == null)
+			g2.drawImage(location.getBG(), 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, null);
+		else
+		{
+			g2.drawImage(building.getBG(), building.screenX, building.screenY, building.maxX, building.maxY, 0, 0, building.getBG().getWidth(), building.getBG().getHeight(), null);
+			System.out.println();
+		}
 	}
 	
 	// Getters and Setters
@@ -83,23 +74,19 @@ public class Camera {
 	{
 		return worldY;
 	}	
-	public int getMaxX()
+	public Location getLocation()
 	{
-		return maxX;
+		return location;
 	}
-	public int getMaxY()
+	public Building getBuilding()
 	{
-		return maxY;
-	}
-	public boolean getEdgeReachedX()
-	{
-		return edgeReachedX;
-	}
-	public boolean getEdgeReachedY()
-	{
-		return edgeReachedY;
+		return building;
 	}
 	
+	public void setBuilding(Building building)
+	{
+		this.building = building;
+	}
 	public void setX(int X)
 	{
 		worldX = X;
@@ -107,14 +94,6 @@ public class Camera {
 	public void setY(int Y)
 	{
 		worldY = Y;
-	}
-	public void setEdgeReachedX(boolean edge)
-	{
-		edgeReachedX = edge;
-	}
-	public void setEdgeReachedY(boolean edge)
-	{
-		edgeReachedY = edge;
 	}
 
 }

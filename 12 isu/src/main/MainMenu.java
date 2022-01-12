@@ -268,17 +268,5 @@ public class MainMenu extends JPanel implements MouseListener
 			g2.drawImage(credit, 310, 641, null);
 		}
 	}
-	
-	public static void main(String[] args)
-	{
-		frame = new JFrame ("Pokemon");
-		MainMenu panel = new MainMenu();
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
 }
