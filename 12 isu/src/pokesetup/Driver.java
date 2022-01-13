@@ -1,3 +1,4 @@
+package pokesetup;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entity.*;
+import entity.Player;
 
 public class Driver extends JPanel{
 	
@@ -37,9 +38,14 @@ public class Driver extends JPanel{
 
 		Scanner in = new Scanner (System.in);
 		
-		Player pranav = new Player (0,0);
+		Player pranav = new Player(0,0);
 		
+		pranav.addPokemonToParty(new Pokemon("Charizard", "fye", 48));
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
+		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
+		
+		pranav.printPokemon();
+		
 		
 		
 		
@@ -66,16 +72,16 @@ public class Driver extends JPanel{
 //		
 //		System.out.println(purr);		
 //		System.out.println(vul);
-
-		
-//		System.out.println(myPokemon.get(0).getPossibleMoves());
-		
-		
-//		myPokemon.add(new Pokemon ("Litwick", "candle", 40));
-//		System.out.println(myPokemon.get(1));
-//		myPokemon.get(1).updateAllStats();
-//		System.out.println(myPokemon.get(1));
-
+//
+//		
+////		System.out.println(myPokemon.get(0).getPossibleMoves());
+//		
+//		
+////		myPokemon.add(new Pokemon ("Litwick", "candle", 40));
+////		System.out.println(myPokemon.get(1));
+////		myPokemon.get(1).updateAllStats();
+////		System.out.println(myPokemon.get(1));
+//
 
 		
 
