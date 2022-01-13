@@ -39,7 +39,7 @@ public class Driver extends JPanel{
 		
 		Player pranav = new Player (0,0);
 		
-		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
+//		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		
 		
 		
