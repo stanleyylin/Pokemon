@@ -35,9 +35,10 @@ public class Driver2 extends JPanel implements Runnable
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
-	    BufferedImage map1 = null, pokecentre1 = null;
+	    BufferedImage map1 = null, pokecentre1 = null, house1 = null;
 	    
-	    // Loading the images (for now, just the bg and the player sprites)
+	    // Loading the images
+	    // HEARTHOME
 	    LoadImage loader = new LoadImage();
 		try
 		{
@@ -49,12 +50,24 @@ public class Driver2 extends JPanel implements Runnable
 			g2d.dispose();
 		}
 		catch(IOException e) {}
+			// Pokecentre
 		try
 		{
 			pokecentre1 = loader.loadImage("res/pokecentre.png");
 			Image tmp = pokecentre1.getScaledInstance(739, 550, Image.SCALE_SMOOTH);
 			pokecentre1 = new BufferedImage(739, 550, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2d = pokecentre1.createGraphics();
+			g2d.drawImage(tmp, 0, 0, null);
+			g2d.dispose();
+		}
+		catch(IOException e) {}
+			// House First Floor
+		try
+		{
+			house1 = loader.loadImage("res/house1.jpeg");
+			Image tmp = house1.getScaledInstance(582, 436, Image.SCALE_SMOOTH);
+			house1 = new BufferedImage(582, 436, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = house1.createGraphics();
 			g2d.drawImage(tmp, 0, 0, null);
 			g2d.dispose();
 		}
@@ -70,9 +83,9 @@ public class Driver2 extends JPanel implements Runnable
 			// Map 1:
 		Rectangle[] collisions1 = new Rectangle[1];
 		collisions1[0] = new Rectangle(700, 690, 430, 160);
-		Building[] buildings1 = new Building[1];
-		buildings1[0] = new Building(new Rectangle(810, 870, 1, 15), new Rectangle(497, 593, 20, 20), null, null, pokecentre1);
-		
+		Building[] buildings1 = new Building[2];
+		buildings1[0] = new Building(new Rectangle(815, 904, 5, 1), new Rectangle(565, 592, 2, 1), null, null, pokecentre1);
+		buildings1[1] = new Building(new Rectangle(1050, 904, 5, 1), new Rectangle(540, 543, 3, 1), null, null, house1);
 		worldMap[0][0] = new Location(map1, collisions1, buildings1, null, null);
 		// maps[0] = new Map();
 	   

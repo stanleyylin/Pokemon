@@ -34,26 +34,29 @@ public class Camera {
 	// Drawing the terrain
 	public void draw(Graphics2D g2)
 	{
-		if(worldX < 0)
+		if(building == null)
 		{
-			location.setEdgeReachedX(true);
-			worldX = 0;
-		}
-		else if (worldX > screenWidth)
-		{
-			location.setEdgeReachedX(true);
-			worldX = location.maxX-screenWidth;
-		}
-		
-		if(worldY < 0)
-		{
-			location.setEdgeReachedY(true);
-			worldY = 0;
-		}
-		else if (worldY > location.maxY-screenHeight)
-		{
-			location.setEdgeReachedY(true);
-			worldY = location.maxY-screenHeight;
+			if(worldX < 0)
+			{
+				location.setEdgeReachedX(true);
+				worldX = 0;
+			}
+			else if (worldX > screenWidth)
+			{
+				location.setEdgeReachedX(true);
+				worldX = location.maxX-screenWidth;
+			}
+			
+			if(worldY < 0)
+			{
+				location.setEdgeReachedY(true);
+				worldY = 0;
+			}
+			else if (worldY > location.maxY-screenHeight)
+			{
+				location.setEdgeReachedY(true);
+				worldY = location.maxY-screenHeight;
+			}
 		}
 		
 		if(building == null)

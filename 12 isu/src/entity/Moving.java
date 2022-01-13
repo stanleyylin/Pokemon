@@ -31,6 +31,10 @@ public class Moving {
 		stopped = false;
 	}
 	
+	void loadNPC()
+	{
+		
+	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
 	{
@@ -110,33 +114,31 @@ public class Moving {
 	{
 		if(camera.getBuilding() == null)
 		{
-			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+20, camera.getY() + main.getScreenY()+20, Player.size-20, Player.size-20);
+			int bounds = 30;
+			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+bounds, camera.getY() + main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
 			for(int i = 0; i < buildings.length; i++)
 			{
 				if(player.intersects(buildings[i].entrance))
 				{
-					if(main.direction == "up")
-						camera.getLocation().setLastPosition(main.getScreenX(), main.getScreenY()+2*main.speed, camera.getX(), camera.getY());
+					camera.getLocation().setLastPosition(main.getScreenX(), main.getScreenY(), camera.getX(), camera.getY()+main.speed);
 					camera.setBuilding(buildings[i]);
-					main.setScreenX((int) camera.getBuilding().exit.getX());
-					main.setScreenY((int) camera.getBuilding().exit.getY()-100);
+					main.setScreenX((int) buildings[i].exit.getX()-Player.size/2);
+					main.setScreenY((int) buildings[i].exit.getY() - Player.size - 5);
 				}
 			}
 		}
 		else if (camera.getBuilding() != null)
 		{
-			Rectangle player = new Rectangle(main.getScreenX()+10, main.getScreenY()+10, Player.size-10, Player.size-10);
-			for(int i = 0; i < buildings.length; i++)
+			int bounds = 39;
+			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
+			if(player.intersects(camera.getBuilding().exit))
 			{
-				if(player.intersects(buildings[i].exit))
-				{
-					int[] savePos = camera.getLocation().getLastPosition();
-					camera.setBuilding(null);
-					main.setScreenX(savePos[0]);
-					main.setScreenY(savePos[1]);
-					camera.setX(savePos[2]);
-					camera.setY(savePos[3]);
-				}
+				int[] savePos = camera.getLocation().getLastPosition();
+				camera.setBuilding(null);
+				main.setScreenX(savePos[0]);
+				main.setScreenY(savePos[1]);
+				camera.setX(savePos[2]);
+				camera.setY(savePos[3]);
 			}
 		}
 	}
@@ -301,7 +303,6 @@ public class Moving {
 		{
 			spriteCounter = 0;
 		}	
-		System.out.println(camera.getX());
 		doorEntered(camera.getLocation().getBuildings());
 		if(camera.getBuilding() == null)
 			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
