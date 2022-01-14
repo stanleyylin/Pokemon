@@ -2,11 +2,17 @@ package main;
 
 import javax.swing.JFrame;
 
+import entity.Player;
+
 public class Main {
 	static JFrame frame;
 	static Driver2 mainGame;
 	static MainMenu menu;
 	static KeyHandler keyHandler;
+	private static Player main;
+	public final static int screenWidth = 1080;
+	public final static int screenHeight = 720;
+	
 	public static void loadGame()
 	{
 		keyHandler = new KeyHandler(mainGame.getPlayer());

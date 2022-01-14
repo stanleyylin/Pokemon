@@ -43,33 +43,21 @@ public class Driver2 extends JPanel implements Runnable
 		try
 		{
 			map1 = loader.loadImage("res/hearthome.jpeg");
-			Image tmp = map1.getScaledInstance(3000, 2292, Image.SCALE_SMOOTH);
-			map1 = new BufferedImage(3000, 2292, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = map1.createGraphics();
-			g2d.drawImage(tmp, 0, 0, null);
-			g2d.dispose();
+			map1 = loader.resize(map1, 3000, 2292);
 		}
 		catch(IOException e) {}
 			// Pokecentre
 		try
 		{
 			pokecentre1 = loader.loadImage("res/pokecentre.png");
-			Image tmp = pokecentre1.getScaledInstance(739, 550, Image.SCALE_SMOOTH);
-			pokecentre1 = new BufferedImage(739, 550, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = pokecentre1.createGraphics();
-			g2d.drawImage(tmp, 0, 0, null);
-			g2d.dispose();
+			pokecentre1 = loader.resize(pokecentre1, 739, 550);
 		}
 		catch(IOException e) {}
 			// House First Floor
 		try
 		{
 			house1 = loader.loadImage("res/house1.jpeg");
-			Image tmp = house1.getScaledInstance(582, 436, Image.SCALE_SMOOTH);
-			house1 = new BufferedImage(582, 436, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = house1.createGraphics();
-			g2d.drawImage(tmp, 0, 0, null);
-			g2d.dispose();
+			house1 = loader.resize(house1, 582, 436);
 		}
 		catch(IOException e) {}
 		
