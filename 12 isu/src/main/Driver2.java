@@ -81,11 +81,13 @@ public class Driver2 extends JPanel implements Runnable
 		worldMap = new Location[1][1];
 		
 			// Map 1:
-		Rectangle[] collisions1 = new Rectangle[1];
+		Rectangle[] collisions1 = new Rectangle[3];
 		collisions1[0] = new Rectangle(700, 690, 430, 160);
+		collisions1[1] = new Rectangle(0, 0, 353, 630);
+		collisions1[2] = new Rectangle(0, 630, 275, 1390);
 		Building[] buildings1 = new Building[2];
-		buildings1[0] = new Building(new Rectangle(815, 904, 5, 1), new Rectangle(565, 592, 2, 1), null, null, pokecentre1);
-		buildings1[1] = new Building(new Rectangle(1050, 904, 5, 1), new Rectangle(540, 543, 3, 1), null, null, house1);
+		buildings1[0] = new Building(new Rectangle(815, 904, 5, 1), new Rectangle(565, 592, 3, 1), null, null, pokecentre1);
+		buildings1[1] = new Building(new Rectangle(1050, 904, 5, 1), new Rectangle(540, 543, 5, 1), null, null, house1);
 		worldMap[0][0] = new Location(map1, collisions1, buildings1, null, null);
 		// maps[0] = new Map();
 	   

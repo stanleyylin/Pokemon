@@ -41,7 +41,7 @@ public class Camera {
 				location.setEdgeReachedX(true);
 				worldX = 0;
 			}
-			else if (worldX > screenWidth)
+			else if (worldX > location.maxX-screenWidth)
 			{
 				location.setEdgeReachedX(true);
 				worldX = location.maxX-screenWidth;

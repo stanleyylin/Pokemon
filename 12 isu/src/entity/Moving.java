@@ -31,15 +31,14 @@ public class Moving {
 		stopped = false;
 	}
 	
-	void loadNPC()
+	void loadNPC(Rectangle[] NPCs)
 	{
-		
+//		if()
 	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
 	{
-		int bounds = 10;
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX()-bounds, camera.getY() + main.getScreenY()-bounds, Player.size-bounds, Player.size-bounds);
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.size, Player.size);
 		for(int i = 0; i < collisions.length; i++)
 		{
 			Rectangle collision = collisions[i];
