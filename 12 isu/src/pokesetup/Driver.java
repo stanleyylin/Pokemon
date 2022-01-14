@@ -46,6 +46,8 @@ public class Driver extends JPanel{
 		
 		pranav.printPokemon();
 		
+		NPC gary = new NPC(0,0)
+		
 		
 		
 		

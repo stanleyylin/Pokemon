@@ -45,10 +45,16 @@ public class Player extends Entity {
 		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
 		sprites = player.getSprites(size, size);
 	}
+	
+	public void healParty() {
+		for (Pokemon p1: party)
+			p1.heal();
+	}
 
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();
-		if (temp > 0)
+		System.out.println(temp);
+		if (temp >= 0)
 			party[temp] = pokemon;
 		else
 			System.out.println("your party is full");
@@ -62,8 +68,12 @@ public class Player extends Entity {
 	}
 
 	public void printPokemon() {
-		for (Pokemon p1 : party)
+		for (Pokemon p1 : party) {
+			if (p1 == null)
+				System.out.println("empty slot");
+			else
 			System.out.println(p1 + "\n");
+		}
 	}
 	
 	public BufferedImage[] getSprites()

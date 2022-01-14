@@ -1,4 +1,5 @@
 package pokesetup;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,8 +9,11 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import getimages.LoadImage;
+
 public class BlankMon {
 	
+	static LoadImage loader = new LoadImage();
 	
 	int ID;
 	String name;
@@ -26,6 +30,8 @@ public class BlankMon {
 	Ability ability1;
 	Ability ability2;
 	HashMap<Integer,Move> possibleMoves = new HashMap<Integer,Move>();
+	Image pokeFront;
+	Image pokeBack;
 	
 	//hashmap contains ability name,ability
 	static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
@@ -57,6 +63,10 @@ public class BlankMon {
 		this.ability1 = ability1;
 		if (ability2!=null)
 			this.ability2 = ability2;
+		try {
+			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
+			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
+		} catch (IOException e) {}
 	}
 	
 	public String toString () {

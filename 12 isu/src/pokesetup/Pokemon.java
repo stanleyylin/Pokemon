@@ -1,4 +1,5 @@
 package pokesetup;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,8 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import getimages.LoadImage;
+
 //pokemon class
 public class Pokemon {
 
@@ -22,7 +25,8 @@ public class Pokemon {
 	int xpValue; //value of xp it gives when killed
 	Ability ability;//ability class
 	int curHP;
-
+	
+	LoadImage loader = new LoadImage();
 
 	int HPstat;
 	int atkStat;
@@ -39,6 +43,8 @@ public class Pokemon {
 	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
+	Image pokeFront;
+	Image pokeBack;
 	Type type; //type class
 	Random random = new Random();//random class (literally that) for the nextBoolean to function
 
@@ -51,6 +57,13 @@ public class Pokemon {
 		this.level = level;
 		this.name = name;
 		this.ID = pokeStats.get(name).getID();
+		
+		//getting pokeimages
+		try {
+			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
+			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
+		} catch (IOException e) {}
+		
 		//setting base stats to the current stats
 		this.HPstat = pokeStats.get(name).getBaseHP();
 		this.atkStat = pokeStats.get(name).getBaseAttack();
@@ -85,12 +98,12 @@ public class Pokemon {
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
 		
-		possibleMoves = new TreeMap<Integer,Move>(BlankMon.movesByMon.get(this.name));
+		this.possibleMoves = new TreeMap<Integer,Move>(BlankMon.movesByMon.get(this.name));
 		
 		generateMoves();
 		updateAllStats();
 
-		curHP = this.HPstat;
+		this.curHP = this.HPstat;
 	}
 	
 	
@@ -277,6 +290,8 @@ public class Pokemon {
 	public void setCurHP(int i) {
 		this.curHP  = i;
 	}
+	
+	
 
 
 
