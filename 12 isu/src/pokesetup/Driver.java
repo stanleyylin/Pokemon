@@ -7,6 +7,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import entity.NPC;
 import entity.Player;
 
 public class Driver extends JPanel{
@@ -46,7 +47,12 @@ public class Driver extends JPanel{
 		
 		pranav.printPokemon();
 		
-		NPC gary = new NPC(0,0)
+		NPC gary = new NPC(0,0, null);
+		
+		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
+		gary.addPokemonToParty(new Pokemon("Seel", "woop", 66));
+		
+		gary.printPokemon();
 		
 		
 		

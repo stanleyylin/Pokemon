@@ -63,10 +63,10 @@ public class BlankMon {
 		this.ability1 = ability1;
 		if (ability2!=null)
 			this.ability2 = ability2;
-		try {
-			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
-			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
-		} catch (IOException e) {}
+//		try {
+//			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
+//			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
+//		} catch (IOException e) {}
 	}
 	
 	public String toString () {
