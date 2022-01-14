@@ -1,8 +1,6 @@
 package main;
 
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import getimages.LoadImage;
 import pokesetup.Pokemon;
@@ -12,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
+import javax.swing.Timer;
+
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +31,11 @@ public class Battle extends JPanel implements MouseListener {
 	Pokemon playerCurr;
 	Pokemon[] opponent;
 	Pokemon oppCurr;
+	
+	static Timer timer; // Timer for animation
+	static boolean timerOn; // Is the timer on?
+	static int counter;
+	static float[] opacity;
 	
 	public Battle()
 	{
@@ -75,9 +80,23 @@ public class Battle extends JPanel implements MouseListener {
 			e.printStackTrace();
 		}
 		playerTurn = false;
+		timer = new Timer(35, new TimerEventHandler ());
+		timerOn = false;
 		repaint();
+	
 	}
 	
+	// TimeEventHandler class is for the timer.
+	private class TimerEventHandler implements ActionListener
+	{
+		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
+		public void actionPerformed (ActionEvent event)
+		{
+			counter++;
+			repaint();
+		}
+	}
+		
 	public void mouseClicked(MouseEvent e) 
 	{	
 		
@@ -88,18 +107,24 @@ public class Battle extends JPanel implements MouseListener {
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
+	public void updateText(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.BLACK);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+		g2.fillRect(0, 586, 1080, 134);
+		g2.setFont(font);
+		g2.setColor(Color.WHITE);
+		g2.drawString("Pranav wants to throw hands.", 69, 648);
+	}
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, null);
 		g2.drawImage(battleStats[0], 0, 110, null);
 		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
-		g2.setColor(Color.BLACK);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
-		g2.fillRect(0, 586, 1080, 134);
 		
-//		g2.setFont(font);
-//		g2.setColor(Color.WHITE);
-//		g2.drawString("Hello", 0, 20);
+		updateText(g);
 	}
 	
 	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
@@ -108,6 +133,7 @@ public class Battle extends JPanel implements MouseListener {
 		playerCurr = playerParty[0];
 		opponent = oppParty;
 		oppCurr = oppParty[0];
+		
 	}
 	
 	public static void main(String[] args)
