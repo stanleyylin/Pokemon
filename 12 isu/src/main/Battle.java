@@ -155,10 +155,17 @@ public class Battle extends JPanel {
 		}	
 	}
 	
-	public void updateButtons()
+	public static void showButtons()
 	{
 		
 	}
+	
+	public static void showMoves()
+	{
+		
+	}
+	
+
 	public void updateText(Graphics2D g)
 	{
 		

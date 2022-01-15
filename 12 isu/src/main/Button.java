@@ -39,6 +39,11 @@ public class Button extends JLabel implements MouseListener {
 			setIcon(unselected);
 	}
 	
+	public void display()
+	{
+		
+	}
+	
 	public void displayed(boolean change)
 	{
 		displayed = change;
