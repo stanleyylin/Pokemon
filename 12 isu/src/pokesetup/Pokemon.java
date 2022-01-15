@@ -64,7 +64,9 @@ public class Pokemon {
 		//getting pokeimages
 		try {
 			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
+			pokeFront = loader.resize(pokeFront, pokeFront.getWidth()*2, pokeFront.getHeight()*2);
 			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
+			pokeBack = loader.resize(pokeBack, pokeBack.getWidth()*3+pokeBack.getWidth()/2, pokeBack.getHeight()*3+pokeBack.getHeight()/2);
 		} catch (IOException e) {}
 		
 		//setting base stats to the current stats
@@ -317,6 +319,11 @@ public class Pokemon {
 	public BufferedImage getBack()
 	{
 		return pokeBack;
+	}
+	
+	public Move[] getAttacks()
+	{
+		return attacks;
 	}
 	
 	

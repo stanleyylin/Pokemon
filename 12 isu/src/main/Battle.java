@@ -3,6 +3,7 @@ package main;
 import java.awt.*;
 
 import getimages.LoadImage;
+import pokesetup.BlankMon;
 import pokesetup.Pokemon;
 
 import java.awt.event.*;
@@ -26,7 +27,7 @@ import java.awt.font.TextAttribute;
 public class Battle extends JPanel {
 	
 	BufferedImage background; // Background image
-	Font font;
+	public static Font font;
 	BufferedImage[] battleStats;
 	
 	boolean playerTurn;
@@ -47,7 +48,9 @@ public class Battle extends JPanel {
 	public Battle(Pokemon[] player, Pokemon[] opponent)
 	{
 		this.player = player;
+		playerCurr = player[0];
 		this.opponent = opponent;
+		oppCurr = opponent[0];
 		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
 		setLayout(null);
 	    setBackground(Color.BLACK);
@@ -72,13 +75,13 @@ public class Battle extends JPanel {
 		}
 		catch(IOException e) {}
 		
+		
 		try 
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/PokemonGb-RAeo.ttf")));
 //			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 //			attributes.put(TextAttribute.TRACKING, -0.1);
-			font = new Font("Pokemon GB", Font.PLAIN, 22);
 //			font = font.deriveFont(attributes);
 		} 
 		catch (FontFormatException e) 
@@ -89,6 +92,8 @@ public class Battle extends JPanel {
 		{
 			e.printStackTrace();
 		}
+		font = new Font("Pokemon GB", Font.PLAIN, 22);
+		
 		playerTurn = false;
 		timer = new Timer(35, new TimerEventHandler());
 		timerOn = false;
@@ -189,9 +194,11 @@ public class Battle extends JPanel {
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		int pX = 400 - (playerCurr.getBack().getWidth()/2);
-		int pY = 554-playerCurr.getBack().getHeight();
-			
+		int pY = 590-playerCurr.getBack().getHeight();
+		int oX = 793 - (oppCurr.getFront().getWidth()/2);
+		int oY = 300 - oppCurr.getFront().getHeight();
 		g2.drawImage(playerCurr.getBack(), pX, pY, null);
+		g2.drawImage(oppCurr.getFront(), oX, oY, null);
 		
 	}
 	
@@ -204,6 +211,7 @@ public class Battle extends JPanel {
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
 		g2.fillRect(0, 586, 1080, 134);
 		// updateText(g2);
+		loadMons(g2);
 	}
 	
 	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
@@ -212,12 +220,23 @@ public class Battle extends JPanel {
 		playerCurr = playerParty[0];
 		opponent = oppParty;
 		oppCurr = oppParty[0];
-		
+	}
+	
+	public Font getFont()
+	{
+		return font;
 	}
 	
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");
+		try {
+			BlankMon.getAllMoves();
+			BlankMon.getAllMoveLists();
+			BlankMon.getAllAbilities();
+			Pokemon.addAllPokemon();
+		} 
+		catch (IOException e) {}
 		
 		Player pranav = new Player(0,0);
 		pranav.addPokemonToParty(new Pokemon("Charizard", "fye", 48));
@@ -225,8 +244,8 @@ public class Battle extends JPanel {
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
 		
 		NPC gary = new NPC(0,0, null);
+		gary.addPokemonToParty(new Pokemon("Machamp", "woop", 66));
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
-		gary.addPokemonToParty(new Pokemon("Seel", "woop", 66));
 		
 		Battle panel = new Battle(pranav.getParty(), gary.getParty());
 		frame.setContentPane(panel);
@@ -234,9 +253,8 @@ public class Battle extends JPanel {
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
+	
 
 }

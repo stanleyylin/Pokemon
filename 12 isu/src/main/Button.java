@@ -26,6 +26,7 @@ public class Button extends JLabel implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		Battle.hideButtons();
+		
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
