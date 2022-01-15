@@ -13,6 +13,9 @@ import javax.swing.Timer;
 import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 
+import entity.NPC;
+import entity.Player;
+
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -41,8 +44,10 @@ public class Battle extends JPanel {
 	
 	static Button[] buttons1;
 	
-	public Battle()
+	public Battle(Pokemon[] player, Pokemon[] opponent)
 	{
+		this.player = player;
+		this.opponent = opponent;
 		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
 		setLayout(null);
 	    setBackground(Color.BLACK);
@@ -182,6 +187,11 @@ public class Battle extends JPanel {
 	
 	public void loadMons(Graphics2D g)
 	{
+		Graphics2D g2 = (Graphics2D) g;
+		int pX = 400 - (playerCurr.getBack().getWidth()/2);
+		int pY = 554-playerCurr.getBack().getHeight();
+			
+		g2.drawImage(playerCurr.getBack(), pX, pY, null);
 		
 	}
 	
@@ -208,13 +218,25 @@ public class Battle extends JPanel {
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");
-		Battle panel = new Battle();
+		
+		Player pranav = new Player(0,0);
+		pranav.addPokemonToParty(new Pokemon("Charizard", "fye", 48));
+		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
+		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
+		
+		NPC gary = new NPC(0,0, null);
+		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
+		gary.addPokemonToParty(new Pokemon("Seel", "woop", 66));
+		
+		Battle panel = new Battle(pranav.getParty(), gary.getParty());
 		frame.setContentPane(panel);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 	}
 
 }

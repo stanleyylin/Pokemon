@@ -1,5 +1,6 @@
 package pokesetup;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,8 +44,8 @@ public class Pokemon {
 	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
-	Image pokeFront;
-	Image pokeBack;
+	BufferedImage pokeFront;
+	BufferedImage pokeBack;
 	Type type; //type class
 	Random random = new Random();//random class (literally that) for the nextBoolean to function
 	boolean isFainted;
@@ -307,6 +308,15 @@ public class Pokemon {
 	
 	public void setIsFainted(boolean b1) {
 		this.isFainted = b1;
+	}
+	
+	public BufferedImage getFront()
+	{
+		return pokeFront;
+	}
+	public BufferedImage getBack()
+	{
+		return pokeBack;
 	}
 	
 	

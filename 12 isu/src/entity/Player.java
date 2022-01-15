@@ -125,7 +125,10 @@ public class Player extends Entity {
 			System.out.println(p1 + "\n");
 		}
 	}
-	
+	public Pokemon[] getParty()
+	{
+		return party;
+	}
 	public BufferedImage[] getSprites()
 	{
 		return sprites;

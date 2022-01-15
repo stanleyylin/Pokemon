@@ -45,6 +45,7 @@ public class NPC extends Entity {
 		}
 	}
 	
+	
 	public int getWorldX()
 	{
 		return worldX;
