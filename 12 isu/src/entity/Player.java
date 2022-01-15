@@ -50,6 +50,56 @@ public class Player extends Entity {
 		for (Pokemon p1: party)
 			p1.heal();
 	}
+	
+	public void battle(NPC enemy) {
+		
+		Pokemon curFriendlyMon = this.party[0];
+		Pokemon curEnemyMon = enemy.getParty()[0];
+		
+		//switch to battle screen
+		
+		
+		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
+			//allow to pick attack/bag/pokemon/run
+			
+			//if attack
+			
+			//pick attack from buttons(0,1,2,3)
+			int selectedAttack = 1;
+			
+			curFriendlyMon.attack(selectedAttack, curEnemyMon);
+			//check if is dead & switch curEnemy mon/end battle if they run out
+//			if (curEnemyMon.)
+			
+			//randomly generates move(eventually should generate optimal move)
+			int enemyAttack = (int)Math.random() * (3 - 0 + 1) + 0;
+			
+			
+
+		}
+		
+		if (findNextAvailableMon(this.party) == null)
+			System.out.println("you lost");
+		else if (findNextAvailableMon(enemy.getParty()) == null)
+			System.out.println("you won!");
+		
+		//switch back to game screen
+
+		
+		
+	}
+	
+	public Pokemon findNextAvailableMon(Pokemon[] party) {
+		for (Pokemon p1 : party) {
+			if (p1 == null)
+				break;
+			if (p1.getIsFainted()) 
+				continue;
+			else
+				return p1;
+		}
+		return null;
+	}
 
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();

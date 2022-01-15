@@ -54,5 +54,8 @@ public class NPC extends Entity {
 		return worldY;
 	}
 	
+	public Pokemon[] getParty() {
+		return this.party;
+	}
 	
 }

@@ -47,6 +47,7 @@ public class Pokemon {
 	Image pokeBack;
 	Type type; //type class
 	Random random = new Random();//random class (literally that) for the nextBoolean to function
+	boolean isFainted;
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
@@ -57,6 +58,7 @@ public class Pokemon {
 		this.level = level;
 		this.name = name;
 		this.ID = pokeStats.get(name).getID();
+		this.isFainted = false;
 		
 		//getting pokeimages
 		try {
@@ -142,6 +144,7 @@ public class Pokemon {
 		enemy.setCurHP(damage);
 		
 	}
+	
 	
 	
 	//generates 4 best moves based on current pokeLevel
@@ -286,9 +289,24 @@ public class Pokemon {
 		return this.type;
 	}
 	
+	public int getHPStat() {
+		return this.HPstat;
+	}
+	
+	public int getCurHP() {
+		return this.curHP;
+	}
 	
 	public void setCurHP(int i) {
 		this.curHP  = i;
+	}
+	
+	public boolean getIsFainted() {
+		return isFainted;
+	}
+	
+	public void setIsFainted(boolean b1) {
+		this.isFainted = b1;
 	}
 	
 	
