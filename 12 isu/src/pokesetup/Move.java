@@ -11,7 +11,8 @@ public class Move {
 	String effect;
 	int damage;
 	int accuracy;
-	int pp; //pp is how many times a move can be used
+	int curPP; //pp is how many times a move can be used
+	int pp;
 	String TM;
 	int prob; //the move can have a probability to do an alternative effect eg. burn or poison
 	int gen;
@@ -23,6 +24,7 @@ public class Move {
 		this.damage = damage;
 		this.accuracy = accuracy;
 		this.pp = pp;
+		this.curPP = pp;
 		this.TM = TM;
 		this.prob = prob;
 		this.gen = gen;
@@ -34,10 +36,21 @@ public class Move {
 				
 	}
 	
+	public String getName()
+	{
+		return this.name;
+	}
 	public Type getType() {
 		return this.type;
 	}
-	
+	public int getPP()
+	{
+		return this.pp;
+	}
+	public int getCurPP()
+	{
+		return this.curPP;
+	}
 	public int getDamage() {
 		return this.damage;
 	}

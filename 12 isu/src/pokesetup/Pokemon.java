@@ -222,8 +222,6 @@ public class Pokemon {
 
 		String curLine = br.readLine();
 
-		System.out.println("hello world");
-
 		while (curLine != null) {
 
 			int curID = 0;

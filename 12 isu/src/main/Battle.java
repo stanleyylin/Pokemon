@@ -4,6 +4,7 @@ import java.awt.*;
 
 import getimages.LoadImage;
 import pokesetup.BlankMon;
+import pokesetup.Move;
 import pokesetup.Pokemon;
 
 import java.awt.event.*;
@@ -27,13 +28,13 @@ import java.awt.font.TextAttribute;
 public class Battle extends JPanel {
 	
 	BufferedImage background; // Background image
-	public static Font font;
+	private static Font font;
 	BufferedImage[] battleStats;
 	
 	boolean playerTurn;
 	
 	Pokemon[] player;
-	Pokemon playerCurr;
+	static Pokemon playerCurr;
 	Pokemon[] opponent;
 	Pokemon oppCurr;
 	
@@ -43,7 +44,8 @@ public class Battle extends JPanel {
 	static float[] opacity;
 	String message;
 	
-	static Button[] buttons1;
+	static Button[] buttons;
+	static MoveSelect[] moves;
 	
 	public Battle(Pokemon[] player, Pokemon[] opponent)
 	{
@@ -97,12 +99,9 @@ public class Battle extends JPanel {
 		playerTurn = false;
 		timer = new Timer(35, new TimerEventHandler());
 		timerOn = false;
-	
-//		bottomBar = new JPanel();
-//		bottomBar.setPreferredSize(new Dimension(1080, 134));
-//		bottomBar.setLayout(null);
-//		bottomBar.setBackground(new Color(0f, 0f, 0f, 0f));
-		buttons1 = new Button[4];
+
+		// Main Buttons
+		buttons = new Button[4];
 		BufferedImage buttonSheet = null;
 		BufferedImage temp1;
 		BufferedImage temp2;
@@ -116,33 +115,39 @@ public class Battle extends JPanel {
 		// Fight Button
 		temp1 = loader.resize(buttonSheet.getSubimage(26, 0, 74, 46), 160, 100);
 		temp2 = loader.resize(buttonSheet.getSubimage(158, 0, 74, 46), 160, 100);
-		buttons1[0] = new Button(temp1, temp2, 160, 100);
-		buttons1[0].setBounds(59, 595, 160, 100);
-		add(buttons1[0]);
+		buttons[0] = new Button(this, temp1, temp2, 160, 100);
+		buttons[0].setBounds(59, 595, 160, 100);
+		add(buttons[0]);
 		
 		// Pokemon button
 		temp1 = loader.resize(buttonSheet.getSubimage(14, 46, 102, 47), 220, 101);
 		temp2 = loader.resize(buttonSheet.getSubimage(145, 46, 102, 47), 220, 101);
-		buttons1[1] = new Button(temp1, temp2, 220, 101);
-		buttons1[1].setBounds(320, 595, 220, 101);
-		add(buttons1[1]);
+		buttons[1] = new Button(this, temp1, temp2, 220, 101);
+		buttons[1].setBounds(320, 595, 220, 101);
+		add(buttons[1]);
 		
 		// Bag button
 		temp1 = loader.resize(buttonSheet.getSubimage(32, 96, 88, 41), 190, 89);
 		temp2 = loader.resize(buttonSheet.getSubimage(164, 96, 88, 41), 190, 89);
-		buttons1[2] = new Button(temp1, temp2, 190, 89);
-		buttons1[2].setBounds(650, 601, 190, 89);
-		add(buttons1[2]);
+		buttons[2] = new Button(this, temp1, temp2, 190, 89);
+		buttons[2].setBounds(650, 601, 190, 89);
+		add(buttons[2]);
 		
 		// Run button
 		temp1 = loader.resize(buttonSheet.getSubimage(33, 143, 60, 44), 129, 95);
 		temp2 = loader.resize(buttonSheet.getSubimage(162, 143, 60, 44), 129, 95);
-		buttons1[3] = new Button(temp1, temp2, 129, 95);
-		buttons1[3].setBounds(894, 606, 129, 95);
-		add(buttons1[3]);
+		buttons[3] = new Button(this, temp1, temp2, 129, 95);
+		buttons[3].setBounds(894, 606, 129, 95);
+		add(buttons[3]);
 		
-//		bottomBar.setBounds(0, 586, 1080, 134);
-//		add(bottomBar);
+		MoveSelect.setImages();
+		moves = new MoveSelect[4];
+		for(int i = 0; i < 4; i++)
+		{
+			moves[i] = new MoveSelect();
+			moves[i].setBounds(4+268*i, 598, 268, 102);
+			add(moves[i]);
+		}
 	}
 	
 	// TimeEventHandler class is for the timer.
@@ -156,23 +161,43 @@ public class Battle extends JPanel {
 		}
 	}
 	
-	public static void hideButtons()
+	public void buttonClick(MouseEvent e)
 	{
-		for(Button b : buttons1)
+		if(e.getSource().equals(buttons[0]))
 		{
-			b.setIcon(null);
-			b.displayed(false);
-		}	
+			hideButtons();
+			showMoves(playerCurr.getAttacks());
+		}
 	}
 	
-	public static void showButtons()
+	public void hideButtons()
 	{
-		
+		for(Button b : buttons)
+		{
+			Container parent = b.getParent();
+			parent.remove(b);
+			parent.validate();
+			parent.repaint();
+		}
 	}
 	
-	public static void showMoves()
+	public void showButtons()
 	{
-		
+		for(Button b : buttons)
+		{
+			add(b);
+			validate();
+			repaint();
+		}
+	}
+	
+	public void showMoves(Move[] m)
+	{
+		for(int i = 0; i < m.length; i++)
+		{
+			moves[i].updatePokemon(m[i].getName(), m[i].getType(), m[i].getCurPP(), m[i].getPP());
+			moves[i].show();
+		}
 	}
 	
 
@@ -208,7 +233,6 @@ public class Battle extends JPanel {
 		g2.drawImage(battleStats[0], 0, 110, null);
 		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
 		g2.setColor(Color.BLACK);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
 		g2.fillRect(0, 586, 1080, 134);
 		// updateText(g2);
 		loadMons(g2);
@@ -237,16 +261,14 @@ public class Battle extends JPanel {
 			Pokemon.addAllPokemon();
 		} 
 		catch (IOException e) {}
-		
+
 		Player pranav = new Player(0,0);
 		pranav.addPokemonToParty(new Pokemon("Charizard", "fye", 48));
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
-		
 		NPC gary = new NPC(0,0, null);
 		gary.addPokemonToParty(new Pokemon("Machamp", "woop", 66));
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
-		
 		Battle panel = new Battle(pranav.getParty(), gary.getParty());
 		frame.setContentPane(panel);
 		frame.setVisible(true);

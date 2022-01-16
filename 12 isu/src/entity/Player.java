@@ -103,11 +103,11 @@ public class Player extends Entity {
 
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();
-		System.out.println(temp);
+//		System.out.println(temp);
 		if (temp >= 0)
 			party[temp] = pokemon;
-		else
-			System.out.println("your party is full");
+//		else
+//			System.out.println("your party is full");
 	}
 	
 	public int findNextPartySlot() {
