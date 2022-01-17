@@ -84,6 +84,8 @@ public class MoveSelect extends JPanel {
 		button.setBounds(5, 5, 263, 98);
 		add(button);
 		bg = unselected;
+		
+		repaint();
 	}
 	
 	public static void setImages()
@@ -127,17 +129,6 @@ public class MoveSelect extends JPanel {
 	
 	}
 	
-	public void show()
-	{
-		displayed = true;
-		add(button);
-		repaint();
-	}
-	
-	public void hide()
-	{
-		
-	}
 	
 	public void updatePokemon(String name, Type type, int curPP, int pp)
 	{
@@ -146,6 +137,16 @@ public class MoveSelect extends JPanel {
 		typeIcon = typeIcons.get(type.getType1());
 		this.curPP = curPP;
 		this.pp = pp;
+	}
+	
+	public void reset()
+	{
+		bg = unselected;
+	}
+	
+	public void setDisplayed(boolean set)
+	{
+		displayed = set;
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -323,7 +323,18 @@ public class Pokemon {
 	{
 		return attacks;
 	}
-	
+	public String getName()
+	{
+		return this.name;
+	}
+	public String getNickName()
+	{
+		return this.nickname;
+	}
+	public int getLevel()
+	{
+		return this.level;
+	}
 	
 
 

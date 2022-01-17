@@ -20,6 +20,7 @@ public class Button extends JLabel implements MouseListener {
 		this.unselected = new ImageIcon(unselected);
 		this.selected = new ImageIcon(selected);
 		displayed = true;
+		
 		setPreferredSize(new Dimension(width, height));
 		setIcon(new ImageIcon(unselected));
 		// setBackground(new Color(0f, 0f, 0f, 0f));
@@ -29,6 +30,7 @@ public class Button extends JLabel implements MouseListener {
 	public void mouseClicked(MouseEvent e) 
 	{
 		battle.buttonClick(e);
+		setIcon(unselected);
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
