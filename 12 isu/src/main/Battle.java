@@ -34,7 +34,7 @@ public class Battle extends JPanel {
 	boolean playerTurn;
 	
 	Pokemon[] player;
-	static Pokemon playerCurr;
+	Pokemon playerCurr;
 	Pokemon[] opponent;
 	Pokemon oppCurr;
 	
@@ -76,7 +76,12 @@ public class Battle extends JPanel {
 			battleStats[1] = loader.resize(battleStats[1], 415, 88);
 		}
 		catch(IOException e) {}
-		
+		try
+		{
+			battleStats[3] = loader.loadImage("res/battle/battle stats.png").getSubimage(161, 18, 119, 5);
+			battleStats[3] = loader.resize(battleStats[3], 165, 6);
+		}
+		catch(IOException e) {}
 		
 		try 
 		{
@@ -227,6 +232,18 @@ public class Battle extends JPanel {
 		
 	}
 	
+	public void drawHealth(Graphics2D g2)
+	{
+		if(playerCurr != null)
+		{
+			System.out.println(playerCurr.getCurHP());
+			System.out.println(playerCurr.getHPStat());
+			int width = battleStats[3].getWidth() * playerCurr.getCurHP() / playerCurr.getHPStat();
+			BufferedImage drawBar = battleStats[3].getSubimage(0, 0, width, battleStats[3].getHeight());
+			g2.drawImage(drawBar, 152, 144, this);
+		}
+	}
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, null);
@@ -236,6 +253,7 @@ public class Battle extends JPanel {
 		g2.fillRect(0, 586, 1080, 134);
 		// updateText(g2);
 		loadMons(g2);
+		drawHealth(g2);
 	}
 	
 	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
