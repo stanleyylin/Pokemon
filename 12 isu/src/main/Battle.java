@@ -117,10 +117,11 @@ public class Battle extends JPanel {
 			battleStats[5] = loader.resize(battleStats[5], 165, 6);
 		}
 		catch(IOException e) {}
+		// Pokeballs
 		try
 		{
 			battleStats[6] = loader.loadImage("res/battle/battle stats.png").getSubimage(106, 16, 19, 19);
-			battleStats[6] = loader.resize(battleStats[6], 165, 6);
+			battleStats[6] = loader.resize(battleStats[6], 25, 25);
 		}
 		catch(IOException e) {}
 		
@@ -373,6 +374,27 @@ public class Battle extends JPanel {
 			g2.drawString(Integer.toString(oppCurr.getLevel()), 328, 133);
 			
 			// Opponent Pokeballs
+			if(!wild)
+			{
+				int counter = 0;
+				int pokeBallGap = 28;
+				for(int i = 0; i < opponent.length; i++)
+				{
+					if(!opponent[i].equals(null) && opponent[i].getIsFainted() != false)
+					{
+						width = 28+battleStats[6].getWidth()*i+34*i;
+						g2.drawImage(battleStats[6], pokeBallGap, 176, null);
+					}
+					else
+						counter++;
+				}
+				for(int i = 0; i < counter; i++)
+				{
+					width = 28+battleStats[6].getWidth()*i+34*i;
+//					g2.fillCircle()
+				}
+				
+			}
 			
 		}
 	}
@@ -437,7 +459,8 @@ public class Battle extends JPanel {
 		
 		if(gameState != 1)
 		{
-			loadPlayermons(g2);
+			loadPlayerMon(g2);
+			loadOpponentMon(g2);
 			drawPStats(g2);
 			drawOStats(g2);
 		}
