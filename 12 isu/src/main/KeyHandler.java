@@ -10,9 +10,10 @@ import entity.Player;
 public class KeyHandler implements KeyListener {
 	
 	private Player main;
+	private Moving move;
 	private boolean pressed;
 	
-	public KeyHandler(Player main)
+	public KeyHandler(Player main, Moving move)
 	{
 		this.main = main;
 		pressed = false;
@@ -33,7 +34,7 @@ public class KeyHandler implements KeyListener {
 		{
 			if(!pressed)
 			{
-				Moving.moving = 1;
+				move.setMoving(1);
 				pressed = true;
 			}
 			main.direction = "left";
@@ -42,7 +43,7 @@ public class KeyHandler implements KeyListener {
 		{
 			if(!pressed)
 			{
-				Moving.moving = 1;
+				move.setMoving(1);
 				pressed = true;
 			}
 			main.direction = "right";
@@ -51,7 +52,7 @@ public class KeyHandler implements KeyListener {
 		{
 			if(!pressed)
 			{
-				Moving.moving = 1;
+				move.setMoving(1);
 				pressed = true;
 			}
 			main.direction = "down";
@@ -60,7 +61,7 @@ public class KeyHandler implements KeyListener {
 		{
 			if(!pressed)
 			{
-				Moving.moving = 1;
+				move.setMoving(1);
 				pressed = true;
 			}
 			main.direction = "up";
@@ -73,7 +74,7 @@ public class KeyHandler implements KeyListener {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_D || key == KeyEvent.VK_W || key == KeyEvent.VK_S) 
 		{
-			Moving.moving = 0;
+			move.setMoving(0);
 			pressed = false;
 		}
 	

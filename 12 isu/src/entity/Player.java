@@ -11,8 +11,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class Player extends Entity {
+public class Player {
 
+	protected int screenX;
+	protected int screenY;
+	public String direction;
 	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
 
@@ -146,6 +149,14 @@ public class Player extends Entity {
 	public void setScreenY(int set)
 	{
 		screenY = set;
+	}
+	public int getScreenX()
+	{
+		return screenX;
+	}
+	public int getScreenY()
+	{
+		return screenY;
 	}
 
 

@@ -63,7 +63,6 @@ public class Driver2 extends JPanel implements Runnable
 		
 		// Player, temp
 		main = new Player(screenWidth/2-Player.size/2, screenHeight/2-Player.size/2);
-		keyHandler = new KeyHandler(main);
 		
 		// Setting up the MAPS
 		worldMap = new Location[1][1];
@@ -82,6 +81,7 @@ public class Driver2 extends JPanel implements Runnable
 		// Functionalities
 		camera = new Camera(worldMap[0][0], 700, 700);
 	    moving = new Moving(main, camera);
+	    keyHandler = new KeyHandler(main, moving);
 	    
 	    gameThread = new Thread(this);
 		gameThread.start();
@@ -146,6 +146,10 @@ public class Driver2 extends JPanel implements Runnable
 		return main;
 	}
 	
+	public Moving getMoving()
+	{
+		return moving;
+	}
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");

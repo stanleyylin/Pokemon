@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import pokesetup.Pokemon;
 
-public class NPC extends Entity {
+public class NPC {
 	private int worldX;
 	private int worldY;
 	private BufferedImage[] sprites;

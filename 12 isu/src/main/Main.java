@@ -15,7 +15,7 @@ public class Main {
 	
 	public static void loadGame()
 	{
-		keyHandler = new KeyHandler(mainGame.getPlayer());
+		keyHandler = new KeyHandler(mainGame.getPlayer(), mainGame.getMoving());
 		frame.setContentPane(mainGame);
 		frame.setVisible(true);
 		frame.pack();

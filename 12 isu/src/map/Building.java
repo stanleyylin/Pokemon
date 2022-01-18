@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Building {
-	private NPC[] npcs;
+	private Character[] chars;
 	private Rectangle[] collisions;
 	
 	public final Rectangle entrance;
@@ -22,11 +22,11 @@ public class Building {
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
 	
-	public Building(Rectangle entrance, Rectangle exit, NPC[] npcs, Rectangle[] collisions,  BufferedImage bg)
+	public Building(Rectangle entrance, Rectangle exit, Character[] chars, Rectangle[] collisions,  BufferedImage bg)
 	{
 		this.entrance = entrance;
 		this.exit = exit;
-		this.npcs = npcs;
+		this.chars = chars;
 		this.collisions = collisions;
 		this.bg = bg;
 		
