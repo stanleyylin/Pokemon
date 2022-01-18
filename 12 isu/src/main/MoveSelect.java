@@ -152,6 +152,10 @@ public class MoveSelect extends JPanel {
 		displayed = set;
 	}
 	
+	public String toString() {
+		return this.name;
+	}
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		if(!displayed)
