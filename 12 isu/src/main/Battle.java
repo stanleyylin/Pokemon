@@ -41,7 +41,7 @@ public class Battle extends JPanel {
 	Pokemon[] opponent;
 	Pokemon oppCurr;
 	
-// ANIMATION
+	// ANIMATION
 	static Timer timer; // Timer for animation
 	static boolean timerOn; // Is the timer on?
 	// Game States
@@ -52,6 +52,10 @@ public class Battle extends JPanel {
 	static int counter;
 	static float[] opacity;
 	String message;
+	
+	int pokeX = 792;
+	int pokeY = 100;
+	BufferedImage[] pokeBallSprites = new BufferedImage[17];
 	
 	static Button back;
 	static Button[] buttons;
@@ -161,6 +165,17 @@ public class Battle extends JPanel {
 		catch(IOException e) {}
 		back.setBounds(847, 526, 194, 40);
 		
+		BufferedImage ballSprites = null;
+		try
+		{
+			ballSprites = loader.loadImage("res/battle/pokeballs.png");
+		}
+		catch(IOException e) {}
+		for(int i = 0; i < 17; i++)
+		{
+			pokeBallSprites[i] = ballSprites.getSubimage(132, 9 + 24*i + 16*i, 24, 24);
+		}
+		
 		// Main Buttons
 		buttons = new Button[4];
 		BufferedImage buttonSheet = null;
@@ -205,23 +220,42 @@ public class Battle extends JPanel {
 			moves[i] = new MoveSelect();
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
-		
+
 		gameState = 1;
-		timer = new Timer(35, new TimerEventHandler ());
+		timer = new Timer(120, new TimerEventHandler ());
 		timerOn = true;
+		timer.setDelay(10);
 		timer.start();
+		counter = 0;
 	}
 	
 	// TimeEventHandler class is for the timer.
 	private class TimerEventHandler implements ActionListener
 	{
+		String name = "Trainer Peppa";
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
 			if(gameState == 1)
 			{
-				
+				if(counter >= 0 && counter <= 10)
+				{
+					message = "You are being challenged by " + name + "!";
+				}
+				if(counter == 10)
+				{
+					gameState = 2;
+					counter = 0;
+				}
 			}
+			else if (gameState == 2)
+			{
+				message = name + " sends out " + oppCurr.getName() + "!";
+				
+					
+			}
+			counter++;
+			repaint();
 		}
 	}
 	
@@ -320,7 +354,7 @@ public class Battle extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setFont(font);
 		g2.setColor(Color.WHITE);
-		g2.drawString("This is a message.", 69, 648);
+		g2.drawString(message, 69, 648);
 	}
 
 	
@@ -380,18 +414,21 @@ public class Battle extends JPanel {
 				int pokeBallGap = 28;
 				for(int i = 0; i < opponent.length; i++)
 				{
-					if(!opponent[i].equals(null) && opponent[i].getIsFainted() != false)
+					if(opponent[i] != null && opponent[i].getIsFainted() == false)
 					{
-						width = 28+battleStats[6].getWidth()*i+34*i;
 						g2.drawImage(battleStats[6], pokeBallGap, 176, null);
+						pokeBallGap += battleStats[6].getWidth()+38;
 					}
 					else
 						counter++;
 				}
 				for(int i = 0; i < counter; i++)
 				{
-					width = 28+battleStats[6].getWidth()*i+34*i;
-//					g2.fillCircle()
+					g2.setColor(Color.BLACK);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+					g2.fillOval(pokeBallGap, 176, 25, 25);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+					pokeBallGap += battleStats[6].getWidth()+38;
 				}
 				
 			}
@@ -454,8 +491,10 @@ public class Battle extends JPanel {
 		g2.drawImage(background, 0, 0, null);
 		g2.drawImage(battleStats[0], 0, 110, null);
 		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 586, 1080, 134);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		
 		if(gameState != 1)
 		{
@@ -464,7 +503,11 @@ public class Battle extends JPanel {
 			drawPStats(g2);
 			drawOStats(g2);
 		}
-		// updateText(g2);
+		
+		if(gameState == 1 && message != null)
+		{
+			updateText(g2);
+		}
 
 	}
 	
