@@ -217,7 +217,7 @@ public class Battle extends JPanel {
 		moves = new MoveSelect[4];
 		for(int i = 0; i < 4; i++)
 		{
-			moves[i] = new MoveSelect();
+			moves[i] = new MoveSelect(this);
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
 
@@ -286,6 +286,8 @@ public class Battle extends JPanel {
 		else if(e.getSource().equals(moves[1]))
 			pAttack();
 		else if(e.getSource().equals(moves[2]))
+			pAttack();
+		else if (e.getSource().equals(moves[3]))
 			pAttack();
 	}
 	
