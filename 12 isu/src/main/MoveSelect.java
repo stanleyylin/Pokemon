@@ -49,7 +49,7 @@ public class MoveSelect extends JPanel {
 	// Font
 	private Font font1 = new Font("Pokemon GB", Font.BOLD, 13);
 	
-	public MoveSelect()
+	public MoveSelect(Battle battle)
 	{
 		setPreferredSize(new Dimension(width, height));
 		setBackground(new Color(0f, 0f, 0f, 0f));
@@ -68,7 +68,10 @@ public class MoveSelect extends JPanel {
             	}
             }
 
-			public void mouseClicked(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				battle.buttonClick(e);
+				bg = unselected;
+			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
 

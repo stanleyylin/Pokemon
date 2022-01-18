@@ -19,6 +19,7 @@ public class Moving {
 	public static int moving; // whether or not the player is moving, 0 - not moving, 1 - first moving sprite
 	// 2 - second moving sprite
 	public static boolean stopped;
+	public static ArrayList<Character> 
 
 	// Constructor
 	public Moving(Player player, Camera camera)
@@ -33,7 +34,10 @@ public class Moving {
 	
 	void loadNPC(Rectangle[] NPCs)
 	{
-//		if()
+		if(camera.getBuilding() != null)
+		{
+			
+		}
 	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
