@@ -25,11 +25,13 @@ import java.io.InputStream;
 import java.util.*;
 import java.awt.font.TextAttribute;
 
+@SuppressWarnings("serial")
 public class Battle extends JPanel {
 	
-	static JFrame frame;
+	private boolean wild;
+	
+	private Font font;
 	BufferedImage background; // Background image
-	private static Font font;
 	BufferedImage[] battleStats;
 	
 	boolean playerTurn;
@@ -65,7 +67,7 @@ public class Battle extends JPanel {
 		setLayout(null);
 	    setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();
-		battleStats = new BufferedImage[6];
+		battleStats = new BufferedImage[7];
 		
 		// Background
 		try
@@ -113,6 +115,12 @@ public class Battle extends JPanel {
 		{
 			battleStats[5] = loader.loadImage("res/battle/battle stats.png").getSubimage(161, 32, 119, 5);
 			battleStats[5] = loader.resize(battleStats[5], 165, 6);
+		}
+		catch(IOException e) {}
+		try
+		{
+			battleStats[6] = loader.loadImage("res/battle/battle stats.png").getSubimage(106, 16, 19, 19);
+			battleStats[6] = loader.resize(battleStats[6], 165, 6);
 		}
 		catch(IOException e) {}
 		
@@ -188,7 +196,6 @@ public class Battle extends JPanel {
 		buttons[3] = new Button(this, temp1, temp2, 129, 95);
 		buttons[3].setBounds(894, 606, 129, 95);
 		
-		showButtons();
 		
 		MoveSelect.setImages();
 		moves = new MoveSelect[4];
@@ -241,8 +248,6 @@ public class Battle extends JPanel {
 		this.add(back);
 		this.revalidate();
 		this.repaint();
-		frame.pack();
-		frame.setVisible(true);
 	}
 	public void hideBack()
 	{
@@ -250,8 +255,6 @@ public class Battle extends JPanel {
 		parent.remove(back);
 		parent.revalidate();
 		parent.repaint();
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
 	// Description: Hides the main buttons (fight/pokemon/run/bag)
@@ -266,8 +269,6 @@ public class Battle extends JPanel {
 			parent.revalidate();
 			parent.repaint();
 		}
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
 	// Description: Shows the main buttons (fight/pokemon/run/bag)
@@ -281,8 +282,6 @@ public class Battle extends JPanel {
 			this.revalidate();
 			this.repaint();
 		}
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
 	public void showMoves(Move[] m)
@@ -296,8 +295,6 @@ public class Battle extends JPanel {
 			moves[i].setDisplayed(true);
 			moves[i].repaint();
 		}
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
 	public void hideMoves()
@@ -314,8 +311,6 @@ public class Battle extends JPanel {
 				m.repaint();
 			}
 		}
-		frame.pack();
-		frame.setVisible(true);
 	}
 	
 
@@ -328,16 +323,20 @@ public class Battle extends JPanel {
 	}
 
 	
-	public void loadMons(Graphics2D g)
+	public void loadPlayerMon(Graphics2D g2)
 	{
-		Graphics2D g2 = (Graphics2D) g;
 		int pX = 400 - (playerCurr.getBack().getWidth()/2);
 		int pY = 590-playerCurr.getBack().getHeight();
+		
+		g2.drawImage(playerCurr.getBack(), pX, pY, null);
+	}
+	
+	public void loadOpponentMon(Graphics2D g2)
+	{
 		int oX = 793 - (oppCurr.getFront().getWidth()/2);
 		int oY = 300 - oppCurr.getFront().getHeight();
-		g2.drawImage(playerCurr.getBack(), pX, pY, null);
-		g2.drawImage(oppCurr.getFront(), oX, oY, null);
 		
+		g2.drawImage(oppCurr.getFront(), oX, oY, null);
 	}
 	
 	public void drawOStats(Graphics2D g2)
@@ -436,10 +435,14 @@ public class Battle extends JPanel {
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 586, 1080, 134);
 		
+		if(gameState != 1)
+		{
+			loadPlayermons(g2);
+			drawPStats(g2);
+			drawOStats(g2);
+		}
 		// updateText(g2);
-		loadMons(g2);
-		drawPStats(g2);
-		drawOStats(g2);
+
 	}
 	
 	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
@@ -457,7 +460,7 @@ public class Battle extends JPanel {
 	
 	public static void main(String[] args)
 	{
-		frame = new JFrame ("Pokemon");
+		JFrame frame = new JFrame ("Pokemon");
 		try {
 			BlankMon.getAllMoves();
 			BlankMon.getAllMoveLists();
@@ -474,12 +477,14 @@ public class Battle extends JPanel {
 		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 66));
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
 		Battle panel = new Battle(pranav.getParty(), gary.getParty());
+		
 		frame.setContentPane(panel);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.pack();
-		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		frame.setLocationRelativeTo(null);
+		
 	}
 	
 
