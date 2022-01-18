@@ -146,10 +146,6 @@ public class Battle extends JPanel {
 			e.printStackTrace();
 		}
 		font = new Font("Pokemon GB", Font.PLAIN, 22);
-		
-		playerTurn = false;
-//		timer = new Timer(35, new TimerEventHandler());
-		timerOn = false;
 
 		// Back Button
 		try
@@ -220,15 +216,14 @@ public class Battle extends JPanel {
 			moves[i] = new MoveSelect(this);
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
-
-		gameState = 1;
-		timer = new Timer(120, new TimerEventHandler ());
-		timerOn = true;
-		timer.setDelay(10);
-		timer.start();
-		counter = 0;
-		
 		showButtons();
+		gameState = 0;
+//		timer = new Timer(120, new TimerEventHandler ());
+//		timerOn = true;
+//		timer.setDelay(10);
+//		timer.start();
+//		counter = 0;
+		
 	}
 	
 	// TimeEventHandler class is for the timer.
@@ -281,13 +276,13 @@ public class Battle extends JPanel {
 			showButtons();
 		}
 		
-		else if (e.getSource().equals(moves[0]))
+		else if (e.getSource().equals(moves[0].getJLabel()))
 			System.out.println("hello");
-		else if(e.getSource().equals(moves[1]))
+		else if(e.getSource().equals(moves[1].getJLabel()))
 			pAttack();
-		else if(e.getSource().equals(moves[2]))
+		else if(e.getSource().equals(moves[2].getJLabel()))
 			pAttack();
-		else if (e.getSource().equals(moves[3]))
+		else if (e.getSource().equals(moves[3].getJLabel()))
 			pAttack();
 	}
 	
