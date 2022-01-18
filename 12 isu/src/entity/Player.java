@@ -75,6 +75,11 @@ public class Player extends Entity {
 			int enemyAttack = (int)Math.random() * (3 - 0 + 1) + 0;
 			
 			
+			//if bag
+			//implement items
+			
+			
+			
 
 		}
 		
