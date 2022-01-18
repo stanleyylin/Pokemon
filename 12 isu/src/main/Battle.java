@@ -41,6 +41,8 @@ public class Battle extends JPanel {
 	Pokemon[] opponent;
 	Pokemon oppCurr;
 	
+	String currMove;
+	
 	// ANIMATION
 	static Timer timer; // Timer for animation
 	static boolean timerOn; // Is the timer on?
@@ -218,9 +220,8 @@ public class Battle extends JPanel {
 		}
 		showButtons();
 		gameState = 0;
-		timer = new Timer(120, new TimerEventHandler ());
+		timer = new Timer(30, new TimerEventHandler ());
 		timerOn = true;
-		timer.setDelay(10);
 //		timer.start();
 		counter = 0;
 		
@@ -229,7 +230,8 @@ public class Battle extends JPanel {
 	// TimeEventHandler class is for the timer.
 	private class TimerEventHandler implements ActionListener
 	{
-		String name = "Trainer Peppa";
+		private String name = "Trainer Peppa";
+		private int enemyAttack;
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
@@ -251,17 +253,40 @@ public class Battle extends JPanel {
 //				
 //					
 //			}
-			 if (gameState == 4) {
-				System.out.println(true);
-				if (counter >= 10)
-					gameState = 0;
+			if (gameState == 4) 
+			{
+				message = player[0].getNickName() + " has used " + currMove + "!";
+				if(counter == 50)
+				{
+					pAttack(moves[3].getName());
+				}
+				else if (counter == 100)
+				{
+					gameState = 5;
+//					if (isFainted())
+					counter = 0;
+					return;
+				}
 			}
 			else if (gameState == 5) {
-				if (counter >= 10)
+				if(counter == 0)
+				{
+					enemyAttack = (int) Math.random() * (4);
+					message = "" + opponent[0].getName() + " has used " + opponent[0].getCurMoves()[enemyAttack].getName();
+				}
+				else if(counter == 50)
+				{
+					oAttack(enemyAttack);
+				}
+				else if (counter >= 100)
+				{
+					message = "";
+					showButtons();
 					gameState = 0;
+					counter = 0;
+					timer.stop();
+				}
 			}
-			
-			else
 			counter++;
 			repaint();
 		}
@@ -276,8 +301,6 @@ public class Battle extends JPanel {
 			hideButtons();
 			showBack();
 			showMoves(playerCurr.getAttacks());
-			for (MoveSelect s : moves)
-				System.out.println(s);
 		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
@@ -288,41 +311,49 @@ public class Battle extends JPanel {
 		}
 		
 		else if (e.getSource().equals(moves[0].getJLabel()))
-			pAttack(moves[0].getName());
+		{
+			hideBack();
+			hideMoves();
+			currMove = moves[0].getName();
+			gameState = 4;
+			timer.start();
+		}
 		else if(e.getSource().equals(moves[1].getJLabel()))
-			pAttack(moves[1].getName());
+		{
+			hideBack();
+			hideMoves();
+			currMove = moves[1].getName();
+			counter = 0;
+			gameState = 4;
+			timer.start();
+		}
 		else if(e.getSource().equals(moves[2].getJLabel()))
-			pAttack(moves[2].getName());
+		{
+			hideBack();
+			hideMoves();
+			counter = 0;
+			currMove = moves[2].getName();
+			gameState = 4;
+			timer.start();
+		}
 		else if (e.getSource().equals(moves[3].getJLabel()))
-			pAttack(moves[3].getName());
+		{
+			hideBack();
+			hideMoves();
+			counter = 0;
+			currMove = moves[3].getName();
+			gameState = 4;
+			timer.start();
+		}
 	}
 	
-	public void pAttack(String attack) {
-		
-		hideBack();
-		hideMoves();
-		message = "" + player[0].getNickName() + " has used " + attack;
-		System.out.println(message);
-		counter = 0;
-		gameState = 4;
-		repaint();
-		timer.start();
+	public void pAttack(String attack) 
+	{
 		player[0].attack(0, opponent[0]);
-//		if (isFainted())
-		oAttack();
 	}
 	
-	public void oAttack() {
-		gameState = 5;
-		counter = 0;
-		int enemyAttack = (int)Math.random() * (4);
-		opponent[0].attack(enemyAttack, player[0]);
-		
-		message = "" + opponent[0].getName() + " has used " + opponent[0].getCurMoves()[enemyAttack].getName();
-		System.out.println(message);
-		repaint();
-		message = "";
-		showButtons();
+	public void oAttack(int enemyAttack) {
+		opponent[0].attack(enemyAttack, player[0]);			
  	}
 	
 	public boolean isFainted(Pokemon p1) {
@@ -457,6 +488,8 @@ public class Battle extends JPanel {
 				barColor = battleStats[3];
 			
 			int width = battleStats[3].getWidth() * oppCurr.getCurHP() / oppCurr.getHPStat();
+			if(width <= 0)
+				width = 1;
 			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
 			g2.drawImage(drawBar, 152, 144, this);
 			
@@ -520,6 +553,8 @@ public class Battle extends JPanel {
 				barColor = battleStats[3];
 			
 			int width = battleStats[3].getWidth() * playerCurr.getCurHP() / playerCurr.getHPStat();
+			if(width <= 0)
+				width = 1;
 			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
 			g2.drawImage(drawBar, 859, 368, null);
 			
@@ -578,7 +613,7 @@ public class Battle extends JPanel {
 		{
 			updateText(g2);
 		}
-		if (gameState == 4 || gameState == 5) {
+		if ((gameState == 4 || gameState == 5) && message != null) {
 			updateText(g2);
 		}
 
