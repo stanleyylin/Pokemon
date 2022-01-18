@@ -8,7 +8,10 @@ public class Character {
 	private int worldY;
 	private BufferedImage sprite;
 	
-	
+	public Character()
+	{
+		
+	}
 	
 
 }
