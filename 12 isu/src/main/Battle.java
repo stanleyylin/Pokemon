@@ -218,11 +218,11 @@ public class Battle extends JPanel {
 		}
 		showButtons();
 		gameState = 0;
-//		timer = new Timer(120, new TimerEventHandler ());
-//		timerOn = true;
-//		timer.setDelay(10);
+		timer = new Timer(120, new TimerEventHandler ());
+		timerOn = true;
+		timer.setDelay(10);
 //		timer.start();
-//		counter = 0;
+		counter = 0;
 		
 	}
 	
@@ -233,24 +233,35 @@ public class Battle extends JPanel {
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
-			if(gameState == 1)
-			{
-				if(counter >= 0 && counter <= 10)
-				{
-					message = "You are being challenged by " + name + "!";
-				}
-				if(counter == 10)
-				{
-					gameState = 2;
-					counter = 0;
-				}
+//			if(gameState == 1)
+//			{
+//				if(counter >= 0 && counter <= 10)
+//				{
+//					message = "You are being challenged by " + name + "!";
+//				}
+//				if(counter == 10)
+//				{
+//					gameState = 2;
+//					counter = 0;
+//				}
+//			}
+//			else if (gameState == 2)
+//			{
+//				message = name + " sends out " + oppCurr.getName() + "!";
+//				
+//					
+//			}
+			 if (gameState == 4) {
+				System.out.println(true);
+				if (counter >= 10)
+					gameState = 0;
 			}
-			else if (gameState == 2)
-			{
-				message = name + " sends out " + oppCurr.getName() + "!";
-				
-					
+			else if (gameState == 5) {
+				if (counter >= 10)
+					gameState = 0;
 			}
+			
+			else
 			counter++;
 			repaint();
 		}
@@ -277,19 +288,64 @@ public class Battle extends JPanel {
 		}
 		
 		else if (e.getSource().equals(moves[0].getJLabel()))
-			System.out.println("hello");
+			pAttack(moves[0].getName());
 		else if(e.getSource().equals(moves[1].getJLabel()))
-			pAttack();
+			pAttack(moves[1].getName());
 		else if(e.getSource().equals(moves[2].getJLabel()))
-			pAttack();
+			pAttack(moves[2].getName());
 		else if (e.getSource().equals(moves[3].getJLabel()))
-			pAttack();
+			pAttack(moves[3].getName());
 	}
 	
-	public void pAttack() {
+	public void pAttack(String attack) {
+		
 		hideBack();
 		hideMoves();
-		System.out.println("attack");
+		message = "" + player[0].getNickName() + " has used " + attack;
+		System.out.println(message);
+		counter = 0;
+		gameState = 4;
+		repaint();
+		timer.start();
+		player[0].attack(0, opponent[0]);
+		oAttack();
+	}
+	
+	public void oAttack() {
+		gameState = 5;
+		counter = 0;
+		int enemyAttack = (int)Math.random() * (4);
+		opponent[0].attack(enemyAttack, player[0]);
+		
+		message = "" + opponent[0].getName() + " has used " + opponent[0].getCurMoves()[enemyAttack].getName();
+		System.out.println(message);
+		repaint();
+		message = "";
+		showButtons();
+ 	}
+	
+	public boolean isFainted(Pokemon p1) {
+		if (p1.getIsFainted())
+			return true;
+		if (p1.getCurHP() <= 0) {
+			p1.setIsFainted(true);
+			return true;
+		}
+		return false;
+	}
+	
+//	public void pokeFaint(Pokemon p1) {
+//		Player.findNextAvailableMon();
+//		
+//	}
+	
+	public int pokeCount(Pokemon[] party) {
+		int count = 0;
+		for (Pokemon p1 : party) {
+			if (p1 != null)
+				count++;
+		}
+		return count;
 	}
 	
 	public void showBack()
@@ -520,6 +576,9 @@ public class Battle extends JPanel {
 		
 		if(gameState == 1 && message != null)
 		{
+			updateText(g2);
+		}
+		if (gameState == 4 || gameState == 5) {
 			updateText(g2);
 		}
 

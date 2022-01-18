@@ -156,6 +156,10 @@ public class MoveSelect extends JPanel {
 		return this.name;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
 	public JLabel getJLabel()
 	{
 		return button;
