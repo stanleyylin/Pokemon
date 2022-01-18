@@ -285,6 +285,7 @@ public class Battle extends JPanel {
 					gameState = 0;
 					counter = 0;
 					timer.stop();
+					return;
 				}
 			}
 			counter++;
