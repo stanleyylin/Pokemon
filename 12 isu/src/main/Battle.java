@@ -308,6 +308,7 @@ public class Battle extends JPanel {
 		repaint();
 		timer.start();
 		player[0].attack(0, opponent[0]);
+//		if (isFainted())
 		oAttack();
 	}
 	
@@ -334,10 +335,9 @@ public class Battle extends JPanel {
 		return false;
 	}
 	
-//	public void pokeFaint(Pokemon p1) {
-//		Player.findNextAvailableMon();
-//		
-//	}
+	public void pokeFaint(Pokemon p1) {
+		
+	}
 	
 	public int pokeCount(Pokemon[] party) {
 		int count = 0;
