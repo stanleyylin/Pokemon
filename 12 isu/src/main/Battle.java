@@ -37,9 +37,9 @@ public class Battle extends JPanel {
 	boolean playerTurn;
 	
 	Pokemon[] player;
-	Pokemon playerCurr;
+	int playerCurr;
 	Pokemon[] opponent;
-	Pokemon oppCurr;
+	int oppCurr;
 	
 	String currMove;
 	
@@ -66,9 +66,9 @@ public class Battle extends JPanel {
 	public Battle(Pokemon[] player, Pokemon[] opponent)
 	{
 		this.player = player;
-		playerCurr = player[0];
+		playerCurr = 0;
 		this.opponent = opponent;
-		oppCurr = opponent[0];
+		oppCurr = 0;
 		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
 		setLayout(null);
 	    setBackground(Color.BLACK);
@@ -301,7 +301,7 @@ public class Battle extends JPanel {
 		{
 			hideButtons();
 			showBack();
-			showMoves(playerCurr.getAttacks());
+			showMoves(player[playerCurr].getAttacks());
 		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
@@ -462,33 +462,33 @@ public class Battle extends JPanel {
 	
 	public void loadPlayerMon(Graphics2D g2)
 	{
-		int pX = 400 - (playerCurr.getBack().getWidth()/2);
-		int pY = 590-playerCurr.getBack().getHeight();
+		int pX = 400 - (player[playerCurr].getBack().getWidth()/2);
+		int pY = 590-player[playerCurr].getBack().getHeight();
 		
-		g2.drawImage(playerCurr.getBack(), pX, pY, null);
+		g2.drawImage(player[playerCurr].getBack(), pX, pY, null);
 	}
 	
 	public void loadOpponentMon(Graphics2D g2)
 	{
-		int oX = 793 - (oppCurr.getFront().getWidth()/2);
-		int oY = 300 - oppCurr.getFront().getHeight();
+		int oX = 793 - (opponent[oppCurr].getFront().getWidth()/2);
+		int oY = 300 - opponent[oppCurr].getFront().getHeight();
 		
-		g2.drawImage(oppCurr.getFront(), oX, oY, null);
+		g2.drawImage(opponent[oppCurr].getFront(), oX, oY, null);
 	}
 	
 	public void drawOStats(Graphics2D g2)
 	{
-		if(oppCurr != null)
+		if(opponent[oppCurr] != null)
 		{
 			BufferedImage barColor = null;
-			if(oppCurr.getCurHP() / oppCurr.getHPStat() < 0.2)
+			if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() < 0.2)
 				barColor = battleStats[4];
-			else if(oppCurr.getCurHP() / oppCurr.getHPStat() < 0.7)
+			else if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() < 0.7)
 				barColor = battleStats[5];
 			else
 				barColor = battleStats[3];
 			
-			int width = battleStats[3].getWidth() * oppCurr.getCurHP() / oppCurr.getHPStat();
+			int width = battleStats[3].getWidth() * opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat();
 			if(width <= 0)
 				width = 1;
 			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
@@ -501,15 +501,15 @@ public class Battle extends JPanel {
 		    
 		    // Opponent Name
 		    g2.setColor(Color.BLACK);
-			g2.drawString(oppCurr.getName(), 32, 133);
+			g2.drawString(opponent[oppCurr].getName(), 32, 133);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(oppCurr.getName(), 30, 131);
+			g2.drawString(opponent[oppCurr].getName(), 30, 131);
 			
 			// Opponent Level
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(oppCurr.getLevel()), 330, 135);
+			g2.drawString(Integer.toString(opponent[oppCurr].getLevel()), 330, 135);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(oppCurr.getLevel()), 328, 133);
+			g2.drawString(Integer.toString(opponent[oppCurr].getLevel()), 328, 133);
 			
 			// Opponent Pokeballs
 			if(!wild)
@@ -542,18 +542,18 @@ public class Battle extends JPanel {
 	
 	public void drawPStats(Graphics2D g2)
 	{
-		if(playerCurr != null)
+		if(player[playerCurr] != null)
 		{
 			// Player Bars
 			BufferedImage barColor = null;
-			if(playerCurr.getCurHP() / playerCurr.getHPStat() < 0.2)
+			if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() < 0.2)
 				barColor = battleStats[5];
-			else if(playerCurr.getCurHP() / playerCurr.getHPStat() < 0.7)
+			else if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() < 0.7)
 				barColor = battleStats[4];
 			else
 				barColor = battleStats[3];
 			
-			int width = battleStats[3].getWidth() * playerCurr.getCurHP() / playerCurr.getHPStat();
+			int width = battleStats[3].getWidth() * player[playerCurr].getCurHP() / player[playerCurr].getHPStat();
 			if(width <= 0)
 				width = 1;
 			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
@@ -566,29 +566,36 @@ public class Battle extends JPanel {
 		    
 		    // Player Name
 		    g2.setColor(Color.BLACK);
-			g2.drawString(playerCurr.getNickName(), 718, 359);
+			g2.drawString(player[playerCurr].getNickName(), 718, 359);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(playerCurr.getNickName(), 716, 357);
+			g2.drawString(player[playerCurr].getNickName(), 716, 357);
 			
 			// Player Level
 			attributes.put(TextAttribute.TRACKING, -0.05);
 		    g2.setFont(font.deriveFont(attributes));
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(playerCurr.getLevel()), 1020, 361);
+			g2.drawString(Integer.toString(player[playerCurr].getLevel()), 1020, 361);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(playerCurr.getLevel()), 1018, 359);
+			g2.drawString(Integer.toString(player[playerCurr].getLevel()), 1018, 359);
 			
 			// Player Health
 			attributes.put(TextAttribute.SIZE, 18);
 			g2.setFont(font.deriveFont(attributes));
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(playerCurr.getCurHP()), 880, 404);
+			int removeWidth = 0;
+			
+			if(player[playerCurr].getCurHP() < 10)
+				removeWidth = 50;
+			else if(player[playerCurr].getCurHP() < 100)
+				removeWidth = 25;
+
+			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 880+removeWidth, 404);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(playerCurr.getCurHP()), 878, 402);
+			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 878+removeWidth, 402);
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(playerCurr.getHPStat()), 974, 404);
+			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 974, 404);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(playerCurr.getHPStat()), 972, 402);
+			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 972, 402);
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -623,9 +630,9 @@ public class Battle extends JPanel {
 	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
 	{
 		player = playerParty;
-		playerCurr = playerParty[0];
+		playerCurr = 0;
 		opponent = oppParty;
-		oppCurr = oppParty[0];
+		oppCurr = 0;
 	}
 	
 	public Font getFont()
@@ -645,7 +652,7 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 48));
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 69));
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
 		NPC gary = new NPC(0,0, null);

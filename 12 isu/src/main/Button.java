@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Button extends JLabel implements MouseListener {
 	private ImageIcon unselected;
