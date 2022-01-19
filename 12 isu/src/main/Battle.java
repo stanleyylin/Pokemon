@@ -271,7 +271,8 @@ public class Battle extends JPanel {
 			else if (gameState == 5) {
 				if(counter == 0)
 				{
-					enemyAttack = (int) Math.random() * (4);
+					enemyAttack = (int) (Math.random() * 4);
+//					enemyAttack = 2;
 					message = "" + opponent[0].getName() + " has used " + opponent[0].getCurMoves()[enemyAttack].getName();
 				}
 				else if(counter == 50)
@@ -370,6 +371,13 @@ public class Battle extends JPanel {
 	public void pokeFaint(Pokemon p1) {
 		
 	}
+	
+	public void pokeBurn (Pokemon p1) {
+		int burnDmg = p1.getHPStat()/8;
+		p1.setCurHP(p1.getCurHP() - burnDmg);
+	}
+	
+	
 	
 	public int pokeCount(Pokemon[] party) {
 		int count = 0;
