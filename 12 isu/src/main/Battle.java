@@ -488,18 +488,19 @@ public class Battle extends JPanel {
 		if(opponent[oppCurr] != null)
 		{
 			BufferedImage barColor = null;
-			if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() < 0.2)
+			if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() <= 0.2)
 				barColor = battleStats[4];
-			else if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() < 0.7)
+			else if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() <= 0.5)
 				barColor = battleStats[5];
 			else
 				barColor = battleStats[3];
 			
 			int width = battleStats[3].getWidth() * opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat();
 			if(width <= 0)
-				width = 1;
-			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
-			g2.drawImage(drawBar, 152, 144, this);
+			{
+				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
+				g2.drawImage(drawBar, 152, 144, this);
+			}
 			
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
@@ -553,18 +554,19 @@ public class Battle extends JPanel {
 		{
 			// Player Bars
 			BufferedImage barColor = null;
-			if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() < 0.2)
-				barColor = battleStats[5];
-			else if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() < 0.7)
+			if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() <= 0.2)
 				barColor = battleStats[4];
+			else if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() <= 0.5)
+				barColor = battleStats[5];
 			else
 				barColor = battleStats[3];
 			
 			int width = battleStats[3].getWidth() * player[playerCurr].getCurHP() / player[playerCurr].getHPStat();
-			if(width <= 0)
-				width = 1;
-			BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
-			g2.drawImage(drawBar, 859, 368, null);
+			if(width > 0)
+			{
+				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
+				g2.drawImage(drawBar, 859, 368, null);
+			}
 			
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);

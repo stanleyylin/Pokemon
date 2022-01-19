@@ -30,12 +30,14 @@ public class PokeSelect extends JPanel {
 	
 	private Pokemon[] player;
 	private int curr;
+	private BufferedImage healthBar;
 	
 	private BufferedImage selected; // green
 	private BufferedImage unselected; // blue
 	private BufferedImage fainted; // grey
 	private Button pokemonBack;
 	
+	private Font font = new Font()
 	public PokeSelect(Button pokemonBack, Pokemon[] player, int curr)
 	{
 		
