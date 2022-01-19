@@ -33,9 +33,9 @@ public class PokeSelect extends JPanel {
 	BufferedImage fainted; // grey
 	Button pokemonBack;
 	
-	public PokeSelect(Button pokemonBack, Pokemon[] player, Pokemon curr)
+	public PokeSelect(Button pokemonBack, Pokemon[] player, int curr)
 	{
-		player.get
+		
 		LoadImage loader = new LoadImage();
 		try {
 			selected = loader.loadImage("res/battle/greenmove.png");
@@ -47,6 +47,11 @@ public class PokeSelect extends JPanel {
 		try {
 			unselected = loader.loadImage("res/battle/deselectedmove.png");
 		} catch (IOException e) {}
+	}
+	
+	public void pokemonSelected(MouseEvent e)
+	{
+		
 	}
 
 }

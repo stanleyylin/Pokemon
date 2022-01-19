@@ -590,20 +590,25 @@ public class Battle extends JPanel {
 			attributes.put(TextAttribute.SIZE, 18);
 			g2.setFont(font.deriveFont(attributes));
 			g2.setColor(Color.BLACK);
-			int removeWidth = 0;
-			
+			int removeWidth1 = 0;
+			int removeWidth2 = 0;
 			if(player[playerCurr].getCurHP() < 10)
-				removeWidth = 50;
+				removeWidth1 = 50;
 			else if(player[playerCurr].getCurHP() < 100)
-				removeWidth = 25;
+				removeWidth1 = 25;
+			
+			if(player[playerCurr].getHPStat() < 10)
+				removeWidth2 = 50;
+			else if(player[playerCurr].getHPStat() < 100)
+				removeWidth2 = 25;
 
-			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 880+removeWidth, 404);
+			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 880+removeWidth1, 404);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 878+removeWidth, 402);
+			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 878+removeWidth1, 402);
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 974, 404);
+			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 974-removeWidth2, 404);
 		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 972, 402);
+			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 972-removeWidth2, 402);
 		}
 	}
 	public void paintComponent(Graphics g) {
