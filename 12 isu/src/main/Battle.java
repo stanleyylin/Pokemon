@@ -30,7 +30,7 @@ public class Battle extends JPanel {
 	
 	private boolean wild;
 	
-	private Font font;
+	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	BufferedImage background; // Background image
 	BufferedImage[] battleStats;
 	
@@ -147,7 +147,6 @@ public class Battle extends JPanel {
 		{
 			e.printStackTrace();
 		}
-		font = new Font("Pokemon GB", Font.PLAIN, 22);
 
 		// Back Button
 		try

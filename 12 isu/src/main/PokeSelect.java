@@ -28,10 +28,13 @@ import java.awt.font.TextAttribute;
 @SuppressWarnings("serial")
 public class PokeSelect extends JPanel {
 	
-	BufferedImage selected; // green
-	BufferedImage unselected; // blue
-	BufferedImage fainted; // grey
-	Button pokemonBack;
+	private Pokemon[] player;
+	private int curr;
+	
+	private BufferedImage selected; // green
+	private BufferedImage unselected; // blue
+	private BufferedImage fainted; // grey
+	private Button pokemonBack;
 	
 	public PokeSelect(Button pokemonBack, Pokemon[] player, int curr)
 	{
