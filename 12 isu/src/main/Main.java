@@ -21,6 +21,13 @@ public class Main {
 		frame.pack();
 		frame.addKeyListener(keyHandler);
 	}
+	
+	public static void returnMainMenu()
+	{
+		frame.setContentPane(menu);
+		frame.setVisible(true);
+		frame.pack();
+	}
 
 	public static void main(String[] args) {
 		frame = new JFrame ("Pokemon: Wong Edition");

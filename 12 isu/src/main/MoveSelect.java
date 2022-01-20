@@ -54,6 +54,7 @@ public class MoveSelect extends JPanel {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(new Color(0f, 0f, 0f, 0f));
 		setLayout(null);
+		setOpaque(true);
 		
 		button = new JLabel();
 		button.setPreferredSize(new Dimension(268, 102));

@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import main.Driver2;
+import main.Main;
 
 public class Moving {
 	
@@ -34,7 +35,7 @@ public class Moving {
 		stopped = false;
 	}
 	
-	void loadNPC(Rectangle[] NPCs)
+	void loadNPC(Rectangle[] characters)
 	{
 		
 	}
@@ -114,7 +115,7 @@ public class Moving {
 	
 	void doorEntered(Building[] buildings)
 	{
-		if(camera.getBuilding() == null)
+		if(camera.getBuilding() == null && main.direction.equals("up"))
 		{
 			int bounds = 30;
 			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+bounds, camera.getY() + main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
@@ -129,9 +130,9 @@ public class Moving {
 				}
 			}
 		}
-		else if (camera.getBuilding() != null)
+		else if (camera.getBuilding() != null && main.direction.equals("down"))
 		{
-			int bounds = 39;
+			int bounds = 30;
 			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
 			if(player.intersects(camera.getBuilding().exit))
 			{

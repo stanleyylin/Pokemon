@@ -36,8 +36,9 @@ public class PokeSelect extends JPanel {
 	private BufferedImage unselected; // blue
 	private BufferedImage fainted; // grey
 	private Button pokemonBack;
+
+	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	
-	private Font font = new Font()
 	public PokeSelect(Button pokemonBack, Pokemon[] player, int curr)
 	{
 		
@@ -58,5 +59,7 @@ public class PokeSelect extends JPanel {
 	{
 		
 	}
+	
+	
 
 }

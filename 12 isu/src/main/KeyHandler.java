@@ -16,6 +16,7 @@ public class KeyHandler implements KeyListener {
 	public KeyHandler(Player main, Moving move)
 	{
 		this.main = main;
+		this.move = move;
 		pressed = false;
 	}
 	
@@ -65,6 +66,10 @@ public class KeyHandler implements KeyListener {
 				pressed = true;
 			}
 			main.direction = "up";
+		}
+		else if(key == KeyEvent.VK_L)
+		{
+			Main.returnMainMenu();
 		}
 	}
 	
