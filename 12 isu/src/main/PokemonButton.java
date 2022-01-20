@@ -25,6 +25,8 @@ public class PokemonButton extends JPanel implements MouseListener
 	BufferedImage healthBar;
 	BufferedImage selected;
 	BufferedImage deselected;
+	BufferedImage pokeball;
+	BufferedImage openedBall;
 	BufferedImage bg;
 	// 515, 198
 	Pokemon poke;
@@ -32,7 +34,7 @@ public class PokemonButton extends JPanel implements MouseListener
 	private final int width = 515;
 	private final int height = 198;
 	
-	public PokemonButton(Pokemon poke, BufferedImage selected, BufferedImage deselected)
+	public PokemonButton(Pokemon poke, BufferedImage selected, BufferedImage deselected, BufferedImage pokeball, BufferedImage openedBall)
 	{
 		setPreferredSize(new Dimension(width, height));
 		setLayout(null);
@@ -77,7 +79,8 @@ public class PokemonButton extends JPanel implements MouseListener
 	public void paintComponent(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage()
+		g2.drawImage(bg, 0, 0, this);
+		
 		
 	}
 
