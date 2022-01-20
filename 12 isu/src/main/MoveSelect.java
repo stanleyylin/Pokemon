@@ -66,6 +66,7 @@ public class MoveSelect extends JPanel {
             	{
 	            	bg = selected;
 					repaint();
+					battle.refresh();
             	}
             }
 
@@ -82,6 +83,7 @@ public class MoveSelect extends JPanel {
             	{
 					bg = unselected;
 					repaint();
+					battle.refresh();
             	}
 			}
         });

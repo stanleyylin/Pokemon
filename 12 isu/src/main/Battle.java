@@ -496,7 +496,7 @@ public class Battle extends JPanel {
 				barColor = battleStats[3];
 			
 			int width = battleStats[3].getWidth() * opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat();
-			if(width <= 0)
+			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
 				g2.drawImage(drawBar, 152, 144, this);
@@ -652,6 +652,11 @@ public class Battle extends JPanel {
 	public Font getFont()
 	{
 		return font;
+	}
+	
+	public void refresh()
+	{
+		repaint();
 	}
 	
 	public static void main(String[] args)
