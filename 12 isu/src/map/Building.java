@@ -1,13 +1,14 @@
 package map;
 
 import entity.NPC;
+import entity.Person;
 import main.Driver2;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Building {
-	private Character[] chars;
+	private Person[] people;
 	private Rectangle[] collisions;
 	
 	public final Rectangle entrance;
@@ -22,11 +23,11 @@ public class Building {
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
 	
-	public Building(Rectangle entrance, Rectangle exit, Character[] chars, Rectangle[] collisions,  BufferedImage bg)
+	public Building(Rectangle entrance, Rectangle exit, Person[] people, Rectangle[] collisions,  BufferedImage bg)
 	{
 		this.entrance = entrance;
 		this.exit = exit;
-		this.chars = chars;
+		this.people = people;
 		this.collisions = collisions;
 		this.bg = bg;
 		
@@ -68,6 +69,10 @@ public class Building {
 	public boolean getEdgeReachedX()
 	{
 		return xEdgeReached;
+	}
+	public Person[] getPeople()
+	{
+		return people;
 	}
 	public boolean getEdgeReachedY()
 	{

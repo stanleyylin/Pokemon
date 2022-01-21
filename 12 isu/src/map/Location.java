@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 import entity.NPC;
+import entity.Person;
 import main.Driver2;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ public class Location {
 	private BufferedImage background;
 	private Rectangle[] collisions;
 	private Building[] locations;
-	private Character[] characters;
+	private Person[] people;
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
 	
@@ -26,12 +27,12 @@ public class Location {
 	private int cameraX;
 	private int cameraY;
 	
-	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Character[] characters, int[][] startingPoints)
+	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Person[] people, int[][] startingPoints)
 	{
 		background = bg;
 		this.collisions = collisions;
 		this.locations = locations;
-		this.characters = characters;
+		this.people = people;
 		maxX = background.getWidth();
 		maxY = background.getHeight();
 	}
@@ -53,9 +54,9 @@ public class Location {
 	{
 		return locations;
 	}
-	public Character[] getChars()
+	public Person[] getPeople()
 	{
-		return characters;
+		return people;
 	}
 	public boolean getEdgeReachedX()
 	{

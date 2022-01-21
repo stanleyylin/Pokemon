@@ -2,8 +2,10 @@ package map;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import entity.Character;
 import entity.Moving;
 import entity.NPC;
+import entity.Person;
 import main.Driver2;
 
 public class Camera {
@@ -23,13 +25,19 @@ public class Camera {
 		this.worldY = worldY;
 	}
 
-//	public void checkNPC()
-//	{
-//		for(NPC curr : currMap.getNPCs())
-//		{
-//			
-//		}
-//	}
+	void loadNPC(Person[] people)
+	{
+		for(Person c : people)
+		{
+			if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+Driver2.screenWidth+c.getC().getWidth())
+			{
+				if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+Driver2.screenHeight+c.getC().getHeight())
+				{
+					c.setShown(true);
+				}
+			}
+		}
+	}
 	
 	// Drawing the terrain
 	public void draw(Graphics2D g2)
@@ -62,9 +70,29 @@ public class Camera {
 		if(building == null)
 			g2.drawImage(location.getBG(), 0, 0, screenWidth, screenHeight, worldX, worldY, worldX+screenWidth, worldY+screenHeight, null);
 		else
-		{
 			g2.drawImage(building.getBG(), building.screenX, building.screenY, building.maxX, building.maxY, 0, 0, building.getBG().getWidth(), building.getBG().getHeight(), null);
+
+		if(building == null)
+		{
+			for(Person p : location.getPeople())
+			{
+				if(p.getShown())
+				{
+					g2.drawImage(p.getSprite(), (int) p.getC().getX()-worldX, (int) p.getC().getY()-worldY, null);
+				}
+			}
 		}
+		else 
+		{
+			for(Person p : building.getPeople())
+			{
+				if(p.getShown())
+				{
+					g2.drawImage(p.getSprite(), (int) p.getC().getX()-worldX, (int) p.getC().getY()-worldY, null);
+				}
+			}
+		}
+	
 	}
 	
 	// Getters and Setters

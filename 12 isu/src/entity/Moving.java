@@ -8,6 +8,7 @@ import map.Camera;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import main.Driver2;
 import main.Main;
@@ -22,8 +23,6 @@ public class Moving {
 	// 2 - second moving sprite
 	private boolean stopped;
 
-	private ArrayList<Character> showChars;
-
 	// Constructor
 	public Moving(Player player, Camera camera)
 	{
@@ -33,11 +32,6 @@ public class Moving {
 		moving = 0;
 		spriteCounter = 0;
 		stopped = false;
-	}
-	
-	void loadNPC(Rectangle[] characters)
-	{
-		for(Rectangle r : characters)
 	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
@@ -368,6 +362,7 @@ public class Moving {
 			else if(main.direction.equals("right"))
 				g2.drawImage(playerSprites[6], main.screenX, main.screenY, Player.size, Player.size, null);
 		}
+		
 	}
 	
 	public void setMoving(int set)

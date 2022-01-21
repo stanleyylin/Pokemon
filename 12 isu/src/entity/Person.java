@@ -1,25 +1,26 @@
 package entity;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import getimages.LoadImage;
+
 import java.awt.*;
 
-public class Character {
-	protected int worldX;
-	protected int worldY;
+public class Person {
 	protected BufferedImage sprite;
 	protected String direction;
 	
 	protected Rectangle collision;
 	protected Rectangle interaction;
 	
+	protected boolean shown;
 	// Dialogue
 	protected String textFile;
+	private static LoadImage loader = new LoadImage();
 	
-	public Character(int worldX, int worldY, int width, int height, String direction, BufferedImage sprite)
+	public Person(int worldX, int worldY, int width, int height, String direction, String file, int w, int h)
 	{
-		this.worldX = worldX;
-		this.worldY = worldY;
-		this.sprite = sprite;
 		this.direction = direction;
 		
 		if(direction.equals("left"))
@@ -32,20 +33,40 @@ public class Character {
 			interaction = new Rectangle(worldX-15, worldY+height, 62, 42);
 		
 		collision = new Rectangle(worldX, worldY, width, height);
+		shown = false;
+		
+		try
+		{
+			sprite = loader.loadImage("res/sprites/" + file);
+			sprite = sprite.getSubimage(0, 0, w, h);
+		}
+		catch(IOException e) {}
 	}
 	
 	public void draw(Graphics2D g2, int cameraX, int cameraY)
 	{
-		g2.drawImage(sprite, worldX-cameraX, worldY-cameraY, null);
+		g2.drawImage(sprite, (int) interaction.getX()-cameraX, (int) interaction.getY()-cameraY, null);
 	}
 	
-	public Rectangle getCollision()
+	public boolean getShown()
+	{
+		return shown;
+	}
+	public void setShown(boolean set)
+	{
+		shown = set;
+	}
+	public Rectangle getC()
 	{
 		return collision;
 	}
-	public Rectangle getInteraction()
+	public Rectangle getI()
 	{
 		return interaction;
+	}
+	public BufferedImage getSprite()
+	{
+		return sprite;
 	}
 
 }
