@@ -1,0 +1,20 @@
+PokeBalls
+Poke Ball,Most basic Poke Ball used to catch a wild pokemon,200,1
+Great Ball,Slightly more effective Poke Ball,600,1.5
+Ultra Ball,Improved variant of the Great Ball,1200,2
+Master Ball,It can be used to catch a wild pokemon without fail,-1,255
+Medicine
+Potion,A spray-type medicine for treating wounds. It can be used to restore 20 HP to an injured Pokémon.,300,20,false,0,false
+Super Potion,A spray-type medicine for treating wounds. It can be used to restore 50 HP to an injured Pokémon.,700,50,false,0,false
+Hyper Potion,A spray-type medicine for treating wounds. It can be used to restore 200 HP to an injured Pokémon.,1200,200,false,0,false
+Full Restore,A medicine that can be used to fully restore the HP of a single Pokémon and heal any status conditions it has.,3000,-1,true,0,false
+Full Heal,A spray-type medicine that is broadly effective. It can be used once to heal all the status conditions of a Pokémon.,600,0,true,0,false
+Ether,This medicine can restore 10 PP to a single selected move that has been learned by a Pokémon.,1200,0,false,10,false
+Elixir,This medicine can restore 10 PP to each of the moves that have been learned by a Pokémon.,3000,0,false,-10,false
+Revive,A medicine that can revive fainted Pokémon. It also restores half of a fainted Pokémon's maximum HP.,1500,-2,true,0,true
+Max Revive,A medicine that can revive fainted Pokémon. It also fully restores a fainted Pokémon's maximum HP.,5000,-1,true,0,true
+Key Items
+Town Map,A very convenient map that can be viewed anytime. It even shows you your present location in the region.
+Badge Case,A case containing all the badges you have collected thusfar on your journey
+Exp. Share,Turning on this special device will allow all the Pokémon on your team to receive Exp. Points from battles.
+Oak's Letter,A letter from Professor Oak. Written in it is a request for you to go to visit his lab.
