@@ -5,25 +5,25 @@ import java.awt.image.BufferedImage;
 import getimages.LoadImage;
 
 public class Item {
-	
+
 	String name;
 	String effect;
 	String category;
 	//pokeball, medicine, key item, other item
 	int cost;
 	BufferedImage sprite;
-	
+
 	LoadImage loader = new LoadImage();
 	//take image loading code from Pokemon class
-	
+
 	double catchChance;
 	BufferedImage[] ballSheet;
-	
+
 	int healing;
 	boolean removeStatus;
 	int ppIncrease;
 	boolean doesRevive;
-	
+
 	//poke ball
 	public Item (String name, String effect, int cost, double catchChance) {
 		//i dont know how to import the ball sheet lmao
@@ -33,7 +33,7 @@ public class Item {
 		this.cost = cost;
 		this.catchChance = catchChance;
 	}
-	
+
 	//healing item
 	public Item(String name, String effect, int cost, int healing, boolean removeStatus, int ppIncrease, boolean doesRevive) {
 		this.name = name;
@@ -45,12 +45,20 @@ public class Item {
 		this.ppIncrease = ppIncrease;
 		this.doesRevive = doesRevive;
 	}
-	
+
 	//key items (cannot be sold btw)
 	public Item(String name, String effect) {
 		this.name = name;
 		this.effect = effect;
 		this.category = "Key Items";
+	}
+
+	public String toString() {
+		if (this.category.equals("PokeBall"))
+			return String.format("%s(%.1f) -- %d", this.name, this.catchChance, this.cost);
+		if (this.category.equals("Medicine"))
+			return String.format("%s-hp: %d, pp: %d, %b/%b ", this.name, this.healing, this.ppIncrease, this.removeStatus, this.doesRevive);
+		else return this.name;
 	}
 
 }
