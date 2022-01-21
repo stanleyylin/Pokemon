@@ -14,7 +14,7 @@ public class Location {
 	private BufferedImage background;
 	private Rectangle[] collisions;
 	private Building[] locations;
-	private NPC[] npcs;
+	private Character[] characters;
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
 	
@@ -26,12 +26,12 @@ public class Location {
 	private int cameraX;
 	private int cameraY;
 	
-	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, NPC[] npcs, int[][] startingPoints)
+	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Character[] characters, int[][] startingPoints)
 	{
 		background = bg;
 		this.collisions = collisions;
 		this.locations = locations;
-		this.npcs = npcs;
+		this.characters = characters;
 		maxX = background.getWidth();
 		maxY = background.getHeight();
 	}
@@ -53,9 +53,9 @@ public class Location {
 	{
 		return locations;
 	}
-	public NPC[] getNPCs()
+	public Character[] getChars()
 	{
-		return npcs;
+		return characters;
 	}
 	public boolean getEdgeReachedX()
 	{

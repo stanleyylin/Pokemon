@@ -22,7 +22,7 @@ public class Moving {
 	// 2 - second moving sprite
 	private boolean stopped;
 
-	private  ArrayList<Character> showChars;
+	private ArrayList<Character> showChars;
 
 	// Constructor
 	public Moving(Player player, Camera camera)
@@ -37,7 +37,7 @@ public class Moving {
 	
 	void loadNPC(Rectangle[] characters)
 	{
-		
+		for(Rectangle r : characters)
 	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)

@@ -5,17 +5,12 @@ import java.awt.image.BufferedImage;
 
 import pokesetup.Pokemon;
 
-public class NPC {
-	private int worldX;
-	private int worldY;
-	private BufferedImage[] sprites;
+public class NPC extends Character {
 	private Pokemon[] party;
 	
 	public NPC(int worldX, int worldY, BufferedImage[] sprites)
 	{
-		this.worldX = worldX;
-		this.worldY = worldY;
-		this.sprites = sprites;
+		super(worldX, worldY, sprites);
 		
 		this.party = new Pokemon[6];
 	}
