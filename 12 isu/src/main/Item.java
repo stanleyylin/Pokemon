@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import getimages.LoadImage;
 
@@ -32,6 +33,9 @@ public class Item {
 		this.category = "PokeBall";
 		this.cost = cost;
 		this.catchChance = catchChance;
+		try {
+			this.sprite = loader.loadImage("items/" + this.name + ".png");
+		} catch (IOException e) {}
 	}
 
 	//healing item
@@ -44,6 +48,9 @@ public class Item {
 		this.removeStatus = removeStatus;
 		this.ppIncrease = ppIncrease;
 		this.doesRevive = doesRevive;
+		try {
+			this.sprite = loader.loadImage("items/" + this.name + ".png");
+		} catch (IOException e) {}
 	}
 
 	//key items (cannot be sold btw)
@@ -51,6 +58,9 @@ public class Item {
 		this.name = name;
 		this.effect = effect;
 		this.category = "Key Items";
+		try {
+			this.sprite = loader.loadImage("items/" + this.name + ".png");
+		} catch (IOException e) {}
 	}
 
 	public String toString() {
