@@ -17,10 +17,10 @@ public class Gate {
 	
 	private int axis; // 0 - left, 1 - right, 2 - up, 3 - down
 	
-	public Gate(int axis, int[] coordinates, Location l1, Rectangle r1, Location l2, Rectangle r2)
+	public Gate(int axis, int camX2, int camY2, Location l1, Rectangle r1, Location l2, Rectangle r2)
 	{
-		camX2 = coordinates[0];
-		camY2 = coordinates[1];
+		this.camX2 = camX2;
+		this.camY2 = camY2;
 		
 		this.axis = axis;
 		this.l1 = l1;
@@ -40,12 +40,12 @@ public class Gate {
 		if(axis == 0) // gate on left --> gate on right
 		{
 			p.setScreenX((int) r2.getX()-c.getX()-Player.width);
-			p.setScreenY((int) r2.getY()-c.getY()+(int)(r2.getHeight()/2));
+			p.setScreenY((int) r2.getY()-c.getY());
 		}
 		else if(axis == 1) // gate on right --> gate on left
 		{
 			p.setScreenX((int) r2.getX()-c.getX()+(int)r2.getWidth()+Player.width);
-			p.setScreenY((int) r2.getY()-c.getY()+(int)(r2.getHeight()/2));
+			p.setScreenY((int) r2.getY()-c.getY());
 		}
 		else if(axis == 2) // gate up --> gate up
 		{
@@ -59,6 +59,10 @@ public class Gate {
 		}
 	}
 	
+	public int getAxis()
+	{
+		return axis;
+	}
 	public Location getL1()
 	{
 		return l1;

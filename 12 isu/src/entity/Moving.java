@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import main.Driver2;
+import main.GamePanel;
 import main.Main;
 
 public class Moving {
@@ -106,10 +106,19 @@ public class Moving {
 		return false;
 	}
 	
-	void interact()
-	{
-		
-	}
+//	boolean interact(Person[] people)
+//	{
+//		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+//		
+//		for(int i = 0; i < people.length; i++)
+//		{
+//			if(people[i].getI().intersects(player))
+//			{
+//				
+//			}
+//		}
+//	}
+	
 	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
 	{
 		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
@@ -256,8 +265,8 @@ public class Moving {
 		{
 			if(main.getScreenX() < 0)
 				main.setScreenX(0);
-			else if(main.getScreenX() > Driver2.screenWidth - Player.width)
-				main.setScreenX(Driver2.screenWidth - Player.width);
+			else if(main.getScreenX() > GamePanel.screenWidth - Player.width)
+				main.setScreenX(GamePanel.screenWidth - Player.width);
 		}
 		
 		
@@ -276,14 +285,14 @@ public class Moving {
 		{
 			if(camera.getX() == 0)
 			{
-				if(main.getScreenX() > Driver2.screenWidth/2-Player.width/2)
+				if(main.getScreenX() > GamePanel.screenWidth/2-Player.width/2)
 				{
 					camera.getLocation().setEdgeReachedX(false);
 				}
 			}
-			else if(camera.getX() == camera.getLocation().maxX-Driver2.screenWidth)
+			else if(camera.getX() == camera.getLocation().maxX-GamePanel.screenWidth)
 			{
-				if(main.getScreenX() < Driver2.screenWidth/2-Player.width/2)
+				if(main.getScreenX() < GamePanel.screenWidth/2-Player.width/2)
 				{
 					camera.getLocation().setEdgeReachedX(false);
 				}
@@ -324,8 +333,8 @@ public class Moving {
 		{
 			if(main.getScreenY() < 0)
 				main.setScreenY(0);
-			else if(main.getScreenY() > Driver2.screenHeight - Player.height)
-				main.setScreenY(Driver2.screenHeight - Player.height);
+			else if(main.getScreenY() > GamePanel.screenHeight - Player.height)
+				main.setScreenY(GamePanel.screenHeight - Player.height);
 		}
 		
 		// Check collisions
@@ -344,14 +353,14 @@ public class Moving {
 		{
 			if(camera.getY() == 0)
 			{
-				if(main.getScreenY() > Driver2.screenHeight/2-Player.height/2)
+				if(main.getScreenY() > GamePanel.screenHeight/2-Player.height/2)
 				{
 					camera.getLocation().setEdgeReachedY(false);
 				}
 			}
-			else if(camera.getY() == camera.getLocation().maxY-Driver2.screenHeight)
+			else if(camera.getY() == camera.getLocation().maxY-GamePanel.screenHeight)
 			{
-				if(main.getScreenY() < Driver2.screenHeight/2-Player.height/2)
+				if(main.getScreenY() < GamePanel.screenHeight/2-Player.height/2)
 				{
 					camera.getLocation().setEdgeReachedY(false);
 				}

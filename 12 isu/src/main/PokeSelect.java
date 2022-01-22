@@ -37,7 +37,7 @@ public class PokeSelect extends JPanel {
 
 	public PokeSelect(Player player, int curr, boolean inBattle)
 	{
-		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
+		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
 		setBackground(Color.BLACK);
 
@@ -186,7 +186,7 @@ public class PokeSelect extends JPanel {
 
 		g2.setColor(Color.BLACK);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-		g2.fillRect(0, 595, Driver2.screenWidth, 125);
+		g2.fillRect(0, 595, GamePanel.screenWidth, 125);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 		g2.setFont(font);

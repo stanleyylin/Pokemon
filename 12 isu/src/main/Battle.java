@@ -74,7 +74,7 @@ public class Battle extends JPanel {
 		playerCurr = 0;
 		this.opponent = opponent;
 		oppCurr = 0;
-		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
+		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
 		setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();

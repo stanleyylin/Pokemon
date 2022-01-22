@@ -6,7 +6,7 @@ import java.util.*;
 
 import entity.NPC;
 import entity.Person;
-import main.Driver2;
+import main.GamePanel;
 
 import java.awt.*;
 

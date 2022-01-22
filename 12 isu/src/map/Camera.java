@@ -6,7 +6,7 @@ import entity.Person;
 import entity.Moving;
 import entity.NPC;
 import entity.Person;
-import main.Driver2;
+import main.GamePanel;
 
 public class Camera {
 	
@@ -15,8 +15,8 @@ public class Camera {
 	private Location location;
 	private Building building;
 
-	private final int screenWidth = Driver2.screenWidth;
-	private final int screenHeight = Driver2.screenHeight;
+	private final int screenWidth = GamePanel.screenWidth;
+	private final int screenHeight = GamePanel.screenHeight;
 	
 	public Camera(Location location, int worldX, int worldY)
 	{
@@ -31,9 +31,9 @@ public class Camera {
 		{
 			if(c.getSprite() == null)
 				continue;
-			if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+Driver2.screenWidth+c.getC().getWidth())
+			if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+GamePanel.screenWidth+c.getC().getWidth())
 			{
-				if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+Driver2.screenHeight+c.getC().getHeight())
+				if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+GamePanel.screenHeight+c.getC().getHeight())
 				{
 					c.setShown(true);
 				}

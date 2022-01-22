@@ -73,10 +73,10 @@ public class Person {
 	{
 		return collision;
 	}
-//	public Rectangle getI()
-//	{
-//		return interaction;
-//	}
+	public Rectangle getI()
+	{
+		return interaction;
+	}
 	public BufferedImage getSprite()
 	{
 		return sprite;

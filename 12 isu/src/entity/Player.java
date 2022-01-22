@@ -17,7 +17,8 @@ public class Player {
 	protected int screenY;
 	public String direction;
 	private BufferedImage[] sprites;
-
+	private boolean interacting;
+	
 	private Pokemon[] party;
 
 	public final static int width = 50;
@@ -35,6 +36,8 @@ public class Player {
 
 		SpriteSheet player = new SpriteSheet("char1.png");
 		sprites = player.getSprites();
+		
+		interacting = false;
 	}
 	
 	public void healParty() {
@@ -129,7 +132,11 @@ public class Player {
 	{
 		return sprites;
 	}
-
+	public boolean isInteract()
+	{
+		return interacting;
+	}
+	
 	public void setScreenX(int set)
 	{
 		screenX = set;
@@ -145,6 +152,10 @@ public class Player {
 	public int getScreenY()
 	{
 		return screenY;
+	}
+	public void setInteract(boolean set)
+	{
+		interacting = set;
 	}
 
 

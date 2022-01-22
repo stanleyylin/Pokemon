@@ -2,7 +2,7 @@ package map;
 
 import entity.NPC;
 import entity.Person;
-import main.Driver2;
+import main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,9 +31,9 @@ public class Building {
 		this.collisions = collisions;
 		this.bg = bg;
 		
-		if(bg.getWidth() < Driver2.screenWidth)
+		if(bg.getWidth() < GamePanel.screenWidth)
 		{
-			screenX = Driver2.screenWidth/2 - bg.getWidth()/2;
+			screenX = GamePanel.screenWidth/2 - bg.getWidth()/2;
 			maxX = screenX + bg.getWidth();
 			xEdgeReached = true;
 		}
@@ -44,9 +44,9 @@ public class Building {
 			xEdgeReached = false;
 		}
 		
-		if(bg.getHeight() < Driver2.screenHeight)
+		if(bg.getHeight() < GamePanel.screenHeight)
 		{
-			screenY = Driver2.screenHeight/2 - bg.getHeight()/2;
+			screenY = GamePanel.screenHeight/2 - bg.getHeight()/2;
 			maxY = screenY + bg.getHeight();
 			yEdgeReached = true;
 		}

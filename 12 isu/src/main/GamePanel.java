@@ -17,7 +17,7 @@ import map.Gate;
 import map.Location;
 
 @SuppressWarnings("serial")
-public class Driver2 extends JPanel implements Runnable
+public class GamePanel extends JPanel implements Runnable
 {
 	private Thread gameThread;
 	private static KeyHandler keyHandler;
@@ -27,11 +27,13 @@ public class Driver2 extends JPanel implements Runnable
 	private final int FPS = 60;
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
+	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
+	private boolean interact;
 	// Player Variables
 	
 	private Player main; 
 	
-	public Driver2()
+	public GamePanel()
 	{	
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -104,16 +106,16 @@ public class Driver2 extends JPanel implements Runnable
 		// {0, hearthome.getHeight()-screenHeight, }
 
 	// Gate: 11-HeartHome and 208
-		heartHome.addGate(new Gate(0, new int[]{t208.getWidth()-screenWidth, t208.getHeight()-screenHeight}, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90)));
-		
-		
+		Gate gate11 = new Gate(0, t208.getWidth()-screenWidth, t208.getHeight()-screenHeight, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90));
+		heartHome.addGate(gate11);
+		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
 		// Player, temp
 		main = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		// Functionalities
 		camera = new Camera(heartHome, 300, 1200);
 	    moving = new Moving(main, camera);
 	    keyHandler = new KeyHandler(main, moving);
-	    
+	    interact = false;
 	    gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -164,32 +166,59 @@ public class Driver2 extends JPanel implements Runnable
 		}
 	}
 	
+	public Gate reverseGate(Gate g, int camX, int camY)
+	{
+		int edge = 0;
+		if(g.getAxis() == 0)
+			edge = 1;
+		else if(g.getAxis() == 1)
+			edge = 0;
+		else if(g.getAxis() == 2)
+			edge = 3;
+		else 
+			edge = 2;
+
+		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1());
+	}
+	public void interactMessage(Graphics2D g2)
+	{
+		g2.setFont(font);
+		g2.setColor(Color.WHITE);
+		g2.drawString("Press X to interact!", 375, 623);
+	}
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		camera.draw(g2);
 		moving.draw(g2);
-
+		
+		if(interact)
+			interactMessage(g2);
 	}
 	
+	// Getters and Setters
 	public Player getPlayer()
 	{
 		return main;
 	}
-	
 	public KeyHandler getKeyHandler()
 	{
 		return keyHandler;
 	}
-	
 	public Moving getMoving()
 	{
 		return moving;
 	}
+	public void setInteract(boolean set)
+	{
+		interact = true;
+	}
+	
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");
-		Driver2 panel = new Driver2();
+		GamePanel panel = new GamePanel();
 		frame.add(panel);
 		frame.addKeyListener(keyHandler);
 		frame.setVisible(true);

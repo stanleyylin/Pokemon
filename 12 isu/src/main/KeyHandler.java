@@ -8,13 +8,14 @@ import entity.Moving;
 import entity.Player;
 
 public class KeyHandler implements KeyListener {
-	
+
 	private Player main;
 	private Moving move;
 	private boolean pressed;
 	
-	public KeyHandler(Player main, Moving move)
+	public KeyHandler(GamePanel game, Player main, Moving move)
 	{
+
 		this.main = main;
 		this.move = move;
 		pressed = false;
@@ -31,41 +32,44 @@ public class KeyHandler implements KeyListener {
 		int key = e.getKeyCode();
 		
 		// main.moving - if its 0, its resting, if its above 0 its moving
-		if(key == KeyEvent.VK_A)
+		if(!main.isInteract())
 		{
-			if(!pressed)
+			if(key == KeyEvent.VK_A)
 			{
-				move.setMoving(1);
-				pressed = true;
+				if(!pressed)
+				{
+					move.setMoving(1);
+					pressed = true;
+				}
+				main.direction = "left";
 			}
-			main.direction = "left";
-		}
-		else if(key == KeyEvent.VK_D) 
-		{
-			if(!pressed)
+			else if(key == KeyEvent.VK_D) 
 			{
-				move.setMoving(1);
-				pressed = true;
+				if(!pressed)
+				{
+					move.setMoving(1);
+					pressed = true;
+				}
+				main.direction = "right";
 			}
-			main.direction = "right";
-		}
-		else if(key == KeyEvent.VK_S) 
-		{
-			if(!pressed)
+			else if(key == KeyEvent.VK_S) 
 			{
-				move.setMoving(1);
-				pressed = true;
+				if(!pressed)
+				{
+					move.setMoving(1);
+					pressed = true;
+				}
+				main.direction = "down";
 			}
-			main.direction = "down";
-		}
-		else if(key == KeyEvent.VK_W) 
-		{
-			if(!pressed)
+			else if(key == KeyEvent.VK_W) 
 			{
-				move.setMoving(1);
-				pressed = true;
+				if(!pressed)
+				{
+					move.setMoving(1);
+					pressed = true;
+				}
+				main.direction = "up";
 			}
-			main.direction = "up";
 		}
 		else if(key == KeyEvent.VK_L)
 		{

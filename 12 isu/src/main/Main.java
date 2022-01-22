@@ -13,7 +13,7 @@ import entity.Player;
 
 public class Main {
 	static JFrame frame;
-	static Driver2 mainGame;
+	static GamePanel mainGame;
 	static MainMenu menu;
 	static KeyHandler keyHandler;
 	private static Player main;
@@ -98,7 +98,7 @@ public class Main {
 		frame = new JFrame ("Pokemon: Wong Edition");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainGame = new Driver2();
+		mainGame = new GamePanel();
 		menu = new MainMenu();
 		frame.setContentPane(menu);
 		frame.setVisible(true);

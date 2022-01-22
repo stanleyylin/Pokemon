@@ -36,7 +36,7 @@ public class MainMenu extends JPanel implements MouseListener
 	
 	public MainMenu()
 	{
-		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
+		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 	    setBackground(Color.BLACK);
 	    
 		LoadImage loader = new LoadImage();
