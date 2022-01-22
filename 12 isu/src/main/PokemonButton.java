@@ -114,6 +114,7 @@ public class PokemonButton extends JPanel implements MouseListener
 	{
 
 		System.out.println(poke);
+		
 		pokeSelect.pokemonSelected(e);
 	}
 

@@ -66,7 +66,7 @@ public class Battle extends JPanel {
 	static Button[] buttons;
 	static MoveSelect[] moves;
 
-	static PokeSelect selectionMenu;
+	PokeSelect selectionMenu;
 
 	public Battle(Player player, NPC opponent)
 	{
@@ -489,18 +489,33 @@ public class Battle extends JPanel {
 			}
 		}
 	}
+	
+	public void setNextMon() {
+		System.out.println(playerCurr);
+		playerCurr = selectionMenu.getCur();
+		System.out.println(playerCurr);
+		showBattleScreen();
+		showButtons();
+	}
 
-	public static void showPokeMenu() {
+	public  void showPokeMenu() {
+		panel.setVisible(false);
 		frame.setContentPane(selectionMenu);
+		selectionMenu.setVisible(true);
 		selectionMenu.updatePokemon();
-		frame.setVisible(false);
 		frame.pack();
+		System.out.println(playerCurr);
+		this.playerCurr = selectionMenu.getCurr();
+		System.out.println(playerCurr);
+
+//		setNextMon();
 	}
 
 	public static void showBattleScreen() {
-		selectionMenu.setVisible(false);
+//		selectionMenu.setVisible(false);
 		frame.setContentPane(panel);
 		panel.setVisible(true);
+		frame.pack();
 	}
 
 
@@ -705,6 +720,10 @@ public class Battle extends JPanel {
 	public Font getFont()
 	{
 		return font;
+	}
+	
+	public void setPlayerCur(int i) {
+		this.playerCurr = i;
 	}
 
 	public void refresh()

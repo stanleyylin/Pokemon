@@ -101,19 +101,23 @@ public class PokeSelect extends JPanel {
 	// class - it has a boolean that needs to be updated when a battle in progress.
 	// Parameters: MouseEvent e - when a player clicks on a Pokemon to choose it
 	// Returns: void
-	public int pokemonSelected(MouseEvent e)
+	public void pokemonSelected(MouseEvent e)
 	{
 		PokemonButton curButton = (PokemonButton) e.getSource();
 		Pokemon curMon = curButton.getPoke();
 
-		if (curMon.getIsFainted())
+		if (curMon != null && curMon.getIsFainted())
 			System.out.println("cant do that");
 		
 		else {
 			curr = getPartyNo(curMon);
-			return curr;
+			
+//			System.out.println(curr);
 		}
-		return -1;
+	}
+	
+	public int getCur() {
+		return curr;
 	}
 	
 	
