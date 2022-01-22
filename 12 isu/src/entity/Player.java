@@ -53,7 +53,7 @@ public class Player {
 		//switch to battle screen
 		
 		
-		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
+//		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
 			//allow to pick attack/bag/pokemon/run
 			
 			//if attack
@@ -75,11 +75,11 @@ public class Player {
 			
 			
 
-		}
 		
-		if (findNextAvailableMon(this.party) == null)
+		
+		if (findNextAvailableMon() == null)
 			System.out.println("you lost");
-		else if (findNextAvailableMon(enemy.getParty()) == null)
+		else if (findNextAvailableMon() == null)
 			System.out.println("you won!");
 		
 		//switch back to game screen
@@ -88,8 +88,8 @@ public class Player {
 		
 	}
 	
-	public Pokemon findNextAvailableMon(Pokemon[] party) {
-		for (Pokemon p1 : party) {
+	public Pokemon findNextAvailableMon() {
+		for (Pokemon p1 : this.party) {
 			if (p1 == null)
 				break;
 			if (p1.getIsFainted()) 
