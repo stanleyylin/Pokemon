@@ -23,4 +23,14 @@ public class LoadImage {
 		g2d.dispose();
 		return prev;
 	}
+	
+	public BufferedImage resize(BufferedImage prev, double width, double height)
+	{
+		Image tmp = prev.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);
+		prev = new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = prev.createGraphics();
+		g2d.drawImage(tmp, 0, 0, null);
+		g2d.dispose();
+		return prev;
+	}
 }

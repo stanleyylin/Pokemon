@@ -7,11 +7,13 @@ import java.io.*;
 import javax.swing.*;
 
 import entity.Moving;
+import entity.Person;
 import entity.Player;
 import getimages.LoadImage;
 import getimages.SpriteSheet;
 import map.Building;
 import map.Camera;
+import map.Gate;
 import map.Location;
 
 @SuppressWarnings("serial")
@@ -27,7 +29,6 @@ public class Driver2 extends JPanel implements Runnable
 	public final static int screenHeight = 720;
 	// Player Variables
 	
-	private Location[][] worldMap;
 	private Player main; 
 	
 	public Driver2()
@@ -35,51 +36,81 @@ public class Driver2 extends JPanel implements Runnable
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
-	    BufferedImage map1 = null, pokecentre1 = null, house1 = null;
+	    BufferedImage hearthome = null;
+	    BufferedImage pokecentre1 = null, house1 = null;
 	    
 	    // Loading the images
-	    // HEARTHOME
 	    LoadImage loader = new LoadImage();
-		try
-		{
-			map1 = loader.loadImage("res/hearthome.jpeg");
-			map1 = loader.resize(map1, 3000, 2292);
-		}
-		catch(IOException e) {}
-			// Pokecentre
-		try
+		
+	    // Common Buildings
+	    try
 		{
 			pokecentre1 = loader.loadImage("res/pokecentre.png");
 			pokecentre1 = loader.resize(pokecentre1, 739, 550);
-		}
-		catch(IOException e) {}
-			// House First Floor
-		try
-		{
 			house1 = loader.loadImage("res/house1.jpeg");
 			house1 = loader.resize(house1, 582, 436);
 		}
 		catch(IOException e) {}
 		
+	    // MAPS
+	 // 10. Hearthome City:
+		try
+		{
+			hearthome = loader.loadImage("res/maps/hearthome.jpeg");
+			hearthome = loader.resize(hearthome, hearthome.getWidth()*2.9, hearthome.getHeight()*2.9);
+		}
+		catch(IOException e) {}
+		// Collisions
+		// Use canva, subtract the height by 30 and width by 10 or so
+		Rectangle[] collisions10 = new Rectangle[8];
+		collisions10[0] = new Rectangle(0, 0, 354, 1847); // trees
+		collisions10[1] = new Rectangle(354, 0, 279, 383); // top left building
+		collisions10[2] = new Rectangle(634, 0, 464, 626); // trees next to ^
+		collisions10[3] = new Rectangle(1115, 0, 1254, 383); // trees next to ^
+		collisions10[4] = new Rectangle(2352, 0, 252, 401); // right most building
+		collisions10[5] = new Rectangle(2636, 0, 364, 1814); // trees below right ^
+		collisions10[6] = new Rectangle(700, 708, 220, 175); // pokecentre
+		collisions10[7] = new Rectangle(0, 630, 275, 1390); // leftmost building
+		
+		// Buildings -----
+		Building[] buildings10 = new Building[2];
+		buildings10[0] = new Building(new Rectangle(788, 864, 54, 55), new Rectangle(535, 567, 81, 32), null, null, pokecentre1);
+		buildings10[1] = new Building(new Rectangle(1017, 853, 60, 54), new Rectangle(540, 543, 5, 1), null, null, house1);
+		
+		// People
+		Person[] people10 = new Person[1];
+		people10[0] = new Person(new Rectangle(573, 951, 51, 72), "down", "nurse.png", 17, 24);
+		Location heartHome = new Location(hearthome, collisions10, buildings10, people10);
+		
+	// 10: 208
+		BufferedImage t208 = null;
+		try
+		{
+			t208 = loader.loadImage("res/maps/208.png");
+			t208 = loader.resize(t208, t208.getWidth()*2.9, t208.getHeight()*2.9);
+		}
+		catch(IOException e) {}
+		// Collisions
+		Rectangle[] collisions208 = new Rectangle[1];
+		collisions208[0] = new Rectangle(2210, 0, 761, 523); // leftmost up trees
+		
+		// Buildings ----
+		Building[] buildings208 = new Building[0];
+		buildings10[0] = new Building(new Rectangle(2635, 555, 60, 54), new Rectangle(540, 543, 81, 32), null, null, house1);
+		
+		Person[] people208 = new Person[0];
+		Location T208 = new Location(t208, collisions208, buildings208, people208);
+	
+		// {0, hearthome.getHeight()-screenHeight, }
+
+	// Gate: 11-HeartHome and 208
+		heartHome.addGate(new Gate(0, new int[]{t208.getWidth()-screenWidth, t208.getHeight()-screenHeight}, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90)));
+		
+		
 		// Player, temp
-		main = new Player(screenWidth/2-Player.size/2, screenHeight/2-Player.size/2);
-		
-		// Setting up the MAPS
-		worldMap = new Location[1][1];
-		
-			// Map 1:
-		Rectangle[] collisions1 = new Rectangle[3];
-		collisions1[0] = new Rectangle(700, 690, 430, 160);
-		collisions1[1] = new Rectangle(0, 0, 353, 630);
-		collisions1[2] = new Rectangle(0, 630, 275, 1390);
-		Building[] buildings1 = new Building[2];
-		buildings1[0] = new Building(new Rectangle(815, 904, 5, 1), new Rectangle(565, 592, 3, 1), null, null, pokecentre1);
-		buildings1[1] = new Building(new Rectangle(1050, 904, 5, 1), new Rectangle(540, 543, 5, 1), null, null, house1);
-		worldMap[0][0] = new Location(map1, collisions1, buildings1, null, null);
-		// maps[0] = new Map();
-	   
+		main = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		// Functionalities
-		camera = new Camera(worldMap[0][0], 700, 700);
+		camera = new Camera(heartHome, 300, 1200);
 	    moving = new Moving(main, camera);
 	    keyHandler = new KeyHandler(main, moving);
 	    

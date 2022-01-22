@@ -2,7 +2,7 @@ package map;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import entity.Character;
+import entity.Person;
 import entity.Moving;
 import entity.NPC;
 import entity.Person;
@@ -29,6 +29,8 @@ public class Camera {
 	{
 		for(Person c : people)
 		{
+			if(c.getSprite() == null)
+				continue;
 			if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+Driver2.screenWidth+c.getC().getWidth())
 			{
 				if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+Driver2.screenHeight+c.getC().getHeight())
@@ -72,8 +74,9 @@ public class Camera {
 		else
 			g2.drawImage(building.getBG(), building.screenX, building.screenY, building.maxX, building.maxY, 0, 0, building.getBG().getWidth(), building.getBG().getHeight(), null);
 
-		if(building == null)
+		if(building == null && location.getPeople() != null)
 		{
+			loadNPC(location.getPeople());
 			for(Person p : location.getPeople())
 			{
 				if(p.getShown())
@@ -82,8 +85,9 @@ public class Camera {
 				}
 			}
 		}
-		else 
+		else if(building.getPeople() != null)
 		{
+			loadNPC(location.getPeople());
 			for(Person p : building.getPeople())
 			{
 				if(p.getShown())
@@ -113,6 +117,10 @@ public class Camera {
 		return building;
 	}
 	
+	public void setLocation(Location l)
+	{
+		this.location = l;
+	}
 	public void setBuilding(Building building)
 	{
 		this.building = building;

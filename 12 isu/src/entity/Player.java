@@ -16,13 +16,13 @@ public class Player {
 	protected int screenX;
 	protected int screenY;
 	public String direction;
-	private BufferedImage spriteSheet;
 	private BufferedImage[] sprites;
 
 	private Pokemon[] party;
 
-	public final static int size = 80;
-	public final int speed = 3;
+	public final static int width = 50;
+	public final static int height = 62;
+	public final int speed = 5;
 
 	public Player(int screenX, int screenY)
 	{
@@ -30,23 +30,11 @@ public class Player {
 		this.screenY = screenY;
 
 		direction = "down";
-
-		LoadImage loader = new LoadImage();
 		
 		this.party = new Pokemon[6];
 
-		try
-		{
-			spriteSheet = loader.loadImage("res/char1.png");
-			Image tmp = spriteSheet.getScaledInstance(240, 320, Image.SCALE_SMOOTH);
-			spriteSheet = new BufferedImage(240, 320, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = spriteSheet.createGraphics();
-			g2d.drawImage(tmp, 0, 0, null);
-			g2d.dispose();
-		}
-		catch(IOException e) {}
-		SpriteSheet player = new SpriteSheet(spriteSheet, 3, 4);
-		sprites = player.getSprites(size, size);
+		SpriteSheet player = new SpriteSheet("char1.png");
+		sprites = player.getSprites();
 	}
 	
 	public void healParty() {

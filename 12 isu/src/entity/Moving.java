@@ -4,6 +4,7 @@ package entity;
 
 import map.Building;
 import map.Camera;
+import map.Gate;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,7 +37,7 @@ public class Moving {
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.size, Player.size);
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
 		for(int i = 0; i < collisions.length; i++)
 		{
 			Rectangle collision = collisions[i];
@@ -55,50 +56,34 @@ public class Moving {
 				{
 					//rect collides from left side of the wall
 					if(cameraXOn)
-					{
 						camera.setX((int) (camera.getX() - (right1-left2)));
-					}
 					else
-					{
-						main.setScreenX(collision.x-camera.getX() - Player.size);
-					}
+						main.setScreenX(collision.x-camera.getX() - Player.width);
 				}
 				else if(left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1)
 				{
 					//rect collides from right side of the wall
 					if(cameraXOn)
-					{
 						camera.setX((int) (camera.getX() + right2-left1));
-					}
 					else
-					{
 						main.setScreenX(collision.x-camera.getX() + collision.width);
-					}
 				}
 				else if(bottom1 > top2 && top1 < top2)
 				{
 
 					if(cameraYOn)
-					{
 						camera.setY((int) (camera.getY() - (bottom1-top2)));
-					}
 					else
-					{
-						main.setScreenY(collision.y-camera.getY() - Player.size);
-					}
+						main.setScreenY(collision.y-camera.getY() - Player.height);
 					//rect collides from top side of the wall
 					// rect.y = wall.y - rect.height;
 				}
 				else if(top1 < bottom2 && bottom1 > bottom2)
 				{
 					if(cameraYOn)
-					{
 						camera.setY((int) (camera.getY() + (bottom2-top1)));
-					}
 					else
-					{
 						main.setScreenY(collision.y-camera.getY() + collision.height);
-					}
 					//rect collides from bottom side of the wall
 					// rect.y = wall.y + wall.height;
 				}
@@ -107,27 +92,101 @@ public class Moving {
 		}
 	}
 	
-	void doorEntered(Building[] buildings)
+	boolean checkGate(ArrayList<Gate> gates)
+	{
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		for(Gate g : gates)
+		{
+			if(g.getR1().intersects(player))
+			{
+				g.changeLocation(camera, main);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//void interact
+	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
+	{
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		
+		for(int i = 0; i < people.length; i++)
+		{
+			Rectangle collision = people[i].getC();
+			if(player.intersects(collision))
+			{
+				double left1 = player.getX(); // player
+				double right1 = player.getX() + player.getWidth();
+				double top1 = player.getY();
+				double bottom1 = player.getY() + player.getHeight();
+				double left2 = collision.getX(); // collision
+				double right2 = collision.getX() + collision.getWidth();
+				double top2 = collision.getY();
+				double bottom2 = collision.getY() + collision.getHeight();
+
+				if(right1 > left2 && left1 < left2 && right1 - left2 < bottom1 - top2 && right1 - left2 < bottom2 - top1)
+				{
+					//rect collides from left side of the wall
+					if(cameraXOn)
+						camera.setX((int) (camera.getX() - (right1-left2)));
+					else
+						main.setScreenX(collision.x-camera.getX() - Player.width);
+				}
+				else if(left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1)
+				{
+					//rect collides from right side of the wall
+					if(cameraXOn)
+						camera.setX((int) (camera.getX() + right2-left1));
+					else
+						main.setScreenX(collision.x-camera.getX() + collision.width);
+				}
+				else if(bottom1 > top2 && top1 < top2)
+				{
+
+					if(cameraYOn)
+						camera.setY((int) (camera.getY() - (bottom1-top2)));
+					else
+						main.setScreenY(collision.y-camera.getY() - Player.height);
+					//rect collides from top side of the wall
+					// rect.y = wall.y - rect.height;
+				}
+				else if(top1 < bottom2 && bottom1 > bottom2)
+				{
+					if(cameraYOn)
+						camera.setY((int) (camera.getY() + (bottom2-top1)));
+					else
+						main.setScreenY(collision.y-camera.getY() + collision.height);
+					//rect collides from bottom side of the wall
+					// rect.y = wall.y + wall.height;
+				}
+				break;
+			}
+		}
+	}
+	
+	boolean doorEntered(Building[] buildings)
 	{
 		if(camera.getBuilding() == null && main.direction.equals("up"))
 		{
 			int bounds = 30;
-			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+bounds, camera.getY() + main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
+			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+bounds, camera.getY() + main.getScreenY()+bounds, Player.width-bounds, Player.height-bounds);
 			for(int i = 0; i < buildings.length; i++)
 			{
 				if(player.intersects(buildings[i].entrance))
 				{
 					camera.getLocation().setLastPosition(main.getScreenX(), main.getScreenY(), camera.getX(), camera.getY()+main.speed);
 					camera.setBuilding(buildings[i]);
-					main.setScreenX((int) buildings[i].exit.getX()-Player.size/2);
-					main.setScreenY((int) buildings[i].exit.getY() - Player.size - 5);
+					main.setScreenX((int) buildings[i].exit.getX()-Player.width/2);
+					main.setScreenY((int) buildings[i].exit.getY() - Player.height - 5);
+					return true;
 				}
 			}
 		}
-		else if (camera.getBuilding() != null && main.direction.equals("down"))
+		else if (camera.getBuilding() != null && main.direction.equals("down") && buildings != null)
 		{
 			int bounds = 30;
-			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.size-bounds, Player.size-bounds);
+			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.width-bounds, Player.height-bounds);
 			if(player.intersects(camera.getBuilding().exit))
 			{
 				int[] savePos = camera.getLocation().getLastPosition();
@@ -136,8 +195,11 @@ public class Moving {
 				main.setScreenY(savePos[1]);
 				camera.setX(savePos[2]);
 				camera.setY(savePos[3]);
+				return true;
 			}
 		}
+		return false;
+		
 	}
 	
 	public void changeSprite()
@@ -184,35 +246,41 @@ public class Moving {
 		{
 			if(main.getScreenX() < camera.getBuilding().screenX)
 				main.setScreenX(camera.getBuilding().screenX);
-			else if(main.getScreenX() > camera.getBuilding().maxX - Player.size)
-				main.setScreenX(camera.getBuilding().maxX - Player.size);
+			else if(main.getScreenX() > camera.getBuilding().maxX - Player.width)
+				main.setScreenX(camera.getBuilding().maxX - Player.width);
 		}
 		else
 		{
 			if(main.getScreenX() < 0)
 				main.setScreenX(0);
-			else if(main.getScreenX() > Driver2.screenWidth - Player.size)
-				main.setScreenX(Driver2.screenWidth - Player.size);
+			else if(main.getScreenX() > Driver2.screenWidth - Player.width)
+				main.setScreenX(Driver2.screenWidth - Player.width);
 		}
 		
-		doorEntered(camera.getLocation().getBuildings());
-		// Check collisions
-		if(camera.getBuilding() == null)
-			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+		
+		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		{
+			// Check collisions
+			if(camera.getBuilding() == null)
+			{
+				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			}
+		}
 		
 		// Check if player is in center
 		if(camera.getBuilding() == null && camera.getLocation().getEdgeReachedX())
 		{
 			if(camera.getX() == 0)
 			{
-				if(main.getScreenX() > Driver2.screenWidth/2-Player.size/2)
+				if(main.getScreenX() > Driver2.screenWidth/2-Player.width/2)
 				{
 					camera.getLocation().setEdgeReachedX(false);
 				}
 			}
 			else if(camera.getX() == camera.getLocation().maxX-Driver2.screenWidth)
 			{
-				if(main.getScreenX() < Driver2.screenWidth/2-Player.size/2)
+				if(main.getScreenX() < Driver2.screenWidth/2-Player.width/2)
 				{
 					camera.getLocation().setEdgeReachedX(false);
 				}
@@ -241,40 +309,46 @@ public class Moving {
 			spriteCounter = 0;
 			return;
 		}
-		doorEntered(camera.getLocation().getBuildings());
 		// Check bounds
 		if(camera.getBuilding() != null)
 		{
 			if(main.getScreenY() < camera.getBuilding().screenY)
 				main.setScreenY(camera.getBuilding().screenY);
-			else if(main.getScreenY() > camera.getBuilding().maxY - Player.size)
-				main.setScreenY(camera.getBuilding().maxY - Player.size);
+			else if(main.getScreenY() > camera.getBuilding().maxY - Player.height)
+				main.setScreenY(camera.getBuilding().maxY - Player.height);
 		}
 		else
 		{
 			if(main.getScreenY() < 0)
 				main.setScreenY(0);
-			else if(main.getScreenY() > Driver2.screenHeight - Player.size)
-				main.setScreenY(Driver2.screenHeight - Player.size);
+			else if(main.getScreenY() > Driver2.screenHeight - Player.height)
+				main.setScreenY(Driver2.screenHeight - Player.height);
 		}
 		
 		// Check collisions
-		if(camera.getBuilding() == null)
-			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		{
+			// Check collisions
+			if(camera.getBuilding() == null)
+			{
+				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			}
+		}
 		
 		// Check if player is in center
 		if(camera.getBuilding() == null && camera.getLocation().getEdgeReachedY())
 		{
 			if(camera.getY() == 0)
 			{
-				if(main.getScreenY() > Driver2.screenHeight/2-Player.size/2)
+				if(main.getScreenY() > Driver2.screenHeight/2-Player.height/2)
 				{
 					camera.getLocation().setEdgeReachedY(false);
 				}
 			}
 			else if(camera.getY() == camera.getLocation().maxY-Driver2.screenHeight)
 			{
-				if(main.getScreenY() < Driver2.screenHeight/2-Player.size/2)
+				if(main.getScreenY() < Driver2.screenHeight/2-Player.height/2)
 				{
 					camera.getLocation().setEdgeReachedY(false);
 				}
@@ -300,9 +374,16 @@ public class Moving {
 		{
 			spriteCounter = 0;
 		}	
-		doorEntered(camera.getLocation().getBuildings());
-		if(camera.getBuilding() == null)
-			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+		
+		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		{
+			// Check collisions
+			if(camera.getBuilding() == null)
+			{
+				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			}
+		}
 	}
 	
 	public void moveCameraY()
@@ -322,45 +403,52 @@ public class Moving {
 		{
 			spriteCounter = 0;
 		}
-		doorEntered(camera.getLocation().getBuildings());
-		if(camera.getBuilding() == null)
-			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+	
+		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		{
+			// Check collisions
+			if(camera.getBuilding() == null)
+			{
+				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g2)
 	{
 		if(moving == 1)
 		{
-			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[4], main.screenX, main.screenY, Player.size, Player.size, null);
-			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[1], main.screenX, main.screenY, Player.size, Player.size, null);
+			if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[1], main.screenX, main.screenY, null);
+			else if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[4], main.screenX, main.screenY, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[10], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[10], main.screenX, main.screenY, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[7], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[7], main.screenX, main.screenY, null);
 		}
 		else if(moving == 2)
 		{
-			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[5], main.screenX, main.screenY, Player.size, Player.size, null);
-			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[2], main.screenX, main.screenY, Player.size, Player.size, null);
+			if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[2], main.screenX, main.screenY, null);
+			else if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[5], main.screenX, main.screenY, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[11], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[11], main.screenX, main.screenY, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[8], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[8], main.screenX, main.screenY, null);
 		}
 		else if(moving == 0)
 		{
-			if(main.direction.equals("up"))
-				g2.drawImage(playerSprites[3], main.screenX, main.screenY, Player.size, Player.size, null);
-			else if(main.direction.equals("down"))
-				g2.drawImage(playerSprites[0], main.screenX, main.screenY, Player.size, Player.size, null);
+			if(main.direction.equals("down"))
+				g2.drawImage(playerSprites[0], main.screenX, main.screenY, null);
+			else if(main.direction.equals("up"))
+				g2.drawImage(playerSprites[3], main.screenX, main.screenY, null);
 			else if(main.direction.equals("left"))
-				g2.drawImage(playerSprites[9], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[9], main.screenX, main.screenY, null);
 			else if(main.direction.equals("right"))
-				g2.drawImage(playerSprites[6], main.screenX, main.screenY, Player.size, Player.size, null);
+				g2.drawImage(playerSprites[6], main.screenX, main.screenY, null);
 		}
 		
 	}

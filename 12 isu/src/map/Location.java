@@ -27,7 +27,9 @@ public class Location {
 	private int cameraX;
 	private int cameraY;
 	
-	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Person[] people, int[][] startingPoints)
+	private ArrayList<Gate> gates;
+	
+	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Person[] people)
 	{
 		background = bg;
 		this.collisions = collisions;
@@ -35,13 +37,18 @@ public class Location {
 		this.people = people;
 		maxX = background.getWidth();
 		maxY = background.getHeight();
+		gates = new ArrayList<Gate>();
 	}
 	
-	public void drawNPC(Graphics2D g2)
+	public void addGate(Gate g)
 	{
-
+		gates.add(g);
 	}
 	
+	public ArrayList<Gate> getGates()
+	{
+		return gates;
+	}
 	public BufferedImage getBG()
 	{
 		return background;
