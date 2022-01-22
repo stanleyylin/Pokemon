@@ -27,22 +27,25 @@ import java.awt.font.TextAttribute;
 
 @SuppressWarnings("serial")
 public class Battle extends JPanel {
-	
+
 	private boolean wild;
-	
+
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	BufferedImage background; // Background image
 	BufferedImage[] battleStats;
-	
+
+	static JFrame frame;
+	static Battle panel;
+
 	boolean playerTurn;
-	
-	Pokemon[] player;
+
+	Player player;
 	int playerCurr;
-	Pokemon[] opponent;
+	NPC opponent;
 	int oppCurr;
-	
+
 	String currMove;
-	
+
 	// ANIMATION
 	static Timer timer; // Timer for animation
 	static boolean timerOn; // Is the timer on?
@@ -54,16 +57,18 @@ public class Battle extends JPanel {
 	static int counter;
 	static float[] opacity;
 	String message;
-	
+
 	int pokeX = 792;
 	int pokeY = 100;
 	BufferedImage[] pokeBallSprites = new BufferedImage[17];
-	
+
 	static Button back;
 	static Button[] buttons;
 	static MoveSelect[] moves;
-	
-	public Battle(Pokemon[] player, Pokemon[] opponent)
+
+	static PokeSelect selectionMenu;
+
+	public Battle(Player player, NPC opponent)
 	{
 		this.player = player;
 		playerCurr = 0;
@@ -71,10 +76,11 @@ public class Battle extends JPanel {
 		oppCurr = 0;
 		setPreferredSize(new Dimension(Driver2.screenWidth, Driver2.screenHeight));
 		setLayout(null);
-	    setBackground(Color.BLACK);
+		setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
-		
+		this.selectionMenu = new PokeSelect(player, 0, true);
+
 		// Background
 		try
 		{
@@ -130,14 +136,14 @@ public class Battle extends JPanel {
 			battleStats[6] = loader.resize(battleStats[6], 25, 25);
 		}
 		catch(IOException e) {}
-		
+
 		try 
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/PokemonGb-RAeo.ttf")));
-//			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
-//			attributes.put(TextAttribute.TRACKING, -0.1);
-//			font = font.deriveFont(attributes);
+			//			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
+			//			attributes.put(TextAttribute.TRACKING, -0.1);
+			//			font = font.deriveFont(attributes);
 		} 
 		catch (FontFormatException e) 
 		{
@@ -161,7 +167,7 @@ public class Battle extends JPanel {
 		}
 		catch(IOException e) {}
 		back.setBounds(847, 526, 194, 40);
-		
+
 		BufferedImage ballSprites = null;
 		try
 		{
@@ -172,44 +178,44 @@ public class Battle extends JPanel {
 		{
 			pokeBallSprites[i] = ballSprites.getSubimage(132, 9 + 24*i + 16*i, 24, 24);
 		}
-		
+
 		// Main Buttons
 		buttons = new Button[4];
 		BufferedImage buttonSheet = null;
 		BufferedImage temp1;
 		BufferedImage temp2;
-		
+
 		try
 		{
 			buttonSheet = loader.loadImage("res/battle/battlebuttons.png");
 		}
 		catch(IOException e) {}
-		
+
 		// Fight Button
 		temp1 = loader.resize(buttonSheet.getSubimage(26, 0, 74, 46), 160, 100);
 		temp2 = loader.resize(buttonSheet.getSubimage(158, 0, 74, 46), 160, 100);
 		buttons[0] = new Button(this, temp1, temp2, 160, 100);
 		buttons[0].setBounds(59, 595, 160, 100);
-		
+
 		// Pokemon button
 		temp1 = loader.resize(buttonSheet.getSubimage(14, 46, 102, 47), 220, 101);
 		temp2 = loader.resize(buttonSheet.getSubimage(145, 46, 102, 47), 220, 101);
 		buttons[1] = new Button(this, temp1, temp2, 220, 101);
 		buttons[1].setBounds(320, 595, 220, 101);
-		
+
 		// Bag button
 		temp1 = loader.resize(buttonSheet.getSubimage(32, 96, 88, 41), 190, 89);
 		temp2 = loader.resize(buttonSheet.getSubimage(164, 96, 88, 41), 190, 89);
 		buttons[2] = new Button(this, temp1, temp2, 190, 89);
 		buttons[2].setBounds(650, 601, 190, 89);
-		
+
 		// Run button
 		temp1 = loader.resize(buttonSheet.getSubimage(33, 143, 60, 44), 129, 95);
 		temp2 = loader.resize(buttonSheet.getSubimage(162, 143, 60, 44), 129, 95);
 		buttons[3] = new Button(this, temp1, temp2, 129, 95);
 		buttons[3].setBounds(894, 606, 129, 95);
-		
-		
+
+
 		MoveSelect.setImages();
 		moves = new MoveSelect[4];
 		for(int i = 0; i < 4; i++)
@@ -221,11 +227,11 @@ public class Battle extends JPanel {
 		gameState = 0;
 		timer = new Timer(30, new TimerEventHandler ());
 		timerOn = true;
-//		timer.start();
+		//		timer.start();
 		counter = 0;
-		
+
 	}
-	
+
 	// TimeEventHandler class is for the timer.
 	private class TimerEventHandler implements ActionListener
 	{
@@ -234,27 +240,27 @@ public class Battle extends JPanel {
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
-//			if(gameState == 1)
-//			{
-//				if(counter >= 0 && counter <= 10)
-//				{
-//					message = "You are being challenged by " + name + "!";
-//				}
-//				if(counter == 10)
-//				{
-//					gameState = 2;
-//					counter = 0;
-//				}
-//			}
-//			else if (gameState == 2)
-//			{
-//				message = name + " sends out " + oppCurr.getName() + "!";
-//				
-//					
-//			}
+			//			if(gameState == 1)
+			//			{
+			//				if(counter >= 0 && counter <= 10)
+			//				{
+			//					message = "You are being challenged by " + name + "!";
+			//				}
+			//				if(counter == 10)
+			//				{
+			//					gameState = 2;
+			//					counter = 0;
+			//				}
+			//			}
+			//			else if (gameState == 2)
+			//			{
+			//				message = name + " sends out " + oppCurr.getName() + "!";
+			//				
+			//					
+			//			}
 			if (gameState == 4) 
 			{
-				message = player[0].getNickName() + " has used " + currMove + "!";
+				message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
 				if(counter == 50)
 				{
 					pAttack(moves[3].getName());
@@ -262,7 +268,7 @@ public class Battle extends JPanel {
 				else if (counter == 100)
 				{
 					gameState = 5;
-//					if (isFainted())
+					//					if (isFainted())
 					counter = 0;
 					return;
 				}
@@ -271,8 +277,8 @@ public class Battle extends JPanel {
 				if(counter == 0)
 				{
 					enemyAttack = (int) (Math.random() * 4);
-//					enemyAttack = 2;
-					message = "" + opponent[0].getName() + " has used " + opponent[0].getCurMoves()[enemyAttack].getName();
+					//					enemyAttack = 2;
+					message = "" + opponent.getParty()[oppCurr].getName() + " has used " + opponent.getParty()[oppCurr].getCurMoves()[enemyAttack].getName();
 				}
 				else if(counter == 50)
 				{
@@ -280,19 +286,43 @@ public class Battle extends JPanel {
 				}
 				else if (counter >= 100)
 				{
-					message = "";
-					showButtons();
-					gameState = 0;
 					counter = 0;
-					timer.stop();
-					return;
+					if (checkFaint(player.getParty()[playerCurr])) {
+						pokeFaint(player.getParty()[playerCurr]);
+						repaint();
+						gameState = 6;
+					}
+					else {
+						message = "";
+						showButtons();
+						gameState = 0;
+						timer.stop();
+						System.out.println("test");
+						return;
+					}
 				}
 			}
+			if (gameState == 6) {
+				if (counter == 0) {
+					System.out.println("teeest");
+					message = "" + player.getParty()[playerCurr].getNickName() + " has fainted!";
+
+
+				}
+				else if (counter >= 50) {
+					showPokeMenu();
+					counter = 0;
+					gameState = 0;
+					timer.stop();
+				}
+
+			}
+
 			counter++;
 			repaint();
 		}
 	}
-	
+
 	// BUTTONS
 	public void buttonClick(MouseEvent e)
 	{
@@ -301,7 +331,7 @@ public class Battle extends JPanel {
 		{
 			hideButtons();
 			showBack();
-			showMoves(player[playerCurr].getAttacks());
+			showMoves(player.getParty()[playerCurr].getAttacks());
 		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
@@ -310,7 +340,7 @@ public class Battle extends JPanel {
 			hideMoves();
 			showButtons();
 		}
-		
+
 		else if (e.getSource().equals(moves[0].getJLabel()))
 		{
 			hideBack();
@@ -347,37 +377,40 @@ public class Battle extends JPanel {
 			timer.start();
 		}
 	}
-	
+
 	public void pAttack(String attack) 
 	{
-		player[0].attack(0, opponent[0]);
+		player.getParty()[playerCurr].attack(0, opponent.getParty()[oppCurr]);
 	}
-	
+
 	public void oAttack(int enemyAttack) {
-		opponent[0].attack(enemyAttack, player[0]);			
- 	}
-	
-	public boolean isFainted(Pokemon p1) {
-		if (p1.getIsFainted())
+		opponent.getParty()[oppCurr].attack(enemyAttack, player.getParty()[playerCurr]);	
+
+
+	}
+
+
+	public boolean checkFaint(Pokemon p1) {
+		if (p1.getCurHP()<=0)
 			return true;
-		if (p1.getCurHP() <= 0) {
-			p1.setIsFainted(true);
-			return true;
-		}
 		return false;
 	}
-	
+
 	public void pokeFaint(Pokemon p1) {
-		
+		p1.setCurHP(0);
+		p1.setIsFainted(true);
+		System.out.println("" + p1.getName() +" has fainted");
+		gameState = 6;
+
 	}
-	
+
 	public void pokeBurn (Pokemon p1) {
 		int burnDmg = p1.getHPStat()/8;
 		p1.setCurHP(p1.getCurHP() - burnDmg);
 	}
-	
-	
-	
+
+
+
 	public int pokeCount(Pokemon[] party) {
 		int count = 0;
 		for (Pokemon p1 : party) {
@@ -386,7 +419,7 @@ public class Battle extends JPanel {
 		}
 		return count;
 	}
-	
+
 	public void showBack()
 	{
 		this.add(back);
@@ -400,7 +433,7 @@ public class Battle extends JPanel {
 		parent.revalidate();
 		parent.repaint();
 	}
-	
+
 	// Description: Hides the main buttons (fight/pokemon/run/bag)
 	// Parameters: none
 	// Returns: void
@@ -414,7 +447,7 @@ public class Battle extends JPanel {
 			parent.repaint();
 		}
 	}
-	
+
 	// Description: Shows the main buttons (fight/pokemon/run/bag)
 	// Parameters: none
 	// Returns: void
@@ -427,7 +460,7 @@ public class Battle extends JPanel {
 			this.repaint();
 		}
 	}
-	
+
 	public void showMoves(Move[] m)
 	{
 		for(int i = 0; i < m.length; i++)
@@ -440,7 +473,7 @@ public class Battle extends JPanel {
 			moves[i].repaint();
 		}
 	}
-	
+
 	public void hideMoves()
 	{
 		for(MoveSelect m : moves)
@@ -456,7 +489,19 @@ public class Battle extends JPanel {
 			}
 		}
 	}
-	
+
+	public static void showPokeMenu() {
+		panel.setVisible(false);
+		frame.setContentPane(selectionMenu);
+		selectionMenu.setVisible(true);
+	}
+
+	public static void showBattleScreen() {
+		selectionMenu.setVisible(false);
+		frame.setContentPane(panel);
+		panel.setVisible(true);
+	}
+
 
 	public void updateText(Graphics2D g)
 	{
@@ -466,67 +511,67 @@ public class Battle extends JPanel {
 		g2.drawString(message, 69, 648);
 	}
 
-	
+
 	public void loadPlayerMon(Graphics2D g2)
 	{
-		int pX = 400 - (player[playerCurr].getBack().getWidth()/2);
-		int pY = 590-player[playerCurr].getBack().getHeight();
-		
-		g2.drawImage(player[playerCurr].getBack(), pX, pY, null);
+		int pX = 400 - (player.getParty()[playerCurr].getBack().getWidth()/2);
+		int pY = 590-player.getParty()[playerCurr].getBack().getHeight();
+
+		g2.drawImage(player.getParty()[playerCurr].getBack(), pX, pY, null);
 	}
-	
+
 	public void loadOpponentMon(Graphics2D g2)
 	{
-		int oX = 793 - (opponent[oppCurr].getFront().getWidth()/2);
-		int oY = 300 - opponent[oppCurr].getFront().getHeight();
-		
-		g2.drawImage(opponent[oppCurr].getFront(), oX, oY, null);
+		int oX = 793 - (opponent.getParty()[oppCurr].getFront().getWidth()/2);
+		int oY = 300 - opponent.getParty()[oppCurr].getFront().getHeight();
+
+		g2.drawImage(opponent.getParty()[oppCurr].getFront(), oX, oY, null);
 	}
-	
+
 	public void drawOStats(Graphics2D g2)
 	{
-		if(opponent[oppCurr] != null)
+		if(opponent.getParty()[oppCurr] != null)
 		{
 			BufferedImage barColor = null;
-			if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() <= 0.2)
+			if(opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat() <= 0.2)
 				barColor = battleStats[4];
-			else if(opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat() <= 0.5)
+			else if(opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat() <= 0.5)
 				barColor = battleStats[5];
 			else
 				barColor = battleStats[3];
-			
-			int width = battleStats[3].getWidth() * opponent[oppCurr].getCurHP() / opponent[oppCurr].getHPStat();
+
+			int width = battleStats[3].getWidth() * opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat();
 			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
 				g2.drawImage(drawBar, 152, 144, this);
 			}
-			
+
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
-		    attributes.put(TextAttribute.SIZE, 22);
-		    g2.setFont(font.deriveFont(attributes));
-		    
-		    // Opponent Name
-		    g2.setColor(Color.BLACK);
-			g2.drawString(opponent[oppCurr].getName(), 32, 133);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(opponent[oppCurr].getName(), 30, 131);
-			
+			attributes.put(TextAttribute.SIZE, 22);
+			g2.setFont(font.deriveFont(attributes));
+
+			// Opponent Name
+			g2.setColor(Color.BLACK);
+			g2.drawString(opponent.getParty()[oppCurr].getName(), 32, 133);
+			g2.setColor(Color.WHITE);
+			g2.drawString(opponent.getParty()[oppCurr].getName(), 30, 131);
+
 			// Opponent Level
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(opponent[oppCurr].getLevel()), 330, 135);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(opponent[oppCurr].getLevel()), 328, 133);
-			
+			g2.drawString(Integer.toString(opponent.getParty()[oppCurr].getLevel()), 330, 135);
+			g2.setColor(Color.WHITE);
+			g2.drawString(Integer.toString(opponent.getParty()[oppCurr].getLevel()), 328, 133);
+
 			// Opponent Pokeballs
 			if(!wild)
 			{
 				int counter = 0;
 				int pokeBallGap = 28;
-				for(int i = 0; i < opponent.length; i++)
+				for(int i = 0; i < opponent.getParty().length; i++)
 				{
-					if(opponent[i] != null && opponent[i].getIsFainted() == false)
+					if(opponent.getParty()[i] != null && opponent.getParty()[i].getIsFainted() == false)
 					{
 						g2.drawImage(battleStats[6], pokeBallGap, 176, null);
 						pokeBallGap += battleStats[6].getWidth()+38;
@@ -542,74 +587,77 @@ public class Battle extends JPanel {
 					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 					pokeBallGap += battleStats[6].getWidth()+38;
 				}
-				
+
 			}
-			
+
 		}
 	}
-	
+
 	public void drawPStats(Graphics2D g2)
 	{
-		if(player[playerCurr] != null)
+		if(player.getParty()[playerCurr] != null)
 		{
 			// Player Bars
 			BufferedImage barColor = null;
-			if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() <= 0.2)
+			if(player.getParty()[playerCurr].getCurHP() / player.getParty()[playerCurr].getHPStat() <= 0.2)
 				barColor = battleStats[4];
-			else if(player[playerCurr].getCurHP() / player[playerCurr].getHPStat() <= 0.5)
+			else if(player.getParty()[playerCurr].getCurHP() / player.getParty()[playerCurr].getHPStat() <= 0.5)
 				barColor = battleStats[5];
 			else
 				barColor = battleStats[3];
-			
-			int width = battleStats[3].getWidth() * player[playerCurr].getCurHP() / player[playerCurr].getHPStat();
+
+			int width = battleStats[3].getWidth() * player.getParty()[playerCurr].getCurHP() / player.getParty()[playerCurr].getHPStat();
 			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
 				g2.drawImage(drawBar, 859, 368, null);
 			}
-			
+
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
-		    attributes.put(TextAttribute.SIZE, 22);
-		    g2.setFont(font.deriveFont(attributes));
-		    
-		    // Player Name
-		    g2.setColor(Color.BLACK);
-			g2.drawString(player[playerCurr].getNickName(), 718, 359);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(player[playerCurr].getNickName(), 716, 357);
-			
+			attributes.put(TextAttribute.SIZE, 22);
+			g2.setFont(font.deriveFont(attributes));
+
+			// Player Name
+			g2.setColor(Color.BLACK);
+			g2.drawString(player.getParty()[playerCurr].getNickName(), 718, 359);
+			g2.setColor(Color.WHITE);
+			g2.drawString(player.getParty()[playerCurr].getNickName(), 716, 357);
+
 			// Player Level
 			attributes.put(TextAttribute.TRACKING, -0.05);
-		    g2.setFont(font.deriveFont(attributes));
+			g2.setFont(font.deriveFont(attributes));
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(player[playerCurr].getLevel()), 1020, 361);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(player[playerCurr].getLevel()), 1018, 359);
-			
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getLevel()), 1020, 361);
+			g2.setColor(Color.WHITE);
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getLevel()), 1018, 359);
+
 			// Player Health
 			attributes.put(TextAttribute.SIZE, 18);
 			g2.setFont(font.deriveFont(attributes));
 			g2.setColor(Color.BLACK);
 			int removeWidth1 = 0;
 			int removeWidth2 = 0;
-			if(player[playerCurr].getCurHP() < 10)
+			if(player.getParty()[playerCurr].getCurHP() < 10)
 				removeWidth1 = 50;
-			else if(player[playerCurr].getCurHP() < 100)
+			else if(player.getParty()[playerCurr].getCurHP() < 100)
 				removeWidth1 = 25;
-			
-			if(player[playerCurr].getHPStat() < 10)
-				removeWidth2 = 50;
-			else if(player[playerCurr].getHPStat() < 100)
-				removeWidth2 = 25;
 
-			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 880+removeWidth1, 404);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(player[playerCurr].getCurHP()), 878+removeWidth1, 402);
+			if(player.getParty()[playerCurr].getHPStat() < 10)
+				removeWidth2 = 50;
+			else if(player.getParty()[playerCurr].getHPStat() < 100)
+				removeWidth2 = 25;
+			else 
+				removeWidth2 = 20;
+
+
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getCurHP()), 880+removeWidth1, 404);
+			g2.setColor(Color.WHITE);
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getCurHP()), 878+removeWidth1, 402);
 			g2.setColor(Color.BLACK);
-			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 974-removeWidth2, 404);
-		    g2.setColor(Color.WHITE);
-			g2.drawString(Integer.toString(player[playerCurr].getHPStat()), 972-removeWidth2, 402);
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 994-removeWidth2, 404);
+			g2.setColor(Color.WHITE);
+			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 992-removeWidth2, 402);
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -622,7 +670,7 @@ public class Battle extends JPanel {
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 586, 1080, 134);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-		
+
 		if(gameState != 1)
 		{
 			loadPlayerMon(g2);
@@ -630,7 +678,7 @@ public class Battle extends JPanel {
 			drawPStats(g2);
 			drawOStats(g2);
 		}
-		
+
 		if(gameState == 1 && message != null)
 		{
 			updateText(g2);
@@ -638,30 +686,32 @@ public class Battle extends JPanel {
 		if ((gameState == 4 || gameState == 5) && message != null) {
 			updateText(g2);
 		}
+		if (gameState == 6 && message != null)
+			updateText(g2);
 
 	}
-	
-	public void newBattle(Pokemon[] playerParty, Pokemon[] oppParty)
+
+	public void newBattle(Player newPlayer, NPC newOpponent)
 	{
-		player = playerParty;
+		player = newPlayer;
 		playerCurr = 0;
-		opponent = oppParty;
+		opponent = newOpponent;
 		oppCurr = 0;
 	}
-	
+
 	public Font getFont()
 	{
 		return font;
 	}
-	
+
 	public void refresh()
 	{
 		repaint();
 	}
-	
+
 	public static void main(String[] args)
 	{
-		JFrame frame = new JFrame ("Pokemon");
+		frame = new JFrame ("Pokemon");
 		try {
 			BlankMon.getAllMoves();
 			BlankMon.getAllMoveLists();
@@ -671,22 +721,23 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 69));
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 20));
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
 		NPC gary = new NPC(0,0, null);
 		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 66));
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
-		Battle panel = new Battle(pranav.getParty(), gary.getParty());
-		
+		panel = new Battle(pranav, gary);
+
 		frame.setContentPane(panel);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		frame.setLocationRelativeTo(null);
-		
+
+
 	}
-	
+
 
 }

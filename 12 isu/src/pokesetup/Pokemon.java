@@ -27,7 +27,7 @@ public class Pokemon {
 	int xpValue; //value of xp it gives when killed
 	Ability ability;//ability class
 	int curHP;
-	
+
 	LoadImage loader = new LoadImage();
 
 	int HPstat;
@@ -41,7 +41,7 @@ public class Pokemon {
 	//IVs are a random number generated from 1-31 that affect the actual pokestats
 	int[] IVs = new int[6];
 
-	
+
 	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
@@ -61,7 +61,7 @@ public class Pokemon {
 		this.name = name;
 		this.ID = pokeStats.get(name).getID();
 		this.isFainted = false;
-		
+
 		//getting pokeimages
 		try {
 			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
@@ -69,7 +69,7 @@ public class Pokemon {
 			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
 			pokeBack = loader.resize(pokeBack, pokeBack.getWidth()*3+pokeBack.getWidth()/2, pokeBack.getHeight()*3+pokeBack.getHeight()/2);
 		} catch (IOException e) {}
-		
+
 		//setting base stats to the current stats
 		this.HPstat = pokeStats.get(name).getBaseHP();
 		this.atkStat = pokeStats.get(name).getBaseAttack();
@@ -103,30 +103,38 @@ public class Pokemon {
 			else
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
-		
+
 		this.possibleMoves = new TreeMap<Integer,Move>(BlankMon.movesByMon.get(this.name));
-		
+
 		generateMoves();
 		updateAllStats();
 
 		this.curHP = this.HPstat;
 	}
-	
-	
+
+
 
 
 
 	public String toString () {
-		
-			return String.format("Your level '%d' %s is a %s has %d/%d, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s\n"
-					+ "current moves: [%s,%s,%s,%s]\n", 
-					this.level, this.nickname, this.name, this.curHP,this.HPstat,      this.ID, 
-					this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
-					this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
-					this.ability.toString(), attacks[0],attacks[1],attacks[2],attacks[3]);
+
+		return String.format("Your level '%d' %s is a %s has %d/%d, ID no: %d with stats: [%d/%d/%d/%d/%d/%d] and these IVs: [%d/%d/%d/%d/%d/%d] with %s\n"
+				+ "current moves: [%s,%s,%s,%s]\n", 
+				this.level, this.nickname, this.name, this.curHP,this.HPstat,      this.ID, 
+				this.HPstat, this.atkStat, this.defStat, this.spAtkStat, this.spDefStat, this.spdStat,
+				this.IVs[0], this.IVs[1], this.IVs[2], this.IVs[3], this.IVs[4], this.IVs[5],
+				this.ability.toString(), attacks[0],attacks[1],attacks[2],attacks[3]);
 
 	}
-	
+
+	public boolean equals (Object o) {
+		Pokemon p = (Pokemon) o;
+		if (this.name.equals(p.name))
+			return true;
+		else 
+			return false;
+	}
+
 	//takes in which attack it is (from attack aray) and enemy in battle (sometimes it wont hit enemy and is a self move tho)
 	public void attack (Integer attack, Pokemon enemy) {
 		Move curMove = attacks[attack];
@@ -140,40 +148,45 @@ public class Pokemon {
 			A = this.atkStat;
 			D = enemy.getDefense();
 		}
-		
+
 		double STAB = 1.0;
-//		if (this.type.equals(enemy.getType()))
-//			STAB = 1.5;
-		int damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
-		enemy.setCurHP(enemy.getCurHP() - damage);
-		
+		//		if (this.type.equals(enemy.getType()))
+		//			STAB = 1.5;
+		int damage = 0;
+		if (curMove.getDamage() > 0)
+			damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
+		if (damage > enemy.getCurHP())
+			enemy.setCurHP(0);
+		else
+			enemy.setCurHP(enemy.getCurHP() - damage);
+
 	}
-	
-	
-	
+
+
+
 	//generates 4 best moves based on current pokeLevel
 	public void generateMoves() {
 		ArrayList<Move> tempMoves = new ArrayList<Move>();
 		for (Integer i : possibleMoves.descendingKeySet()) {
 			if (i <= this.level) 
 				tempMoves.add(possibleMoves.get(i));
-			
+
 			if (tempMoves.size() == 4)
 				break;
 		}
-		
+
 		for (int i = 0; i < tempMoves.size(); i++) {
 			attacks[i] = tempMoves.get(i);
 		}
 	}
-	
+
 	//heals pokemon to full
 	public void heal() {
 		//just in case hp stat is not updated
 		this.updateHpStat();
 		this.curHP = this.HPstat;
 	}
-	
+
 	public void heal(int amt) {
 		this.setCurHP(this.curHP + amt);
 	}
@@ -183,7 +196,7 @@ public class Pokemon {
 		int hp = (int) Math.floor(((2 * this.baseStats[0] + this.IVs[0])*this.level)/100) + this.level + 10;
 		this.HPstat = hp;
 	}
-	
+
 	//updates stat based on formula
 	public void updateOtherStat (int stat) {
 		//1 -- attack
@@ -264,7 +277,7 @@ public class Pokemon {
 			if (!curAbilityStr2.isEmpty()) {
 				a2 = BlankMon.abilityList.get(curAbilityStr2);
 			}
-			
+
 			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2));
 
 
@@ -274,43 +287,43 @@ public class Pokemon {
 		}
 
 	}
-	
+
 	public TreeMap getPossibleMoves() {
 		return this.possibleMoves;
 	}
-	
+
 	public int getDefense () {
 		return this.defStat;
 	}
-	
+
 	public int getSpDefense() {
 		return this.spDefStat;
 	}
-	
+
 	public Type getType() {
 		return this.type;
 	}
-	
+
 	public int getHPStat() {
 		return this.HPstat;
 	}
-	
+
 	public int getCurHP() {
 		return this.curHP;
 	}
-	
+
 	public void setCurHP(int i) {
 		this.curHP  = i;
 	}
-	
+
 	public boolean getIsFainted() {
 		return isFainted;
 	}
-	
+
 	public void setIsFainted(boolean b1) {
 		this.isFainted = b1;
 	}
-	
+
 	public BufferedImage getFront()
 	{
 		return pokeFront;
@@ -319,7 +332,7 @@ public class Pokemon {
 	{
 		return pokeBack;
 	}
-	
+
 	public Move[] getAttacks()
 	{
 		return attacks;
@@ -336,7 +349,7 @@ public class Pokemon {
 	{
 		return this.level;
 	}
-	
+
 	public Move[] getCurMoves() {
 		return attacks;
 	}

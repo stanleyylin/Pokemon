@@ -5,12 +5,14 @@ import java.awt.image.BufferedImage;
 
 import pokesetup.Pokemon;
 
-public class NPC extends Person {
+public class NPC
+//extends Person 
+{
 	private Pokemon[] party;
 	
 	public NPC(int worldX, int worldY, BufferedImage[] sprites)
 	{
-		super(worldX, worldY, sprites);
+//		super(worldX, worldY, sprites);
 		
 		this.party = new Pokemon[6];
 	}
@@ -41,14 +43,14 @@ public class NPC extends Person {
 	}
 	
 	
-	public int getWorldX()
-	{
-		return worldX;
-	}
-	public int getWorldY()
-	{
-		return worldY;
-	}
+//	public int getWorldX()
+//	{
+//		return worldX;
+//	}
+//	public int getWorldY()
+//	{
+//		return worldY;
+//	}
 	
 	public Pokemon[] getParty() {
 		return this.party;
