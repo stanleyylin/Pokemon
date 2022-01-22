@@ -43,8 +43,8 @@ public class Battle extends JPanel {
 	int playerCurr;
 	NPC opponent;
 	int oppCurr;
-	static int temp;
-
+	
+	int currMoveNo;
 	String currMove;
 
 	// ANIMATION
@@ -58,6 +58,8 @@ public class Battle extends JPanel {
 	static int counter;
 	static float[] opacity;
 	String message;
+	boolean playerIsFainted;
+	boolean opponentIsFainted;
 
 	int pokeX = 792;
 	int pokeY = 100;
@@ -71,7 +73,6 @@ public class Battle extends JPanel {
 
 	public Battle(Player player, NPC opponent)
 	{
-		temp = 0;
 		this.player = player;
 		playerCurr = 0;
 		this.opponent = opponent;
@@ -82,6 +83,8 @@ public class Battle extends JPanel {
 		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
 		selectionMenu = new PokeSelect(this, player, 0, true);
+		playerIsFainted = false;
+		opponentIsFainted = false;
 
 		// Background
 		try
@@ -269,12 +272,27 @@ public class Battle extends JPanel {
 					showButtons();
 				}
 			}
+			if (gameState == 3) {
+				//AT THE MOMENT, SWITCHING MONS WILL END THEIR TURN, SO IT SHOULD B CHANGED SUCH THAT IF YOU
+				//WERE TO SWITHC MONS IN BATTLE(OUT OF CHOICE) it continues the mvoe (gamestate goes to 5 rather than 0)
+				message  = "go get them, " + player.getParty()[playerCurr].getNickName();
+				if (counter == 50) {
+					message = "";
+					repaint();
+					gameState = 0;
+					showButtons();
+				}
+			}
+			
+			
 			if (gameState == 4) 
 			{
 				message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
 				if(counter == 50)
 				{
-					pAttack(moves[3].getName());
+					
+					pAttack(moves[currMoveNo].getName());
+					
 				}
 				else if (counter == 100)
 				{
@@ -328,10 +346,22 @@ public class Battle extends JPanel {
 
 				}
 				else if (counter >= 50) {
+					if (player.findNextAvailableMon()!=null) {
 					showPokeMenu();
 					counter = 0;
 					gameState = 0;
 					timer.stop();
+					}
+					else {
+						counter = 0;
+						message = "you have run out of usable pokemon!";
+						playerIsFainted = true;
+						repaint();
+						gameState = 0;
+						endBattle(true);
+						timer.stop();
+						return;
+					}
 				}
 
 			}
@@ -349,6 +379,16 @@ public class Battle extends JPanel {
 						gameState = 2;
 						counter = 0;
 
+					}
+					else {
+						message = "opponent has ran out of usable pokemon!";
+						opponentIsFainted = true;
+						repaint();
+						counter = 0;
+						gameState = 0;
+						endBattle(false);
+						timer.stop();
+						return;
 					}
 				}
 			}
@@ -381,6 +421,7 @@ public class Battle extends JPanel {
 			hideBack();
 			hideMoves();
 			currMove = moves[0].getName();
+			currMoveNo = 0;
 			gameState = 4;
 			timer.start();
 		}
@@ -389,6 +430,7 @@ public class Battle extends JPanel {
 			hideBack();
 			hideMoves();
 			currMove = moves[1].getName();
+			currMoveNo = 1;
 			counter = 0;
 			gameState = 4;
 			timer.start();
@@ -399,6 +441,7 @@ public class Battle extends JPanel {
 			hideMoves();
 			counter = 0;
 			currMove = moves[2].getName();
+			currMoveNo = 2;
 			gameState = 4;
 			timer.start();
 		}
@@ -408,14 +451,26 @@ public class Battle extends JPanel {
 			hideMoves();
 			counter = 0;
 			currMove = moves[3].getName();
+			currMoveNo = 3;
 			gameState = 4;
 			timer.start();
 		}
 	}
+	
+	public void endBattle(boolean isPlayer) {
+		//it comes to this when u win/lose the battle
+		
+		//if(isPlayer)
+		//trigger the blackkscreen & pokemon centre animation
+		
+		//else
+		//switch the screen back to overworld and have them give you dialogue + money
+	}
 
 	public void pAttack(String attack) 
 	{
-		player.getParty()[playerCurr].attack(0, opponent.getParty()[oppCurr]);
+		player.getParty()[playerCurr].attack(currMoveNo, opponent.getParty()[oppCurr]);
+		player.getParty()[playerCurr].getCurMoves()[currMoveNo].useMove();
 	}
 
 	public void oAttack(int enemyAttack) {
@@ -536,7 +591,8 @@ public class Battle extends JPanel {
 		message = "";
 		repaint();
 		showBattleScreen();
-		showButtons();
+		gameState = 3;
+		timer.start();
 	}
 
 	public  void showPokeMenu() {
@@ -727,7 +783,9 @@ public class Battle extends JPanel {
 		{
 			loadPlayerMon(g2);
 			loadOpponentMon(g2);
+			if (!playerIsFainted)
 			drawPStats(g2);
+			if (!opponentIsFainted)
 			drawOStats(g2);
 		}
 		if (gameState == 0 && message != null)
@@ -738,7 +796,7 @@ public class Battle extends JPanel {
 			updateText(g2);
 		}
 		
-		if (gameState == 2 && message != null) {
+		if (gameState == 2 || gameState == 3 && message != null) {
 			updateText(g2);
 		}
 		if ((gameState == 4 || gameState == 5) && message != null) {
@@ -774,9 +832,7 @@ public class Battle extends JPanel {
 		repaint();
 	}
 
-	public static void setTemp(int i) {
-		temp = i;
-	}
+	
 
 	public static void main(String[] args)
 	{
@@ -790,11 +846,11 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 60));
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 20));
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
-		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
+//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
-		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 20));
+		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 60));
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
 		panel = new Battle(pranav, gary);
 

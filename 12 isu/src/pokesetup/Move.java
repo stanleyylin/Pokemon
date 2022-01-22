@@ -69,6 +69,13 @@ public class Move {
 		return this.category;
 	}
 	
+	public void setCurPP(int n) {
+		this.curPP = n;
+	}
+	public void useMove() {
+		this.curPP--;
+	}
+	
 	
 
 }
