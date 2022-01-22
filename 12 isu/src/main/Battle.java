@@ -79,7 +79,7 @@ public class Battle extends JPanel {
 		setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
-		this.selectionMenu = new PokeSelect(player, 0, true);
+		selectionMenu = new PokeSelect(player, 0, true);
 
 		// Background
 		try
@@ -689,6 +689,8 @@ public class Battle extends JPanel {
 		}
 		if (gameState == 6 && message != null)
 			updateText(g2);
+		
+		selectionMenu.update(g2);
 
 	}
 
