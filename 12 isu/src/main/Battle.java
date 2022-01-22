@@ -491,9 +491,10 @@ public class Battle extends JPanel {
 	}
 
 	public static void showPokeMenu() {
-		panel.setVisible(false);
 		frame.setContentPane(selectionMenu);
-		selectionMenu.setVisible(true);
+		selectionMenu.updatePokemon();
+		frame.setVisible(false);
+		frame.pack();
 	}
 
 	public static void showBattleScreen() {

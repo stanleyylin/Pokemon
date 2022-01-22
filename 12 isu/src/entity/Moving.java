@@ -106,7 +106,10 @@ public class Moving {
 		return false;
 	}
 	
-	//void interact
+	void interact()
+	{
+		
+	}
 	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
 	{
 		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);

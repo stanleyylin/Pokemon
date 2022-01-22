@@ -177,6 +177,11 @@ public class Driver2 extends JPanel implements Runnable
 		return main;
 	}
 	
+	public KeyHandler getKeyHandler()
+	{
+		return keyHandler;
+	}
+	
 	public Moving getMoving()
 	{
 		return moving;
