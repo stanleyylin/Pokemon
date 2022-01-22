@@ -9,16 +9,19 @@ import entity.Player;
 
 public class KeyHandler implements KeyListener {
 
+	private GamePanel game;
 	private Player main;
 	private Moving move;
 	private boolean pressed;
+	private boolean xPressed; 
 	
 	public KeyHandler(GamePanel game, Player main, Moving move)
 	{
-
+		this.game = game;
 		this.main = main;
 		this.move = move;
 		pressed = false;
+		xPressed = false;
 	}
 	
 	// keyTyped is unused.
@@ -32,7 +35,24 @@ public class KeyHandler implements KeyListener {
 		int key = e.getKeyCode();
 		
 		// main.moving - if its 0, its resting, if its above 0 its moving
-		if(!main.isInteract())
+		if(game.getInteract() && key == KeyEvent.VK_X)
+		{
+			if(!xPressed)
+			{
+				xPressed = true;
+				if(main.isInteracting())
+				{
+					game.getDialogue().nextLine();
+				}
+				else
+				{
+					main.setInteracting(true);
+					game.showDialogue();
+				}
+			}
+		}
+		
+		else if(!main.isInteracting())
 		{
 			if(key == KeyEvent.VK_A)
 			{
@@ -71,10 +91,6 @@ public class KeyHandler implements KeyListener {
 				main.direction = "up";
 			}
 		}
-		else if(key == KeyEvent.VK_L)
-		{
-			Main.returnMainMenu();
-		}
 	}
 	
 	// resting
@@ -87,6 +103,11 @@ public class KeyHandler implements KeyListener {
 			pressed = false;
 		}
 	
+	}
+	
+	public void setXPressed(boolean set)
+	{
+		xPressed = set;
 	}
 
 }

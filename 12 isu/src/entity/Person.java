@@ -18,13 +18,16 @@ public class Person {
 	
 	protected boolean shown;
 	// Dialogue
+	protected String imageFile;
 	protected String textFile;
 	private static LoadImage loader = new LoadImage();
 	
-	public Person(Rectangle collision, String direction, String file, int w, int h)
+	public Person(Rectangle collision, String direction, String imageFile, int w, int h, String textFile)
 	{
 		this.collision = collision;
 		this.direction = direction;
+		this.imageFile = imageFile;
+		this.textFile = textFile;
 		
 		if(direction.equals("left"))
 			interaction = new Rectangle((int)collision.getX()-42, (int)collision.getY()-15, 42, 62);
@@ -38,7 +41,7 @@ public class Person {
 		
 		try
 		{
-			sprite = loader.loadImage("res/sprites/" + file);
+			sprite = loader.loadImage("res/sprites/" + imageFile);
 			sprite = sprite.getSubimage(0, 0, w, h);
 			sprite = loader.resize(sprite, w*3, h*3);
 		}
@@ -64,11 +67,15 @@ public class Person {
 	public boolean getShown()
 	{
 		return shown;
-	}
-	public void setShown(boolean set)
+	}	
+	public String getImageFile()
 	{
-		shown = set;
-	}
+		return imageFile;
+	}	
+	public String getLines()
+	{
+		return textFile;
+	}	
 	public Rectangle getC()
 	{
 		return collision;
@@ -80,6 +87,11 @@ public class Person {
 	public BufferedImage getSprite()
 	{
 		return sprite;
+	}
+	
+	public void setShown(boolean set)
+	{
+		shown = set;
 	}
 
 }

@@ -16,23 +16,23 @@ import main.Main;
 
 public class Moving {
 	
-	private static Player main; // the player
+	private GamePanel game;
+	private Player main; // the player
 	private Camera camera; // the camera following the player
 	private BufferedImage[] playerSprites; // the player sprites
 	private int spriteCounter; // used to switch sprites
 	private int moving; // whether or not the player is moving, 0 - not moving, 1 - first moving sprite
 	// 2 - second moving sprite
-	private boolean stopped;
 
 	// Constructor
-	public Moving(Player player, Camera camera)
+	public Moving(GamePanel game, Player player, Camera camera)
 	{
+		this.game = game;
 		main = player;
 		this.camera = camera;
 		playerSprites = main.getSprites();
 		moving = 0;
 		spriteCounter = 0;
-		stopped = false;
 	}
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
@@ -106,22 +106,44 @@ public class Moving {
 		return false;
 	}
 	
-//	boolean interact(Person[] people)
-//	{
-//		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
-//		
-//		for(int i = 0; i < people.length; i++)
-//		{
-//			if(people[i].getI().intersects(player))
-//			{
-//				
-//			}
-//		}
-//	}
+	void interact()
+	{
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		
+		if(camera.getBuilding() == null)
+		{
+			for(int i = 0; i < camera.getLocation().getPeople().length; i++)
+			{
+				if(camera.getLocation().getPeople()[i].getI().intersects(player))
+				{
+					game.setInteract(true);
+					main.setTalkingTo(camera.getLocation().getPeople()[i]);
+					break;
+				}
+				else
+				{
+					game.setInteract(false);
+				}
+			}
+		}
+		else if(camera.getBuilding() != null)
+		{
+			for(int i = 0; i < camera.getBuilding().getPeople().length; i++)
+			{
+				if(camera.getBuilding().getPeople()[i].getI().intersects(player))
+				{
+					game.setInteract(true);
+					break;
+				}
+				else if(i == camera.getBuilding().getPeople().length-1)
+					game.setInteract(false);
+			}
+		}
+	}
 	
 	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+10, camera.getY() + main.getScreenY() + 15, Player.width-10, Player.height-15);
 		
 		for(int i = 0; i < people.length; i++)
 		{
@@ -280,6 +302,8 @@ public class Moving {
 			}
 		}
 		
+		interact();
+		
 		// Check if player is in center
 		if(camera.getBuilding() == null && camera.getLocation().getEdgeReachedX())
 		{
@@ -347,6 +371,8 @@ public class Moving {
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
 		}
+	
+		interact();
 		
 		// Check if player is in center
 		if(camera.getBuilding() == null && camera.getLocation().getEdgeReachedY())
@@ -396,6 +422,7 @@ public class Moving {
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
 		}
+		interact();
 	}
 	
 	public void moveCameraY()
@@ -425,6 +452,7 @@ public class Moving {
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
 		}
+		interact();
 	}
 	
 	public void draw(Graphics2D g2)

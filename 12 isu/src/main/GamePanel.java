@@ -22,12 +22,14 @@ public class GamePanel extends JPanel implements Runnable
 	private Thread gameThread;
 	private static KeyHandler keyHandler;
 	
+	private Dialogue dialogue;
 	private Camera camera;
 	private Moving moving;
 	private final int FPS = 60;
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
+	private boolean test = true;
 	private boolean interact;
 	// Player Variables
 	
@@ -81,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		// People
 		Person[] people10 = new Person[1];
-		people10[0] = new Person(new Rectangle(573, 951, 51, 72), "down", "nurse.png", 17, 24);
+		people10[0] = new Person(new Rectangle(573, 951, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
 		Location heartHome = new Location(hearthome, collisions10, buildings10, people10);
 		
 	// 10: 208
@@ -112,9 +114,11 @@ public class GamePanel extends JPanel implements Runnable
 		// Player, temp
 		main = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		// Functionalities
+		dialogue = new Dialogue(this);
+		dialogue.setBounds(0, 0, 1080, 188);
 		camera = new Camera(heartHome, 300, 1200);
-	    moving = new Moving(main, camera);
-	    keyHandler = new KeyHandler(main, moving);
+	    moving = new Moving(this, main, camera);
+	    keyHandler = new KeyHandler(this, main, moving);
 	    interact = false;
 	    gameThread = new Thread(this);
 		gameThread.start();
@@ -180,21 +184,44 @@ public class GamePanel extends JPanel implements Runnable
 
 		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1());
 	}
-	public void interactMessage(Graphics2D g2)
+	public void interactMessage(Graphics g)
 	{
-		g2.setFont(font);
-		g2.setColor(Color.WHITE);
-		g2.drawString("Press X to interact!", 375, 623);
+		g.setFont(font);
+		g.setColor(Color.WHITE);
+		g.drawString("Press X to interact!", 375, 623);
+	}
+	
+	public void showDialogue()
+	{
+		add(dialogue);
+		revalidate();
+		repaint();
+		dialogue.startDialogue(main.getTalkingTo());
+	}
+	public void hideDialogue()
+	{
+		Container parent = dialogue.getParent();
+		parent.remove(dialogue);
+		parent.revalidate();
+		parent.repaint();
 	}
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
+		if(test)
+		{
+			g2.drawString("test", 0, 0);
+			test = false;
+		}
+		
 		camera.draw(g2);
 		moving.draw(g2);
 		
 		if(interact)
-			interactMessage(g2);
+		{
+			interactMessage(g);
+		}
 	}
 	
 	// Getters and Setters
@@ -210,15 +237,24 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		return moving;
 	}
+	public Dialogue getDialogue()
+	{
+		return dialogue;
+	}
+	public boolean getInteract()
+	{
+		return interact;
+	}
 	public void setInteract(boolean set)
 	{
-		interact = true;
+		interact = set;
 	}
 	
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");
 		GamePanel panel = new GamePanel();
+		
 		frame.add(panel);
 		frame.addKeyListener(keyHandler);
 		frame.setVisible(true);

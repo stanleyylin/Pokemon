@@ -12,21 +12,30 @@ import javax.swing.JFrame;
 import entity.Player;
 
 public class Main {
-	static JFrame frame;
-	static GamePanel mainGame;
-	static MainMenu menu;
-	static KeyHandler keyHandler;
+	private static JFrame frame;
+	
+	private static GamePanel mainGame;
+	private static Dialogue dialogue;
+	private static MainMenu menu;
+	
+	
+	private static KeyHandler keyHandler;
 	private static Player main;
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
 	
 	public static void loadGame()
 	{
-		keyHandler = new KeyHandler(mainGame.getPlayer(), mainGame.getMoving());
+		keyHandler = new KeyHandler(mainGame, mainGame.getPlayer(), mainGame.getMoving());
 		frame.setContentPane(mainGame);
 		frame.setVisible(true);
 		frame.pack();
 		frame.addKeyListener(keyHandler);
+	}
+	
+	public static void showDialogue()
+	{
+		
 	}
 	
 	public static void returnMainMenu()
@@ -36,10 +45,9 @@ public class Main {
 		frame.pack();
 	}
 	
-	
-	static HashMap<String,Item> itemList = new HashMap<String,Item>();
-	
-	public static void addAllItems() throws IOException , FileNotFoundException{
+	private static HashMap<String,Item> itemList = new HashMap<String,Item>();
+	public static void addAllItems() throws IOException , FileNotFoundException
+	{
 		BufferedReader br = new BufferedReader(new FileReader(new File("items.txt")));
 		
 		String curLine = br.readLine();
@@ -87,19 +95,24 @@ public class Main {
 			String curEffect = curLine;
 			itemList.put(curName, new Item(curName, curEffect));
 		}
-		System.out.println(itemList);
 	}
 
-	public static void main(String[] args) {
-		try {
+	public static void main(String[] args) 
+	{
+		try 
+		{
 			addAllItems();
-		} catch (IOException e) {
-		}
+		} catch (IOException e) {}
+		
 		frame = new JFrame ("Pokemon: Wong Edition");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// game panel
 		mainGame = new GamePanel();
+		// main menu
 		menu = new MainMenu();
+
 		frame.setContentPane(menu);
 		frame.setVisible(true);
 		frame.pack();

@@ -18,6 +18,7 @@ public class Player {
 	public String direction;
 	private BufferedImage[] sprites;
 	private boolean interacting;
+	private Person talkingTo;
 	
 	private Pokemon[] party;
 
@@ -38,6 +39,7 @@ public class Player {
 		sprites = player.getSprites();
 		
 		interacting = false;
+		talkingTo = null;
 	}
 	
 	public void healParty() {
@@ -132,7 +134,7 @@ public class Player {
 	{
 		return sprites;
 	}
-	public boolean isInteract()
+	public boolean isInteracting()
 	{
 		return interacting;
 	}
@@ -153,9 +155,17 @@ public class Player {
 	{
 		return screenY;
 	}
-	public void setInteract(boolean set)
+	public Person getTalkingTo()
+	{
+		return talkingTo;
+	}
+	public void setInteracting(boolean set)
 	{
 		interacting = set;
+	}
+	public void setTalkingTo(Person p)
+	{
+		talkingTo = p;
 	}
 
 
