@@ -43,6 +43,7 @@ public class Battle extends JPanel {
 	int playerCurr;
 	NPC opponent;
 	int oppCurr;
+	static int temp;
 
 	String currMove;
 
@@ -70,6 +71,7 @@ public class Battle extends JPanel {
 
 	public Battle(Player player, NPC opponent)
 	{
+		temp = 0;
 		this.player = player;
 		playerCurr = 0;
 		this.opponent = opponent;
@@ -79,7 +81,7 @@ public class Battle extends JPanel {
 		setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
-		selectionMenu = new PokeSelect(player, 0, true);
+		selectionMenu = new PokeSelect(this, player, 0, true);
 
 		// Background
 		try
@@ -490,12 +492,24 @@ public class Battle extends JPanel {
 		}
 	}
 	
-	public void setNextMon() {
-		System.out.println(playerCurr);
-		playerCurr = selectionMenu.getCur();
-		System.out.println(playerCurr);
+	public void pokeClicked(MouseEvent e) {
+		System.out.println();
+	}
+
+	public void setNextMon(int i) {
+
+		playerCurr = i;
+		message = "";
+		repaint();
 		showBattleScreen();
 		showButtons();
+		
+		
+//		System.out.println(playerCurr);
+//		playerCurr = selectionMenu.getCur();
+//		System.out.println(playerCurr);
+//		showBattleScreen();
+//		showButtons();
 	}
 
 	public  void showPokeMenu() {
@@ -504,15 +518,11 @@ public class Battle extends JPanel {
 		selectionMenu.setVisible(true);
 		selectionMenu.updatePokemon();
 		frame.pack();
-		System.out.println(playerCurr);
-		this.playerCurr = selectionMenu.getCurr();
-		System.out.println(playerCurr);
-
-//		setNextMon();
+		
 	}
 
 	public static void showBattleScreen() {
-//		selectionMenu.setVisible(false);
+		//		selectionMenu.setVisible(false);
 		frame.setContentPane(panel);
 		panel.setVisible(true);
 		frame.pack();
@@ -694,6 +704,8 @@ public class Battle extends JPanel {
 			drawPStats(g2);
 			drawOStats(g2);
 		}
+		if (gameState == 0 && message != null)
+			updateText(g2);
 
 		if(gameState == 1 && message != null)
 		{
@@ -704,8 +716,9 @@ public class Battle extends JPanel {
 		}
 		if (gameState == 6 && message != null)
 			updateText(g2);
-		
-		selectionMenu.update(g2);
+
+		if (frame.getContentPane().equals(selectionMenu))
+			selectionMenu.update(g2);
 
 	}
 
@@ -721,7 +734,7 @@ public class Battle extends JPanel {
 	{
 		return font;
 	}
-	
+
 	public void setPlayerCur(int i) {
 		this.playerCurr = i;
 	}
@@ -729,6 +742,10 @@ public class Battle extends JPanel {
 	public void refresh()
 	{
 		repaint();
+	}
+
+	public static void setTemp(int i) {
+		temp = i;
 	}
 
 	public static void main(String[] args)

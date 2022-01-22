@@ -33,9 +33,10 @@ public class PokeSelect extends JPanel {
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 30);
 
 	private PokemonButton[] pokemons;
+	private Battle battle;
 
 
-	public PokeSelect(Player player, int curr, boolean inBattle)
+	public PokeSelect(Battle battle, Player player, int curr, boolean inBattle)
 	{
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
@@ -52,6 +53,7 @@ public class PokeSelect extends JPanel {
 		this.player = player;
 		this.curr = curr;
 		this.inBattle = inBattle;
+		this.battle = battle;
 		PokemonButton.setImages();
 
 		pokemons = new PokemonButton[6];
@@ -110,10 +112,10 @@ public class PokeSelect extends JPanel {
 			System.out.println("cant do that");
 		
 		else {
-			curr = getPartyNo(curMon);
-			
+			battle.setNextMon( getPartyNo(curMon));
 //			System.out.println(curr);
 		}
+		
 	}
 	
 	public int getCur() {
