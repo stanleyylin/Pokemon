@@ -64,6 +64,7 @@ public class Battle extends JPanel {
 	String message;
 	boolean playerIsFainted;
 	boolean opponentIsFainted;
+	boolean isWild;
 
 	int pokeX = 792;
 	int pokeY = 100;
@@ -91,6 +92,7 @@ public class Battle extends JPanel {
 		battleStats = new BufferedImage[7];
 		playerIsFainted = false;
 		opponentIsFainted = false;
+		isWild = false;
 
 		// **** TO BE MIGRATED
 		selectionMenu = new PokeSelect(this, player, 0, true);
@@ -960,12 +962,13 @@ public class Battle extends JPanel {
 		}
 	}
 
-	public void newBattle(Player newPlayer, NPC newOpponent)
+	public void newBattle(Player newPlayer, NPC newOpponent, boolean isW)
 	{
 		player = newPlayer;
 		playerCurr = 0;
 		opponent = newOpponent;
 		oppCurr = 0;
+		isWild = isW;
 	}
 
 	public void setPlayerCur(int i) {

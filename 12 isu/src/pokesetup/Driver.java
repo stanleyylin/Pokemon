@@ -46,10 +46,6 @@ public class Driver extends JPanel{
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
 		
 		
-		System.out.println();
-		System.out.println(pranav.getParty()[0].getPossibleMoves());
-		System.out.println(pranav.getParty()[2].getPossibleMoves().get(5));
-		System.out.println();
 
 		pranav.printPokemon();
 		

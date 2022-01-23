@@ -33,7 +33,9 @@ public class Pokemon {
 	int ID; //number of mon in dex
 	String name; //name of mon
 	String nickname; //u can give your pokemon nicknames
-	int xpValue; //value of xp it gives when killed
+	int expValue; //value of xp it gives when killed
+	int curExp;
+	int curExpThreshold;
 	Ability ability;//ability class
 	int curHP;
 
@@ -120,10 +122,33 @@ public class Pokemon {
 		updateAllStats();
 
 		this.curHP = this.HPstat;
+		
+		this.expValue = pokeStats.get(name).getExpValue();
+		this.curExp = 0;
+		this.curExpThreshold = getNewExpThreshold ();
+		
+		
+	}
+	
+	public void giveExp(Pokemon p1) {
+		
+		int expDrop  = ((p1.getExpDrop() * p1.getLevel()) / 5) *  (int) Math.pow((2 * p1.getLevel() + 10) / (p1.getLevel() + this.level + 10),2.5);
+		this.curExp += expDrop;
+		if (this.curExp > this.curExpThreshold)
+			levelUp();
 	}
 
-
-
+	public void levelUp() {
+		this.level++;
+		updateAllStats();
+		this.curExp = 0;
+		this.curExpThreshold = getNewExpThreshold();
+	}
+	
+	
+	public int getNewExpThreshold() {
+		return (4 * this.level * this.level * this.level) / 5;
+	}
 
 
 	public String toString () {
@@ -251,8 +276,9 @@ public class Pokemon {
 
 		String curLine = br.readLine();
 
+		int count = 0;
 		while (curLine != null) {
-
+			
 			int curID = 0;
 			String name = "";
 			String type1 = "";
@@ -268,6 +294,7 @@ public class Pokemon {
 			boolean isLegendary = false;
 			String curAbilityStr = "";
 			String curAbilityStr2 = "";
+			int curExp = 0;
 
 			String[] curItems = curLine.split(",");
 			curID = Integer.parseInt(curItems[0]);
@@ -284,16 +311,23 @@ public class Pokemon {
 			generation = Integer.parseInt(curItems[11]);
 			isLegendary = Boolean.parseBoolean(curItems[12]);
 			curAbilityStr = curItems[13];
-			if (curItems.length == 15)
+			
+			if (curItems.length == 16) {
 				curAbilityStr2 = curItems[14];
+				curExp = Integer.parseInt(curItems[15]);
+			}
+			else if (count <= 151)
+				curExp = Integer.parseInt(curItems[14]);
 
 			Ability a1 = BlankMon.abilityList.get(curAbilityStr);
 			Ability a2 = null;
 			if (!curAbilityStr2.isEmpty()) {
 				a2 = BlankMon.abilityList.get(curAbilityStr2);
 			}
+			
+			count++;
 
-			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2));
+			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp));
 
 
 
@@ -375,6 +409,10 @@ public class Pokemon {
 	
 	public void setStatus(Status s1) {
 		this.status = s1;
+	}
+	
+	public int getExpDrop() {
+		return this.expValue;
 	}
 
 

@@ -33,6 +33,7 @@ public class BlankMon {
 	HashMap<Integer,Move> possibleMoves = new HashMap<Integer,Move>();
 	Image pokeFront;
 	Image pokeBack;
+	int baseExp;
 	
 	
 	//hashmap contains ability name,ability
@@ -54,7 +55,7 @@ public class BlankMon {
 	
 
 	public BlankMon(int ID, String name, String type1, String type2, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, 
-			int generation, boolean isLegendary, Ability ability1, Ability ability2) {
+			int generation, boolean isLegendary, Ability ability1, Ability ability2, int baseExp) {
 		this.ID = ID;
 		this.name = name;
 		this.type = new Type(type1, type2);
@@ -69,6 +70,7 @@ public class BlankMon {
 		this.ability1 = ability1;
 		if (ability2!=null)
 			this.ability2 = ability2;
+		this.baseExp = baseExp;
 //		try {
 //			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
 //			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
@@ -76,8 +78,8 @@ public class BlankMon {
 	}
 	
 	public String toString () {
-		return String.format("No: %d, Name: %s, Type: %s, %d, %d, %d, %d, %d, %d, gen %d, legendary? %b", 
-				this.ID, this.name, this.type.toString(), this.HP, this.attack, this.defense, this.sp_attack, this.sp_defense, this.speed, this.generation, this.isLegendary);
+		return String.format("No: %d, Name: %s(%d), Type: %s, %d, %d, %d, %d, %d, %d, gen %d, legendary? %b", 
+				this.ID, this.name, this.baseExp, this.type.toString(), this.HP, this.attack, this.defense, this.sp_attack, this.sp_defense, this.speed, this.generation, this.isLegendary);
 	}
 	
 	
@@ -296,6 +298,10 @@ public class BlankMon {
 	
 	public Ability getAbility2() {
 		return this.ability2;
+	}
+	
+	public int getExpValue() {
+		return this.baseExp;
 	}
 	
 	
