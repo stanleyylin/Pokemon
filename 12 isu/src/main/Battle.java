@@ -33,7 +33,7 @@ public class Battle extends JPanel {
 	private Random random = new Random();
 
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
-	BufferedImage background; // Background image
+    BufferedImage background; // Background image
 	BufferedImage[] battleStats;
 
 	static JFrame frame;
@@ -70,7 +70,7 @@ public class Battle extends JPanel {
 	int pokeX = 792;
 	int pokeY = 100;
 	BufferedImage[] pokeBallSprites = new BufferedImage[17];
-
+	BufferedImage[] statuses = new BufferedImage[5];
 	static Button back;
 	static Button[] buttons;
 	static MoveSelect[] moves;
@@ -155,7 +155,22 @@ public class Battle extends JPanel {
 			battleStats[6] = loader.resize(battleStats[6], 25, 25);
 		}
 		catch(IOException e) {}
-
+		// Statuses
+		try
+		{
+			statuses[0] = loader.loadImage("res/battle/statuses.png").getSubimage(0, 0, 117, 51);
+			statuses[0] = loader.resize(statuses[0], 59, 26);
+			statuses[1] = loader.loadImage("res/battle/statuses.png").getSubimage(133, 0, 117, 51);
+			statuses[1] = loader.resize(statuses[1], 59, 26);
+			statuses[2] = loader.loadImage("res/battle/statuses.png").getSubimage(0, 74, 117, 51);
+			statuses[2] = loader.resize(statuses[2], 59, 26);
+			statuses[3] = loader.loadImage("res/battle/statuses.png").getSubimage(133, 74, 117, 51);
+			statuses[3] = loader.resize(statuses[3], 59, 26);
+			statuses[4] = loader.loadImage("res/battle/statuses.png").getSubimage(0, 149, 117, 51);
+			statuses[4] = loader.resize(statuses[4], 59, 26);
+		}
+		catch(IOException e) {}
+		
 		try 
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -242,6 +257,7 @@ public class Battle extends JPanel {
 			moves[i] = new MoveSelect(this);
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
+		
 		showButtons();
 		gameState = 0;
 		timer = new Timer(30, new TimerEventHandler ());
@@ -280,21 +296,24 @@ public class Battle extends JPanel {
 			if (gameState == 2) {
 				message = "opponent has sent out " + opponent.getParty()[oppCurr].getName();
 				if (counter == 50) {
+					counter = 0;
 					message = "";
 					repaint();
 					gameState = 0;
 					showButtons();
+					timer.stop();
 				}
 			}
 			if (gameState == 3) {
 				//AT THE MOMENT, SWITCHING MONS WILL END THEIR TURN, SO IT SHOULD B CHANGED SUCH THAT IF YOU
 				//WERE TO SWITHC MONS IN BATTLE(OUT OF CHOICE) it continues the mvoe (gamestate goes to 5 rather than 0)
-				message  = "go get them, " + player.getParty()[playerCurr].getNickName();
+				message  = "Go get them, " + player.getParty()[playerCurr].getNickName();
 				if (counter == 50) {
+					counter = 0;
 					message = "";
-					repaint();
 					gameState = 0;
 					showButtons();
+					timer.stop();
 				}
 			}
 
@@ -515,7 +534,7 @@ public class Battle extends JPanel {
 					}
 					else {
 						counter = 0;
-						message = "you have run out of usable pokemon!";
+						message = "You have run out of usable pokemon!";
 						playerIsFainted = true;
 						repaint();
 						gameState = 0;
@@ -585,10 +604,12 @@ public class Battle extends JPanel {
 		}
 		else if(e.getSource().equals(buttons[1]))
 		{
+			hideButtons();
 			showPokeMenu();
 		}
 		else if(e.getSource().equals(buttons[2]))
 		{
+			hideButtons();
 			showBag();
 		}
 		// Go back to the main buttons
@@ -712,6 +733,7 @@ public class Battle extends JPanel {
 	{
 		for(Button b : buttons)
 		{
+			
 			this.add(b);
 			this.revalidate();
 			this.repaint();
@@ -755,10 +777,7 @@ public class Battle extends JPanel {
 
 	public void setNextMon(int i) 
 	{
-
 		playerCurr = i;
-		message = "";
-		repaint();
 		showBattleScreen();
 		gameState = 3;
 		timer.start();
@@ -773,8 +792,8 @@ public class Battle extends JPanel {
 		frame.pack();
 	}
 	public void showBattleScreen() {
-		frame.setContentPane(panel);
-		panel.setVisible(true);
+		frame.setContentPane(this);
+		this.setVisible(true);
 		frame.pack();
 	}
 	public void showBag() {
@@ -892,7 +911,7 @@ public class Battle extends JPanel {
 				{
 					if(opponent.getParty()[i] != null && opponent.getParty()[i].getIsFainted() == false)
 					{
-						g2.drawImage(battleStats[6], pokeBallGap, 176, null);
+						g2.drawImage(battleStats[6], pokeBallGap, 200, null);
 						pokeBallGap += battleStats[6].getWidth()+38;
 					}
 					else
@@ -902,12 +921,23 @@ public class Battle extends JPanel {
 				{
 					g2.setColor(Color.BLACK);
 					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-					g2.fillOval(pokeBallGap, 176, 25, 25);
+					g2.fillOval(pokeBallGap, 200, 25, 25);
 					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 					pokeBallGap += battleStats[6].getWidth()+38;
 				}
-
 			}
+			// States
+			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.BURN)
+				g2.drawImage(statuses[0], 5, 170, null);
+			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.POISON)
+				g2.drawImage(statuses[1], 86, 170, null);
+			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.FREEZE)
+				g2.drawImage(statuses[2], 169, 170, null);
+			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.SLEEP)
+				g2.drawImage(statuses[3], 256, 170, null);
+			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS)
+				g2.drawImage(statuses[4], 343, 170, null);
+			
 
 		}
 	}
@@ -976,6 +1006,18 @@ public class Battle extends JPanel {
 			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 994-removeWidth2, 404);
 			g2.setColor(Color.WHITE);
 			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 992-removeWidth2, 402);
+		
+			// States
+			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.BURN)
+				g2.drawImage(statuses[0], 676, 434, null);
+			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.POISON)
+				g2.drawImage(statuses[1], 760, 434, null);
+			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE)
+				g2.drawImage(statuses[2], 843, 434, null);
+			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.SLEEP)
+				g2.drawImage(statuses[3], 930, 434, null);
+			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
+				g2.drawImage(statuses[4], 1015, 434, null);
 		}
 	}
 
