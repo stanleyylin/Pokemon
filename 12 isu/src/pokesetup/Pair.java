@@ -1,17 +1,30 @@
 package pokesetup;
 
-public class Pair <K, V>{
+public class Pair <Integer, Move> implements Comparable{
 	
-	K o1;
-	V o2;
+	Integer i1;
+	Move m1;
 	
-	public Pair (K o1, V o2) {
-		this.o1 = o1;
-		this.o2 = o2;
+	public Pair (Integer curLevel, Move curMove) {
+		this.i1 = curLevel;
+		this.m1 = curMove;
 	}
 	
 	public String toString() {
-		return String.format("%s,%s",o1.toString(), o2.toString());
+		return String.format("%s,%s",i1.toString(), m1.toString());
 	}
+
+	@Override
+	public int compareTo(Object o) {
+		Pair<Integer,Move> p = (Pair<Integer,Move>) o;
+		return (int) (this.i1 = p.getInt());
+	}
+	
+	 public Integer getInt() {
+		 return this.i1;
+	 }
+	 public Move getMove() {
+		 return this.m1;
+	 }
 
 }

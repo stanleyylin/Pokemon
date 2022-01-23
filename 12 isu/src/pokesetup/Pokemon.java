@@ -51,7 +51,8 @@ public class Pokemon {
 	int[] IVs = new int[6];
 
 
-	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
+//	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
+	ArrayList<Pair<Integer,Move>> possibleMoves = new ArrayList<Pair<Integer,Move>>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
 	BufferedImage pokeFront;
@@ -115,7 +116,7 @@ public class Pokemon {
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
 
-		this.possibleMoves = new TreeMap<Integer,Move>(BlankMon.movesByMon.get(this.name));
+		this.possibleMoves = new ArrayList<Pair<Integer,Move>>(BlankMon.movesByMon.get(this.name));
 
 		generateMoves();
 		updateAllStats();
@@ -166,10 +167,13 @@ public class Pokemon {
 		int damage = 0;
 		if (curMove.getDamage() > 0)
 			damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
+		
 		if (damage > enemy.getCurHP())
 			enemy.setCurHP(0);
-		else
+		else {
+			enemy.setStatus(curMove.getStatus());
 			enemy.setCurHP(enemy.getCurHP() - damage);
+		}
 
 	}
 
@@ -178,13 +182,15 @@ public class Pokemon {
 	//generates 4 best moves based on current pokeLevel
 	public void generateMoves() {
 		ArrayList<Move> tempMoves = new ArrayList<Move>();
-		for (Integer i : possibleMoves.descendingKeySet()) {
-			if (i <= this.level) 
-				tempMoves.add(possibleMoves.get(i));
+		Collections.sort(this.possibleMoves);
 
-			if (tempMoves.size() == 4)
-				break;
-		}
+//		for (Integer i : possibleMoves.descendingKeySet()) {
+//			if (i <= this.level) 
+//				tempMoves.add(possibleMoves.get(i));
+//
+//			if (tempMoves.size() == 4)
+//				break;
+//		}
 
 		for (int i = 0; i < tempMoves.size(); i++) {
 			attacks[i] = tempMoves.get(i);
@@ -299,7 +305,7 @@ public class Pokemon {
 
 	}
 
-	public TreeMap getPossibleMoves() {
+	public ArrayList getPossibleMoves() {
 		return this.possibleMoves;
 	}
 

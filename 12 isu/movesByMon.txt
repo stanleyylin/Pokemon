@@ -3,7 +3,7 @@ Ivysaur-1,Tackle;2,Growl;3,Vine Whip;6,Growth;9,Leech Seed;12,Razor Leaf;15,Pois
 Venesaur-1,Petal Blizzard;1,Petal Dance;1,Tackle;1,Growl;1,Vine Whip;1,Growth;9,Leech Seed;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;37,Synthesis;44,Worry Seed;51,Double-Edge;58,Solar Beam
 Charmander-1,Scratch;1,Growl;7,Ember;10,Smokescreen;16,Dragon Rage;19,Scary Face;25,Fire Fang;28,Flame Burst;34,Slash;37,Flamethrower;43,Fire Spin;46,Inferno
 Charmeleon-1,Scratch;1,Growl;1,Ember;7,Ember;10,Smokescreen;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;39,Slash;43,Flamethrower;50,Fire Spin;54,Inferno
-Charizard-1,Flare Blitz;1,Heat Wave;1,Dragon Claw;1,Shadow Claw;1,Air Slash;1,Scratch;1,Ember;1,Smokescreen;7,Ember;10,Smokescreen;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;36,Wing Attack;41,Slash;47,Flamethrower;56,Fire Spin;62,Inferno;71, Heat Wave;77,Flare Blitz
+Charizard-1,Dragon Claw;1,Shadow Claw;1,Air Slash;1,Scratch;7,Ember;10,Smokescreen;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;36,Wing Attack;41,Slash;47,Flamethrower;56,Fire Spin;62,Inferno;71, Heat Wave;77,Flare Blitz
 Squirtle-1,Tackle;4,Tail Whip;7,Water Gun;10,Withdraw;13,Bubble;16,Bite;19,Rapid Spin;22,Protect;25,Water Pulse;28,Aqua Tail;31,Skull Bash;34,Iron Defense;37,Rain Dance;40,Hydro Pump
 Wartortle-1,Tackle;1,Tail Whip;1,Water Gun;4,Tail Whip;7,Water Gun;13,Bubble;16,Bite;20,Rapid Spin;24,Protect;28,Water Pulse;32,Aqua Tail;36,Skull Bash;40,Iron Defense;44,Rain Dance;48,Hydro Pump
 Blastoise-1,Flash Cannon;1,Tackle;1,Tail Whip;1,Water Gun;1,Withdraw;4,Tail Whip;7,Water Gun;10,Withdraw;13,Bubble;16,Bite;20,Rapid Spin;24,Protect;28,Water Pulse;32,Aqua Tail;39,Skull Bash;46,Iron Defense;53,Rain Dance;60,Hydro Pump

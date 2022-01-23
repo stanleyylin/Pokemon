@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -33,12 +34,18 @@ public class BlankMon {
 	Image pokeFront;
 	Image pokeBack;
 	
+	
 	//hashmap contains ability name,ability
 	static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
 	//hashmap contains movename,move
 	static HashMap<String, Move> moveList = new HashMap<String, Move>();
 	//hashmap contains the name of pokemon, (list of [level u get move, actual move])
-	static HashMap<String,TreeMap<Integer,Move>> movesByMon = new HashMap<String,TreeMap<Integer,Move>>();
+	static HashMap<String,ArrayList> movesByMon = new HashMap<String,ArrayList>();
+	
+	
+	static ArrayList<Pair<Integer,Move>> movesForEach = new ArrayList<Pair<Integer,Move>>();
+	
+	
 	
 	
 //	static HashMap<Pair<String,Integer>, Move> movesByMon = new HashMap<Pair<String,Integer>,Move>();
@@ -86,28 +93,54 @@ public class BlankMon {
 		BufferedReader br = new BufferedReader (new FileReader (new File ("movesByMon.txt")));
 		String curLine = "";
 		String curName = "";
-		String curLevel = "";
-		String curMove = "";
+		int curLevel = 0;
+//		String curMove = "";
+		Move curMove = null;
 		String[] curMoveArray;
 		TreeMap<Integer,Move> curMap = new TreeMap<Integer,Move>();
+		ArrayList<Pair<Integer,Move>> curAL = new ArrayList<Pair<Integer,Move>>();
 		
-		for (int i = 0; i < 100; i++) {
+//		for (int i = 0; i < 100; i++) {
+//			curLine = br.readLine();
+//			
+//			curName = curLine.substring(0,curLine.indexOf("-"));
+//			curLine = curLine.substring(curLine.indexOf("-")+1);
+//
+//			
+//			curMoveArray = curLine.split(";");
+//			for (String s : curMoveArray) {
+////				System.out.println(s);
+//				curLevel = s.substring(0,s.indexOf(","));
+//				s = s.substring(s.indexOf(",")+1);
+//				curMove = moveList.get(s);
+//				curAL.add(new Pair<Integer, Move>(Integer.parseInt(curLevel), curMove));
+////				curMap.put(Integer.parseInt(curLevel),moveList.get(curMove));
+//			}
+//			System.out.println(curAL + "________");
+//			movesByMon.put(curName.trim(), new ArrayList<Pair<Integer,Move>>(curAL));
+//			curAL.clear();
+//		}
+		
+		
+		for (int i = 0; i< 100; i++) {
 			curLine = br.readLine();
-			
-			curName = curLine.substring(0,curLine.indexOf("-"));
+			curName = curLine.substring(0,curLine.indexOf("-")).trim();
 			curLine = curLine.substring(curLine.indexOf("-")+1);
-
-			
 			curMoveArray = curLine.split(";");
-			for (String s : curMoveArray) {
-//				System.out.println(s);
-				curLevel = s.substring(0,s.indexOf(","));
-				s = s.substring(s.indexOf(",")+1);
-				curMove = s;
-				curMap.put(Integer.parseInt(curLevel),moveList.get(curMove));
+			for (String s: curMoveArray) {
+				curLevel = Integer.parseInt(s.substring(0,s.indexOf(",")).trim());
+				System.out.print(curLevel + " -- ");
+				curMove = moveList.get(s.substring(s.indexOf(",")+1));
+				System.out.println(curMove);
+				curAL.add(new Pair<Integer,Move>(curLevel,curMove));
 			}
-			movesByMon.put(curName.trim(), new TreeMap<Integer,Move>(curMap));
-			curMap.clear();
+//			System.out.println(curName);
+
+//			for (Pair p1 : curAL)
+//				System.out.println(p1);
+
+			movesByMon.put(curName, curAL);
+			curAL.clear();
 		}
 		
 		

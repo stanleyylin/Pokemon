@@ -4,14 +4,14 @@ package pokesetup;
 //a pokemon has 4 MOVES/attacks
 public class Move {
 	
-	enum Status {
-		BURN,
-		FREEZE,
-		PARALYSIS,
-		POISON,
-		SLEEP,
-		CONFUSED
-	}
+//	enum Status {
+//		BURN,
+//		FREEZE,
+//		PARALYSIS,
+//		POISON,
+//		SLEEP,
+//		CONFUSED
+//	}
 	
 	String name;
 	Type type; //moves have types
@@ -25,7 +25,7 @@ public class Move {
 	String TM;
 	int prob; //the move can have a probability to do an alternative effect eg. burn or poison
 	int gen;
-	Status curStatus;
+	Pokemon.Status curStatus;
 	
 	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen) {
 		this.name = name;
@@ -74,6 +74,9 @@ public class Move {
 	}
 	public void useMove() {
 		this.curPP--;
+	}
+	public Pokemon.Status getStatus() {
+		return this.curStatus;
 	}
 	
 	

@@ -44,7 +44,7 @@ public class Battle extends JPanel {
 	int playerCurr;
 	NPC opponent;
 	int oppCurr;
-	
+
 	boolean isConfuse;
 
 	int currMoveNo;
@@ -310,7 +310,7 @@ public class Battle extends JPanel {
 					if (player.getParty()[playerCurr].getStatus() != Pokemon.Status.FREEZE && player.getParty()[playerCurr].getStatus() != Pokemon.Status.SLEEP 
 							&& player.getParty()[playerCurr].getStatus()!=Pokemon.Status.CONFUSED && player.getParty()[playerCurr].getStatus() != Pokemon.Status.PARALYSIS)
 						pAttack(moves[currMoveNo].getName());
-					
+
 					int paraChance = 1 + (int)(Math.random() * (4));
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS && paraChance == 4) {
 						message = "" + player.getParty() + " has gotten over its paralysis!";
@@ -318,7 +318,7 @@ public class Battle extends JPanel {
 					}
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
 						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed. It can't move!";
-					
+
 					isConfuse = random.nextBoolean();
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED && isConfuse)
 						message = "" + player.getParty()[playerCurr].getStatus() + " has hit themself in confusion!";
@@ -331,7 +331,7 @@ public class Battle extends JPanel {
 						player.getParty()[playerCurr].attack(currMoveNo, player.getParty()[playerCurr]);
 					else
 						pAttack(moves[currMoveNo].getName());
-					
+
 				}
 				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE) {
 					int chanceOfThaw = 1 + (int)(Math.random() * (5));
@@ -341,7 +341,7 @@ public class Battle extends JPanel {
 					}
 
 				}
-				
+
 				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.SLEEP) {
 					int chanceOfWake = 1 + (int) (Math.random()*3);
 					if (chanceOfWake == 3) {
@@ -372,9 +372,9 @@ public class Battle extends JPanel {
 						player.getParty()[playerCurr].attack(currMoveNo, player.getParty()[playerCurr]);
 					else
 						pAttack(moves[currMoveNo].getName());
-					
+
 				}
-				
+
 				else if (counter == 150)
 				{
 					counter = 0;
@@ -394,7 +394,7 @@ public class Battle extends JPanel {
 				if(counter == 0)
 				{
 					enemyAttack = (int) (Math.random() * 4);
-					
+
 					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.FREEZE) {
 						message = "" + opponent.getParty()[oppCurr].getName() + " is frozen.";
 					}
@@ -412,7 +412,7 @@ public class Battle extends JPanel {
 					if (opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.FREEZE && opponent.getParty()[oppCurr].getStatus()!= Pokemon.Status.SLEEP
 							&& opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.CONFUSED && opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.PARALYSIS)
 						oAttack(enemyAttack);
-					
+
 					int paraChance = 1 + (int)(Math.random() * (4));
 					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS && paraChance == 4) {
 						message = "" + opponent.getParty()[oppCurr].getName() + " has gotten over its paralysis!";
@@ -420,8 +420,8 @@ public class Battle extends JPanel {
 					}
 					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS)
 						message = "" + opponent.getParty()[oppCurr].getName() + " is paralyzed. It can't move!";
-					
-					
+
+
 					isConfuse = random.nextBoolean();
 					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED && isConfuse)
 						message = "" + opponent.getParty()[oppCurr].getStatus() + " has hit themself in confusion!";
@@ -437,7 +437,7 @@ public class Battle extends JPanel {
 					}
 
 				}
-				
+
 				else if (counter == 75 && opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.SLEEP) {
 					int chanceOfWake = 1 + (int) (Math.random()*3);
 					if (chanceOfWake == 3) {
@@ -453,15 +453,15 @@ public class Battle extends JPanel {
 						message = "" + opponent.getParty()[oppCurr].getNickName() + " takes damage from its burn.";
 					repaint();
 				}
-				
+
 				else if (counter == 100 && opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED) {
 					if (isConfuse)
 						opponent.getParty()[oppCurr].attack(enemyAttack, opponent.getParty()[oppCurr]);
 					else
 						oAttack(enemyAttack);
-					
+
 				}
-				
+
 				else if (counter == 100 && (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.BURN  || opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.POISON)) {
 
 					addPoisonOrBurn(opponent.getParty()[oppCurr]);
@@ -708,13 +708,14 @@ public class Battle extends JPanel {
 	{
 		for(int i = 0; i < m.length; i++)
 		{
-			moves[i].updatePokemon(m[i].getName(), m[i].getType(), m[i].getCurPP(), m[i].getPP());
-			this.add(moves[i]);
-			this.revalidate();
-			this.repaint();
-			moves[i].setDisplayed(true);
-			moves[i].repaint();
-
+			if(m[i] != null) {
+				moves[i].updatePokemon(m[i].getName(), m[i].getType(), m[i].getCurPP(), m[i].getPP());
+				this.add(moves[i]);
+				this.revalidate();
+				this.repaint();
+				moves[i].setDisplayed(true);
+				moves[i].repaint();
+			}
 		}
 	}
 
@@ -722,7 +723,7 @@ public class Battle extends JPanel {
 	{
 		for(MoveSelect m : moves)
 		{
-			if(!m.equals(null))
+			if(m.getName() != null)
 			{
 				Container parent = m.getParent();
 				parent.remove(m);
@@ -999,7 +1000,7 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
+		pranav.addPokemonToParty(new Pokemon("Kakuna", "BBQ Dragon", 55));
 		pranav.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
