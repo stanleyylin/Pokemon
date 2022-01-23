@@ -11,8 +11,8 @@ public class Building {
 	private Person[] people;
 	private Rectangle[] collisions;
 	
-	public final Rectangle entrance;
-	public final Rectangle exit;
+	private Rectangle entrance;
+	private Rectangle exit;
 	
 	private BufferedImage bg;
 	public final int maxX;
@@ -58,6 +58,14 @@ public class Building {
 		}
 	}
 	
+	public Rectangle getEntrance()
+	{
+		return entrance;
+	}
+	public Rectangle getExit()
+	{
+		return exit;
+	}
 	public BufferedImage getBG()
 	{
 		return bg;

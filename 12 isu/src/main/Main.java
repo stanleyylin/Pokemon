@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import bag.Item;
 import entity.Player;
 
 public class Main {

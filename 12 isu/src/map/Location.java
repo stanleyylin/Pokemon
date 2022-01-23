@@ -14,7 +14,7 @@ public class Location {
 	
 	private BufferedImage background;
 	private Rectangle[] collisions;
-	private Building[] locations;
+	private Building[] buildings;
 	private Person[] people;
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
@@ -29,11 +29,11 @@ public class Location {
 	
 	private ArrayList<Gate> gates;
 	
-	public Location(BufferedImage bg, Rectangle[] collisions, Building[] locations, Person[] people)
+	public Location(BufferedImage bg, Rectangle[] collisions, Building[] buildings, Person[] people)
 	{
 		background = bg;
 		this.collisions = collisions;
-		this.locations = locations;
+		this.buildings = buildings;
 		this.people = people;
 		maxX = background.getWidth();
 		maxY = background.getHeight();
@@ -59,7 +59,7 @@ public class Location {
 	}
 	public Building[] getBuildings()
 	{
-		return locations;
+		return buildings;
 	}
 	public Person[] getPeople()
 	{

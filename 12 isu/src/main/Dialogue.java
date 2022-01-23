@@ -25,7 +25,7 @@ public class Dialogue extends JPanel
 	public Dialogue(GamePanel p)
 	{
 		this.p = p;
-		setPreferredSize(new Dimension(1080, 200));
+		setPreferredSize(new Dimension(1064, 172));
 		setLayout(null);
 		LoadImage loader = new LoadImage();
 		try
@@ -44,7 +44,6 @@ public class Dialogue extends JPanel
 			br = new BufferedReader(new FileReader("res/dialogue/"+p.getLines()));
 		} 
 		catch (IOException e) {
-			System.out.println("help");
 		}
 		nextLine();
 	}
@@ -56,9 +55,11 @@ public class Dialogue extends JPanel
 		{	
 			if((line = br.readLine()) != null)
 			{
-				p.getDialogue().nextLine();
 				message = line;
+				revalidate();
 				repaint();
+				p.revalidate();
+				p.repaint();
 			}
 			else
 			{
@@ -73,10 +74,10 @@ public class Dialogue extends JPanel
 	public void paintComponent(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(dialogueBox, 8, 8, null);
+		g2.drawImage(dialogueBox, 0, 0, null);
 		g2.setFont(font);
-		g2.setColor(Color.WHITE);
-		g2.drawString(message, 90, 70);
+		g2.setColor(Color.BLACK);
+		g2.drawString(message, 82, 82);
 	}
 
 }

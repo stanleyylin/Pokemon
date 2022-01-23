@@ -1,4 +1,4 @@
-package main;
+package bag;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -7,39 +7,42 @@ import getimages.LoadImage;
 
 public class Item {
 
-	String name;
-	String effect;
-	String category;
-	//pokeball, medicine, key item, other item
-	int cost;
-	BufferedImage sprite;
+	private String name;
+	private String effect;
+	private String category; // pokeball, medicine, key item, other item
+	private int cost;
+	private BufferedImage sprite;
 
-	LoadImage loader = new LoadImage();
-	//take image loading code from Pokemon class
+	private int quantity;
+	
+	private double catchChance;
+	private int healing;
+	private boolean removeStatus;
+	private int ppIncrease;
+	private boolean doesRevive;
+	
+	private LoadImage loader = new LoadImage();
 
-	double catchChance;
-	BufferedImage[] ballSheet;
-
-	int healing;
-	boolean removeStatus;
-	int ppIncrease;
-	boolean doesRevive;
 
 	//poke ball
-	public Item (String name, String effect, int cost, double catchChance) {
-		//i dont know how to import the ball sheet lmao
+	public Item (String name, String effect, int cost, double catchChance) 
+	{
 		this.name = name;
 		this.effect = effect;
 		this.category = "PokeBall";
 		this.cost = cost;
 		this.catchChance = catchChance;
-		try {
+		try 
+		{
 			this.sprite = loader.loadImage("items/" + this.name + ".png");
-		} catch (IOException e) {}
+		} 
+		catch (IOException e) {}
+		quantity = 0;
 	}
 
-	//healing item
-	public Item(String name, String effect, int cost, int healing, boolean removeStatus, int ppIncrease, boolean doesRevive) {
+	// Healing item
+	public Item(String name, String effect, int cost, int healing, boolean removeStatus, int ppIncrease, boolean doesRevive) 
+	{
 		this.name = name;
 		this.effect = effect;
 		this.category = "Medicine";
@@ -48,21 +51,28 @@ public class Item {
 		this.removeStatus = removeStatus;
 		this.ppIncrease = ppIncrease;
 		this.doesRevive = doesRevive;
-		try {
+		try 
+		{
 			this.sprite = loader.loadImage("items/" + this.name + ".png");
-		} catch (IOException e) {}
+		} 
+		catch (IOException e) {}
+		quantity = 0;
 	}
 
 	//key items (cannot be sold btw)
-	public Item(String name, String effect) {
+	public Item(String name, String effect)
+	{
 		this.name = name;
 		this.effect = effect;
 		this.category = "Key Items";
-		try {
+		try 
+		{
 			this.sprite = loader.loadImage("items/" + this.name + ".png");
-		} catch (IOException e) {}
+		} 
+		catch (IOException e) {}
+		quantity = 0;
 	}
-
+	
 	public String toString() {
 		if (this.category.equals("PokeBall"))
 			return String.format("%s(%.1f) -- %d", this.name, this.catchChance, this.cost);
@@ -70,6 +80,12 @@ public class Item {
 			return String.format("%s-hp: %d, pp: %d, %b/%b ", this.name, this.healing, this.ppIncrease, this.removeStatus, this.doesRevive);
 		else return this.name;
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
 
 }
 

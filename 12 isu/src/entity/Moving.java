@@ -70,7 +70,6 @@ public class Moving {
 				}
 				else if(bottom1 > top2 && top1 < top2)
 				{
-
 					if(cameraYOn)
 						camera.setY((int) (camera.getY() - (bottom1-top2)));
 					else
@@ -199,29 +198,28 @@ public class Moving {
 		}
 	}
 	
-	boolean doorEntered(Building[] buildings)
+	void doorEntered()
 	{
-		if(camera.getBuilding() == null && main.direction.equals("up"))
+		if(camera.getBuilding() == null && main.direction == "up")
 		{
-			int bounds = 30;
+			int bounds = 10;
 			Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+bounds, camera.getY() + main.getScreenY()+bounds, Player.width-bounds, Player.height-bounds);
-			for(int i = 0; i < buildings.length; i++)
+			for(Building b : camera.getLocation().getBuildings())
 			{
-				if(player.intersects(buildings[i].entrance))
+				if(player.intersects(b.getEntrance()))
 				{
 					camera.getLocation().setLastPosition(main.getScreenX(), main.getScreenY(), camera.getX(), camera.getY()+main.speed);
-					camera.setBuilding(buildings[i]);
-					main.setScreenX((int) buildings[i].exit.getX()-Player.width/2);
-					main.setScreenY((int) buildings[i].exit.getY() - Player.height - 5);
-					return true;
+					camera.setBuilding(b);
+					main.setScreenX((int) b.getExit().getX()-Player.width/2);
+					main.setScreenY((int) b.getExit().getY() - Player.height - 5);
 				}
 			}
 		}
-		else if (camera.getBuilding() != null && main.direction.equals("down") && buildings != null)
+		else if (camera.getBuilding() != null && main.direction.equals("down"))
 		{
-			int bounds = 30;
+			int bounds = 10;
 			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.width-bounds, Player.height-bounds);
-			if(player.intersects(camera.getBuilding().exit))
+			if(player.intersects(camera.getBuilding().getExit()))
 			{
 				int[] savePos = camera.getLocation().getLastPosition();
 				camera.setBuilding(null);
@@ -229,11 +227,8 @@ public class Moving {
 				main.setScreenY(savePos[1]);
 				camera.setX(savePos[2]);
 				camera.setY(savePos[3]);
-				return true;
 			}
 		}
-		return false;
-		
 	}
 	
 	public void changeSprite()
@@ -291,15 +286,21 @@ public class Moving {
 				main.setScreenX(GamePanel.screenWidth - Player.width);
 		}
 		
+		doorEntered();
 		
-		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		// Check collisions
+		if(camera.getBuilding() == null)
 		{
-			// Check collisions
-			if(camera.getBuilding() == null)
+			if(!checkGate(camera.getLocation().getGates()))
 			{
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
+		}
+		else
+		{
+			checkCollisions(camera.getBuilding().getCollisions(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+			checkCollisions(camera.getBuilding().getPeople(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
 		}
 		
 		interact();
@@ -361,15 +362,21 @@ public class Moving {
 				main.setScreenY(GamePanel.screenHeight - Player.height);
 		}
 		
+		doorEntered();
+		
 		// Check collisions
-		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		if(camera.getBuilding() == null)
 		{
-			// Check collisions
-			if(camera.getBuilding() == null)
+			if(!checkGate(camera.getLocation().getGates()))
 			{
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
+		}
+		else
+		{
+			checkCollisions(camera.getBuilding().getCollisions(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+			checkCollisions(camera.getBuilding().getPeople(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
 		}
 	
 		interact();
@@ -413,15 +420,20 @@ public class Moving {
 			spriteCounter = 0;
 		}	
 		
-		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		if(camera.getBuilding() == null)
 		{
-			// Check collisions
-			if(camera.getBuilding() == null)
+			if(!checkGate(camera.getLocation().getGates()))
 			{
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
 		}
+		else
+		{
+			checkCollisions(camera.getBuilding().getCollisions(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+			checkCollisions(camera.getBuilding().getPeople(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+		}
+		doorEntered();
 		interact();
 	}
 	
@@ -442,16 +454,21 @@ public class Moving {
 		{
 			spriteCounter = 0;
 		}
-	
-		if(!checkGate(camera.getLocation().getGates()) && !doorEntered(camera.getLocation().getBuildings()))
+		
+		if(camera.getBuilding() == null)
 		{
-			// Check collisions
-			if(camera.getBuilding() == null)
+			if(!checkGate(camera.getLocation().getGates()))
 			{
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
 		}
+		else
+		{
+			checkCollisions(camera.getBuilding().getCollisions(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+			checkCollisions(camera.getBuilding().getPeople(), !camera.getBuilding().getEdgeReachedX(), !camera.getBuilding().getEdgeReachedY());
+		}
+		doorEntered();
 		interact();
 	}
 	

@@ -78,12 +78,14 @@ public class GamePanel extends JPanel implements Runnable
 		
 		// Buildings -----
 		Building[] buildings10 = new Building[2];
-		buildings10[0] = new Building(new Rectangle(788, 864, 54, 55), new Rectangle(535, 567, 81, 32), null, null, pokecentre1);
-		buildings10[1] = new Building(new Rectangle(1017, 853, 60, 54), new Rectangle(540, 543, 5, 1), null, null, house1);
+		Person[] peoplePC = new Person[0];
+		Rectangle[] collisionsPC = new Rectangle[0];
+		buildings10[0] = new Building(new Rectangle(1017, 853, 60, 54), new Rectangle(540, 543, 5, 1), peoplePC, collisionsPC, house1);
+		buildings10[1] = new Building(new Rectangle(791, 864, 54, 62), new Rectangle(535, 567, 81, 32), new Person[0], new Rectangle[0], pokecentre1);
 		
-		// People
+		//People
 		Person[] people10 = new Person[1];
-		people10[0] = new Person(new Rectangle(573, 951, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		people10[0] = new Person(new Rectangle(643, 891, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
 		Location heartHome = new Location(hearthome, collisions10, buildings10, people10);
 		
 	// 10: 208
@@ -99,8 +101,8 @@ public class GamePanel extends JPanel implements Runnable
 		collisions208[0] = new Rectangle(2210, 0, 761, 523); // leftmost up trees
 		
 		// Buildings ----
-		Building[] buildings208 = new Building[0];
-		buildings10[0] = new Building(new Rectangle(2635, 555, 60, 54), new Rectangle(540, 543, 81, 32), null, null, house1);
+		Building[] buildings208 = new Building[1];
+		buildings208[0] = new Building(new Rectangle(2635, 555, 60, 54), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
 		
 		Person[] people208 = new Person[0];
 		Location T208 = new Location(t208, collisions208, buildings208, people208);
@@ -111,11 +113,13 @@ public class GamePanel extends JPanel implements Runnable
 		Gate gate11 = new Gate(0, t208.getWidth()-screenWidth, t208.getHeight()-screenHeight, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90));
 		heartHome.addGate(gate11);
 		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
+		
+		
 		// Player, temp
 		main = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		// Functionalities
 		dialogue = new Dialogue(this);
-		dialogue.setBounds(0, 0, 1080, 188);
+		dialogue.setBounds(8, 8, 1064, 172);
 		camera = new Camera(heartHome, 300, 1200);
 	    moving = new Moving(this, main, camera);
 	    keyHandler = new KeyHandler(this, main, moving);
@@ -193,9 +197,7 @@ public class GamePanel extends JPanel implements Runnable
 	
 	public void showDialogue()
 	{
-		add(dialogue);
-		revalidate();
-		repaint();
+		this.add(dialogue);
 		dialogue.startDialogue(main.getTalkingTo());
 	}
 	public void hideDialogue()
