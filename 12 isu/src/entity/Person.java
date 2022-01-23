@@ -65,15 +65,12 @@ public class Person {
 		shown = false;
 	}
 
-	// Super constructor for 
-	public Person(Rectangle collision, String imageFile, int w, int h, String textFile)
+	// Super constructor for NPC, nurse, and merchant
+	public Person(Rectangle collision, String textFile)
 	{
 		this.collision = collision;
-		this.imageFile = imageFile;
 		this.textFile = textFile;
 	}
-	
-	
 	
 	public boolean getShown()
 	{
