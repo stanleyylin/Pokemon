@@ -15,6 +15,7 @@ import javax.swing.Timer;
 import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 
+import bag.Bag;
 import entity.NPC;
 import entity.Player;
 
@@ -72,7 +73,9 @@ public class Battle extends JPanel {
 	static Button[] buttons;
 	static MoveSelect[] moves;
 
-	PokeSelect selectionMenu;
+	// **** To be migrated
+	private PokeSelect selectionMenu;
+	private Bag bag;
 
 	public Battle(Player player, NPC opponent)
 	{
@@ -86,10 +89,14 @@ public class Battle extends JPanel {
 		setBackground(Color.BLACK);
 		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
-		selectionMenu = new PokeSelect(this, player, 0, true);
 		playerIsFainted = false;
 		opponentIsFainted = false;
 
+		// **** TO BE MIGRATED
+		selectionMenu = new PokeSelect(this, player, 0, true);
+		bag = new Bag(player);
+		bag.loadScreen(2);
+		
 		// Background
 		try
 		{
@@ -559,6 +566,14 @@ public class Battle extends JPanel {
 			showBack();
 			showMoves(player.getParty()[playerCurr].getAttacks());
 		}
+		else if(e.getSource().equals(buttons[1]))
+		{
+			showPokeMenu();
+		}
+		else if(e.getSource().equals(buttons[2]))
+		{
+			showBag();
+		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
 		{
@@ -623,37 +638,23 @@ public class Battle extends JPanel {
 		player.getParty()[playerCurr].attack(currMoveNo, opponent.getParty()[oppCurr]); //attacks the opponent
 		player.getParty()[playerCurr].getCurMoves()[currMoveNo].useMove(); //subtracts 1 pp
 	}
-
 	public void oAttack(int enemyAttack) {
 		opponent.getParty()[oppCurr].attack(enemyAttack, player.getParty()[playerCurr]); //attacks the player
-
-
 	}
-
-
 	public boolean checkFaint(Pokemon p1) {
 		if (p1.getCurHP()<=0)
 			return true;
 		return false;
 	}
-
 	public void pokeFaint(Pokemon p1) {
 		p1.setCurHP(0);
 		p1.setIsFainted(true);
 		System.out.println("" + p1.getName() +" has fainted");
 	}
-
-
-
 	public void addPoisonOrBurn (Pokemon p1) {
 		int burnDmg = p1.getHPStat()/8;
 		p1.setCurHP(p1.getCurHP() - burnDmg);
 	}
-
-
-
-
-
 	public int pokeCount(Pokemon[] party) {
 		int count = 0;
 		for (Pokemon p1 : party) {
@@ -663,6 +664,8 @@ public class Battle extends JPanel {
 		return count;
 	}
 
+	// Shows/Hides back button
+	// void, no parameters
 	public void showBack()
 	{
 		this.add(back);
@@ -676,10 +679,8 @@ public class Battle extends JPanel {
 		parent.revalidate();
 		parent.repaint();
 	}
-
-	// Description: Hides the main buttons (fight/pokemon/run/bag)
-	// Parameters: none
-	// Returns: void
+	// Shows/hides the main buttons (fight/pokemon/run/bag)
+	// void, no parameters
 	public void hideButtons()
 	{
 		for(Button b : buttons)
@@ -690,10 +691,6 @@ public class Battle extends JPanel {
 			parent.repaint();
 		}
 	}
-
-	// Description: Shows the main buttons (fight/pokemon/run/bag)
-	// Parameters: none
-	// Returns: void
 	public void showButtons()
 	{
 		for(Button b : buttons)
@@ -703,7 +700,8 @@ public class Battle extends JPanel {
 			this.repaint();
 		}
 	}
-
+	// Shows/hides moves that player can use
+	// void, no parameters
 	public void showMoves(Move[] m)
 	{
 		for(int i = 0; i < m.length; i++)
@@ -718,7 +716,6 @@ public class Battle extends JPanel {
 			}
 		}
 	}
-
 	public void hideMoves()
 	{
 		for(MoveSelect m : moves)
@@ -739,7 +736,8 @@ public class Battle extends JPanel {
 		System.out.println();
 	}
 
-	public void setNextMon(int i) {
+	public void setNextMon(int i) 
+	{
 
 		playerCurr = i;
 		message = "";
@@ -749,31 +747,66 @@ public class Battle extends JPanel {
 		timer.start();
 	}
 
-	public  void showPokeMenu() {
+	// Changing Screens
+	public void showPokeMenu() {
 		panel.setVisible(false);
 		frame.setContentPane(selectionMenu);
 		selectionMenu.setVisible(true);
 		selectionMenu.updatePokemon();
 		frame.pack();
-
 	}
-
-	public static void showBattleScreen() {
+	public void showBattleScreen() {
 		frame.setContentPane(panel);
 		panel.setVisible(true);
 		frame.pack();
 	}
-
-
-	public void updateText(Graphics2D g)
-	{
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setFont(font);
-		g2.setColor(Color.WHITE);
-		g2.drawString(message, 69, 648);
+	public void showBag() {
+		frame.setContentPane(bag);
+		bag.setVisible(true);
+		frame.pack();
 	}
 
+	// Draw methods: Displays background, player/opponent pokemons and their stats.
+	public void paintComponent(Graphics g) {
+		//static
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawImage(background, 0, 0, null);
+		g2.drawImage(battleStats[0], 0, 110, null);
+		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+		g2.setColor(Color.BLACK);
+		g2.fillRect(0, 586, 1080, 134);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
+		if(gameState != 1)
+		{
+			loadPlayerMon(g2);
+			loadOpponentMon(g2);
+			if (!playerIsFainted)
+				drawPStats(g2);
+			if (!opponentIsFainted)
+				drawOStats(g2);
+		}
+		if (gameState == 0 && message != null)
+			updateText(g2);
+
+		if(gameState == 1 && message != null)
+		{
+			updateText(g2);
+		}
+
+		if (gameState == 2 || gameState == 3 && message != null) {
+			updateText(g2);
+		}
+		if ((gameState == 4 || gameState == 5) && message != null) {
+			updateText(g2);
+		}
+		if (gameState == 6  || gameState == 7 && message != null)
+			updateText(g2);
+
+		if (frame.getContentPane().equals(selectionMenu))
+			selectionMenu.update(g2);
+	}
 	public void loadPlayerMon(Graphics2D g2)
 	{
 		int pX = 400 - (player.getParty()[playerCurr].getBack().getWidth()/2);
@@ -781,7 +814,13 @@ public class Battle extends JPanel {
 
 		g2.drawImage(player.getParty()[playerCurr].getBack(), pX, pY, null);
 	}
-
+	public void updateText(Graphics2D g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setFont(font);
+		g2.setColor(Color.WHITE);
+		g2.drawString(message, 69, 648);
+	}
 	public void loadOpponentMon(Graphics2D g2)
 	{
 		int oX = 793 - (opponent.getParty()[oppCurr].getFront().getWidth()/2);
@@ -789,7 +828,6 @@ public class Battle extends JPanel {
 
 		g2.drawImage(opponent.getParty()[oppCurr].getFront(), oX, oY, null);
 	}
-
 	public void drawOStats(Graphics2D g2)
 	{
 		if(opponent.getParty()[oppCurr] != null)
@@ -854,7 +892,6 @@ public class Battle extends JPanel {
 
 		}
 	}
-
 	public void drawPStats(Graphics2D g2)
 	{
 		if(player.getParty()[playerCurr] != null)
@@ -922,47 +959,6 @@ public class Battle extends JPanel {
 			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 992-removeWidth2, 402);
 		}
 	}
-	public void paintComponent(Graphics g) {
-		//static
-		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(background, 0, 0, null);
-		g2.drawImage(battleStats[0], 0, 110, null);
-		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
-		g2.setColor(Color.BLACK);
-		g2.fillRect(0, 586, 1080, 134);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
-		if(gameState != 1)
-		{
-			loadPlayerMon(g2);
-			loadOpponentMon(g2);
-			if (!playerIsFainted)
-				drawPStats(g2);
-			if (!opponentIsFainted)
-				drawOStats(g2);
-		}
-		if (gameState == 0 && message != null)
-			updateText(g2);
-
-		if(gameState == 1 && message != null)
-		{
-			updateText(g2);
-		}
-
-		if (gameState == 2 || gameState == 3 && message != null) {
-			updateText(g2);
-		}
-		if ((gameState == 4 || gameState == 5) && message != null) {
-			updateText(g2);
-		}
-		if (gameState == 6  || gameState == 7 && message != null)
-			updateText(g2);
-
-		if (frame.getContentPane().equals(selectionMenu))
-			selectionMenu.update(g2);
-
-	}
 
 	public void newBattle(Player newPlayer, NPC newOpponent)
 	{
@@ -970,11 +966,6 @@ public class Battle extends JPanel {
 		playerCurr = 0;
 		opponent = newOpponent;
 		oppCurr = 0;
-	}
-
-	public Font getFont()
-	{
-		return font;
 	}
 
 	public void setPlayerCur(int i) {
@@ -985,8 +976,6 @@ public class Battle extends JPanel {
 	{
 		repaint();
 	}
-
-
 
 	public static void main(String[] args)
 	{
@@ -1003,6 +992,11 @@ public class Battle extends JPanel {
 		pranav.addPokemonToParty(new Pokemon("Kakuna", "BBQ Dragon", 55));
 		pranav.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
+		pranav.addOnItem("Potion", 1, 5);
+		pranav.addOnItem("Master Ball", 0, 2);
+		pranav.addKeyItem("Badge Case");
+		pranav.addKeyItem("Town Map");
+		
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
 		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 60));
