@@ -969,11 +969,12 @@ public class Battle extends JPanel {
 			g2.setFont(font.deriveFont(attributes));
 
 			// Level Bar
-			int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
-//			System.out.println(level);
+			int curLevel = player.getParty()[playerCurr].getCurExp();
+			int maxLevel = player.getParty()[playerCurr].getCurExpThreshold();
+			int level = (int) (battleStats[2].getWidth() * (double)((double)curLevel/(double)maxLevel));
 			if(level > 0)
 			{
-				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
+				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, (int) level, battleStats[2].getHeight());
 				g2.drawImage(drawBar, 775, 417, null);
 			}
 			
