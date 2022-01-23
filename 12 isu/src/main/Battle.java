@@ -29,6 +29,7 @@ import java.awt.font.TextAttribute;
 public class Battle extends JPanel {
 
 	private boolean wild;
+	private Random random = new Random();
 
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	BufferedImage background; // Background image
@@ -44,6 +45,8 @@ public class Battle extends JPanel {
 	NPC opponent;
 	int oppCurr;
 	
+	boolean isConfuse;
+
 	int currMoveNo;
 	String currMove;
 
@@ -76,6 +79,7 @@ public class Battle extends JPanel {
 		this.player = player;
 		playerCurr = 0;
 		this.opponent = opponent;
+		this.isConfuse = false;
 		oppCurr = 0;
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
@@ -283,20 +287,96 @@ public class Battle extends JPanel {
 					showButtons();
 				}
 			}
-			
-			
+
+
 			if (gameState == 4) 
 			{
-				message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
+				if (counter == 0)
+				{
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE) {
+						message = "" + player.getParty()[playerCurr].getNickName() + " is frozen.";
+					}
+					else if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.SLEEP)
+						message = "" + player.getParty()[playerCurr].getNickName() + " is asleep.";
+					else if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED)
+						message = "" + player.getParty()[playerCurr].getNickName() + " is confused.";
+					else if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
+						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed";
+					else
+						message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
+				}
 				if(counter == 50)
 				{
+					if (player.getParty()[playerCurr].getStatus() != Pokemon.Status.FREEZE && player.getParty()[playerCurr].getStatus() != Pokemon.Status.SLEEP 
+							&& player.getParty()[playerCurr].getStatus()!=Pokemon.Status.CONFUSED && player.getParty()[playerCurr].getStatus() != Pokemon.Status.PARALYSIS)
+						pAttack(moves[currMoveNo].getName());
 					
-					pAttack(moves[currMoveNo].getName());
+					int paraChance = 1 + (int)(Math.random() * (4));
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS && paraChance == 4) {
+						message = "" + player.getParty() + " has gotten over its paralysis!";
+						player.getParty()[playerCurr].setStatus(null);
+					}
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
+						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed. It can't move!";
+					
+					isConfuse = random.nextBoolean();
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED && isConfuse)
+						message = "" + player.getParty()[playerCurr].getStatus() + " has hit themself in confusion!";
+					else if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED && !isConfuse)
+						message = "" + player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
+
+				}
+				else if (counter == 100 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED) {
+					if (isConfuse)
+						player.getParty()[playerCurr].attack(currMoveNo, player.getParty()[playerCurr]);
+					else
+						pAttack(moves[currMoveNo].getName());
 					
 				}
-				else if (counter == 100)
+				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE) {
+					int chanceOfThaw = 1 + (int)(Math.random() * (5));
+					if (chanceOfThaw == 5) {
+						message = "" + player.getParty()[playerCurr].getNickName() + " has thawed out!"; 
+						player.getParty()[playerCurr].setStatus(null);
+					}
+
+				}
+				
+				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.SLEEP) {
+					int chanceOfWake = 1 + (int) (Math.random()*3);
+					if (chanceOfWake == 3) {
+						message = "" + player.getParty()[playerCurr].getNickName() + " has woken up!";
+						player.getParty()[playerCurr].setStatus(null);
+					}
+				}
+
+				else if (counter == 75 && (player.getParty()[playerCurr].getStatus() == Pokemon.Status.BURN  || player.getParty()[playerCurr].getStatus() == Pokemon.Status.POISON)) {
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.POISON)
+						message = "" + player.getParty()[playerCurr].getNickName() + " takes damage from poison.";
+					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.BURN)
+						message = "" + player.getParty()[playerCurr].getNickName() + " takes damage from its burn.";
+					repaint();
+				}
+				else if (counter == 100 && (player.getParty()[playerCurr].getStatus() == Pokemon.Status.BURN  || player.getParty()[playerCurr].getStatus() == Pokemon.Status.POISON)) {
+
+					addPoisonOrBurn(player.getParty()[playerCurr]);
+					if (checkFaint(player.getParty()[playerCurr])) {
+						pokeFaint(player.getParty()[playerCurr]);
+						repaint();
+						gameState = 6;
+					}
+
+				}
+				else if (counter == 100 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED) {
+					if (isConfuse)
+						player.getParty()[playerCurr].attack(currMoveNo, player.getParty()[playerCurr]);
+					else
+						pAttack(moves[currMoveNo].getName());
+					
+				}
+				
+				else if (counter == 150)
 				{
-					//					if (isFainted())
 					counter = 0;
 					if (checkFaint(opponent.getParty()[oppCurr])) {
 						pokeFaint(opponent.getParty()[oppCurr]);
@@ -314,14 +394,85 @@ public class Battle extends JPanel {
 				if(counter == 0)
 				{
 					enemyAttack = (int) (Math.random() * 4);
-					//					enemyAttack = 2;
-					message = "" + opponent.getParty()[oppCurr].getName() + " has used " + opponent.getParty()[oppCurr].getCurMoves()[enemyAttack].getName();
+					
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.FREEZE) {
+						message = "" + opponent.getParty()[oppCurr].getName() + " is frozen.";
+					}
+					else if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.SLEEP)
+						message = "" + opponent.getParty()[oppCurr].getName() + " is asleep.";
+					else if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED)
+						message = "" + opponent.getParty()[oppCurr].getName() + " is confused.";
+					else if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS)
+						message = "" + player.getParty()[oppCurr].getName() + " is paralyzed";
+					else
+						message = "" + opponent.getParty()[oppCurr].getName() + " has used " + opponent.getParty()[oppCurr].getCurMoves()[enemyAttack].getName();
 				}
 				else if(counter == 50)
 				{
-					oAttack(enemyAttack);
+					if (opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.FREEZE && opponent.getParty()[oppCurr].getStatus()!= Pokemon.Status.SLEEP
+							&& opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.CONFUSED && opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.PARALYSIS)
+						oAttack(enemyAttack);
+					
+					int paraChance = 1 + (int)(Math.random() * (4));
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS && paraChance == 4) {
+						message = "" + opponent.getParty()[oppCurr].getName() + " has gotten over its paralysis!";
+						opponent.getParty()[oppCurr].setStatus(null);
+					}
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS)
+						message = "" + opponent.getParty()[oppCurr].getName() + " is paralyzed. It can't move!";
+					
+					
+					isConfuse = random.nextBoolean();
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED && isConfuse)
+						message = "" + opponent.getParty()[oppCurr].getStatus() + " has hit themself in confusion!";
+					else if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED && !isConfuse)
+						message = "" + opponent.getParty()[oppCurr].getName() + " has used " + currMove + "!";
 				}
-				else if (counter >= 100)
+
+				else if (counter == 75 && opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.FREEZE) {
+					int chanceOfThaw = 1 + (int)(Math.random() * (5));
+					if (chanceOfThaw == 5) {
+						message = "" + opponent.getParty()[oppCurr].getName() + " has thawed out!"; 
+						opponent.getParty()[oppCurr].setStatus(null);
+					}
+
+				}
+				
+				else if (counter == 75 && opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.SLEEP) {
+					int chanceOfWake = 1 + (int) (Math.random()*3);
+					if (chanceOfWake == 3) {
+						message = "" + opponent.getParty()[oppCurr].getName() + " has woken up!";
+						opponent.getParty()[oppCurr].setStatus(null);
+					}
+				}
+
+				else if (counter == 75 && (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.BURN  || opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.POISON)) {
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.POISON)
+						message = "" + opponent.getParty()[oppCurr].getNickName() + " takes damage from poison.";
+					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.BURN)
+						message = "" + opponent.getParty()[oppCurr].getNickName() + " takes damage from its burn.";
+					repaint();
+				}
+				
+				else if (counter == 100 && opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.CONFUSED) {
+					if (isConfuse)
+						opponent.getParty()[oppCurr].attack(enemyAttack, opponent.getParty()[oppCurr]);
+					else
+						oAttack(enemyAttack);
+					
+				}
+				
+				else if (counter == 100 && (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.BURN  || opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.POISON)) {
+
+					addPoisonOrBurn(opponent.getParty()[oppCurr]);
+					if (checkFaint(opponent.getParty()[oppCurr])) {
+						pokeFaint(opponent.getParty()[oppCurr]);
+						repaint();
+						gameState = 7;
+					}
+
+				}
+				else if (counter >= 150)
 				{
 					counter = 0;
 					if (checkFaint(player.getParty()[playerCurr])) {
@@ -347,10 +498,10 @@ public class Battle extends JPanel {
 				}
 				else if (counter >= 50) {
 					if (player.findNextAvailableMon()!=null) {
-					showPokeMenu();
-					counter = 0;
-					gameState = 0;
-					timer.stop();
+						showPokeMenu();
+						counter = 0;
+						gameState = 0;
+						timer.stop();
 					}
 					else {
 						counter = 0;
@@ -456,25 +607,25 @@ public class Battle extends JPanel {
 			timer.start();
 		}
 	}
-	
+
 	public void endBattle(boolean isPlayer) {
 		//it comes to this when u win/lose the battle
-		
+
 		//if(isPlayer)
 		//trigger the blackkscreen & pokemon centre animation
-		
+
 		//else
 		//switch the screen back to overworld and have them give you dialogue + money
 	}
 
 	public void pAttack(String attack) 
 	{
-		player.getParty()[playerCurr].attack(currMoveNo, opponent.getParty()[oppCurr]);
-		player.getParty()[playerCurr].getCurMoves()[currMoveNo].useMove();
+		player.getParty()[playerCurr].attack(currMoveNo, opponent.getParty()[oppCurr]); //attacks the opponent
+		player.getParty()[playerCurr].getCurMoves()[currMoveNo].useMove(); //subtracts 1 pp
 	}
 
 	public void oAttack(int enemyAttack) {
-		opponent.getParty()[oppCurr].attack(enemyAttack, player.getParty()[playerCurr]);	
+		opponent.getParty()[oppCurr].attack(enemyAttack, player.getParty()[playerCurr]); //attacks the player
 
 
 	}
@@ -494,10 +645,12 @@ public class Battle extends JPanel {
 
 
 
-	public void pokeBurn (Pokemon p1) {
+	public void addPoisonOrBurn (Pokemon p1) {
 		int burnDmg = p1.getHPStat()/8;
 		p1.setCurHP(p1.getCurHP() - burnDmg);
 	}
+
+
 
 
 
@@ -784,9 +937,9 @@ public class Battle extends JPanel {
 			loadPlayerMon(g2);
 			loadOpponentMon(g2);
 			if (!playerIsFainted)
-			drawPStats(g2);
+				drawPStats(g2);
 			if (!opponentIsFainted)
-			drawOStats(g2);
+				drawOStats(g2);
 		}
 		if (gameState == 0 && message != null)
 			updateText(g2);
@@ -795,7 +948,7 @@ public class Battle extends JPanel {
 		{
 			updateText(g2);
 		}
-		
+
 		if (gameState == 2 || gameState == 3 && message != null) {
 			updateText(g2);
 		}
@@ -832,7 +985,7 @@ public class Battle extends JPanel {
 		repaint();
 	}
 
-	
+
 
 	public static void main(String[] args)
 	{
@@ -846,11 +999,13 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 20));
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
+		pranav.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
-//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
+		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
 		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 60));
+		gary.getParty()[0].setStatus(Pokemon.Status.BURN);
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
 		panel = new Battle(pranav, gary);
 

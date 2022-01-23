@@ -20,6 +20,15 @@ import getimages.LoadImage;
 
 //pokemon class
 public class Pokemon {
+	
+	public enum Status {
+		BURN,
+		FREEZE,
+		PARALYSIS,
+		POISON,
+		SLEEP,
+		CONFUSED
+	}
 
 	int ID; //number of mon in dex
 	String name; //name of mon
@@ -50,6 +59,7 @@ public class Pokemon {
 	Type type; //type class
 	Random random = new Random();//random class (literally that) for the nextBoolean to function
 	boolean isFainted;
+	Status status;
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
@@ -61,6 +71,7 @@ public class Pokemon {
 		this.name = name;
 		this.ID = pokeStats.get(name).getID();
 		this.isFainted = false;
+		this.status = null;
 
 		//getting pokeimages
 		try {
@@ -352,6 +363,14 @@ public class Pokemon {
 
 	public Move[] getCurMoves() {
 		return attacks;
+	}
+	
+	public Status getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(Status s1) {
+		this.status = s1;
 	}
 
 
