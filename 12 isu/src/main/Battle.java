@@ -124,7 +124,7 @@ public class Battle extends JPanel {
 		try
 		{
 			battleStats[2] = loader.loadImage("res/battle/battle stats.png").getSubimage(161, 10, 94, 4);
-			battleStats[2] = loader.resize(battleStats[2], 165, 6);
+			battleStats[2] = loader.resize(battleStats[2], 278, 4);
 		}
 		catch(IOException e) {}
 		// Green health bar
@@ -966,6 +966,15 @@ public class Battle extends JPanel {
 			attributes.put(TextAttribute.SIZE, 22);
 			g2.setFont(font.deriveFont(attributes));
 
+			// Level Bar
+			int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
+			System.out.println(level);
+			if(level > 0)
+			{
+				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
+				g2.drawImage(drawBar, 775, 417, null);
+			}
+			
 			// Player Name
 			g2.setColor(Color.BLACK);
 			g2.drawString(player.getParty()[playerCurr].getNickName(), 718, 359);
