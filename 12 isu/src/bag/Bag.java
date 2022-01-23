@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import main.Battle;
 import main.GamePanel;
 
 public class Bag extends JPanel implements MouseListener{
@@ -31,6 +33,7 @@ public class Bag extends JPanel implements MouseListener{
 	private BufferedImage useButton; // The use button
 	
 	private Item selectedItem; // The current selected item
+	private Battle battle;
 	
 
 	private int bagState; // BAG STATES: 0 - out of battle, 1 - NPC battle, 2 - wild Pokemon battle
@@ -46,9 +49,10 @@ public class Bag extends JPanel implements MouseListener{
 	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 12);
 	
 	// Constructor
-	public Bag(Player p)
+	public Bag(Player p, Battle battle)
 	{
 		this.main = p;
+		this.battle = battle;
 		visible = false;
 		loadImages();
 		loadButtons();
@@ -456,14 +460,20 @@ public class Bag extends JPanel implements MouseListener{
 			if(bagState == 1) // nPC battle
 			{
 				
+				battle.useItem(selectedItem.getName());
+				
 			}
 			if(bagState == 2) // wild pokemon battle
 			{
 				
 			}
+			
+			
 		}
 	
 	}
+	
+	
 
 	public void mousePressed(MouseEvent e) {}
 
@@ -474,22 +484,22 @@ public class Bag extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent e) {}
 	
 	// Pranav: comment this out if needed; this is for testing
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame ("Pokemon");
-		Player play = new Player(0, 0);
-		play.addOnItem("Potion", 1, 5);
-		play.addOnItem("Master Ball", 0, 2);
-		play.addKeyItem("Badge Case");
-		play.addKeyItem("Town Map");
-		Bag panel = new Bag(play);
-		panel.loadScreen(2);
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	public static void main(String[] args)
+//	{
+//		JFrame frame = new JFrame ("Pokemon");
+//		Player play = new Player(0, 0);
+//		play.addOnItem("Potion", 1, 5);
+//		play.addOnItem("Master Ball", 0, 2);
+//		play.addKeyItem("Badge Case");
+//		play.addKeyItem("Town Map");
+////		Bag panel = new Bag(play, battle);
+//		panel.loadScreen(2);
+//		frame.add(panel);
+//		frame.setVisible(true);
+//		frame.setResizable(false);
+//		frame.pack();
+//		frame.setLocationRelativeTo(null);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 
 }

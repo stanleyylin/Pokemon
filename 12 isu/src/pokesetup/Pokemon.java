@@ -20,7 +20,7 @@ import getimages.LoadImage;
 
 //pokemon class
 public class Pokemon {
-	
+
 	public enum Status {
 		BURN,
 		FREEZE,
@@ -53,7 +53,7 @@ public class Pokemon {
 	int[] IVs = new int[6];
 
 
-//	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
+	//	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
 	ArrayList<Pair<Integer,Move>> possibleMoves = new ArrayList<Pair<Integer,Move>>();
 	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
 	int level;
@@ -122,32 +122,32 @@ public class Pokemon {
 		updateAllStats();
 
 		this.curHP = this.HPstat;
-		
+
 		this.expValue = pokeStats.get(name).getExpValue();
 		this.curExp = 0;
 		this.curExpThreshold = getNewExpThreshold ();
-		
-		
+
+
 	}
-	
+
 	public void giveExp(Pokemon p1) {
-		
-//		System.out.println(curExpThreshold);
+
+		//		System.out.println(curExpThreshold);
 		double expDrop  =  (    ((p1.getExpDrop() * p1.getLevel()) / 5) *  Math.pow((2.0 * p1.getLevel() + 10) / (p1.getLevel() + this.level + 10),2.5));
 		this.curExp += expDrop;
-//		System.out.println(this.curExp + "----" + this.curExpThreshold);
+		//		System.out.println(this.curExp + "----" + this.curExpThreshold);
 	}
 
 	public void levelUp() {
 		System.out.println("pokemon has lvled up");
 		this.level++;
-		
+
 		updateAllStats();
 		this.curExp = this.curExp - this.curExpThreshold;
 		this.curExpThreshold = getNewExpThreshold();
 	}
-	
-	
+
+
 	public int getNewExpThreshold() {
 		return (12 * this.level * this.level) / 5;
 	}
@@ -192,11 +192,12 @@ public class Pokemon {
 		int damage = 0;
 		if (curMove.getDamage() > 0)
 			damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
-		
+
 		if (damage > enemy.getCurHP())
 			enemy.setCurHP(0);
 		else {
-			enemy.setStatus(curMove.getStatus());
+			if (curMove.getStatus() != null)
+				enemy.setStatus(curMove.getStatus());
 			enemy.setCurHP(enemy.getCurHP() - damage);
 		}
 
@@ -207,7 +208,7 @@ public class Pokemon {
 	//generates 4 best moves based on current pokeLevel
 	public void generateMoves() {
 		ArrayList<Move> tempMoves = new ArrayList<Move>();
-		
+
 		Collections.sort(this.possibleMoves);
 		for (Pair p : this.possibleMoves) {
 			if ((int) p.getInt() <= this.level)
@@ -280,7 +281,7 @@ public class Pokemon {
 
 		int count = 0;
 		while (curLine != null) {
-			
+
 			int curID = 0;
 			String name = "";
 			String type1 = "";
@@ -313,7 +314,7 @@ public class Pokemon {
 			generation = Integer.parseInt(curItems[11]);
 			isLegendary = Boolean.parseBoolean(curItems[12]);
 			curAbilityStr = curItems[13];
-			
+
 			if (curItems.length == 16) {
 				curAbilityStr2 = curItems[14];
 				curExp = Integer.parseInt(curItems[15]);
@@ -326,7 +327,7 @@ public class Pokemon {
 			if (!curAbilityStr2.isEmpty()) {
 				a2 = BlankMon.abilityList.get(curAbilityStr2);
 			}
-			
+
 			count++;
 
 			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp));
@@ -404,23 +405,23 @@ public class Pokemon {
 	public Move[] getCurMoves() {
 		return attacks;
 	}
-	
+
 	public Status getStatus() {
 		return this.status;
 	}
-	
+
 	public void setStatus(Status s1) {
 		this.status = s1;
 	}
-	
+
 	public int getExpDrop() {
 		return this.expValue;
 	}
-	
+
 	public int getCurExp() {
 		return this.curExp;
 	}
-	
+
 	public void setCurExp(int n) {
 		this.curExp = n;
 	}

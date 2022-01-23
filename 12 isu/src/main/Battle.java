@@ -33,7 +33,7 @@ public class Battle extends JPanel {
 	private Random random = new Random();
 
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
-    BufferedImage background; // Background image
+	BufferedImage background; // Background image
 	BufferedImage[] battleStats;
 
 	static JFrame frame;
@@ -45,7 +45,7 @@ public class Battle extends JPanel {
 	int playerCurr;
 	NPC opponent;
 	int oppCurr;
-	
+
 	boolean curLevelUp;
 	boolean isConfuse;
 
@@ -97,9 +97,13 @@ public class Battle extends JPanel {
 
 		// **** TO BE MIGRATED
 		selectionMenu = new PokeSelect(this, player, 0, true);
-		bag = new Bag(player);
-		bag.loadScreen(2);
-		
+		bag = new Bag(player, this);
+		if (isWild)
+			bag.loadScreen(2);
+		else
+			bag.loadScreen(1);
+
+
 		// Background
 		try
 		{
@@ -170,7 +174,7 @@ public class Battle extends JPanel {
 			statuses[4] = loader.resize(statuses[4], 59, 26);
 		}
 		catch(IOException e) {}
-		
+
 		try 
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -257,7 +261,7 @@ public class Battle extends JPanel {
 			moves[i] = new MoveSelect(this);
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
-		
+
 		showButtons();
 		gameState = 0;
 		timer = new Timer(30, new TimerEventHandler ());
@@ -333,7 +337,7 @@ public class Battle extends JPanel {
 						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed";
 					else
 						message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
-					
+
 					System.out.println("" + player.getParty()[playerCurr].getCurExp() + "/" + player.getParty()[playerCurr].getCurExpThreshold());
 				}
 				if(counter == 50)
@@ -556,14 +560,14 @@ public class Battle extends JPanel {
 						player.getParty()[playerCurr].levelUp();
 						curLevelUp = true;
 					}
-					
+
 				}
-				
+
 				else if (counter == 40 & curLevelUp) {
 					message = "" + player.getParty()[playerCurr].getNickName() + " has leveled up!";
 					curLevelUp = false;
 				}
-				
+
 				else if (counter >=75) {
 
 					if (opponent.findNextAvailableMon() != -1) {
@@ -586,8 +590,8 @@ public class Battle extends JPanel {
 					}
 				}
 			}
-			
-			
+
+
 
 			counter++;
 			repaint();
@@ -604,21 +608,26 @@ public class Battle extends JPanel {
 			showBack();
 			showMoves(player.getParty()[playerCurr].getAttacks());
 		}
+		//Pokemon button (opens pokemenu)
 		else if(e.getSource().equals(buttons[1]))
 		{
 			hideButtons();
 			showPokeMenu();
 		}
+		//Bag button (opens bag)
 		else if(e.getSource().equals(buttons[2]))
 		{
 			hideButtons();
 			showBag();
+			
+
 		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
 		{
 			hideBack();
 			hideMoves();
+			//			showBattleScreen();
 			showButtons();
 		}
 
@@ -735,7 +744,7 @@ public class Battle extends JPanel {
 	{
 		for(Button b : buttons)
 		{
-			
+
 			this.add(b);
 			this.revalidate();
 			this.repaint();
@@ -775,6 +784,11 @@ public class Battle extends JPanel {
 
 	public void pokeClicked(MouseEvent e) {
 		System.out.println();
+	}
+	
+	public void useItem(String s) {
+		
+		showBattleScreen();
 	}
 
 	public void setNextMon(int i) 
@@ -939,7 +953,7 @@ public class Battle extends JPanel {
 				g2.drawImage(statuses[3], 256, 170, null);
 			if(opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.PARALYSIS)
 				g2.drawImage(statuses[4], 343, 170, null);
-			
+
 
 		}
 	}
@@ -972,12 +986,14 @@ public class Battle extends JPanel {
 			int curLevel = player.getParty()[playerCurr].getCurExp();
 			int maxLevel = player.getParty()[playerCurr].getCurExpThreshold();
 			int level = (int) (battleStats[2].getWidth() * (double)((double)curLevel/(double)maxLevel));
+			// int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
+			//			System.out.println(level);
 			if(level > 0)
 			{
 				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, (int) level, battleStats[2].getHeight());
 				g2.drawImage(drawBar, 775, 417, null);
 			}
-			
+
 			// Player Name
 			g2.setColor(Color.BLACK);
 			g2.drawString(player.getParty()[playerCurr].getNickName(), 718, 359);
@@ -1018,7 +1034,7 @@ public class Battle extends JPanel {
 			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 994-removeWidth2, 404);
 			g2.setColor(Color.WHITE);
 			g2.drawString(Integer.toString(player.getParty()[playerCurr].getHPStat()), 992-removeWidth2, 402);
-		
+
 			// States
 			if(player.getParty()[playerCurr].getStatus() == Pokemon.Status.BURN)
 				g2.drawImage(statuses[0], 676, 434, null);
@@ -1050,6 +1066,10 @@ public class Battle extends JPanel {
 	{
 		repaint();
 	}
+	
+	public Pokemon getCurPlayerMon() {
+		return player.getParty()[playerCurr];
+	}
 
 	public static void main(String[] args)
 	{
@@ -1070,7 +1090,7 @@ public class Battle extends JPanel {
 		pranav.addOnItem("Master Ball", 0, 2);
 		pranav.addKeyItem("Badge Case");
 		pranav.addKeyItem("Town Map");
-		
+
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
 		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 40));
