@@ -115,9 +115,7 @@ public class Pokemon {
 			else
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
-
 		this.possibleMoves = new ArrayList<Pair<Integer,Move>>(BlankMon.movesByMon.get(this.name));
-
 		generateMoves();
 		updateAllStats();
 
@@ -182,15 +180,15 @@ public class Pokemon {
 	//generates 4 best moves based on current pokeLevel
 	public void generateMoves() {
 		ArrayList<Move> tempMoves = new ArrayList<Move>();
+		
 		Collections.sort(this.possibleMoves);
+		for (Pair p : this.possibleMoves) {
+			if ((int) p.getInt() <= this.level)
+				tempMoves.add((Move)p.getMove());
+			if (tempMoves.size() == 4)
+				break;
+		}
 
-//		for (Integer i : possibleMoves.descendingKeySet()) {
-//			if (i <= this.level) 
-//				tempMoves.add(possibleMoves.get(i));
-//
-//			if (tempMoves.size() == 4)
-//				break;
-//		}
 
 		for (int i = 0; i < tempMoves.size(); i++) {
 			attacks[i] = tempMoves.get(i);

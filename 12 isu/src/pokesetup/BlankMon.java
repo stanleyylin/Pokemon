@@ -40,10 +40,9 @@ public class BlankMon {
 	//hashmap contains movename,move
 	static HashMap<String, Move> moveList = new HashMap<String, Move>();
 	//hashmap contains the name of pokemon, (list of [level u get move, actual move])
-	static HashMap<String,ArrayList> movesByMon = new HashMap<String,ArrayList>();
+	static HashMap<String,ArrayList<Pair<Integer,Move>>> movesByMon = new HashMap<String,ArrayList<Pair<Integer,Move>>>();
 	
 	
-	static ArrayList<Pair<Integer,Move>> movesForEach = new ArrayList<Pair<Integer,Move>>();
 	
 	
 	
@@ -129,19 +128,15 @@ public class BlankMon {
 			curMoveArray = curLine.split(";");
 			for (String s: curMoveArray) {
 				curLevel = Integer.parseInt(s.substring(0,s.indexOf(",")).trim());
-				System.out.print(curLevel + " -- ");
+//				System.out.print(curLevel + " -- ");
 				curMove = moveList.get(s.substring(s.indexOf(",")+1));
-				System.out.println(curMove);
+//				System.out.println(curMove);
 				curAL.add(new Pair<Integer,Move>(curLevel,curMove));
 			}
-//			System.out.println(curName);
-
-//			for (Pair p1 : curAL)
-//				System.out.println(p1);
-
-			movesByMon.put(curName, curAL);
+			movesByMon.put(curName, new ArrayList(curAL));
 			curAL.clear();
 		}
+		
 		
 		
 	}
@@ -176,13 +171,7 @@ public class BlankMon {
 		String[] curLineSplit;
 		for (int i = 0; i <622; i++) {
 			curLine = br.readLine();
-			
-//			curLineSplit = curLine.split(",");
-//			System.out.print(curLineSplit.length + "  ");
-//			
-//			StringTokenizer st = new StringTokenizer(curLine, ",");
-//			System.out.println(st.countTokens());
-			
+						
 			
 			String curEffect = "";
 			

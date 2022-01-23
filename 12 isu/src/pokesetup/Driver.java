@@ -42,10 +42,15 @@ public class Driver extends JPanel{
 		Player pranav = new Player(0,0);
 		
 		pranav.addPokemonToParty(new Pokemon("Charizard", "fye", 48));
-//		System.out.println(pranav.getParty()[0].getPossibleMoves());
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 54));
 		
+		
+		System.out.println();
+		System.out.println(pranav.getParty()[0].getPossibleMoves());
+		System.out.println(pranav.getParty()[2].getPossibleMoves().get(5));
+		System.out.println();
+
 		pranav.printPokemon();
 		
 		NPC gary = new NPC(0,0, null);

@@ -1,6 +1,8 @@
 package pokesetup;
 
-public class Pair <Integer, Move> implements Comparable{
+public class Pair <Integer, Move> 
+implements Comparable
+{
 	
 	Integer i1;
 	Move m1;
@@ -11,13 +13,15 @@ public class Pair <Integer, Move> implements Comparable{
 	}
 	
 	public String toString() {
-		return String.format("%s,%s",i1.toString(), m1.toString());
+		if (this.m1 == null)
+			return "";
+		return String.format("%d,%s",i1, m1.toString());
 	}
 
 	@Override
 	public int compareTo(Object o) {
 		Pair<Integer,Move> p = (Pair<Integer,Move>) o;
-		return (int) (this.i1 = p.getInt());
+		return (int)p.getInt() - (int)this.i1;
 	}
 	
 	 public Integer getInt() {
