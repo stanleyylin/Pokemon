@@ -4,9 +4,11 @@ import pokesetup.Pokemon;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import bag.Item;
 import bag.LoadItems;
+import bag.SortItemByCost;
 import getimages.LoadImage;
 import getimages.SpriteSheet;
 
@@ -75,10 +77,10 @@ public class Player {
 		medicine.add(loadItems.getItem("Revive"));
 		medicine.add(loadItems.getItem("Max Revive"));
 		
-		keyItems.add(loadItems.getItem("Town Map"));
-		keyItems.add(loadItems.getItem("Badge Case"));
-		keyItems.add(loadItems.getItem("Exp. Share"));
-		keyItems.add(loadItems.getItem("Oak's Letter"));
+//		keyItems.add(loadItems.getItem("Town Map"));
+//		keyItems.add(loadItems.getItem("Badge Case"));
+//		keyItems.add(loadItems.getItem("Exp. Share"));
+//		keyItems.add(loadItems.getItem("Oak's Letter"));
 	}
 	
 	public void healParty() {
@@ -160,6 +162,26 @@ public class Player {
 			System.out.println(p1 + "\n");
 		}
 	}
+	
+	public void sortByName(int bagNum)
+	{
+		if(bagNum == 0)
+			Collections.sort(pokeballs);
+		else if(bagNum == 1)
+			Collections.sort(medicine);
+		else
+			Collections.sort(keyItems);
+	}
+	
+	public void sortByCost(int bagNum)
+	{
+		if(bagNum == 0)
+			Collections.sort(pokeballs, new SortItemByCost());
+		else if(bagNum == 1)
+			Collections.sort(medicine, new SortItemByCost());
+	}
+	
+	// Getters and Setters
 	public Pokemon[] getParty()
 	{
 		return party;
@@ -210,7 +232,12 @@ public class Player {
 	{
 		talkingTo = p;
 	}
-	
+	public void addKeyItem(String item)
+	{
+		Item temp = loadItems.getItem(item);
+		temp.addItems(1);
+		keyItems.add(temp);
+	}
 	public void addOnItem(String item, int bagNum, int quantity) // 0-pokeballs, 1-medicine, 3-keyItems
 	{
 		Item temp = loadItems.getItem(item);

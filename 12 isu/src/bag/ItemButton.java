@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 
 
 public class ItemButton extends JPanel implements MouseListener {
-	
+	private Bag bag;
 	private Item item;
 	
 	private static BufferedImage selected;
@@ -24,10 +24,12 @@ public class ItemButton extends JPanel implements MouseListener {
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	
-	public ItemButton()
+	public ItemButton(Bag bag)
 	{
+		this.bag = bag;
 		setPreferredSize(new Dimension(441, 82));
 		setBackground(new Color(0f, 0f, 0f, 0f));
+		addMouseListener(this);
 		setLayout(null);
 	}
 	
@@ -37,8 +39,9 @@ public class ItemButton extends JPanel implements MouseListener {
 		deselected = deselect;
 	}
 
-	public void mouseClicked(MouseEvent e) {
-		
+	public void mouseClicked(MouseEvent e) 
+	{
+		bag.selected(e);
 	}
 
 	public void mousePressed(MouseEvent e) {}
@@ -87,13 +90,13 @@ public class ItemButton extends JPanel implements MouseListener {
 		}
 
 	}
-	
-	public boolean getSelected()
+	public Item getItem()
 	{
-		return select;
+		return item;
 	}
 	public void setSelected(boolean set)
 	{
 		select = set;
 	}
+	
 }

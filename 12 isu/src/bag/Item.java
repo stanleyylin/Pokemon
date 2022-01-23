@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import getimages.LoadImage;
 
-public class Item {
+public class Item implements Comparable<Item> {
 
 	private String name;
 	private String effect;
@@ -82,7 +82,11 @@ public class Item {
 		}
 		quantity = 0;
 	}
-
+	
+	public int compareTo(Item o) {
+		return this.getName().compareTo(o.getName());
+	}
+	
 	public String toString() {
 		if (this.category.equals("PokeBall"))
 			return String.format("%s(%.1f) -- %d", this.name, this.catchChance, this.cost);
@@ -102,6 +106,10 @@ public class Item {
 	public int getQuantity()
 	{
 		return quantity;
+	}
+	public int getCost()
+	{
+		return cost;
 	}
 	public BufferedImage getSprite()
 	{

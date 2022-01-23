@@ -1,3 +1,5 @@
+// Bag displays items. Based on bagState, player can use items.
+
 package bag;
 
 import javax.swing.*;
@@ -15,57 +17,74 @@ import main.GamePanel;
 
 public class Bag extends JPanel implements MouseListener{
 	
-	private Player main;
+	private Player main; // The player
 	
-	private BufferedImage bg;
-	private BufferedImage[] bagSprites; // left, right, down, up, back
-	private BufferedImage selected;
-	private BufferedImage deselected;
-	private BufferedImage test;
+	private BufferedImage bg; // Background
+	private BufferedImage[] bagSprites; // left, right, down, up, back buttons
+	private BufferedImage selected; // Button png
+	private BufferedImage deselected; // Button png
 	
-	private BufferedImage yellowBox;
-	private BufferedImage bag;
-	private BufferedImage textBox;
-	private BufferedImage button;
+	private BufferedImage yellowBox; // The GUI png
+	private BufferedImage bag; // The bag png
+	private BufferedImage textBox; // The item description png
+	private BufferedImage sortButton; // The sort button
+	private BufferedImage useButton; // The use button
 	
-	private Item selectedItem;
+	private Item selectedItem; // The current selected item
 	
-	private int bagState; // 0 - out of battle, 1 - NPC battle, 3 - wild Pokemon battle
-	private int itemType; // 0 - pokeball, 1 - medicine, 2 - key
+
+	private int bagState; // BAG STATES: 0 - out of battle, 1 - NPC battle, 2 - wild Pokemon battle
+	private int itemType; // ITEM STATES: 0 - pokeball, 1 - medicine, 2 - key
 	private boolean firstMed; // true - first 5 of medicine, false - last 3 of medicine
+	private boolean visible; // If this bag panel is visible
 	
-	private Rectangle[] buttons;
-	private ItemButton[] items;
+	private Rectangle[] buttons; // Coordinates/dimensions of the buttons
+	private ItemButton[] items; // The items displayed on the right
+	
+	// Fonts
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
-	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 15);
+	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 12);
 	
+	// Constructor
 	public Bag(Player p)
 	{
 		this.main = p;
+		visible = false;
 		loadImages();
-		
+		loadButtons();
 		setPreferredSize(new Dimension(1080, 720));
 		setBackground(new Color(120, 168, 192));
 		setLayout(null);
-		
+		addMouseListener(this);
 		ItemButton.setImages(selected, deselected);
 		items = new ItemButton[5];
 		for(int i = 0; i < items.length; i++)
 		{
-			items[i] = new ItemButton();
+			items[i] = new ItemButton(this);
 			items[i].setBounds(530, 100+i*82+25*i, 443, 82);
 			add(items[i]);
 		}
-		
-		itemType = 0;
-		updateItems();
-	
 	}
 	
+	// loadButtons creates all the rectangles for the buttons
+	// void, no parameters
 	public void loadButtons()
 	{
 		buttons = new Rectangle[8];
+		buttons[0] = new Rectangle(135, 74, 24, 31); // left
+		buttons[1] = new Rectangle(416, 74, 24, 31); // right
+		buttons[2] = new Rectangle(53, 176, 171, 61); // Sort by Name
+		buttons[3] = new Rectangle(263, 176, 171, 61); // Sort by Value
+		buttons[4] = new Rectangle(27, 617, 80, 80); // Back
+		
+		// Conditional Buttons
+		buttons[5] = new Rectangle(732, 62, 45, 40); // up
+		buttons[6] = new Rectangle(732, 645, 45, 40); // down
+		buttons[7] = new Rectangle(169, 377, 140, 55); // use item
 	}
+	
+	// loadImages loads all the images
+	// void, no parameters
 	public void loadImages()
 	{
 		LoadImage loader = new LoadImage();
@@ -125,9 +144,9 @@ public class Bag extends JPanel implements MouseListener{
 		
 		try
 		{
-			button = loader.loadImage("res/bag/textbox.png");
-			button = button.getSubimage(27, 72, 50, 17);
-			button = loader.resize(button, 180, 65);
+			sortButton = loader.loadImage("res/bag/textbox.png");
+			sortButton = sortButton.getSubimage(27, 72, 50, 17);
+			sortButton = loader.resize(sortButton, 180, 65);
 		}
 		catch(IOException e) {}
 		
@@ -140,50 +159,181 @@ public class Bag extends JPanel implements MouseListener{
 			
 		}
 		catch(IOException e) {}
+		
+		try
+		{
+			useButton = loader.loadImage("res/bag/bagsprites.png");
+			useButton = useButton.getSubimage(16, 127, 105, 42);
+			useButton = loader.resize(useButton, 140, 55);
+			
+		}
+		catch(IOException e) {}
 	}
 
+	// loadScreen loads the screen based on a given bagState
+	// parameters: int state - the bagState (0 - not in battle, 1 - npc battle, 2 - wild
+	// void
+	public void loadScreen(int state)
+	{
+		itemType = 1;
+		firstMed = true;
+		bagState = state;
+		selectedItem = null;
+		visible = true;
+		updateItems();
+		repaint();
+	}
+	
+	// updateItems updates all the items on the right
+	// void, no parameters
 	public void updateItems()
 	{	
-		for(int i = 0; i < Math.min(5, main.getBag(itemType).size()); i++)
+		// medicine items > 5 displayed
+		if(itemType == 1)
 		{
-			if(selectedItem == null)
+			// display the first five
+			if(firstMed)
 			{
-				selectedItem = main.getBag(itemType).get(i);
+				for(int i = 0; i < 5; i++)
+				{
+					if(selectedItem == null) // set first item as selected
+						selectedItem = main.getBag(itemType).get(i);
+					if(main.getBag(itemType).get(i).equals(selectedItem))
+						items[i].updateButton(main.getBag(itemType).get(i), true);
+					else
+						items[i].updateButton(main.getBag(itemType).get(i), false);
+					items[i].setVisible(true);
+				}
 			}
-			
-			if(main.getBag(itemType).get(i).equals(selectedItem))
-			{
-				items[i].updateButton(main.getBag(itemType).get(i), true);
-			}
+			// display the last 4
 			else
-				items[i].updateButton(main.getBag(itemType).get(i), false);
-			items[i].setVisible(true);
-		}
-		
-		if(main.getBag(itemType).size() < 5)
-		{
-			for(int i = main.getBag(itemType).size(); i < 5; i++)
 			{
-				items[i].setVisible(false);
+				for(int i = 0; i < 4; i++)
+				{
+					if(selectedItem == null)
+						selectedItem = main.getBag(itemType).get(i+5);
+					if(main.getBag(itemType).get(i+5).equals(selectedItem))
+						items[i].updateButton(main.getBag(itemType).get(i+5), true);
+					else
+						items[i].updateButton(main.getBag(itemType).get(i+5), false);
+					items[i].setVisible(true);
+				}
+				items[4].setVisible(false);
 			}
+		}
+		// otherwise, display normally
+		else
+		{
+			// display the item buttons
+			for(int i = 0; i < main.getBag(itemType).size(); i++)
+			{
+				if(selectedItem == null)
+					selectedItem = main.getBag(itemType).get(i);
+				
+				if(main.getBag(itemType).get(i).equals(selectedItem))
+					items[i].updateButton(main.getBag(itemType).get(i), true);
+				else
+					items[i].updateButton(main.getBag(itemType).get(i), false);
+				items[i].setVisible(true);
+			}
+			// hide the rest of the buttons
+			for(int i = main.getBag(itemType).size(); i < 5; i++)
+				items[i].setVisible(false);
 		}
 		this.repaint();
 		this.revalidate();
 	}
+
+	// selected is called by itemButton objects when an item is clicked
+	// parameters: MouseEvent e (to get the source of the mouse click)
+	// void
+	public void selected(MouseEvent e)
+	{
+		for(int i = 0; i < items.length; i++)
+		{
+			if(e.getSource().equals(items[i]))
+			{
+				selectedItem = items[i].getItem();
+				items[i].setSelected(true);
+				updateItems();
+			}		
+		}
+	}
 	
-	public void updateSelected(Graphics2D g2)
+	// canUseItem checks if the selected item can be used
+	// parameters: Item i - the item to check
+	// void
+	public boolean canUseItem(Item i)
+	{
+		if(i == null)
+			return false;
+		if(i.getQuantity() <= 0)
+			return false;
+		if(bagState == 0 && (itemType == 0 || itemType == 1))
+			return false;
+		if(bagState == 1 && (itemType == 0 || itemType == 2))
+			return false;
+		if(bagState == 2 && itemType == 2)
+			return false;
+		return true;
+	}
+	
+	
+	// For drawing: paintComponent, Graphics g, void
+	public void paintComponent(Graphics g) 
+	{
+		super.paintComponent(g);
+
+		if(visible)
+		{
+			Graphics2D g2 = (Graphics2D) g;
+			g2.drawImage(bg, 0, 0, null);
+			g2.drawImage(yellowBox, 28, 30, null);
+			g2.drawImage(bagSprites[0], 130, 64, null);
+			g2.drawImage(bagSprites[1], 403, 64, null);
+			g2.drawImage(sortButton, 50, 176, null);
+			if(itemType != 2)
+				g2.drawImage(sortButton, 260, 176, null);
+			g2.drawImage(bag, 175, 455, null);
+			g2.drawImage(bagSprites[4], 24, 613, null);
+
+			g2.setFont(font);
+			g2.setColor(new Color(40, 48, 48));
+			g2.drawString("Sort by...", 122, 155);
+			g2.drawString("Name", 90, 215);
+			if(itemType != 2)
+				g2.drawString("Value", 294, 215);
+
+			// up/down buttons
+			if(itemType == 1 && !firstMed)
+				g2.drawImage(bagSprites[3], 732, 62, null);
+			else if(itemType == 1 && firstMed)
+				g2.drawImage(bagSprites[2], 732, 645, null);
+
+			drawCategory(g2);
+			if(selectedItem != null)
+				drawSelected(g2);
+		}
+	}
+	// draws the selected item info
+	// Graphics2D g2, void
+	public void drawSelected(Graphics2D g2)
 	{
 		g2.drawImage(textBox, 28, 265, null);
 		g2.drawImage(selectedItem.getSprite(), 50, 290, null);
 		String effect = selectedItem.getEffect();
 		int x = 130;
-		int y = 300;
+		int y = 0;
+		if(effect.length()>60)
+			y = 290;
+		else
+			y = 300;
 		String[] words = effect.split(" ");
 		String line = "";
 		for(String s : words)
 		{
 			line += s + " ";
-			if(line.length() >= 20)
+			if(line.length() >= 18)
 			{
 				g2.setFont(desFont);
 				g2.drawString(line, x, y);
@@ -196,8 +346,17 @@ public class Bag extends JPanel implements MouseListener{
 			g2.setFont(desFont);
 			g2.drawString(line, x, y);
 		}
+
+		if(canUseItem(selectedItem))
+		{
+			g2.drawImage(useButton, 169, 377, null);
+			g2.setFont(font);
+			g2.setColor(Color.WHITE);
+			g2.drawString("Use", 208, 413);
+		}
 	}
-	
+	// draws the appropriate category title
+	// Graphics2D g2, void
 	public void drawCategory(Graphics2D g2)
 	{
 		g2.setFont(font);
@@ -209,33 +368,101 @@ public class Bag extends JPanel implements MouseListener{
 		else
 			g2.drawString("Key Items", 188, 99);
 	}
-	public void paintComponent(Graphics g) 
-	{
-		super.paintComponent(g);
-		
-		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(bg, 0, 0, null);
-		g2.drawImage(yellowBox, 28, 30, null);
-		g2.drawImage(bagSprites[0], 130, 64, null);
-		g2.drawImage(bagSprites[1], 403, 64, null);
-		g2.drawImage(button, 50, 175, null);
-		g2.drawImage(button, 260, 175, null);
-		g2.drawImage(bag, 175, 455, null);
-		g2.drawImage(bagSprites[4], 24, 613, null);
-		
-		g2.setFont(font);
-		g2.setColor(new Color(40, 48, 48));
-		g2.drawString("Sort by...", 122, 155);
-		g2.drawString("Name", 90, 215);
-		g2.drawString("Value", 294, 215);
-		drawCategory(g2);
-		updateSelected(g2);
-	}
+	
+	// MouseListener Methods
+	// All take in MouseEvent e, returns void
+	// PRANAV go to the buttons[7] (last if statement for using items,
+	// go to buttons[4] if statement for going back
 	
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		
+	
+		if(buttons[0].contains(x, y)) // left
+		{
+			if(itemType == 0)
+				itemType = 2;
+			else if(itemType == 1)
+				itemType = 0;
+			else
+				itemType = 1;
+			firstMed = true;
+			selectedItem = null;
+			updateItems();
+		}
+		else if(buttons[1].contains(x, y))
+		{
+			if(itemType == 0)
+				itemType = 1;
+			else if(itemType == 1)
+				itemType = 2;
+			else
+				itemType = 0;
+			firstMed = true;
+			selectedItem = null;
+			updateItems();
+		}
+		else if(buttons[2].contains(x, y)) // sort by name
+		{
+			if(itemType == 0)
+				main.sortByName(0);
+			else if(itemType == 1)
+				main.sortByName(1);
+			else if(itemType == 2)
+				main.sortByName(2);
+			firstMed = true;
+			selectedItem = null;
+			updateItems();
+		}
+		else if(buttons[3].contains(x, y)) // sort by cost, n/a for keyItems
+		{
+			if(itemType == 0)
+				main.sortByCost(0);
+			else if(itemType == 1)
+				main.sortByCost(1);
+			updateItems();
+		}
+		else if(buttons[4].contains(x, y))
+		{
+			if(bagState == 0) // not in battle, in the map, stanley will do dis
+			{
+				
+			}
+			if(bagState == 1) // nPC battle
+			{
+				
+			}
+			if(bagState == 2) // wild pokemon battle
+			{
+				
+			}
+		}
+		else if(itemType == 1 && !firstMed && buttons[5].contains(x, y))
+		{
+			firstMed = true;
+			updateItems();
+		}
+		else if(itemType == 1 && firstMed && buttons[6].contains(x, y))
+		{
+			firstMed = false;
+			updateItems();
+		}
+		else if(canUseItem(selectedItem) && buttons[7].contains(x, y))
+		{
+			if(bagState == 0) // not in battle, in the map, stanley will do dis
+			{
+				
+			}
+			if(bagState == 1) // nPC battle
+			{
+				
+			}
+			if(bagState == 2) // wild pokemon battle
+			{
+				
+			}
+		}
+	
 	}
 
 	public void mousePressed(MouseEvent e) {}
@@ -246,13 +473,17 @@ public class Bag extends JPanel implements MouseListener{
 
 	public void mouseExited(MouseEvent e) {}
 	
+	// Pranav: comment this out if needed; this is for testing
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame ("Pokemon");
 		Player play = new Player(0, 0);
-		
+		play.addOnItem("Potion", 1, 5);
+		play.addOnItem("Master Ball", 0, 2);
+		play.addKeyItem("Badge Case");
+		play.addKeyItem("Town Map");
 		Bag panel = new Bag(play);
-		
+		panel.loadScreen(2);
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.setResizable(false);
