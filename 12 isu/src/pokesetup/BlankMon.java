@@ -216,10 +216,37 @@ public class BlankMon {
 				curPP = "-1";
 //			System.out.println(i);
 //			System.out.println(curName+ ",," +curType+ ",," +curCategory + ",," + curEffect+",," +curPower+",," +curAccuracy+",," +curPP+",," +curTM+",," +curProb+",," +curGen);
-
+			
+			Pokemon.Status curStat = null;
+			//applying poison stat to move
+			if (curName.equals("Cross Poison") ||  curName.equals("Gunk Shot") || curName.equals("Poison Gas") || curName.equals("Poison Powder") ||
+					curName.equals("Poison Sting") || curName.equals("Poison Tail") || curName.equals("Sludge") || curName.equals("Sludge Bomb") || 
+					curName.equals("Sludge Wave") || curName.equals("Smog") || curName.equals("Toxic Spikes") || curName.equals("Twineedle"))
+				curStat = Pokemon.Status.POISON;
+			
+			if (curName.equals("Blaze Kick") || curName.equals("Ember") || curName.equals("Fire Blast") || curName.equals("Fire Fang") ||
+					curName.equals("Fire Punch") || curName.equals("Flame Wheel") || curName.equals("Flamethrower") || curName.equals("Flare Blitz") || curName.equals("Heat Wave") ||
+					curName.equals("Inferno") || curName.equals("Scald") || curName.equals("Searing Shot") || curName.equals("Will-O-Wisp") || curName.equals("Sacred Fire"))
+				curStat = Pokemon.Status.BURN;
+			
+			if (curName.equals("Blizzard") || curName.equals("Ice Beam") || curName.equals("Ice Fang") || curName.equals("Ice Punch") || curName.equals("Powder Snow"))
+				curStat = Pokemon.Status.FREEZE;
+			
+			if (curName.equals("Body Slam") || curName.equals("Bolt Strike") || curName.equals("Discharge") || curName.equals("Force Palm") || curName.equals("Lick") ||
+					curName.equals("Nuzzle") || curName.equals("Spark") || curName.equals("Stun Spore") || curName.equals("Thunder") || curName.equals("Thunder Fang") ||
+					curName.equals("Thunder Punch") || curName.equals("Thunder Shock") || curName.equals("Thunder Wave") || curName.equals("Thunderbolt") ||
+					curName.equals("Volt Tackle") || curName.equals("Zap Cannon"))
+				curStat = Pokemon.Status.PARALYSIS;
+			
+			if (curName.equals("Hypnosis") || curName.equals("Rest") || curName.equals("Sleep Powder") || curName.equals("Spore") || curName.equals("Yawn"))
+				curStat = Pokemon.Status.SLEEP;
+			
+			if (curName.equals("Confuse Ray") || curName.equals("Confusion") || curName.equals("Dizzy Punch") || curName.equals("Psybeam") || curName.equals("Confuse Ray") ||  
+					curName.equals("Signal Beam") || curName.equals("Supersonic") || curName.equals("Swagger") ||  curName.equals("Water Pulse"))
+				curStat = Pokemon.Status.CONFUSED;
 			
 			moveList.put(curName, new Move(curName, curType, curCategory, Integer.parseInt(curPower), 
-					Integer.parseInt(curAccuracy), Integer.parseInt(curPP), curTM, Integer.parseInt(curProb), curGen));
+					Integer.parseInt(curAccuracy), Integer.parseInt(curPP), curTM, Integer.parseInt(curProb), curGen, curStat));
 		}
 	}
 	
