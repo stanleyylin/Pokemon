@@ -3,7 +3,10 @@ package entity;
 import pokesetup.Pokemon; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import bag.Item;
+import bag.LoadItems;
 import getimages.LoadImage;
 import getimages.SpriteSheet;
 
@@ -21,7 +24,11 @@ public class Player {
 	private Person talkingTo;
 	
 	private Pokemon[] party;
-
+	private ArrayList<Item> pokeballs;
+	private ArrayList<Item> medicine;
+	private ArrayList<Item> keyItems;
+	private LoadItems loadItems;
+	
 	public final static int width = 50;
 	public final static int height = 62;
 	public final int speed = 5;
@@ -40,6 +47,38 @@ public class Player {
 		
 		interacting = false;
 		talkingTo = null;
+		
+		pokeballs = new ArrayList<Item>();
+		medicine = new ArrayList<Item>();
+		keyItems = new ArrayList<Item>();
+		
+		loadItems();
+	}
+	
+	public void loadItems()
+	{
+		loadItems = new LoadItems();
+		// Poke balls
+		pokeballs.add(loadItems.getItem("Poke Ball"));
+		pokeballs.add(loadItems.getItem("Great Ball"));
+		pokeballs.add(loadItems.getItem("Ultra Ball"));
+		pokeballs.add(loadItems.getItem("Master Ball"));
+		
+		// Medicine
+		medicine.add(loadItems.getItem("Potion"));
+		medicine.add(loadItems.getItem("Super Potion"));
+		medicine.add(loadItems.getItem("Hyper Potion"));
+		medicine.add(loadItems.getItem("Full Restore"));
+		medicine.add(loadItems.getItem("Full Heal"));
+		medicine.add(loadItems.getItem("Ether"));
+		medicine.add(loadItems.getItem("Elixir"));
+		medicine.add(loadItems.getItem("Revive"));
+		medicine.add(loadItems.getItem("Max Revive"));
+		
+		keyItems.add(loadItems.getItem("Town Map"));
+		keyItems.add(loadItems.getItem("Badge Case"));
+		keyItems.add(loadItems.getItem("Exp. Share"));
+		keyItems.add(loadItems.getItem("Oak's Letter"));
 	}
 	
 	public void healParty() {
@@ -73,11 +112,6 @@ public class Player {
 			
 			//if bag
 			//implement items
-			
-			
-			
-
-		
 		
 		if (findNextAvailableMon() == null)
 			System.out.println("you lost");
@@ -138,15 +172,6 @@ public class Player {
 	{
 		return interacting;
 	}
-	
-	public void setScreenX(int set)
-	{
-		screenX = set;
-	}
-	public void setScreenY(int set)
-	{
-		screenY = set;
-	}
 	public int getScreenX()
 	{
 		return screenX;
@@ -159,6 +184,24 @@ public class Player {
 	{
 		return talkingTo;
 	}
+	public ArrayList<Item> getBag(int bagNum)
+	{
+		if(bagNum == 0)
+			return pokeballs;
+		else if(bagNum == 1)
+			return medicine;
+		else
+			return keyItems;
+	}
+	
+	public void setScreenX(int set)
+	{
+		screenX = set;
+	}
+	public void setScreenY(int set)
+	{
+		screenY = set;
+	}
 	public void setInteracting(boolean set)
 	{
 		interacting = set;
@@ -167,6 +210,19 @@ public class Player {
 	{
 		talkingTo = p;
 	}
+	
+	public void addOnItem(String item, int bagNum, int quantity) // 0-pokeballs, 1-medicine, 3-keyItems
+	{
+		Item temp = loadItems.getItem(item);
+		if(bagNum == 0)
+		{
+			pokeballs.get(pokeballs.indexOf(temp)).addItems(quantity);
+		}
+		else if(bagNum == 1)
+		{
+			medicine.get(medicine.indexOf(temp)).addItems(quantity);
+		}
 
+	}
 
 }

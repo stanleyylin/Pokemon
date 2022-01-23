@@ -20,28 +20,30 @@ public class Item {
 	private boolean removeStatus;
 	private int ppIncrease;
 	private boolean doesRevive;
-	
-	private LoadImage loader = new LoadImage();
 
 
 	//poke ball
-	public Item (String name, String effect, int cost, double catchChance) 
+	public Item (String name, String effect, int cost, double catchChance, String file) 
 	{
 		this.name = name;
 		this.effect = effect;
 		this.category = "PokeBall";
 		this.cost = cost;
 		this.catchChance = catchChance;
+		
+		LoadImage loader = new LoadImage();
 		try 
 		{
-			this.sprite = loader.loadImage("items/" + this.name + ".png");
+			sprite = loader.loadImage("res/items/" + file);
+			sprite = loader.resize(sprite, 45, 45);
 		} 
-		catch (IOException e) {}
+		catch (IOException e) {
+		}
 		quantity = 0;
 	}
 
 	// Healing item
-	public Item(String name, String effect, int cost, int healing, boolean removeStatus, int ppIncrease, boolean doesRevive) 
+	public Item(String name, String effect, int cost, int healing, boolean removeStatus, int ppIncrease, boolean doesRevive, String file) 
 	{
 		this.name = name;
 		this.effect = effect;
@@ -51,28 +53,36 @@ public class Item {
 		this.removeStatus = removeStatus;
 		this.ppIncrease = ppIncrease;
 		this.doesRevive = doesRevive;
+		
+		LoadImage loader = new LoadImage();
 		try 
 		{
-			this.sprite = loader.loadImage("items/" + this.name + ".png");
+			sprite = loader.loadImage("res/items/" + file);
+			sprite = loader.resize(sprite, 45, 45);
 		} 
-		catch (IOException e) {}
+		catch (IOException e) {
+		}
 		quantity = 0;
 	}
 
 	//key items (cannot be sold btw)
-	public Item(String name, String effect)
+	public Item(String name, String effect, String file)
 	{
 		this.name = name;
 		this.effect = effect;
 		this.category = "Key Items";
+		
+		LoadImage loader = new LoadImage();
 		try 
 		{
-			this.sprite = loader.loadImage("items/" + this.name + ".png");
+			this.sprite = loader.loadImage("res/items/" + file);
+			sprite = loader.resize(sprite, 45, 45);
 		} 
-		catch (IOException e) {}
+		catch (IOException e) {
+		}
 		quantity = 0;
 	}
-	
+
 	public String toString() {
 		if (this.category.equals("PokeBall"))
 			return String.format("%s(%.1f) -- %d", this.name, this.catchChance, this.cost);
@@ -85,7 +95,23 @@ public class Item {
 	{
 		return name;
 	}
+	public String getEffect()
+	{
+		return effect;
+	}
+	public int getQuantity()
+	{
+		return quantity;
+	}
+	public BufferedImage getSprite()
+	{
+		return sprite;
+	}
 	
+	public void addItems(int add)
+	{
+		quantity += add;
+	}
 
 }
 

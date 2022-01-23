@@ -15,15 +15,26 @@ public class ItemButton extends JPanel implements MouseListener {
 	
 	private Item item;
 	
-	private BufferedImage selected;
-	private BufferedImage deselected;
+	private static BufferedImage selected;
+	private static BufferedImage deselected;
+	private BufferedImage icon;
 	
 	private boolean select;
 	private boolean visible;
 	
-	public ItemButton(BufferedImage selected, BufferedImage deselected)
+	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
+	
+	public ItemButton()
 	{
-		setPreferredSize()
+		setPreferredSize(new Dimension(441, 82));
+		setBackground(new Color(0f, 0f, 0f, 0f));
+		setLayout(null);
+	}
+	
+	public static void setImages(BufferedImage select, BufferedImage deselect)
+	{
+		selected = select;
+		deselected = deselect;
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -38,18 +49,41 @@ public class ItemButton extends JPanel implements MouseListener {
 
 	public void mouseExited(MouseEvent e) {}
 
-	public void updateButton(Item i)
+	public void updateButton(Item i, boolean selected)
 	{
-		
+		this.item = i;
+		icon = item.getSprite();
+		select = selected;
+	}
+	
+	public void setVisible(boolean b)
+	{
+		visible = b;
+		repaint();
+		revalidate();
 	}
 	
 	public void paintComponent(Graphics g) 
 	{
-		super.paintComponent(g);
 		
 		if(visible)
 		{
 			Graphics2D g2 = (Graphics2D) g;
+			if(select)
+				g2.drawImage(selected, 0, 0, null);
+			else
+				g2.drawImage(deselected, 0, 0, null);
+			
+			g2.setFont(font);
+			if(select)
+				g2.setColor(Color.WHITE);
+			else
+				g2.setColor(new Color(40, 48, 48));
+			
+			g2.drawString(item.getName(), 90, 50);
+			g2.drawString(Integer.toString(item.getQuantity()), 380, 50);
+			
+			g2.drawImage(icon, 25, 15, null);
 		}
 
 	}
@@ -61,9 +95,5 @@ public class ItemButton extends JPanel implements MouseListener {
 	public void setSelected(boolean set)
 	{
 		select = set;
-	}
-	public void setVisible(boolean set)
-	{
-		visible = set;
 	}
 }
