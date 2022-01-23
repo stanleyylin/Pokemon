@@ -333,6 +333,8 @@ public class Battle extends JPanel {
 						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed";
 					else
 						message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
+					
+					System.out.println("" + player.getParty()[playerCurr].getCurExp() + "/" + player.getParty()[playerCurr].getCurExpThreshold());
 				}
 				if(counter == 50)
 				{
@@ -968,7 +970,7 @@ public class Battle extends JPanel {
 
 			// Level Bar
 			int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
-			System.out.println(level);
+//			System.out.println(level);
 			if(level > 0)
 			{
 				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
@@ -1061,7 +1063,7 @@ public class Battle extends JPanel {
 
 		Player pranav = new Player(0,0);
 		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
-		pranav.getParty()[0].setCurExp(12000);
+		pranav.getParty()[0].setCurExp(6000);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
 		pranav.addOnItem("Master Ball", 0, 2);
