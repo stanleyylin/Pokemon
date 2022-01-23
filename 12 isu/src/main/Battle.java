@@ -45,7 +45,8 @@ public class Battle extends JPanel {
 	int playerCurr;
 	NPC opponent;
 	int oppCurr;
-
+	
+	boolean curLevelUp;
 	boolean isConfuse;
 
 	int currMoveNo;
@@ -529,8 +530,20 @@ public class Battle extends JPanel {
 			if (gameState == 7) {
 				if (counter == 0) {
 					message = "" + opponent.getParty()[oppCurr].getName() + " has fainted!";
+					player.getParty()[playerCurr].giveExp(opponent.getParty()[oppCurr]);
+					if (player.getParty()[playerCurr].getCurExp() >= player.getParty()[playerCurr].getCurExpThreshold()) {
+						player.getParty()[playerCurr].levelUp();
+						curLevelUp = true;
+					}
+					
 				}
-				else if (counter >=50) {
+				
+				else if (counter == 40 & curLevelUp) {
+					message = "" + player.getParty()[playerCurr].getNickName() + " has leveled up!";
+					curLevelUp = false;
+				}
+				
+				else if (counter >=75) {
 
 					if (opponent.findNextAvailableMon() != -1) {
 						oppCurr = opponent.findNextAvailableMon();
@@ -552,6 +565,8 @@ public class Battle extends JPanel {
 					}
 				}
 			}
+			
+			
 
 			counter++;
 			repaint();
@@ -805,6 +820,8 @@ public class Battle extends JPanel {
 		}
 		if (gameState == 6  || gameState == 7 && message != null)
 			updateText(g2);
+		if (gameState == 0 && message != null)
+			updateText(g2);
 
 		if (frame.getContentPane().equals(selectionMenu))
 			selectionMenu.update(g2);
@@ -992,8 +1009,8 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Kakuna", "BBQ Dragon", 55));
-		pranav.getParty()[0].setStatus(Pokemon.Status.FREEZE);
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
+		pranav.getParty()[0].setCurExp(12000);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
 		pranav.addOnItem("Master Ball", 0, 2);
@@ -1002,8 +1019,8 @@ public class Battle extends JPanel {
 		
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
-		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 60));
-		gary.getParty()[0].setStatus(Pokemon.Status.BURN);
+		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 40));
+		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
 		panel = new Battle(pranav, gary);
 

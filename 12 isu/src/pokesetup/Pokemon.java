@@ -132,22 +132,24 @@ public class Pokemon {
 	
 	public void giveExp(Pokemon p1) {
 		
-		int expDrop  = ((p1.getExpDrop() * p1.getLevel()) / 5) *  (int) Math.pow((2 * p1.getLevel() + 10) / (p1.getLevel() + this.level + 10),2.5);
+//		System.out.println(curExpThreshold);
+		double expDrop  =  (    ((p1.getExpDrop() * p1.getLevel()) / 5) *  Math.pow((2.0 * p1.getLevel() + 10) / (p1.getLevel() + this.level + 10),2.5));
 		this.curExp += expDrop;
-		if (this.curExp > this.curExpThreshold)
-			levelUp();
+//		System.out.println(this.curExp + "----" + this.curExpThreshold);
 	}
 
 	public void levelUp() {
+		System.out.println("pokemon has lvled up");
 		this.level++;
+		
 		updateAllStats();
-		this.curExp = 0;
+		this.curExp = this.curExp - this.curExpThreshold;
 		this.curExpThreshold = getNewExpThreshold();
 	}
 	
 	
 	public int getNewExpThreshold() {
-		return (4 * this.level * this.level * this.level) / 5;
+		return (12 * this.level * this.level) / 5;
 	}
 
 
@@ -413,6 +415,17 @@ public class Pokemon {
 	
 	public int getExpDrop() {
 		return this.expValue;
+	}
+	
+	public int getCurExp() {
+		return this.curExp;
+	}
+	
+	public void setCurExp(int n) {
+		this.curExp = n;
+	}
+	public int getCurExpThreshold() {
+		return this.curExpThreshold;
 	}
 
 
