@@ -2,10 +2,12 @@ package map;
 
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.*;
 
 import entity.NPC;
 import entity.Person;
+import getimages.LoadImage;
 import main.GamePanel;
 
 import java.awt.*;
@@ -14,6 +16,7 @@ public class Location {
 	
 	private BufferedImage background;
 	private Rectangle[] collisions;
+	private Rectangle[] grass;
 	private Building[] buildings;
 	private Person[] people;
 	private boolean xEdgeReached;
@@ -29,15 +32,23 @@ public class Location {
 	
 	private ArrayList<Gate> gates;
 	
-	public Location(BufferedImage bg, Rectangle[] collisions, Building[] buildings, Person[] people)
+	public Location(String file, Rectangle[] collisions, Building[] buildings, Person[] people, Rectangle[] grass)
 	{
-		background = bg;
 		this.collisions = collisions;
 		this.buildings = buildings;
 		this.people = people;
+		this.grass = grass;
+		gates = new ArrayList<Gate>();
+		
+		LoadImage loader = new LoadImage();
+		try
+		{
+			background = loader.loadImage("res/maps/" + file);
+			background = loader.resize(background, background.getWidth()*3, background.getHeight()*3);
+		}
+		catch(IOException e) {}
 		maxX = background.getWidth();
 		maxY = background.getHeight();
-		gates = new ArrayList<Gate>();
 	}
 	
 	public void addGate(Gate g)
@@ -56,6 +67,10 @@ public class Location {
 	public Rectangle[] getCollisions()
 	{
 		return collisions;
+	}
+	public Rectangle[] getGrass()
+	{
+		return grass;
 	}
 	public Building[] getBuildings()
 	{

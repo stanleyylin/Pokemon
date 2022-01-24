@@ -85,7 +85,10 @@ public class Player {
 	
 	public void healParty() {
 		for (Pokemon p1: party)
-			p1.heal();
+		{
+			if(p1 != null)
+				p1.heal();
+		}
 	}
 	
 	public void battle(NPC enemy) {

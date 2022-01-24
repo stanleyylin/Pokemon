@@ -7,6 +7,7 @@ import java.io.*;
 import javax.swing.*;
 
 import entity.Moving;
+import entity.Nurse;
 import entity.Person;
 import entity.Player;
 import getimages.LoadImage;
@@ -31,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	private boolean test = true;
 	private boolean interact;
+	
+	private boolean battling;
+	
 	// Player Variables
 	
 	private Player main; 
@@ -58,59 +62,50 @@ public class GamePanel extends JPanel implements Runnable
 		
 	    // MAPS
 	 // 10. Hearthome City:
-		try
-		{
-			hearthome = loader.loadImage("res/maps/hearthome.jpeg");
-			hearthome = loader.resize(hearthome, hearthome.getWidth()*2.9, hearthome.getHeight()*2.9);
-		}
-		catch(IOException e) {}
 		// Collisions
-		// Use canva, subtract the height by 30 and width by 10 or so
+		// Use canva, multiply by 3, subtract the height by 30 and width by 10 or so
 		Rectangle[] collisions10 = new Rectangle[8];
-		collisions10[0] = new Rectangle(0, 0, 354, 1847); // trees
-		collisions10[1] = new Rectangle(354, 0, 279, 383); // top left building
-		collisions10[2] = new Rectangle(634, 0, 464, 626); // trees next to ^
-		collisions10[3] = new Rectangle(1115, 0, 1254, 383); // trees next to ^
-		collisions10[4] = new Rectangle(2352, 0, 252, 401); // right most building
-		collisions10[5] = new Rectangle(2636, 0, 364, 1814); // trees below right ^
-		collisions10[6] = new Rectangle(700, 708, 220, 175); // pokecentre
-		collisions10[7] = new Rectangle(0, 630, 275, 1390); // leftmost building
-		
+		collisions10[0] = new Rectangle(0, 0, 366, 1911); // trees
+		collisions10[1] = new Rectangle(366, 0, 288, 396); // top left building
+		collisions10[2] = new Rectangle(656, 0, 480, 648); // trees next to ^
+		collisions10[3] = new Rectangle(1153, 0, 1297, 396); // trees next to ^
+		collisions10[4] = new Rectangle(2433, 0, 260, 415); // right most building
+		collisions10[5] = new Rectangle(2727, 0, 377, 1877); // trees below right ^
+		collisions10[6] = new Rectangle(724, 732, 228, 181); // pokecentre
+		collisions10[7] = new Rectangle(0, 651, 284, 1438); // leftmost building
 		// Buildings -----
 		Building[] buildings10 = new Building[2];
-		Person[] peoplePC = new Person[0];
+		Person[] peoplePC = new Person[1];
+		peoplePC[0] = new Nurse(new Rectangle(519, 225, 46, 55), "nurse.png", 17, 24, "nurse.txt");
 		Rectangle[] collisionsPC = new Rectangle[0];
-		buildings10[0] = new Building(new Rectangle(1017, 853, 60, 54), new Rectangle(540, 543, 5, 1), peoplePC, collisionsPC, house1);
-		buildings10[1] = new Building(new Rectangle(791, 864, 54, 62), new Rectangle(535, 567, 81, 32), new Person[0], new Rectangle[0], pokecentre1);
-		
+		buildings10[0] = new Building(new Rectangle(1052, 882, 62, 56), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
+		buildings10[1] = new Building(new Rectangle(818, 894, 62, 56), new Rectangle(535, 567, 81, 32), peoplePC, collisionsPC, pokecentre1);
+		//-----
 		//People
 		Person[] people10 = new Person[1];
-		people10[0] = new Person(new Rectangle(643, 891, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
-		Location heartHome = new Location(hearthome, collisions10, buildings10, people10);
+		people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		//Grass: None
+		Location heartHome = new Location("hearthome.png", collisions10, buildings10, people10, null);
 		
 	// 10: 208
-		BufferedImage t208 = null;
-		try
-		{
-			t208 = loader.loadImage("res/maps/208.png");
-			t208 = loader.resize(t208, t208.getWidth()*2.9, t208.getHeight()*2.9);
-		}
-		catch(IOException e) {}
 		// Collisions
 		Rectangle[] collisions208 = new Rectangle[1];
-		collisions208[0] = new Rectangle(2210, 0, 761, 523); // leftmost up trees
-		
+		collisions208[0] = new Rectangle(2286, 0, 787, 541); // leftmost up trees
 		// Buildings ----
 		Building[] buildings208 = new Building[1];
-		buildings208[0] = new Building(new Rectangle(2635, 555, 60, 54), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
-		
+		buildings208[0] = new Building(new Rectangle(2726, 574, 62, 56), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
+		//-----
+		// People
 		Person[] people208 = new Person[0];
-		Location T208 = new Location(t208, collisions208, buildings208, people208);
+		// Grass
+		Rectangle[] grass208 = new Rectangle[1];
+		grass208[0] = new Rectangle(2007, 738, 480, 471);
+		Location T208 = new Location("208.png", collisions208, buildings208, people208, grass208);
 	
 		// {0, hearthome.getHeight()-screenHeight, }
 
 	// Gate: 11-HeartHome and 208
-		Gate gate11 = new Gate(0, t208.getWidth()-screenWidth, t208.getHeight()-screenHeight, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90));
+		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90));
 		heartHome.addGate(gate11);
 		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
 		
@@ -193,6 +188,12 @@ public class GamePanel extends JPanel implements Runnable
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		g.drawString("Press X to interact!", 375, 623);
+	}
+	
+	// Battle
+	public void startBattle()
+	{
+		
 	}
 	
 	public void showDialogue()

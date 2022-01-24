@@ -3,6 +3,7 @@ package main;
 import java.awt.*;
 import javax.swing.*;
 
+import entity.Nurse;
 import entity.Person;
 import getimages.LoadImage;
 
@@ -19,6 +20,7 @@ public class Dialogue extends JPanel
 	private BufferedReader br;
 	private String message = "";
 	private boolean end;
+	private Person npc;
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	
@@ -38,10 +40,11 @@ public class Dialogue extends JPanel
 	
 	public void startDialogue(Person p)
 	{
+		npc = p;
 		end = false;
 		try 
 		{
-			br = new BufferedReader(new FileReader("res/dialogue/"+p.getLines()));
+			br = new BufferedReader(new FileReader("res/dialogue/"+npc.getLines()));
 		} 
 		catch (IOException e) {
 		}
@@ -56,12 +59,17 @@ public class Dialogue extends JPanel
 			if((line = br.readLine()) != null)
 			{
 				message = line;
+				if(line.equals("*heal*"))
+				{
+					((Nurse) npc).heal(p.getPlayer());
+					message = "";
+				}
 				revalidate();
 				repaint();
 				p.revalidate();
 				p.repaint();
 			}
-			else
+			else // ended
 			{
 				p.getPlayer().setInteracting(false);
 				p.hideDialogue();

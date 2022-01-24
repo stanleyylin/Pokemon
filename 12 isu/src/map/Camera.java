@@ -27,16 +27,30 @@ public class Camera {
 
 	void loadNPC(Person[] people)
 	{
-		for(Person c : people)
+		if(building == null)
 		{
-			if(c.getSprite() == null)
-				continue;
-			if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+GamePanel.screenWidth+c.getC().getWidth())
+			for(Person c : people)
 			{
-				if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+GamePanel.screenHeight+c.getC().getHeight())
+				if(c.getSprite() == null)
+					continue;
+				if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+GamePanel.screenWidth+c.getC().getWidth())
 				{
-					c.setShown(true);
+					if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+GamePanel.screenHeight+c.getC().getHeight())
+					{
+						c.setShown(true);
+					}
+					else
+					{
+						c.setShown(false);
+					}
 				}
+			}
+		}
+		else
+		{
+			for(Person c : people)
+			{
+				c.setShown(true);
 			}
 		}
 	}
@@ -74,7 +88,7 @@ public class Camera {
 		else
 			g2.drawImage(building.getBG(), building.screenX, building.screenY, building.maxX, building.maxY, 0, 0, building.getBG().getWidth(), building.getBG().getHeight(), null);
 
-		if(building == null && location.getPeople() != null)
+		if(building == null)
 		{
 			loadNPC(location.getPeople());
 			for(Person p : location.getPeople())
@@ -85,14 +99,14 @@ public class Camera {
 				}
 			}
 		}
-		else if(building.getPeople() != null)
+		else
 		{
-			loadNPC(location.getPeople());
+			loadNPC(building.getPeople());
 			for(Person p : building.getPeople())
 			{
 				if(p.getShown())
 				{
-					g2.drawImage(p.getSprite(), (int) p.getC().getX()-worldX, (int) p.getC().getY()-worldY, null);
+					g2.drawImage(p.getSprite(), (int) p.getC().getX(), (int) p.getC().getY(), null);
 				}
 			}
 		}

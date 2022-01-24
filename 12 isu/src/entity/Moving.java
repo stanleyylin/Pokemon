@@ -37,7 +37,14 @@ public class Moving {
 	
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		int camX = 0;
+		int camY = 0;
+		if(camera.getBuilding() == null)
+		{
+			camX = camera.getX();
+			camY = camera.getY();
+		}
+		Rectangle player = new Rectangle(camX + main.getScreenX(), camY + main.getScreenY(), Player.width, Player.height);
 		for(int i = 0; i < collisions.length; i++)
 		{
 			Rectangle collision = collisions[i];
@@ -56,33 +63,33 @@ public class Moving {
 				{
 					//rect collides from left side of the wall
 					if(cameraXOn)
-						camera.setX((int) (camera.getX() - (right1-left2)));
+						camera.setX((int) (camX - (right1-left2)));
 					else
-						main.setScreenX(collision.x-camera.getX() - Player.width);
+						main.setScreenX(collision.x-camX - Player.width);
 				}
 				else if(left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1)
 				{
 					//rect collides from right side of the wall
 					if(cameraXOn)
-						camera.setX((int) (camera.getX() + right2-left1));
+						camera.setX((int) (camX + right2-left1));
 					else
-						main.setScreenX(collision.x-camera.getX() + collision.width);
+						main.setScreenX(collision.x-camX + collision.width);
 				}
 				else if(bottom1 > top2 && top1 < top2)
 				{
 					if(cameraYOn)
-						camera.setY((int) (camera.getY() - (bottom1-top2)));
+						camera.setY((int) (camY - (bottom1-top2)));
 					else
-						main.setScreenY(collision.y-camera.getY() - Player.height);
+						main.setScreenY(collision.y-camY - Player.height);
 					//rect collides from top side of the wall
 					// rect.y = wall.y - rect.height;
 				}
 				else if(top1 < bottom2 && bottom1 > bottom2)
 				{
 					if(cameraYOn)
-						camera.setY((int) (camera.getY() + (bottom2-top1)));
+						camera.setY((int) (camY + (bottom2-top1)));
 					else
-						main.setScreenY(collision.y-camera.getY() + collision.height);
+						main.setScreenY(collision.y-camY + collision.height);
 					//rect collides from bottom side of the wall
 					// rect.y = wall.y + wall.height;
 				}
@@ -107,7 +114,14 @@ public class Moving {
 	
 	void interact()
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		int camX = 0;
+		int camY = 0;
+		if(camera.getBuilding() == null)
+		{
+			camX = camera.getX();
+			camY = camera.getY();
+		}
+		Rectangle player = new Rectangle(camX + main.getScreenX(), camY + main.getScreenY(), Player.width, Player.height);
 		
 		if(camera.getBuilding() == null)
 		{
@@ -132,6 +146,7 @@ public class Moving {
 				if(camera.getBuilding().getPeople()[i].getI().intersects(player))
 				{
 					game.setInteract(true);
+					main.setTalkingTo(camera.getBuilding().getPeople()[i]);
 					break;
 				}
 				else if(i == camera.getBuilding().getPeople().length-1)
@@ -142,7 +157,14 @@ public class Moving {
 	
 	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
 	{
-		Rectangle player = new Rectangle(camera.getX() + main.getScreenX()+10, camera.getY() + main.getScreenY() + 15, Player.width-10, Player.height-15);
+		int camX = 0;
+		int camY = 0;
+		if(camera.getBuilding() == null)
+		{
+			camX = camera.getX();
+			camY = camera.getY();
+		}
+		Rectangle player = new Rectangle(camX + main.getScreenX()+10, camY + main.getScreenY() + 15, Player.width-10, Player.height-15);
 		
 		for(int i = 0; i < people.length; i++)
 		{
@@ -162,34 +184,34 @@ public class Moving {
 				{
 					//rect collides from left side of the wall
 					if(cameraXOn)
-						camera.setX((int) (camera.getX() - (right1-left2)));
+						camera.setX((int) (camX - (right1-left2)));
 					else
-						main.setScreenX(collision.x-camera.getX() - Player.width);
+						main.setScreenX(collision.x-camX - Player.width);
 				}
 				else if(left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1)
 				{
 					//rect collides from right side of the wall
 					if(cameraXOn)
-						camera.setX((int) (camera.getX() + right2-left1));
+						camera.setX((int) (camX + right2-left1));
 					else
-						main.setScreenX(collision.x-camera.getX() + collision.width);
+						main.setScreenX(collision.x-camX + collision.width);
 				}
 				else if(bottom1 > top2 && top1 < top2)
 				{
 
 					if(cameraYOn)
-						camera.setY((int) (camera.getY() - (bottom1-top2)));
+						camera.setY((int) (camY - (bottom1-top2)));
 					else
-						main.setScreenY(collision.y-camera.getY() - Player.height);
+						main.setScreenY(collision.y-camY - Player.height);
 					//rect collides from top side of the wall
 					// rect.y = wall.y - rect.height;
 				}
 				else if(top1 < bottom2 && bottom1 > bottom2)
 				{
 					if(cameraYOn)
-						camera.setY((int) (camera.getY() + (bottom2-top1)));
+						camera.setY((int) (camY + (bottom2-top1)));
 					else
-						main.setScreenY(collision.y-camera.getY() + collision.height);
+						main.setScreenY(collision.y-camY + collision.height);
 					//rect collides from bottom side of the wall
 					// rect.y = wall.y + wall.height;
 				}
@@ -229,6 +251,23 @@ public class Moving {
 				camera.setY(savePos[3]);
 			}
 		}
+	}
+	
+	void inGrass()
+	{
+		if(camera.getLocation().getGrass() == null)
+			return;
+		
+		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
+		
+		for(int i = 0; i < camera.getLocation().getGrass().length; i++)
+		{
+			if(camera.getLocation().getGrass()[i].intersects(player))
+			{
+		
+			}
+		}
+		
 	}
 	
 	public void changeSprite()
@@ -293,6 +332,7 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
+				inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -369,6 +409,7 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
+				inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -424,6 +465,7 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
+				inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -459,6 +501,7 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
+				inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
