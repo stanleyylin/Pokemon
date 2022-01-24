@@ -44,7 +44,8 @@ public class BuyItem extends JPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) 
 	{
-		pokeMart.selected(e);
+		if(visible)
+			pokeMart.selected(e);
 	}
 
 	public void mousePressed(MouseEvent e) {}

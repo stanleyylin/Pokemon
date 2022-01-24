@@ -60,6 +60,7 @@ public class Main extends JFrame {
 	}
 	public void openBox() // pranav: press b when in gamepanel if u wanna test
 	{
+		removeKeyListener(gamePanel.getKeyHandler());
 		setContentPane(box);
 		setVisible(true);
 		pack();

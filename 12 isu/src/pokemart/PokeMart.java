@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,13 +18,14 @@ import javax.swing.JPanel;
 import bag.Item;
 import bag.ItemButton;
 import bag.LoadItems;
+import bag.SortItemByCost;
 import entity.Player;
 import getimages.LoadImage;
 import main.Battle;
 
 public class PokeMart extends JPanel implements MouseListener{
 	
-	private Player main; // The player
+	private Player player; // The player
 	
 	private BufferedImage bg; // Background
 	private BufferedImage[] storeSprites; // left, right, down, up, back buttons
@@ -41,6 +43,9 @@ public class PokeMart extends JPanel implements MouseListener{
 	private int itemType; // ITEM STATES: 0 - pokeball, 1 - medicine
 	private boolean firstMed; // true - first 5 of medicine, false - last 3 of medicine
 	private boolean visible; // If this store panel is visible
+	private boolean tooPoor;
+	private boolean purchased;
+	private String message;
 	
 	private Rectangle[] buttons; // Coordinates/dimensions of the buttons
 	private BuyItem[] items; // The items displayed on the right
@@ -50,13 +55,15 @@ public class PokeMart extends JPanel implements MouseListener{
 	
 	// Fonts
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
-	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 12);
+	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 11);
 	
 	// Constructor
-	public PokeMart(Player p)
+	public PokeMart(Player player)
 	{
-		this.main = p;
+		this.player = player;
 		visible = false;
+		tooPoor = false;
+		purchased = false;
 		loadImages();
 		loadItems();
 		loadButtons();
@@ -72,6 +79,7 @@ public class PokeMart extends JPanel implements MouseListener{
 			items[i].setBounds(530, 100+i*82+25*i, 443, 82);
 			add(items[i]);
 		}
+		loadScreen();
 	}
 	
 	public void loadItems()
@@ -87,7 +95,7 @@ public class PokeMart extends JPanel implements MouseListener{
 		pokeballs[2] = loadItems.getItem("Ultra Ball");
 		
 		// Medicine
-		medicine = new Item[9];
+		medicine = new Item[7];
 		medicine[0] = loadItems.getItem("Potion");
 		medicine[1] = loadItems.getItem("Super Potion");
 		medicine[2] = loadItems.getItem("Hyper Potion");
@@ -95,8 +103,6 @@ public class PokeMart extends JPanel implements MouseListener{
 		medicine[4] = loadItems.getItem("Full Heal");
 		medicine[5] = loadItems.getItem("Ether");
 		medicine[6] = loadItems.getItem("Elixir");
-		medicine[7] = loadItems.getItem("Revive");
-		medicine[8] = loadItems.getItem("Max Revive");
 		
 	}
 	
@@ -192,8 +198,8 @@ public class PokeMart extends JPanel implements MouseListener{
 		
 		try
 		{
-			coin = loader.loadImage("res/bag/coin.png");
-			buyButton = loader.resize(buyButton, 140, 55);
+			coin = loader.loadImage("res/store/coin.png");
+			coin = loader.resize(coin, 51, 51);
 		}
 		catch(IOException e) {}
 	}
@@ -248,7 +254,7 @@ public class PokeMart extends JPanel implements MouseListener{
 			}
 			else
 			{
-				for(int i = 0; i < 4; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					if(selectedItem == null)
 						selectedItem = medicine[i+5];
@@ -258,6 +264,8 @@ public class PokeMart extends JPanel implements MouseListener{
 						items[i].updateButton(medicine[i+5], false);
 					items[i].setVisible(true);
 				}
+				items[2].setVisible(false);
+				items[3].setVisible(false);
 				items[4].setVisible(false);
 			}
 			
@@ -299,9 +307,16 @@ public class PokeMart extends JPanel implements MouseListener{
 				g2.drawImage(sortButton, 260, 176, null);
 			g2.drawImage(storeSprites[4], 24, 613, null);
 
+			g2.drawImage(coin, 172, 612, null);
 			g2.setFont(font);
-			g2.setColor(new Color(40, 48, 48));
+			g2.setColor(Color.WHITE);
+			g2.drawString("" + player.getPokeDollars(), 290, 646);
+			g2.setColor(Color.BLACK);
+			g2.drawString("$", 190, 644);
+			
+			g2.setColor(Color.WHITE);
 			g2.drawString("Sort by...", 122, 155);
+			g2.setColor(new Color(40, 48, 48));
 			g2.drawString("Name", 90, 215);
 			if(itemType != 2)
 				g2.drawString("Cost", 296, 215);
@@ -311,10 +326,21 @@ public class PokeMart extends JPanel implements MouseListener{
 				g2.drawImage(storeSprites[3], 732, 62, null);
 			else if(itemType == 1 && firstMed)
 				g2.drawImage(storeSprites[2], 732, 645, null);
-
-			// draw player's coins
-			//g2.drawString
 			
+			if(tooPoor)
+			{
+				g2.setColor(Color.white);
+				g2.setFont(font);
+				g2.drawString("Insufficient", 70, 500);
+				g2.drawString("funds!", 70, 540);
+			}
+			else if(purchased)
+			{
+				g2.setColor(Color.white);
+				g2.setFont(font);
+				g2.drawString(message + " was", 70, 500);
+				g2.drawString("added!", 70, 540);
+			}
 			drawCategory(g2);
 			if(selectedItem != null)
 				drawSelected(g2);
@@ -402,11 +428,9 @@ public class PokeMart extends JPanel implements MouseListener{
 		else if(buttons[2].contains(x, y)) // sort by name
 		{
 			if(itemType == 0)
-				main.sortByName(0);
+				Arrays.sort(pokeballs);
 			else if(itemType == 1)
-				main.sortByName(1);
-			else if(itemType == 2)
-				main.sortByName(2);
+				Arrays.sort(medicine);
 			firstMed = true;
 			selectedItem = null;
 			updateItems();
@@ -414,9 +438,11 @@ public class PokeMart extends JPanel implements MouseListener{
 		else if(buttons[3].contains(x, y)) // sort by cost, n/a for keyItems
 		{
 			if(itemType == 0)
-				main.sortByCost(0);
+				Arrays.sort(pokeballs, new SortItemByCost());
 			else if(itemType == 1)
-				main.sortByCost(1);
+				Arrays.sort(medicine, new SortItemByCost());
+			firstMed = true;
+			selectedItem = null;
 			updateItems();
 		}
 		else if(buttons[4].contains(x, y)) // back
@@ -436,28 +462,45 @@ public class PokeMart extends JPanel implements MouseListener{
 		}
 		else if(buttons[7].contains(x, y))
 		{
-			// purchase
+			if(selectedItem != null && player.getPokeDollars() >= selectedItem.getCost())
+			{
+				player.setPokeDollars(player.getPokeDollars()-selectedItem.getCost());
+				if(itemType == 0)
+					player.addOnItem(selectedItem.getName(), 0, 1);
+				else if(itemType == 1)
+					player.addOnItem(selectedItem.getName(), 1, 1);
+				purchased = true;
+				tooPoor = false;
+				message = selectedItem.getName();
+				repaint();
+			}
+			else if(selectedItem != null)
+			{
+				tooPoor = true;
+				purchased = false;
+				repaint();
+			}
 		}
 	
 	}
 	
-	public static void main(String[] args) 
-	{
-		JFrame frame = new JFrame ("Pokemon");
-		Player play = new Player(0, 0);
-		play.addOnItem("Potion", 1, 5);
-		play.addOnItem("Master Ball", 0, 2);
-		play.addKeyItem("Badge Case");
-		play.addKeyItem("Town Map");
-		PokeMart panel = new PokeMart(play);
-		panel.loadScreen();
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	public static void main(String[] args) 
+//	{
+//		JFrame frame = new JFrame ("Pokemon");
+//		Player play = new Player(0, 0);
+//		play.addOnItem("Potion", 1, 5);
+//		play.addOnItem("Master Ball", 0, 2);
+//		play.addKeyItem("Badge Case");
+//		play.addKeyItem("Town Map");
+//		play.setPokeDollars(10000);
+//		PokeMart panel = new PokeMart(play);
+//		frame.add(panel);
+//		frame.setVisible(true);
+//		frame.setResizable(false);
+//		frame.pack();
+//		frame.setLocationRelativeTo(null);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 	
 	// Unused mouselistener methods.
 	public void mousePressed(MouseEvent e) {}

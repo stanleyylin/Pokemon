@@ -74,6 +74,7 @@ public class Dialogue extends JPanel
 					// call gamePanel
 					message = "";
 				}
+				else if(line.equals("*store*"))
 				
 				revalidate();
 				repaint();

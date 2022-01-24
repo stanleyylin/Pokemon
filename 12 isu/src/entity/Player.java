@@ -77,8 +77,6 @@ public class Player {
 		medicine.add(loadItems.getItem("Full Heal"));
 		medicine.add(loadItems.getItem("Ether"));
 		medicine.add(loadItems.getItem("Elixir"));
-		medicine.add(loadItems.getItem("Revive"));
-		medicine.add(loadItems.getItem("Max Revive"));
 		
 //		keyItems.add(loadItems.getItem("Town Map"));
 //		keyItems.add(loadItems.getItem("Badge Case"));
@@ -230,9 +228,9 @@ public class Player {
 		return pokeDollars;
 	}
 	
-	public void addPokeDollars(int add)
+	public void setPokeDollars(int set)
 	{
-		pokeDollars += add;
+		pokeDollars = set;
 	}
 	public void setScreenX(int set)
 	{

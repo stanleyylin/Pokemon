@@ -11,8 +11,6 @@ Full Restore,Fully restores the HP of a single Pokémon and heal any status cond
 Full Heal,Used to heal all the status conditions of a Pokémon.,600,0,true,0,false
 Ether,Restores 10 PP to a the lowest remaining PP move of a Pokémon.,1200,0,false,10,false
 Elixir,Restores 10 PP to all the moves of a Pokémon.,3000,0,false,-10,false
-Revive,Revives fainted Pokémon. Also restores half of a fainted Pokémon's max HP.,1500,-2,true,0,true
-Max Revive,Revives fainted Pokémon. Also fully restores of a fainted Pokémon's max HP.,5000,-1,true,0,true
 Key Items
 Town Map,A convenient map that can be viewed anytime. Even shows your present location in the region.
 Badge Case,A case containing all the badges you have collected thusfar on your journey

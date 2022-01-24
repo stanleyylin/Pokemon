@@ -83,6 +83,15 @@ public class Item implements Comparable<Item> {
 		quantity = 0;
 	}
 	
+	public boolean equals(Object o)
+	{
+		Item i = (Item) o;
+		if(this.getName().equals(i.getName()))
+		{
+			return true;
+		}
+		return false;
+	}
 	public int compareTo(Item o) {
 		return this.getName().compareTo(o.getName());
 	}

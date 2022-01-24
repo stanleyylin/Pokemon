@@ -41,7 +41,7 @@ public class LoadItems {
 
 		br.readLine();
 		//getting medicine items
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 7; i++) {
 			curLine = br.readLine();
 			String curName = curLine.substring(0, curLine.indexOf(","));
 			curLine = curLine.substring(curLine.indexOf(",")+1);
