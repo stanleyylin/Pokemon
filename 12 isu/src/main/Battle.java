@@ -1249,7 +1249,7 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charmeleon", "BBQ Dragon", 35));
+		pranav.addPokemonToParty(new Pokemon("Charmander", "BBQ Dragon", 7));
 		pranav.getParty()[0].setCurExp(2500);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
@@ -1260,7 +1260,7 @@ public class Battle extends JPanel {
 
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
-		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 28));
+		gary.addPokemonToParty(new Pokemon("Bulbasaur", "Bulbasaur", 5));
 		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		gary.getParty()[0].setCurHP(2);;
 

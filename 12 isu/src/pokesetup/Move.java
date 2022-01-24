@@ -42,7 +42,7 @@ public class Move {
 		this.curStatus = null;
 		this.statMod = new int[4];
 	}
-	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen, Pokemon.Status status) {
+	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen, Pokemon.Status status, int[] statMods) {
 		this.name = name;
 		this.type = type;
 		this.category = category;
@@ -54,7 +54,7 @@ public class Move {
 		this.prob = prob;
 		this.gen = gen;
 		this.curStatus = status;
-		this.statMod = new int[4];
+		this.statMod = statMods;
 	}
 
 	public String toString() {

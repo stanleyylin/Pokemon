@@ -227,35 +227,68 @@ public class BlankMon {
 			//			System.out.println(curName+ ",," +curType+ ",," +curCategory + ",," + curEffect+",," +curPower+",," +curAccuracy+",," +curPP+",," +curTM+",," +curProb+",," +curGen);
 
 			Pokemon.Status curStat = null;
-			//applying poison stat to move
+			//applying poison status to move
 			if (curName.equals("Cross Poison") ||  curName.equals("Gunk Shot") || curName.equals("Poison Gas") || curName.equals("Poison Powder") ||
 					curName.equals("Poison Sting") || curName.equals("Poison Tail") || curName.equals("Sludge") || curName.equals("Sludge Bomb") || 
 					curName.equals("Sludge Wave") || curName.equals("Smog") || curName.equals("Toxic Spikes") || curName.equals("Twineedle"))
 				curStat = Pokemon.Status.POISON;
 
+			//applying burn status to moves
 			if (curName.equals("Blaze Kick") || curName.equals("Ember") || curName.equals("Fire Blast") || curName.equals("Fire Fang") ||
 					curName.equals("Fire Punch") || curName.equals("Flame Wheel") || curName.equals("Flamethrower") || curName.equals("Flare Blitz") || curName.equals("Heat Wave") ||
 					curName.equals("Inferno") || curName.equals("Scald") || curName.equals("Searing Shot") || curName.equals("Will-O-Wisp") || curName.equals("Sacred Fire"))
 				curStat = Pokemon.Status.BURN;
 
+			//applying frozen status to moves
 			if (curName.equals("Blizzard") || curName.equals("Ice Beam") || curName.equals("Ice Fang") || curName.equals("Ice Punch") || curName.equals("Powder Snow"))
 				curStat = Pokemon.Status.FREEZE;
 
+			//applying paralyzed status to moves
 			if (curName.equals("Body Slam") || curName.equals("Bolt Strike") || curName.equals("Discharge") || curName.equals("Force Palm") || curName.equals("Lick") ||
 					curName.equals("Nuzzle") || curName.equals("Spark") || curName.equals("Stun Spore") || curName.equals("Thunder") || curName.equals("Thunder Fang") ||
 					curName.equals("Thunder Punch") || curName.equals("Thunder Shock") || curName.equals("Thunder Wave") || curName.equals("Thunderbolt") ||
 					curName.equals("Volt Tackle") || curName.equals("Zap Cannon"))
 				curStat = Pokemon.Status.PARALYSIS;
 
+			//applying asleep status to moves
 			if (curName.equals("Hypnosis") || curName.equals("Rest") || curName.equals("Sleep Powder") || curName.equals("Spore") || curName.equals("Yawn"))
 				curStat = Pokemon.Status.SLEEP;
 
+			//applying confused status to moves
 			if (curName.equals("Confuse Ray") || curName.equals("Confusion") || curName.equals("Dizzy Punch") || curName.equals("Psybeam") || curName.equals("Confuse Ray") ||  
 					curName.equals("Signal Beam") || curName.equals("Supersonic") || curName.equals("Swagger") ||  curName.equals("Water Pulse"))
 				curStat = Pokemon.Status.CONFUSED;
 
+			int[] statMod = new int[4];
+			if (curName.equals("Curse") || curName.equals("Growth") || curName.equals("Hone Claws") || curName.equals("Howl") || curName.equals("Meditate") || curName.equals("Metal Claw") || 
+					curName.equals("Rage") || curName.equals("Sharpen") || curName.equals("Growth"))
+				statMod[0] =1;
+			if (curName.equals("Swagger") || curName.equals("Swords Dance"))
+				statMod[0] = 2;
+			if (curName.equals("Aurora Beam") || curName.equals("Growl") || curName.equals("Tickle"))
+				statMod[0] = -1;
+			
+			if (curName.equals("Curse") || curName.equals("Defense Curl") || curName.equals("Harden") || curName.equals("Withdraw"))
+				statMod[1] = 1;
+			if (curName.equals("Acid Armor") || curName.equals("Barrier"))
+				statMod[1] = 2;
+			if (curName.equals("Acid") || curName.equals("Crunch") || curName.equals("Leer") || curName.equals("Tail Whip") || curName.equals("Screech"))
+				statMod[1] = -1;
+			
+			if (curName.equals("Screech") || curName.equals("Growth") )
+				statMod[2] = 1;
+			if(curName.equals("Memento"))
+				statMod[2] = -1;
+			
+			
+			if (curName.equals("Calm Mind") || curName.equals("Cosmic Power") || curName.equals("Stockpile") || curName.equals("Amnesia")  )
+				statMod[3] = 1;
+			if (curName.equals("Bug Buzz") || curName.equals("Crunch") || curName.equals("Screech") || curName.equals("Psychic") || curName.equals("Shadow Ball") || 
+					curName.equals("Spit Up") || curName.equals("Fake Tears") )
+				statMod[3] = -1;
+			
 			moveList.put(curName, new Move(curName, curType, curCategory, Integer.parseInt(curPower), 
-					Integer.parseInt(curAccuracy), Integer.parseInt(curPP), curTM, Integer.parseInt(curProb), curGen, curStat));
+					Integer.parseInt(curAccuracy), Integer.parseInt(curPP), curTM, Integer.parseInt(curProb), curGen, curStat, statMod));
 		}
 	}
 
