@@ -248,6 +248,7 @@ public class Player {
 	}
 	public void swapPokemon(Pokemon p, int i)
 	{
+		box.remove(p);
 		box.add(party[i]);
 		party[i] = p;
 	}

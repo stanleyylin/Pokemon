@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.MouseEvent;
@@ -32,14 +33,9 @@ public class test extends JPanel {
 	
 	public static void main(String[] args)
 	{
-		JFrame frame = new JFrame ("Pokemon");
-		test panel = new test();
-		frame.setContentPane(panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		ArrayList<Integer> hello = new ArrayList<>();
+		hello.add(1);
+		System.out.println(hello.get(10));
 	}
 	
 	

@@ -22,22 +22,29 @@ public class BoxPokemon extends JPanel implements MouseListener {
 	private boolean inParty;
 	private BufferedImage pokeSprite;
 	
+	private Box box;
 	private boolean isSelected;
 	private boolean isVisible;
 	
-	private static BufferedImage hex;
+	private static BufferedImage hex1; // white
+	private static BufferedImage hex2; // dark
+	
+	private int index;
 	
 	private BufferedImage hexagon;
 	
-	public BoxPokemon(int x, int y)
+	public BoxPokemon(Box box, int index)
 	{
-		setPreferredSize(new Dimension(115, 115));
+		this.box = box;
+		
+		setPreferredSize(new Dimension(114, 114));
 		setBackground(new Color(0f, 0f, 0f, 0f));
 		addMouseListener(this);
-		hexagon = hex;
+		hexagon = null;
 		inParty = false;
 		isSelected = false;
 		isVisible = false;
+		this.index = index;
 	}
 	
 	public static void setHex()
@@ -45,11 +52,18 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		LoadImage loader = new LoadImage();
 		try
 		{
-			hex = loader.loadImage("res/box/selected.png");
-			hex = loader.resize(hex, 96, 86);
+			hex1 = loader.loadImage("res/box/selected.png");
+			hex1 = loader.resize(hex1, 96, 86);
+		}
+		catch(IOException e) {}
+		try
+		{
+			hex2 = loader.loadImage("res/box/swap.png");
+			hex2 = loader.resize(hex2, 96, 86);
 		}
 		catch(IOException e) {}
 	}
+	
 	
 	public void updatePokemon(Pokemon p, boolean inParty)
 	{
@@ -57,17 +71,20 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		this.inParty = inParty;
 		
 		isVisible = true;
-		
 		pokemon = p;
 		pokeSprite = pokemon.getFront();
-		pokeSprite = loader.resize(pokeSprite, 69, 69);
+		pokeSprite = loader.resize(pokeSprite, 115, 115);
 		revalidate();
 		repaint();
+		box.refresh();
 	}
 	
 	public void hidePokemon()
 	{
 		isVisible = false;
+		repaint();
+		revalidate();
+		box.refresh();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -77,18 +94,38 @@ public class BoxPokemon extends JPanel implements MouseListener {
 			Graphics2D g2 = (Graphics2D) g;
 			if(hexagon != null || isSelected)
 				g2.drawImage(hexagon, 9, 14, null);
-			g2.drawImage(pokeSprite, 22, 22, null);
+			g2.drawImage(pokeSprite, 0, 0, null);
 		}
+	}
+	
+	// Getters and Setters
+	public Pokemon getPokemon()
+	{
+		return pokemon;
 	}
 	
 	public void setSelected(boolean set)
 	{
 		this.isSelected = set;
+		if(set && inParty)
+			hexagon = hex2;
+		else if(set)
+			hexagon = hex1;
+		else
+			hexagon = null;
 	}
 	
 	public void mouseClicked(MouseEvent e) 
 	{
-		
+		if(!inParty && isVisible && !box.isSwapping())
+		{
+			box.selected(index);
+			setSelected(true);
+		}
+		else if(inParty && box.isSwapping() && isVisible)
+		{
+			box.swap(index);
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {}
@@ -97,12 +134,21 @@ public class BoxPokemon extends JPanel implements MouseListener {
 
 	public void mouseEntered(MouseEvent e) 
 	{
-		hexagon = hex;
+		if(inParty && box.isSwapping() && isVisible)
+			hexagon = hex2;
+		else if(!box.isSwapping() && isVisible)
+			hexagon = hex1;
+		repaint();
+		box.refresh();
 	}
-
 	public void mouseExited(MouseEvent e) 
 	{
-		hexagon = null;
+		if(!isSelected && isVisible)
+		{
+			hexagon = null;
+			repaint();
+			box.refresh();
+		}
 	}
 
 }
