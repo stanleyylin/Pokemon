@@ -1,0 +1,12 @@
+Gym Leaders
+No,City,Name, Type, Party
+1,Jubilife,Misty,Water,[(Staryu,12),(Starmie,14)]
+2,Oreburgh,Brock,Rock,[(Geodude,18),(Onix,21)]
+3,Eterna,Lt. Surge,Electric,[(Voltorb,21),(Pikachu,21),(Raichu,24)]
+4,Hearthome,Erika,Grass,[(Victreebel,29),(Tangela,24),(Vileplume,29)]
+Elite 4 & champ
+No,Name,Type,Party
+1,Lorelai,Ice,[(Dewgong,34),(Cloyster,33),(Slowbro,34),(Lapras,36)]
+2,Bruno,Fighting,[(Onix,37),(Hitmonchan,39),(Hitmonlee,39),(Machamp,42)]
+3,Lance,Dragon,[(Gyarados,41),(Dragonair,39),(Aerodactyl,43),(Dragonite,45)]
+4,Blue,Champion,[(Pidgeot,46),(Alakazam,44),(Rhydon,46),(Exeggutor,45),(Gyarados,48),(Charizard,50)]
