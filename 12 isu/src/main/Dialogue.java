@@ -6,6 +6,7 @@ import javax.swing.*;
 import entity.NPC;
 import entity.Nurse;
 import entity.Person;
+import entity.Player;
 import getimages.LoadImage;
 
 import java.awt.image.*;
@@ -14,9 +15,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 public class Dialogue extends JPanel
 {
-	private GamePanel p;
+	private GamePanel gamePanel;
+	private Player player;
 	private BufferedImage dialogueBox;
 	private BufferedReader br;
 	private String message = "";
@@ -25,9 +28,10 @@ public class Dialogue extends JPanel
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	
-	public Dialogue(GamePanel p)
+	public Dialogue(GamePanel gamePanel, Player player)
 	{
-		this.p = p;
+		this.gamePanel = gamePanel;
+		this.player = player;
 		setPreferredSize(new Dimension(1064, 172));
 		setLayout(null);
 		LoadImage loader = new LoadImage();
@@ -62,7 +66,7 @@ public class Dialogue extends JPanel
 				message = line;
 				if(line.equals("*heal*"))
 				{
-					((Nurse) npc).heal(p.getPlayer());
+					((Nurse) npc).heal(player);
 					message = "";
 				}
 				else if(line.equals("*battle*"))
@@ -73,17 +77,17 @@ public class Dialogue extends JPanel
 				
 				revalidate();
 				repaint();
-				p.revalidate();
-				p.repaint();
+				gamePanel.revalidate();
+				gamePanel.repaint();
 			}
 			else // ended
 			{
-				p.getPlayer().setInteracting(false);
-				p.hideDialogue();
+				player.setInteracting(false);
+				gamePanel.hideDialogue();
 			}
-			p.getKeyHandler().setXPressed(false);
 		} 
 		catch (IOException e) {}
+		gamePanel.getKeyHandler().setXPressed(false);
 	}
 	
 	public void paintComponent(Graphics g) 

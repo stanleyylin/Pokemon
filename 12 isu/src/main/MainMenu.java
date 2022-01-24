@@ -19,6 +19,8 @@ import java.io.IOException;
 
 public class MainMenu extends JPanel implements MouseListener
 {
+	private Main main;
+	
 	// Images
 	BufferedImage title;
 	BufferedImage subtitle;
@@ -34,8 +36,9 @@ public class MainMenu extends JPanel implements MouseListener
 	static JFrame frame;
 	static JLabel[] label;
 	
-	public MainMenu()
+	public MainMenu(Main main)
 	{
+		this.main = main;
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 	    setBackground(Color.BLACK);
 	    
@@ -49,11 +52,7 @@ public class MainMenu extends JPanel implements MouseListener
 		try
 		{
 			subtitle = loader.loadImage("res/mainmenu/subtitle.png");
-			Image tmp = subtitle.getScaledInstance(437, 122, Image.SCALE_SMOOTH);
-			subtitle = new BufferedImage(437, 122, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g2d = subtitle.createGraphics();
-			g2d.drawImage(tmp, 0, 0, null);
-			g2d.dispose();
+			subtitle = loader.resize(subtitle, 437, 122);
 		}
 		catch(IOException e) {}
 		
@@ -111,8 +110,8 @@ public class MainMenu extends JPanel implements MouseListener
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
-			counter++;
 			repaint();
+			counter++;
 		}
 	}
 	
@@ -124,7 +123,7 @@ public class MainMenu extends JPanel implements MouseListener
 		{
 			currButtons[0] = buttons[0];
 			repaint();
-			Main.loadGame();
+			main.openGamePanel();
 		}
 		else if(x>=340 && x<=340+currButtons[0].getWidth() && y>=390 && y <=390+currButtons[0].getHeight())
 		{
@@ -180,13 +179,10 @@ public class MainMenu extends JPanel implements MouseListener
 			// title
 			if(counter >= 10 && counter <= 18)
 			{
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
-				opacity[0] += 0.1f;
 			}
 			else if(counter >= 18)
 			{
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
 			}
 			

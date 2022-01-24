@@ -31,10 +31,10 @@ public class PokeMart extends JPanel implements MouseListener{
 	private BufferedImage deselected; // Button png
 	
 	private BufferedImage yellowBox; // The GUI png
-	private BufferedImage store; // The bag png
 	private BufferedImage textBox; // The item description png
 	private BufferedImage sortButton; // The sort button
 	private BufferedImage buyButton; // The buy button
+	private BufferedImage coin;
 	
 	private Item selectedItem; // The current selected item
 
@@ -142,7 +142,6 @@ public class PokeMart extends JPanel implements MouseListener{
 			storeSprites[4] = storeSpritesheet.getSubimage(22, 43, 25, 23);
 			storeSprites[4] = loader.resize(storeSprites[4], 92, 87);
 			
-			
 			// selected
 			deselected = storeSpritesheet.getSubimage(126, 14, 236, 43);
 			deselected = loader.resize(deselected, 441, 82);
@@ -160,12 +159,6 @@ public class PokeMart extends JPanel implements MouseListener{
 		}
 		catch(IOException e) {}
 		
-		try
-		{
-			store = loader.loadImage("res/store/mart.png");
-			store = loader.resize(store, 151, 155);
-		}
-		catch(IOException e) {}
 		
 		try
 		{
@@ -191,10 +184,16 @@ public class PokeMart extends JPanel implements MouseListener{
 		
 		try
 		{
-			buyButton = loader.loadImage("res/bag/storeSprites.png");
+			buyButton = loader.loadImage("res/bag/bagSprites.png");
 			buyButton = buyButton.getSubimage(16, 127, 105, 42);
 			buyButton = loader.resize(buyButton, 140, 55);
-			
+		}
+		catch(IOException e) {}
+		
+		try
+		{
+			coin = loader.loadImage("res/bag/coin.png");
+			buyButton = loader.resize(buyButton, 140, 55);
 		}
 		catch(IOException e) {}
 	}
@@ -298,7 +297,6 @@ public class PokeMart extends JPanel implements MouseListener{
 			g2.drawImage(sortButton, 50, 176, null);
 			if(itemType != 2)
 				g2.drawImage(sortButton, 260, 176, null);
-			g2.drawImage(store, 205, 540, null);
 			g2.drawImage(storeSprites[4], 24, 613, null);
 
 			g2.setFont(font);
@@ -314,6 +312,9 @@ public class PokeMart extends JPanel implements MouseListener{
 			else if(itemType == 1 && firstMed)
 				g2.drawImage(storeSprites[2], 732, 645, null);
 
+			// draw player's coins
+			//g2.drawString
+			
 			drawCategory(g2);
 			if(selectedItem != null)
 				drawSelected(g2);
@@ -350,7 +351,6 @@ public class PokeMart extends JPanel implements MouseListener{
 			g2.setFont(desFont);
 			g2.drawString(line, x, y);
 		}
-
 
 		g2.drawImage(buyButton, 169, 377, null);
 		g2.setFont(font);
@@ -445,7 +445,6 @@ public class PokeMart extends JPanel implements MouseListener{
 	{
 		JFrame frame = new JFrame ("Pokemon");
 		Player play = new Player(0, 0);
-		Battle b = new Battle(play, null);
 		play.addOnItem("Potion", 1, 5);
 		play.addOnItem("Master Ball", 0, 2);
 		play.addKeyItem("Badge Case");

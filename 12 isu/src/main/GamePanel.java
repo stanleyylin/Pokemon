@@ -21,6 +21,7 @@ import map.Location;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable
 {
+	private Main main;
 	private Thread gameThread;
 	private static KeyHandler keyHandler;
 	
@@ -37,14 +38,16 @@ public class GamePanel extends JPanel implements Runnable
 	private boolean battling;
 	// Player Variables
 	
-	private Player main; 
+	private Player player; 
 	
-	public GamePanel()
+	public GamePanel(Main main, Player player)
 	{	
+		this.main = main;
+		this.player = player;
+		
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
-	    BufferedImage hearthome = null;
 	    BufferedImage pokecentre1 = null, house1 = null;
 	    
 	    // Loading the images
@@ -109,15 +112,12 @@ public class GamePanel extends JPanel implements Runnable
 		heartHome.addGate(gate11);
 		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
 		
-		
-		// Player, temp
-		main = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		// Functionalities
-		dialogue = new Dialogue(this);
+		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 		camera = new Camera(heartHome, 300, 1200);
-	    moving = new Moving(this, main, camera);
-	    keyHandler = new KeyHandler(this, main, moving);
+	    moving = new Moving(this, player, camera);
+	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
 	    gameThread = new Thread(this);
 		gameThread.start();
@@ -155,14 +155,14 @@ public class GamePanel extends JPanel implements Runnable
 	public void update() 
 	{
 		moving.changeSprite();
-		if(main.direction.equals("left") || main.direction.equals("right"))
+		if(player.direction.equals("left") || player.direction.equals("right"))
 		{
 			if(camera.getBuilding() == null && !camera.getLocation().getEdgeReachedX())
 				moving.moveCameraX();
 			else
 				moving.movePlayerX();
 		}
-		else if(main.direction.equals("up") || main.direction.equals("down"))
+		else if(player.direction.equals("up") || player.direction.equals("down"))
 		{
 			if(camera.getBuilding() == null && !camera.getLocation().getEdgeReachedY())
 				moving.moveCameraY();
@@ -208,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable
 	public void showDialogue()
 	{
 		this.add(dialogue);
-		dialogue.startDialogue(main.getTalkingTo());
+		dialogue.startDialogue(player.getTalkingTo());
 	}
 	public void hideDialogue()
 	{
@@ -216,6 +216,11 @@ public class GamePanel extends JPanel implements Runnable
 		parent.remove(dialogue);
 		parent.revalidate();
 		parent.repaint();
+	}
+	
+	public void openBox()
+	{
+		main.openBox();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -237,10 +242,6 @@ public class GamePanel extends JPanel implements Runnable
 	}
 	
 	// Getters and Setters
-	public Player getPlayer()
-	{
-		return main;
-	}
 	public KeyHandler getKeyHandler()
 	{
 		return keyHandler;
@@ -257,23 +258,27 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		return interact;
 	}
+	public Player getPlayer()
+	{
+		return player;
+	}
 	public void setInteract(boolean set)
 	{
 		interact = set;
 	}
 	
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame ("Pokemon");
-		GamePanel panel = new GamePanel();
-		
-		frame.add(panel);
-		frame.addKeyListener(keyHandler);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	public static void main(String[] args)
+//	{
+//		JFrame frame = new JFrame ("Pokemon");
+//		GamePanel panel = new GamePanel();
+//		
+//		frame.add(panel);
+//		frame.addKeyListener(keyHandler);
+//		frame.setVisible(true);
+//		frame.setResizable(false);
+//		frame.pack();
+//		frame.setLocationRelativeTo(null);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 
 }

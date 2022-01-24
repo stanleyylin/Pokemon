@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,115 +10,69 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import bag.Bag;
 import bag.Item;
+import box.Box;
 import entity.Player;
+import pokesetup.BlankMon;
+import pokesetup.Pokemon;
 
-public class Main {
-	private static JFrame frame;
+public class Main extends JFrame {
 	
-	private static GamePanel mainGame;
-	private static Dialogue dialogue;
-	private static MainMenu menu;
+	private MainMenu mainMenu;
+	private GamePanel gamePanel;
+	private Bag bag;
+	private Box box;
+	private PokeSelect pokeSelect;
 	
+	private static Player player;
 	
-	private static KeyHandler keyHandler;
-	private static Player main;
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
 	
-	public static void loadGame()
+	public Main()
 	{
-		keyHandler = new KeyHandler(mainGame, mainGame.getPlayer(), mainGame.getMoving());
-		frame.setContentPane(mainGame);
-		frame.setVisible(true);
-		frame.pack();
-		frame.addKeyListener(keyHandler);
+		player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
+		
+		// Initialization
+		mainMenu = new MainMenu(this);
+		gamePanel = new GamePanel(this, player);
+		box = new Box(this, player);
+		try 
+		{
+			BlankMon.getAllMoves();
+			BlankMon.getAllMoveLists();
+			BlankMon.getAllAbilities();
+			Pokemon.addAllPokemon();
+		} 
+		catch (IOException e) {}
+		
+		setContentPane(mainMenu);
 	}
 	
-	public static void showDialogue()
+	// To open Game Panel
+	public void openGamePanel()
 	{
-		
+		setContentPane(gamePanel);
+		setVisible(true);
+		pack();
+		addKeyListener(gamePanel.getKeyHandler());
 	}
-	
-	public static void returnMainMenu()
+	public void openBox() // pranav: press b when in gamepanel if u wanna test
 	{
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-		frame.pack();
-	}
-	
-	private static HashMap<String,Item> itemList = new HashMap<String,Item>();
-	public static void addAllItems() throws IOException , FileNotFoundException
-	{
-		BufferedReader br = new BufferedReader(new FileReader(new File("items.txt")));
-		
-		String curLine = br.readLine();
-		
-		//getting poke balls
-		for (int i = 0; i < 4; i++) {
-			curLine = br.readLine();
-			String curName = curLine.substring(0, curLine.indexOf(","));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			String curEffect = curLine.substring(0, curLine.indexOf(","));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			int curCost = Integer.parseInt(curLine.substring(0,curLine.indexOf(",")));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			double curChance = Double.parseDouble(curLine);
-			itemList.put(curName, new Item(curName, curEffect, curCost, curChance));
-		}
-
-		br.readLine();
-		//getting medicine items
-		for (int i = 0; i < 9; i++) {
-			curLine = br.readLine();
-			String curName = curLine.substring(0, curLine.indexOf(","));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			String curEffect = curLine.substring(0, curLine.indexOf(","));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			int curCost = Integer.parseInt(curLine.substring(0,curLine.indexOf(",")));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			int curHealing = Integer.parseInt(curLine.substring(0,curLine.indexOf(",")));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			boolean curStatus = Boolean.parseBoolean(curLine.substring(0,curLine.indexOf(",")));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			int curPP = Integer.parseInt(curLine.substring(0,curLine.indexOf(",")));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			boolean curRevive = Boolean.parseBoolean(curLine);
-			itemList.put(curName, new Item(curName, curEffect,curCost, curHealing, curStatus, curPP, curRevive));
-			
-		}
-		
-		br.readLine();
-		//getting key items
-		for (int i = 0; i < 4; i++) {
-			curLine = br.readLine();
-			String curName = curLine.substring(0, curLine.indexOf(","));
-			curLine = curLine.substring(curLine.indexOf(",")+1);
-			String curEffect = curLine;
-			itemList.put(curName, new Item(curName, curEffect));
-		}
+		setContentPane(box);
+		setVisible(true);
+		pack();
 	}
 
 	public static void main(String[] args) 
 	{
-		try 
-		{
-			addAllItems();
-		} catch (IOException e) {}
-		
-		frame = new JFrame ("Pokemon: Wong Edition");
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		// game panel
-		mainGame = new GamePanel();
-		// main menu
-		menu = new MainMenu();
-
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
+		Main main = new Main();
+		main.setResizable(false);
+		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		main.setVisible(true);
+		main.pack();
+		main.setLocationRelativeTo(null);
 	}
 
 }

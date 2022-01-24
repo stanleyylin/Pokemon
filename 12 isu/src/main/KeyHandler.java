@@ -34,6 +34,10 @@ public class KeyHandler implements KeyListener {
 	{
 		int key = e.getKeyCode();
 		
+		if(key == KeyEvent.VK_B)
+		{
+			game.openBox();
+		}
 		// main.moving - if its 0, its resting, if its above 0 its moving
 		if(game.getInteract() && key == KeyEvent.VK_X)
 		{

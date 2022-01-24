@@ -15,12 +15,13 @@ import java.awt.event.MouseListener;
 
 import main.Battle;
 import main.GamePanel;
+import main.Main;
 import pokesetup.BlankMon;
 import pokesetup.Pokemon;
 
 public class Box extends JPanel implements MouseListener{
-	
-	private Player main;
+	private Main main;
+	private Player player;
 	
 	private BufferedImage GUI;
 	private BufferedImage button;
@@ -38,9 +39,10 @@ public class Box extends JPanel implements MouseListener{
 	private Font title = new Font("Pokemon GB", Font.PLAIN, 30);
 	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 14);
 	
-	public Box(Player main)
+	public Box(Main main, Player player)
 	{
 		this.main = main;
+		this.player = player;
 		setPreferredSize(new Dimension(1080, 720));
 		setLayout(null);
 		addMouseListener(this);
@@ -99,8 +101,8 @@ public class Box extends JPanel implements MouseListener{
 		{
 			for(int k = 0; k < 5; k++)
 			{
-				if(main.getBox().size()-boxNum*25 > i*5+k)
-					boxButtons[i][k].updatePokemon(main.getBox().get(boxNum*25+i*5+k), false);
+				if(player.getBox().size()-boxNum*25 > i*5+k)
+					boxButtons[i][k].updatePokemon(player.getBox().get(boxNum*25+i*5+k), false);
 				else
 					boxButtons[i][k].hidePokemon();
 			}
@@ -109,8 +111,8 @@ public class Box extends JPanel implements MouseListener{
 		
 		for(int i = 0; i < 6; i++)
 		{
-			if(main.getParty()[i] != null)
-				partyButtons[i].updatePokemon(main.getParty()[i], true);
+			if(player.getParty()[i] != null)
+				partyButtons[i].updatePokemon(player.getParty()[i], true);
 			else
 				partyButtons[i].hidePokemon();
 		}
@@ -130,7 +132,7 @@ public class Box extends JPanel implements MouseListener{
 	
 	public void swap(int partyIndex)
 	{
-		main.swapPokemon(boxButtons[selected/5][selected%5].getPokemon(), partyIndex);
+		player.swapPokemon(boxButtons[selected/5][selected%5].getPokemon(), partyIndex);
 		updateButtons();
 		refresh();
 		swapping = false;
@@ -139,12 +141,15 @@ public class Box extends JPanel implements MouseListener{
 
 	public void displaySelected(Graphics2D g2)
 	{
-		g2.drawImage(main.getBox().get(selected+boxNum*25).getFront(), 0, 105, null);
-		g2.setFont(desFont);
-		g2.drawString("Name: " + main.getBox().get(selected+boxNum*25).getNickName(), 190, 150);
-		g2.drawString("HP: " + main.getBox().get(selected+boxNum*25).getCurHP() + "/" + main.getBox().get(selected+boxNum*25).getHPStat(), 190, 190);
-		g2.drawString("Level: " + main.getBox().get(selected+boxNum*25).getLevel(), 190, 230);
-	
+		if(player.getBox().size() > 0)
+		{
+			g2.drawImage(player.getBox().get(selected+boxNum*25).getFront(), 0, 105, null);
+			g2.setFont(desFont);
+			g2.drawString("Name: " + player.getBox().get(selected+boxNum*25).getNickName(), 190, 150);
+			g2.drawString("HP: " + player.getBox().get(selected+boxNum*25).getCurHP() + "/" + player.getBox().get(selected+boxNum*25).getHPStat(), 190, 190);
+			g2.drawString("Level: " + player.getBox().get(selected+boxNum*25).getLevel(), 190, 230);
+		}
+		
 		g2.drawImage(button, 150, 275, null);
 		g2.setFont(font);
 		g2.drawString("Swap!", 185, 315);
@@ -171,53 +176,7 @@ public class Box extends JPanel implements MouseListener{
 		g2.setFont(title);
 		g2.drawString("Box " + (boxNum+1) + ":", 680, 62);
 	}
-	
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame ("Pokemon");
-		try {
-			BlankMon.getAllMoves();
-			BlankMon.getAllMoveLists();
-			BlankMon.getAllAbilities();
-			Pokemon.addAllPokemon();
-		} 
-		catch (IOException e) {}
 
-		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
-		pranav.addPokemonToParty(new Pokemon("Persian", "Kiwi", 32));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Persian", "Wet", 55));
-		pranav.addToBox(new Pokemon("Blastoise", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Pidgey", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Dratini", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		Box box = new Box(pranav);
-
-		frame.setContentPane(box);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		frame.setLocationRelativeTo(null);
-	}
 
 	public void mouseClicked(MouseEvent e) 
 	{
@@ -230,6 +189,7 @@ public class Box extends JPanel implements MouseListener{
 		}
 		else if(buttons[0].contains(x, y)) // back
 		{
+			main.openGamePanel();
 		}
 		else if(buttons[1].contains(x, y)) // left
 		{
@@ -243,7 +203,7 @@ public class Box extends JPanel implements MouseListener{
 		}
 		else if(buttons[2].contains(x, y)) // right
 		{
-			if(main.getBox().size() > 25*(boxNum+1))
+			if(player.getBox().size() > 25*(boxNum+1))
 			{			
 				boxNum++;
 				selected(0);
