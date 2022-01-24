@@ -3,6 +3,7 @@ package main;
 import java.awt.*;
 import javax.swing.*;
 
+import entity.NPC;
 import entity.Nurse;
 import entity.Person;
 import getimages.LoadImage;
@@ -64,6 +65,12 @@ public class Dialogue extends JPanel
 					((Nurse) npc).heal(p.getPlayer());
 					message = "";
 				}
+				else if(line.equals("*battle*"))
+				{
+					// call gamePanel
+					message = "";
+				}
+				
 				revalidate();
 				repaint();
 				p.revalidate();

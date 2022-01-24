@@ -189,6 +189,12 @@ public class Box extends JPanel implements MouseListener{
 		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
 		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
 		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
+		pranav.addToBox(new Pokemon("Persian", "Wet", 55));
+		pranav.addToBox(new Pokemon("Blastoise", "Zappy", 55));
+		pranav.addToBox(new Pokemon("Pidgey", "Puffy", 55));
+		pranav.addToBox(new Pokemon("Dratini", "Wet", 55));
+		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
+		pranav.addToBox(new Pokemon("Pikachu", "Puffy", 55));
 		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
 		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
 		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
@@ -203,22 +209,6 @@ public class Box extends JPanel implements MouseListener{
 		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
 		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
 		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
-		pranav.addToBox(new Pokemon("Bulbasaur", "Wet", 55));
-		pranav.addToBox(new Pokemon("Pikachu", "Zappy", 55));
-		pranav.addToBox(new Pokemon("Jigglypuff", "Puffy", 55));
 		Box box = new Box(pranav);
 
 		frame.setContentPane(box);

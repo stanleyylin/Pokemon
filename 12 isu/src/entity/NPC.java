@@ -1,3 +1,4 @@
+// NPC extends Person and is battleable.
 package entity;
 
 import java.awt.*;
@@ -5,16 +6,27 @@ import java.awt.image.BufferedImage;
 
 import pokesetup.Pokemon;
 
-public class NPC
-//extends Person 
+public class NPC extends Person 
 {
-	private Pokemon[] party;
+	private Pokemon[] party; // Party of 6 Pokemon
+	private boolean battleable; // Whether or not player has battled
+	private String loseFile; // txt file for when NPC has been beaten
+	// In Person Class: Rectangle collision, Rectangle interaction, String imageFile;
+	// BufferedImage sprite, String direction, String textFile, boolean shown;
 
-	public NPC(int worldX, int worldY, BufferedImage[] sprites)
+	// Constructor
+	public NPC(Rectangle collision, String direction, String imageFile, int w, int h, String firstFile, String loseFile, Pokemon[] party)
 	{
-		//		super(worldX, worldY, sprites);
+		super(collision, direction, imageFile, w, h, firstFile);
 
-		this.party = new Pokemon[6];
+		this.party = party;
+		battleable = false;
+		this.loseFile = loseFile;
+	}
+	
+	public void startBattle()
+	{
+		// helo
 	}
 
 	public void addPokemonToParty(Pokemon pokemon) {
@@ -41,7 +53,7 @@ public class NPC
 				System.out.println(p1 + "\n");
 		}
 	}
-
+	
 	//	public Pokemon findNextAvailableMon() {
 	//		for (Pokemon p1 : this.party) {
 	//			if (p1 == null)
@@ -67,18 +79,24 @@ public class NPC
 		return -1;
 	}
 
-
-	//	public int getWorldX()
-	//	{
-	//		return worldX;
-	//	}
-	//	public int getWorldY()
-	//	{
-	//		return worldY;
-	//	}
-
+	// Getters and Setters
 	public Pokemon[] getParty() {
 		return this.party;
+	}
+	public boolean getBattleable()
+	{
+		return battleable;
+	}
+	public String getLines()
+	{
+		if(battleable)
+			return textFile;
+		else
+			return loseFile;
+	}	
+	public void setBattleable(boolean set)
+	{
+		battleable = set;
 	}
 
 }

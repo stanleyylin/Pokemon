@@ -35,7 +35,7 @@ public class Person {
 			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()-42, 62, 42);
 		else if(direction.equals("down"))
 			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()+(int)collision.getHeight(), 62, 42);
-		shown = false;
+		shown = true;
 		
 		try
 		{

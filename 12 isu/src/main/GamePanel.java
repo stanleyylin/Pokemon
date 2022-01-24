@@ -7,6 +7,7 @@ import java.io.*;
 import javax.swing.*;
 
 import entity.Moving;
+import entity.NPC;
 import entity.Nurse;
 import entity.Person;
 import entity.Player;
@@ -34,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable
 	private boolean interact;
 	
 	private boolean battling;
-	
 	// Player Variables
 	
 	private Player main; 
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable
 		//Grass: None
 		Location heartHome = new Location("hearthome.png", collisions10, buildings10, people10, null);
 		
-	// 10: 208
+	// Route 208
 		// Collisions
 		Rectangle[] collisions208 = new Rectangle[1];
 		collisions208[0] = new Rectangle(2286, 0, 787, 541); // leftmost up trees
@@ -199,6 +199,10 @@ public class GamePanel extends JPanel implements Runnable
 		//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
 		//isWIld to true (so pokeballs can be used)
 
+	}
+	public void startNPCBattle(NPC npc)
+	{
+		System.out.println("hello");
 	}
 	
 	public void showDialogue()

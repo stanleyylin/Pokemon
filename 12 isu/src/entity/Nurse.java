@@ -1,3 +1,5 @@
+// Nurse extends Person and can heal the player's pokemon.
+
 package entity;
 
 import java.awt.Rectangle;
@@ -10,7 +12,7 @@ import getimages.LoadImage;
 
 public class Nurse extends Person 
 {
-	
+	// Constructor
 	public Nurse(Rectangle collision, String imageFile, int w, int h, String textFile)
 	{
 		super(collision, textFile);
@@ -28,6 +30,8 @@ public class Nurse extends Person
 		catch(IOException e) {}
 	}
 	
+	// heal heals the player's party of up to 6 pokemon.
+	// returns void, parameters: Player p - the player
 	public void heal(Player p)
 	{
 		p.healParty();
