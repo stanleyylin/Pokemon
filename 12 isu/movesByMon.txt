@@ -9,7 +9,7 @@ Wartortle-1,Tackle;1,Tail Whip;1,Water Gun;4,Tail Whip;7,Water Gun;13,Bubble;16,
 Blastoise-1,Flash Cannon;1,Tackle;1,Tail Whip;1,Water Gun;1,Withdraw;4,Tail Whip;7,Water Gun;10,Withdraw;13,Bubble;16,Bite;20,Rapid Spin;24,Protect;28,Water Pulse;32,Aqua Tail;39,Skull Bash;46,Iron Defense;53,Rain Dance;60,Hydro Pump
 Caterpie-1,Tackle;1,String Shot;15,Bug Bite
 Metapod-1,Harden
-Buterfree-1,Confusion;10,Confusion;12,Poison Powder;12,Stun Spore;12,Sleep Powder;16,Gust;18,Supersonic;22,Whirlwind;24,Psybeam;28,Silver Wind;30,Tailwind;34,Rage Powder;36,Safeguard;40,Captivate;42,Bug Buzz;46,Quiver Dance
+Butterfree-1,Confusion;10,Confusion;12,Poison Powder;12,Stun Spore;12,Sleep Powder;16,Gust;18,Supersonic;22,Whirlwind;24,Psybeam;28,Silver Wind;30,Tailwind;34,Rage Powder;36,Safeguard;40,Captivate;42,Bug Buzz;46,Quiver Dance
 Weedle-1,Poison Sting;1,String Shot;15,Bug Bite
 Kakuna-1,Harden
 Beedrill-1,Fury Attack;13,Focus Energy;16,Twineedle;19,Rage;22,Pursuit;25,Toxic Spikes;28,Pin Missle;31,Agility;34,Assurance;37,Poison Jab;40,Endeavour;45,Fell Stinger
@@ -80,6 +80,7 @@ Slowpoke-1,Curse;1,Yawn;1,Tackle;5,Growl;9,Water Gun;14,Confusion;19,Disable;23,
 Slowbro-1,Heal Pulse;1,Curse;1,Yawn;1,Tackle;1,Growl;5,Growl;9,Water Gun;14,Confusion;19,Disable;23,Headbutt;28,Water Pulse;32,Zen Headbutt;36,Slack Off;37,Withdraw;43,Amnesia;49,Psychic;55,Rain Dance;62,Psych Up;68,Heal Pulse
 Magnemite-1,Tackle;4,Supersonic;7,Thunder Shock;11,Sonic Boom;15,Thunder Wave;18,Magnet Bomb;21,Spark;25,Mirror Shot;29,Metal Sound;32,Electro Ball;35,Flash Cannon;49,Screech;43,Discharge;46,Lock-On;49,Magnet Rise;53,Gyro Ball;57,Zap Cannon
 Magneton-1,Zap Cannon;1,Tackle;1,Supersonic;1,Thunder Shock;1,Sonic Boom;1,Tri Attack;4,Supersonic;7,Thunder Shock;11,Electric Terrain;15,Thunder Wave;18,Magnet Bomb;21,Spark;25,Mirror Shot;29,Metal Sound;34,Electro Ball;39,Flash Cannon;45,Screech;51,Discharge;56,Lock-On;62,Magnet Rise;67,Gyro Ball;73,Zap Cannon
+Farfetch'd-1,Peck;1,Sand-Attack;7,Leer'15,Fury Attack;23,Swwords Dance;31,Agility;39,Slash
 Doduo-1,Peck;1,Growl;5,Quick Attack;10,Rage;14,Fury Attack;19,Pursuit;23,Uproar;28,Acupressure;32,Double Hit;37,Agility;41,Drill Peck;46,Endeavor;50,Thrash
 Dodrio-1,Peck;1,Growl;1,Quick Attack;1,Rage;1,Pluck;5,Quick Attack;10,Rage;14,Fury Attack;19,Pursuit;23,Uproar;28,Acupressure;34,Tri Attack;41,Agility;47,Drill Peck;54,Endeavor;60,Thrash
 Seel-1,Headbutt;3,Growl;7,Water Sport;11,Icy Wind;13,Encore;17,Ice Shard;21,Rest;23,Aqua Ring;27,Aurora Beam;31,Aqua Jet;33,Brine;37,Take Down;41,Dive;43,Aqua Tail;47,Ice Beam;51,Safeguard;53,Hail
@@ -98,3 +99,53 @@ Krabby-1,Mud Sport;1,Bubble;5,Vice Grip;9,Leer;11,Harden;15,Bubble Beam;19,Mud S
 Kingler-1,Wide Guard;1,Mud Sport;1,Bubble;1,Vice Grip;1,Leer;5,Vice Grip;9,Leer;11,Harden;15,Bubble Beam;19,Mud Shot;21,Metal Claw;25,Stomp;32,Protect;37,Guillotine;44,Slam;51,Brine;56,Crabhammer;63,Flail
 Voltorb-1,Charge;5,Tackle;8,Sonic Boom;10,Eerie Impulse;12,Spark;15,Rollout;19,Screech;22,Charge Beam;26,Light Screen;29,Electro Ball;33,Self-Destruct;36,Swift;40,Magnet Rise;43,Gyro Ball;47,Explosion;50,Mirror Coat
 Electrode-1,Magnetic Flux;1,Charge;1,Tackle;1,Sonic Boom;1,Spark;5,Tackle;8,Eerie Impulse;12,Spark;15,Rollout;19,Screech;22,Charge Beam;26,Light Screen;29,Electro Ball;35,Self-Destruct;40,Swift;46,Magnet Rise;51,Gyro Ball;57,Explosion;62,Mirror Coat
+Exeggcute-1,Barrage;1,Hypnosis;25,Reflect;28,Leech Seed;32,Stun Spore;37,Poison Powder;42,Solar Beam;48,Sleep Powder
+Exeggutor-1,Barrage;1,Hypnosis;25,Reflect;28,Stomp
+Cubone-1,Growl;5,Tail Whip;9,Bone Club;13,Headbutt;17,Leer;21,Focus Energy;25,Bonemerang;29,Rage;33,False Swipe;37,Thrash;41,Bone Rush
+Marowak-1,Growl;1,Tail Whip;1,Bone Club;1,Headbutt;5,Tail Whip;13,Headbutt;17,Leer;21,Focus Energy;25,Bonemarang;32,Rage;39,False Swipe;46,Thrash;53,Bone Rush
+Hitmonlee-1,Double Kick;6,Meditate;11,Rolling Kick;16,Jump Kick;21,Focus Energy;26,Hi Jump Kick;46,Mega Kick;51,Reversal
+Hitmonchan-1,Comet Punch;1,Agility;33,Fire Punch;38,Ice Punch;43,Thunder Punch;48,Mega Punch;53,Counter
+Lickitung-1,Wrap;1,Supersonic;7,Stomp;15,Disable;23,Defense Curl;31,Slam;39,Screech
+Koffing-1,Tackle;1,Smog;32,Slurge;37,Smokescreen,40,Self Destruct;45,Haze;48,Explosion
+Weezing-1,Tackle;1,Smog;1,Sludge;39,Smokescreen;43,Self Destruct;49,Haze;53,Explosion
+Rhyhorn-1,Horn Attack;30,Stomp;35,Tail Whip;40,Fury Attack;45,Horn Drill;50,Leer;55,Take Down
+Rhydon-1,Horn Attack;1,Stomp;1,Tail Whip,1,Fury Attack;48,Horn Drill;55,Leer;64,Take Down
+Chansey-1,Pound;1,Tail Whip;12,Double Slap;24,Sing;30,Growl;44,Defense Curl;48,Light Screen;54,Double-Edge
+Tangela-1,Constrict;1,Bind;29,Absorb;32,Poison Powder;36,Stun Spore;39,Sleep Powder;45,Slam;49,Growth
+Kangaskhan-1,Comet Punch;1,Rage;26,Bite;31,Tail Whip;36,Mega Punch;41,Leer;46,Dizzy Punch
+Horsea-1,Bubble;19,Smokescreen;24,Leer;30,Water Gun;37,Agility;45,Hydro Pump
+Seadra-1,Bubble;1,Smokescreen;24,Leer;30,Water Gun;41,Agility;52,Hydro Pump
+Goldeen-1,Peck;1,Tail Whip;19,Supersonic;24,Horn Attack;30,Fury Attack;37,Waterfall;45,Horn Drill;54,Agility
+Seaking-1,Peck;1,Tail Whip;1,Supersonic;24,Horn Attack;30,Fury Attack;39,Waterfall;48,Horn Drill;54,Agility
+Staryu-1,Tackle;17,Water Gun;22,Harden;27,Recover;32,Swift;37,Minimize;42,Light Screen;47,Hydor Pump
+Starmie-1,Tackle;1,Water Gun;1,Harden
+Mr. Mime-1,Confusion;1,Barrier;15,Confusion;23,Light Screen;39,Meditate;47,Substitute
+Scyther-1,Quick Attack;17,Leer;20,Focus Energy;24,Double Team;29,Slash;35,Swords Dance;42,Agility
+Jynx-1,Pound;1,Lovely Kiss;18,Lick;23,Double Slap;31,ice Punch;39,Body Slam;47,Thrash;58,Blizzard
+Electabuzz-1,Quick Attack;1,Leer;34,Thunder Shock;37,Screech;42,Thunder Punch;49,Light Screen;54,Thunder
+Magmar-1,Ember;36,Leer;43,Fire Punch;48,Smokescreen;52,Smog;55,Flamethrower
+Pinsir-1,Vice Grip;25,Seismic Toss;30,Guillotine;36,Focus Energy;43,Harden;49,Slash;54,Swords Dance
+Tauros-1,Tackle;21,Stomp;28,Tail Whip;35,Leer;44,Rage;51,Take Down
+Magikarp-1,Splash;15,Tackle
+Gyarados-1,Tackle;20,Bite;25,Dragon Rage;32,Leer;41,Hydro Pump;51,Hyper Beam
+Lapras-1,Water Gun;1,Growl;16,Sing;20,Mist;25,Body Slam;31,COnfuse Ray;38,Ice Beam;46,Hydro Pump
+Ditto-1,Tackle
+Eevee-1,Tackle;1,Tail Whip8,Sand Attack;16,Growl;23,Quick Attack;30,Bite;36,Focus Energy;42,Take Down
+Vaporeon-1,Tackle;1,Tail Whip;16,Water Gun;23,Quick Attack;30,Bite;36,Aurora Beam;42,Haze;47,Acid Armor;52,Hydro Pump
+Jolteon-1,Tackle;1,Tail Whip;16,Thunder Shock;23,Quick Attack;30,Double Kick;36,Pin Missile;42,Thunder Wave;47,Agility;52,Thunder
+Flareon-1,Tackle;1,Tail Whip;16,Ember;23,Quick Attack;30,Bite;36,Fire Spin;42,Smog;47,Leer;52,Flamethrower
+Porygon-1,Tackle;1,Sharpen;1,Conversion;23,Psybeam;35,Tri Attack
+Omanyte-1,Water Gun;1,Withdraw;24,Horn Attack;29,Leer;36,Spike Cannon;43,Hydro Pump
+Omastar-1,Water Gun;1,Withdraw;1,Horn Attack;29,Leer;34,Spike Cannon;39,Hydro Pump
+Kabuto-1,Scratch;1,Harden;24,Absorb;29,Slash;34,Leer;39,Hydro Pump
+Kabutops-1,Scratch;1,Harden;1,Absorb;29,Slash;36,Leer;53,Hydro Pump
+Aerodactyl-1,Wing Attack;23,Supersonic;28,Bite;35,Take Down;44,Hyper Beam
+Snorlax-1,Headbutt;1,Amnesia;25,Body Slam;31,Harden;38,Double-Edge;46,Hyper Beam
+Articuno-1,Peck;1,Ice Beam;51,Blizzard;55,Mist
+Zapdos-1,Thunder Shock;1,Drill Peck;31,Thunder;50,Light Screen
+Moltres-1,Peck;1,Fire SPin;31,Leer;40,Sky Attack
+Dratini-1,Wrap;1,Leer;10,Thunder Wave;20,Agility;30,Slam;40,Dragon Rage;50,Hyper Beam
+Dragonair-1,Wrap;1,Leer;1,Thunder Wave;20,Agility;35,Slam;45,Dragon Rage;55,Hyper Beam
+Dragonite-1,Wrap;1,Leer;1,Thunder Wave;35,Slam;45,Dragon Rage;60,Hyper Beam
+Mewtwo-1,Confusion;1,Disable;1,Swift;1,Psychic;43,Barrier;46,Mist;61,Amnesia
+Mew-1,Pound;10,Mega Punch;30,Psychic

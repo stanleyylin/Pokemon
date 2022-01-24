@@ -95,8 +95,8 @@ public class BlankMon {
 		ArrayList<Pair<Integer,Move>> curAL = new ArrayList<Pair<Integer,Move>>();
 
 
-		//NOTE ***IDEALLY I ADD THE NEXT 50***
-		for (int i = 0; i< 100; i++) {
+		
+		for (int i = 0; i< 151; i++) {
 			curLine = br.readLine();
 			curName = curLine.substring(0,curLine.indexOf("-")).trim();
 			curLine = curLine.substring(curLine.indexOf("-")+1);
