@@ -814,6 +814,13 @@ public class Battle extends JPanel {
 		timer.start();
 	}
 	
+	public void backToMain() {
+		gameState = 0;
+		showButtons();
+		hideMoves();
+		showBattleScreen();
+	}
+	
 	public Integer getLeastPPMove() {
 		TreeMap<Integer, Move> tm = new TreeMap<Integer,Move>();
 		tm.put(player.getParty()[playerCurr].getCurMoves()[0].getCurPP(), player.getParty()[playerCurr].getCurMoves()[0]);

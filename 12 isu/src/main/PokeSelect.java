@@ -95,7 +95,7 @@ public class PokeSelect extends JPanel {
 		if(e.getSource().equals(pokemonBack))
 		{
 			System.out.println("go back");	
-			battle.showBattleScreen();
+			battle.backToMain();
 		}
 	}
 
