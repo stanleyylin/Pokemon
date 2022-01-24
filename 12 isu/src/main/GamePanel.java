@@ -105,7 +105,7 @@ public class GamePanel extends JPanel implements Runnable
 		// {0, hearthome.getHeight()-screenHeight, }
 
 	// Gate: 11-HeartHome and 208
-		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(274, 1908, 52, 105), T208, new Rectangle(2920, 943, 50, 90));
+		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), T208, new Rectangle(3021, 975, 52, 93));
 		heartHome.addGate(gate11);
 		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
 		
