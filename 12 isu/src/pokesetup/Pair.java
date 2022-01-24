@@ -3,9 +3,13 @@ package pokesetup;
 public class Pair <Integer, Move> 
 implements Comparable
 {
+
+	//pair class that is speciifclaly used to hold moves keyed by the level that you can get them
+	//the reason this couldn't have been a map is that for some pokemon, there are multiples moves you can get at a single level
+	//additionally, many pokemon store extra moves at level 1
 	
-	Integer i1;
-	Move m1;
+	private Integer i1;
+	private Move m1;
 	
 	public Pair (Integer curLevel, Move curMove) {
 		this.i1 = curLevel;

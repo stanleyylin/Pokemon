@@ -1,32 +1,27 @@
 package pokesetup;
 
 
-//a pokemon has 4 MOVES/attacks
+//a pokemon has 4 MOVES/attacks and they are split into physical attacks, special attacks, and status moves
+//physical/special attacks do damage and status moves can apply a status to the enemy such as poison or burn
+//or it can increase/lower their stats (decrease their defense or attack, etc)
 public class Move {
 
-	//	enum Status {
-	//		BURN,
-	//		FREEZE,
-	//		PARALYSIS,
-	//		POISON,
-	//		SLEEP,
-	//		CONFUSED
-	//	}
 
-	String name;
-	Type type; //moves have types
-	String category;
+
+	private String name;
+	private Type type; //moves have types
+	private String category;
 	//it does a status effect (like increases attack or decreases defense)
-	String effect;
-	int damage;
-	int accuracy;
-	int curPP; //pp is how many times a move can be used
-	int pp;
-	String TM;
-	int prob; //the move can have a probability to do an alternative effect eg. burn or poison
-	int gen;
-	Pokemon.Status curStatus;
-	int[] statMod;
+	private String effect; // description of the move	
+	private int damage; // base damage of the move
+	private int accuracy;
+	private int curPP; //pp is how many times a move can be used
+	private int pp; 
+	private String TM;
+	private int prob; //the move can have a probability to do an alternative effect eg. burn or poison
+	private int gen;
+	private Pokemon.Status curStatus; //status the move applies
+	private int[] statMod; //stat modifiers the move applies
 
 	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen) {
 		this.name = name;

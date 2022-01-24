@@ -1,6 +1,9 @@
 package pokesetup;
 
 public class Ability {
+	//all pokemons have abilities that allow them to do something or other
+	//we didnt implement them so....
+	//they are meaningless
 	
 	private String name;
 	private int gen;

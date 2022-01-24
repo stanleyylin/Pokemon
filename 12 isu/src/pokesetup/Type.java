@@ -3,11 +3,15 @@ import java.util.ArrayList;
 
 //type class
 public class Type {
+	
+	//pokemons have types ranging from water, fire, grass, etc
+	//types play a role when attacks are being used
+	//if a pokemon of the same type as the move uses it, it will do more damage
 
-	String type1;
-	String type2;
-	ArrayList<Type> weakAgainst = new ArrayList<Type>();
-	ArrayList<Type> strongAgainst = new ArrayList<Type>();
+	private String type1;
+	private String type2;
+	private ArrayList<Type> weakAgainst = new ArrayList<Type>();
+	private ArrayList<Type> strongAgainst = new ArrayList<Type>();
 
 	public Type(String type1, String type2) {
 		this.type1 = type1;

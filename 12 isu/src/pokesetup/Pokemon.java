@@ -126,7 +126,7 @@ public class Pokemon {
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
 		//getting the moveList
-		this.possibleMoves = new ArrayList<Pair<Integer,Move>>(BlankMon.movesByMon.get(this.name));
+		this.possibleMoves = new ArrayList<Pair<Integer,Move>>(BlankMon.getMovesByMon().get(this.name));
 		generateMoves();
 		updateAllStats();
 
@@ -386,21 +386,15 @@ public class Pokemon {
 				curEvLvl = Integer.parseInt(curItems[15]);
 			}
 
-			Ability a1 = BlankMon.abilityList.get(curAbilityStr);
+			Ability a1 = BlankMon.getAbilityList().get(curAbilityStr);
 			Ability a2 = null;
 			if (!curAbilityStr2.isEmpty()) {
-				a2 = BlankMon.abilityList.get(curAbilityStr2);
+				a2 = BlankMon.getAbilityList().get(curAbilityStr2);
 			}
-
 			count++;
-
 			BlankMon cur =new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp, curEvLvl);
 			pokeStats.put(name, cur);
 			statsForEvolve.put(curID, cur);
-
-
-
-
 			curLine = br.readLine();
 		}
 

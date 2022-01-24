@@ -12,48 +12,42 @@ import java.util.TreeMap;
 
 import getimages.LoadImage;
 
+
+//all pokemon have A LOT of predetermined stats so we decided to collect all of them here and 
+//have the pokemon class access them when creating a new Pokemon object
+//another way of looking at this is like the pokemon skeleton class (morbid) as it contains the pokemon
+//object without its personal details (nickname, level, etc)
 public class BlankMon {
 
-	static LoadImage loader = new LoadImage();
+	private static LoadImage loader = new LoadImage();
 
-	int ID;
-	String name;
+	private int ID;
+	private String name;
 	//make the types here
-	Type type;
-	int HP;
-	int attack;
-	int defense;
-	int sp_attack;
-	int sp_defense;
-	int speed;
-	int generation;
-	boolean isLegendary;
-	Ability ability1;
-	Ability ability2;
-	HashMap<Integer,Move> possibleMoves = new HashMap<Integer,Move>();
-	Image pokeFront;
-	Image pokeBack;
-	int baseExp;
-	int evolveLevel;
-	boolean canEvolve;
-
+	private Type type;
+	private int HP;
+	private int attack;
+	private int defense;
+	private int sp_attack;
+	private int sp_defense;
+	private int speed;
+	private int generation;
+	private boolean isLegendary;
+	private Ability ability1;
+	private Ability ability2;
+	private HashMap<Integer,Move> possibleMoves = new HashMap<Integer,Move>();
+	private Image pokeFront;
+	private Image pokeBack;
+	private int baseExp;
+	private int evolveLevel;
+	private boolean canEvolve;
 
 	//hashmap contains ability name,ability
-	static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
+	private static HashMap<String, Ability> abilityList = new HashMap<String, Ability>();
 	//hashmap contains movename,move
-	static HashMap<String, Move> moveList = new HashMap<String, Move>();
+	private static HashMap<String, Move> moveList = new HashMap<String, Move>();
 	//hashmap contains the name of pokemon, (list of [level u get move, actual move])
-	static HashMap<String,ArrayList<Pair<Integer,Move>>> movesByMon = new HashMap<String,ArrayList<Pair<Integer,Move>>>();
-
-
-
-
-
-
-	//	static HashMap<Pair<String,Integer>, Move> movesByMon = new HashMap<Pair<String,Integer>,Move>();
-
-
-
+	private static HashMap<String,ArrayList<Pair<Integer,Move>>> movesByMon = new HashMap<String,ArrayList<Pair<Integer,Move>>>();
 
 
 	public BlankMon(int ID, String name, String type1, String type2, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, 
@@ -78,10 +72,6 @@ public class BlankMon {
 			this.canEvolve = true;
 		else
 			this.canEvolve = false;
-		//		try {
-		//			this.pokeFront = loader.loadImage("black-white/" + ID + ".png");
-		//			this.pokeBack = loader.loadImage("black-white/back/" + ID + ".png");
-		//		} catch (IOException e) {}
 	}
 
 	public String toString () {
@@ -92,44 +82,20 @@ public class BlankMon {
 
 
 
-
+	//must be done AFTER getAllMoves
+	//gets all the movelists for all the pokemon 
 	public static void getAllMoveLists() throws IOException, FileNotFoundException {
-		//must be done AFTER getAllMoves
-		//ideally this should be redone with pair arraylists BUT its fine if not....
-		//otherwise the text file can be changed so there is just no lvl1  moves
-		//or this can just have a seperate list of lvl 1 moves (since i change to treemap)
 		BufferedReader br = new BufferedReader (new FileReader (new File ("movesByMon.txt")));
 		String curLine = "";
 		String curName = "";
 		int curLevel = 0;
-		//		String curMove = "";
 		Move curMove = null;
 		String[] curMoveArray;
 		TreeMap<Integer,Move> curMap = new TreeMap<Integer,Move>();
 		ArrayList<Pair<Integer,Move>> curAL = new ArrayList<Pair<Integer,Move>>();
 
-		//		for (int i = 0; i < 100; i++) {
-		//			curLine = br.readLine();
-		//			
-		//			curName = curLine.substring(0,curLine.indexOf("-"));
-		//			curLine = curLine.substring(curLine.indexOf("-")+1);
-		//
-		//			
-		//			curMoveArray = curLine.split(";");
-		//			for (String s : curMoveArray) {
-		////				System.out.println(s);
-		//				curLevel = s.substring(0,s.indexOf(","));
-		//				s = s.substring(s.indexOf(",")+1);
-		//				curMove = moveList.get(s);
-		//				curAL.add(new Pair<Integer, Move>(Integer.parseInt(curLevel), curMove));
-		////				curMap.put(Integer.parseInt(curLevel),moveList.get(curMove));
-		//			}
-		//			System.out.println(curAL + "________");
-		//			movesByMon.put(curName.trim(), new ArrayList<Pair<Integer,Move>>(curAL));
-		//			curAL.clear();
-		//		}
 
-
+		//NOTE ***IDEALLY I ADD THE NEXT 50***
 		for (int i = 0; i< 100; i++) {
 			curLine = br.readLine();
 			curName = curLine.substring(0,curLine.indexOf("-")).trim();
@@ -150,7 +116,7 @@ public class BlankMon {
 
 	}
 
-
+	//gets all abilities from list (abilities are not implemented but ya there are there)
 	public static void getAllAbilities() throws IOException, FileNotFoundException{
 
 		BufferedReader br = new BufferedReader (new FileReader (new File("abilities.yaml")));
@@ -174,6 +140,7 @@ public class BlankMon {
 		}
 	}
 
+	//gets all possible moves from list
 	public static void getAllMoves() throws IOException, FileNotFoundException{
 		BufferedReader br = new BufferedReader (new FileReader (new File("All_Moves.csv")));
 		String curLine = "";
@@ -223,8 +190,6 @@ public class BlankMon {
 				curProb = "-1";
 			if (curPP.trim().equals("-"))
 				curPP = "-1";
-			//			System.out.println(i);
-			//			System.out.println(curName+ ",," +curType+ ",," +curCategory + ",," + curEffect+",," +curPower+",," +curAccuracy+",," +curPP+",," +curTM+",," +curProb+",," +curGen);
 
 			Pokemon.Status curStat = null;
 			//applying poison status to move
@@ -260,6 +225,8 @@ public class BlankMon {
 				curStat = Pokemon.Status.CONFUSED;
 
 			int[] statMod = new int[4];
+			
+			//applies attack stat modifier
 			if (curName.equals("Curse") || curName.equals("Growth") || curName.equals("Hone Claws") || curName.equals("Howl") || curName.equals("Meditate") || curName.equals("Metal Claw") || 
 					curName.equals("Rage") || curName.equals("Sharpen") || curName.equals("Growth"))
 				statMod[0] =1;
@@ -268,6 +235,7 @@ public class BlankMon {
 			if (curName.equals("Aurora Beam") || curName.equals("Growl") || curName.equals("Tickle"))
 				statMod[0] = -1;
 			
+			//applies defense stat modifier
 			if (curName.equals("Curse") || curName.equals("Defense Curl") || curName.equals("Harden") || curName.equals("Withdraw"))
 				statMod[1] = 1;
 			if (curName.equals("Acid Armor") || curName.equals("Barrier"))
@@ -275,12 +243,13 @@ public class BlankMon {
 			if (curName.equals("Acid") || curName.equals("Crunch") || curName.equals("Leer") || curName.equals("Tail Whip") || curName.equals("Screech"))
 				statMod[1] = -1;
 			
+			//applies special attack stat modifier
 			if (curName.equals("Screech") || curName.equals("Growth") )
 				statMod[2] = 1;
 			if(curName.equals("Memento"))
 				statMod[2] = -1;
 			
-			
+			//applies special defense stat modifier
 			if (curName.equals("Calm Mind") || curName.equals("Cosmic Power") || curName.equals("Stockpile") || curName.equals("Amnesia")  )
 				statMod[3] = 1;
 			if (curName.equals("Bug Buzz") || curName.equals("Crunch") || curName.equals("Screech") || curName.equals("Psychic") || curName.equals("Shadow Ball") || 
@@ -356,6 +325,12 @@ public class BlankMon {
 	
 	public static HashMap<String,Move> getMoveList() {
 		return moveList;
+	}
+	public static HashMap<String, ArrayList<Pair<Integer, Move>>> getMovesByMon() {
+		return movesByMon;
+	}
+	public static HashMap<String,Ability> getAbilityList(){
+		return abilityList;
 	}
 
 
