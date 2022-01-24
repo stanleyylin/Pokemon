@@ -71,7 +71,7 @@ public class Pokemon {
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
 	static HashMap <String, BlankMon> pokeStats = new HashMap<String, BlankMon>();
-	
+
 	static TreeMap <Integer, BlankMon> statsForEvolve = new TreeMap<Integer,BlankMon>();
 
 	public Pokemon (String name, String nickname, int level) {
@@ -132,12 +132,12 @@ public class Pokemon {
 		this.expValue = pokeStats.get(name).getExpValue();
 		this.curExp = 0;
 		this.curExpThreshold = getNewExpThreshold ();
-		
+
 		this.canEvolve = pokeStats.get(name).getIfEvolve();
 		if (this.canEvolve)
 			this.evolveLevel = pokeStats.get(name).getEvLvl();
-		
-		
+
+
 
 
 	}
@@ -156,7 +156,7 @@ public class Pokemon {
 		this.level++;
 		this.heal();
 		this.curHP = this.curHP-lostHP;
-		
+
 
 		updateAllStats();
 		this.curExp = this.curExp - this.curExpThreshold;
@@ -187,12 +187,12 @@ public class Pokemon {
 		else 
 			return false;
 	}
-	
+
 	public double getStatModifier(int n) {
 		double d = (double)n;
-		
+
 		d = 1.0 + Math.abs(n) * 0.5;
-		
+
 		if (n < 0)
 			return 1/d;
 		return d;
@@ -207,7 +207,7 @@ public class Pokemon {
 		if (curMove.getCategory().equals("Special")) {
 			A = this.spAtkStat;	
 			A = (int) (A * getStatModifier(this.curMonStatMods[2]));
-			
+
 			D = enemy.getSpDefense();
 			D = (int) (D * getStatModifier(enemy.getStatMods()[3]));
 		}
@@ -232,13 +232,13 @@ public class Pokemon {
 			if (curMove.getStatus() != null)
 				enemy.setStatus(curMove.getStatus());
 			enemy.setCurHP(enemy.getCurHP() - damage);
-			
+
 			for (int i = 0; i < 4; i++ ) {
-				
+
 				enemy.getStatMods()[i] = enemy.getStatMods()[i] + curMove.getStatMod()[i];
-				
+
 			}
-			
+
 		}
 
 	}
@@ -271,16 +271,19 @@ public class Pokemon {
 	}
 
 	public void heal(int amt) {
-		this.setCurHP(this.curHP + amt);
+		if ((this.curHP + amt) > this.HPstat)
+			this.setCurExp(this.HPstat);
+		else
+			this.setCurHP(this.curHP + amt);
 	}
-	
+
 	public Pokemon evolve() {
-			int pokeID = this.ID + 1;
-			String newName = statsForEvolve.get(pokeID).getName();
-			return (new Pokemon (newName, this.nickname, this.level));
-		
-		
-			
+		int pokeID = this.ID + 1;
+		String newName = statsForEvolve.get(pokeID).getName();
+		return (new Pokemon (newName, this.nickname, this.level));
+
+
+
 	}
 
 	//updates the HP stat based on formula
@@ -352,7 +355,7 @@ public class Pokemon {
 			String[] curItems = curLine.split(",");
 			curID = Integer.parseInt(curItems[0]);
 			name = curItems[1];
-			
+
 			type1 = curItems[2];
 			type2 = curItems[3];
 			totalStat = Integer.parseInt(curItems[4]);
@@ -386,7 +389,7 @@ public class Pokemon {
 			BlankMon cur =new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp, curEvLvl);
 			pokeStats.put(name, cur);
 			statsForEvolve.put(curID, cur);
-			
+
 
 
 
@@ -483,18 +486,18 @@ public class Pokemon {
 	public int getCurExpThreshold() {
 		return this.curExpThreshold;
 	}
-	
+
 	public boolean getIfEvolve() {
 		return this.canEvolve;
 	}
-	
+
 	public int getEvolveLvl() {
 		return this.evolveLevel;
 	}
 	public void setIfEvolve(boolean b) {
 		this.canEvolve = b;
 	}
-	
+
 	public int[] getStatMods() {
 		return this.curMonStatMods;
 	}

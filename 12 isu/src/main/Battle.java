@@ -1060,7 +1060,7 @@ public class Battle extends JPanel {
 			else
 				barColor = battleStats[3];
 
-			int width = battleStats[3].getWidth() * (opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat();
+			int width = battleStats[3].getWidth() * opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat();
 			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
@@ -1151,12 +1151,12 @@ public class Battle extends JPanel {
 			// Level Bar
 			int curLevel = player.getParty()[playerCurr].getCurExp();
 			int maxLevel = player.getParty()[playerCurr].getCurExpThreshold();
-			int level = (int) ((double)battleStats[2].getWidth() * ((double)curLevel/(double)maxLevel));
+			int level = (int) (battleStats[2].getWidth() * (double)((double)curLevel/(double)maxLevel));
 			// int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
 			//			System.out.println(level);
 			if(level > 0)
 			{
-				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
+				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, (int) level, battleStats[2].getHeight());
 				g2.drawImage(drawBar, 775, 417, null);
 			}
 
@@ -1259,9 +1259,8 @@ public class Battle extends JPanel {
 
 
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
-		Pokemon[] temp = new Pokemon[6];
-		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
-		NPC gary = new NPC(new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
+		NPC gary = new NPC(0,0, null);
+		gary.addPokemonToParty(new Pokemon("Bulbasaur", "Bulbasaur", 5));
 		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
 		gary.getParty()[0].setCurHP(2);;
 
