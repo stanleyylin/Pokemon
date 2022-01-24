@@ -33,14 +33,14 @@ public class Battle extends JPanel {
 	private Random random = new Random();
 
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
-	BufferedImage background; // Background image
-	BufferedImage[] battleStats;
+	private BufferedImage background; // Background image
+	private BufferedImage[] battleStats;
 
-	static JFrame frame;
-	static Battle panel;
+	private static JFrame frame;
+	private static Battle panel;
 
-	boolean playerTurn;
-
+	private boolean intro;
+	
 	Player player;
 	int playerCurr;
 	NPC opponent;
@@ -57,24 +57,26 @@ public class Battle extends JPanel {
 
 
 	// ANIMATION
-	static Timer timer; // Timer for animation
-	static boolean timerOn; // Is the timer on?
+	private static Timer timer; // Timer for animation
+	private static boolean timerOn; // Is the timer on?
 	// Game States
-	static int gameState; 
+	private static int gameState; 
 	// 0 - player select (static), 1 - intro, 2 - calling enemy pokemon,
 	// 3 - calling player pokemon, 4 - player move, 5 - opponent move, 6 - player faint, 
 	// 7 - opponent faint, 8 - game end
-	static int counter;
-	static float[] opacity;
-	String message;
-	boolean playerIsFainted;
-	boolean opponentIsFainted;
-	boolean isWild;
-	boolean justEvolved = false;
+	private static int counter;
+	private static float[] opacity;
+	private String message;
+	private boolean playerIsFainted;
+	private boolean opponentIsFainted;
+	private boolean isWild;
+	private boolean justEvolved = false;
 
-	int pokeX = 792;
-	int pokeY = 100;
-	BufferedImage[] pokeBallSprites = new BufferedImage[17];
+//	int pokeX = 792;
+//	int pokeY = 100;
+	private ImageHolder playerBall;
+	private ImageHolder opponentBall;
+	
 	BufferedImage[] statuses = new BufferedImage[5];
 	static Button back;
 	static Button[] buttons;
@@ -94,15 +96,11 @@ public class Battle extends JPanel {
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
 		setBackground(Color.BLACK);
-		LoadImage loader = new LoadImage();
 		battleStats = new BufferedImage[7];
 		playerIsFainted = false;
 		opponentIsFainted = false;
 		isWild = false;
-
-
-
-
+		
 		// **** TO BE MIGRATED
 		selectionMenu = new PokeSelect(this, player, 0, true);
 		bag = new Bag(player, this);
@@ -111,7 +109,22 @@ public class Battle extends JPanel {
 		else
 			bag.loadScreen(1);
 
+		playerBall = new ImageHolder(0);
+		opponentBall = new ImageHolder(1);
 
+		loadImages();
+
+		gameState = 1;
+		timer = new Timer(30, new TimerEventHandler ());
+		timerOn = true;
+		//		timer.start();
+		counter = 0;
+
+	}
+	
+	public void loadImages()
+	{
+		LoadImage loader = new LoadImage();
 		// Background
 		try
 		{
@@ -187,18 +200,10 @@ public class Battle extends JPanel {
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/PokemonGb-RAeo.ttf")));
-			//			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
-			//			attributes.put(TextAttribute.TRACKING, -0.1);
-			//			font = font.deriveFont(attributes);
+
 		} 
-		catch (FontFormatException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+		catch (FontFormatException e) {} 
+		catch (IOException e) {}
 
 		// Back Button
 		try
@@ -213,17 +218,6 @@ public class Battle extends JPanel {
 		}
 		catch(IOException e) {}
 		back.setBounds(847, 526, 194, 40);
-
-		BufferedImage ballSprites = null;
-		try
-		{
-			ballSprites = loader.loadImage("res/battle/pokeballs.png");
-		}
-		catch(IOException e) {}
-		for(int i = 0; i < 17; i++)
-		{
-			pokeBallSprites[i] = ballSprites.getSubimage(132, 9 + 24*i + 16*i, 24, 24);
-		}
 
 		// Main Buttons
 		buttons = new Button[4];
@@ -261,7 +255,6 @@ public class Battle extends JPanel {
 		buttons[3] = new Button(this, temp1, temp2, 129, 95);
 		buttons[3].setBounds(894, 606, 129, 95);
 
-
 		MoveSelect.setImages();
 		moves = new MoveSelect[4];
 		for(int i = 0; i < 4; i++)
@@ -269,61 +262,73 @@ public class Battle extends JPanel {
 			moves[i] = new MoveSelect(this);
 			moves[i].setBounds(4+268*i, 598, 268, 102);
 		}
-
-		showButtons();
-		gameState = 0;
-		timer = new Timer(30, new TimerEventHandler ());
-		timerOn = true;
-		//		timer.start();
-		counter = 0;
-
 	}
 
 	// TimeEventHandler class is for the timer.
 	private class TimerEventHandler implements ActionListener
 	{
-		private String name = "Trainer Peppa";
+		private String name = opponent.getName();
 		private int enemyAttack;
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
-			//			if(gameState == 1)
-			//			{
-			//				if(counter >= 0 && counter <= 10)
-			//				{
-			//					message = "You are being challenged by " + name + "!";
-			//				}
-			//				if(counter == 10)
-			//				{
-			//					gameState = 2;
-			//					counter = 0;
-			//				}
-			//			}
-			//			else if (gameState == 2)
-			//			{
-			//				message = name + " sends out " + oppCurr.getName() + "!";
-			//				
-			//					
-			//			}
-			if (gameState == 2) {
-				message = "opponent has sent out " + opponent.getParty()[oppCurr].getName();
-				if (counter == 50) {
+			if(gameState == 1)
+			{
+				message = "You are being challenged by " + name + "!";
+				if(counter == 50)
+				{
+					gameState = 2;
 					counter = 0;
-					message = "";
-					repaint();
+				}
+			}
+
+			if (gameState == 2) {
+				message = "Opponent has sent out " + opponent.getParty()[oppCurr].getName() + "!";
+				if(counter == 0 || counter == 1)
+				{
+					opponentBall.setVisible(true, 793, 72);
+				}
+				if(counter > 0 && counter <= 30 && counter%3==0)
+				{
+					opponentBall.nextImage();
+					opponentBall.setY(opponentBall.getY()+18);
+				}
+				if (counter == 50) 
+				{
+					opponentBall.reset();
+					counter = 0;
 					gameState = 0;
-					showButtons();
-					timer.stop();
+					message = "";
+					if(intro)
+						gameState = 3;
+					else
+					{
+						showButtons();
+						timer.stop();
+					}
 				}
 			}
 			if (gameState == 3) {
 				//AT THE MOMENT, SWITCHING MONS WILL END THEIR TURN, SO IT SHOULD B CHANGED SUCH THAT IF YOU
 				//WERE TO SWITHC MONS IN BATTLE(OUT OF CHOICE) it continues the mvoe (gamestate goes to 5 rather than 0)
 				message  = "Go get them, " + player.getParty()[playerCurr].getNickName();
+
+				if(counter == 0 || counter == 1)
+				{
+					playerBall.setVisible(true, 408, 265);
+				}
+				if(counter > 0 && counter <= 30 && counter%3==0)
+				{
+					playerBall.nextImage();
+					playerBall.setY(playerBall.getY()+21);
+				}
+				
 				if (counter == 50) {
 					counter = 0;
+					playerBall.reset();
 					message = "";
 					gameState = 0;
+					intro = false;
 					showButtons();
 					timer.stop();
 				}
@@ -334,6 +339,7 @@ public class Battle extends JPanel {
 			{
 				if (counter == 0)
 				{
+		
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE) {
 						message = "" + player.getParty()[playerCurr].getNickName() + " is frozen.";
 					}
@@ -349,32 +355,29 @@ public class Battle extends JPanel {
 					System.out.println("" + player.getParty()[playerCurr].getCurExp() + "/" + player.getParty()[playerCurr].getCurExpThreshold());
 				}
 
-				if (counter == 75 && findMoveCategory(currMove).equals("Status")) {
-
+				if (counter == 75 && findMoveCategory(currMove).equals("Status")) 
+				{
 					Move curMove = BlankMon.getMoveList().get(currMove);
 					if (curMove.getStatMod()[0] > 0)
-						message = "enemy's attack has increased";
+						message = "Enemy's attack has increased!";
 					else if (curMove.getStatMod()[0] < 0)
-						message = "enemy's attack has fallen";
+						message = "Enemy's attack has fallen!";
 
 					if (curMove.getStatMod()[1] > 0)
-						message = "enemy's defense has increased";
+						message = "Enemy's defense has increased!";
 					else if (curMove.getStatMod()[1] < 0)
-						message = "enemy's defense has fallen";
+						message = "Enemy's defense has fallen!";
 
 					if (curMove.getStatMod()[2] > 0)
-						message = "enemy's sp. attack has increased";
+						message = "Enemy's sp. attack has increased!";
 					else if (curMove.getStatMod()[2] < 0)
-						message = "enemy's sp. attack has fallen";
+						message = "Enemy's sp. attack has fallen!";
 
 					if (curMove.getStatMod()[3] > 0)
-						message = "enemy's sp. defense has increased";
+						message = "Enemy's sp. defense has increased!";
 					else if (curMove.getStatMod()[3] < 0)
-						message = "enemy's sp. defense has fallen";
-
-
+						message = "Enemy's sp. defense has fallen!";
 				}
-
 				if(counter == 50)
 				{
 					if (player.getParty()[playerCurr].getStatus() != Pokemon.Status.FREEZE && player.getParty()[playerCurr].getStatus() != Pokemon.Status.SLEEP 
@@ -445,7 +448,7 @@ public class Battle extends JPanel {
 
 				}
 
-				else if (counter == 125)
+				else if (counter == 150)
 				{
 					counter = 0;
 					if (checkFaint(opponent.getParty()[oppCurr])) {
@@ -482,24 +485,24 @@ public class Battle extends JPanel {
 
 					Move curMove = opponent.getParty()[oppCurr].getCurMoves()[enemyAttack];
 					if (curMove.getStatMod()[0] > 0)
-						message = "enemy's attack has increased";
+						message = "Enemy's attack has increased!";
 					else if (curMove.getStatMod()[0] < 0)
-						message = "enemy's attack has fallen";
+						message = "Enemy's attack has fallen!";
 
 					if (curMove.getStatMod()[1] > 0)
-						message = "enemy's defense has increased";
+						message = "Enemy's defense has increased!";
 					else if (curMove.getStatMod()[1] < 0)
-						message = "enemy's defense has fallen";
+						message = "Enemy's defense has fallen!";
 
 					if (curMove.getStatMod()[2] > 0)
-						message = "enemy's sp. attack has increased";
+						message = "Enemy's sp. attack has increased!";
 					else if (curMove.getStatMod()[2] < 0)
-						message = "enemy's sp. attack has fallen";
+						message = "Enemy's sp. attack has fallen!";
 
 					if (curMove.getStatMod()[3] > 0)
-						message = "enemy's sp. defense has increased";
+						message = "Enemy's sp. defense has increased!";
 					else if (curMove.getStatMod()[3] < 0)
-						message = "enemy's sp. defense has fallen";
+						message = "Enemy's sp. defense has fallen!";
 
 
 				}
@@ -569,7 +572,7 @@ public class Battle extends JPanel {
 					}
 
 				}
-				else if (counter >= 125)
+				else if (counter >= 150)
 				{
 					counter = 0;
 					if (checkFaint(player.getParty()[playerCurr])) {
@@ -587,28 +590,26 @@ public class Battle extends JPanel {
 				}
 			}
 			if (gameState == 6) {
-				if (counter == 0) {
-					System.out.println("teeest");
+				if (counter == 0) 
 					message = "" + player.getParty()[playerCurr].getNickName() + " has fainted!";
-
-
-				}
 				else if (counter >= 50) {
-					if (player.findNextAvailableMon()!=null) {
+					if (player.findNextAvailableMon()!=null) 
+					{
 						showPokeMenu();
 						counter = 0;
 						gameState = 0;
 						timer.stop();
 					}
-					else {
+					else
+					{
 						counter = 0;
 						message = "You have run out of usable pokemon!";
 						playerIsFainted = true;
 						repaint();
 						gameState = 8;
-						//						endBattle(true);
-						//						timer.stop();
-						//						return;
+//						endBattle(true);
+//						timer.stop();
+//						return;
 					}
 				}
 
@@ -646,9 +647,9 @@ public class Battle extends JPanel {
 						repaint();
 						counter = 0;
 						gameState = 8;
-						//						endBattle(false);
-						//						timer.stop();
-						//						return;
+//						endBattle(false);
+//						timer.stop();
+//						return;
 					}
 				}
 			}
@@ -935,8 +936,6 @@ public class Battle extends JPanel {
 		else return false;
 	}
 
-
-
 	public void backToMain() {
 		gameState = 0;
 		showButtons();
@@ -986,53 +985,72 @@ public class Battle extends JPanel {
 		//static
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(background, 0, 0, null);
-		g2.drawImage(battleStats[0], 0, 110, null);
-		g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 586, 1080, 134);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
-		if(gameState != 1)
+		if(intro)
 		{
-			if (!playerIsFainted) {
+			if(gameState == 2)
+			{
+				g2.drawImage(battleStats[0], 0, 110, null);
+				drawOStats(g2);
+				loadOpponentMon(g2);
+			}
+			else if(gameState == 3)
+			{
+				g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
 				drawPStats(g2);
 				loadPlayerMon(g2);
-			}
-			if (!opponentIsFainted) {
+				g2.drawImage(battleStats[0], 0, 110, null);
 				drawOStats(g2);
 				loadOpponentMon(g2);
 			}
 		}
-		if (gameState == 0 && message != null)
-			updateText(g2);
 
-		if(gameState == 1 && message != null)
+		if(gameState != 1 && !intro)
+		{
+			if (!playerIsFainted) {
+				g2.drawImage(battleStats[1], Main.screenWidth-battleStats[1].getWidth(), 338, null);
+				drawPStats(g2);
+				loadPlayerMon(g2);
+			}
+			if (!opponentIsFainted) {
+				g2.drawImage(battleStats[0], 0, 110, null);
+				drawOStats(g2);
+				loadOpponentMon(g2);
+			}
+		}
+		
+		if(gameState == 4)
+		{
+			
+		}
+		
+		if (message != null) 
 		{
 			updateText(g2);
 		}
-
-		if (gameState == 2 || gameState == 3 && message != null) {
-			updateText(g2);
-		}
-		if ((gameState == 4 || gameState == 5) && message != null) {
-			updateText(g2);
-		}
-		if (gameState == 6  || gameState == 7 && message != null)
-			updateText(g2);
-		if (gameState == 0 && message != null)
-			updateText(g2);
-		if (gameState == 8 && message != null)
-			updateText(g2);
+		
 		if (frame.getContentPane().equals(selectionMenu))
 			selectionMenu.update(g2);
 	}
+
 	public void loadPlayerMon(Graphics2D g2)
 	{
-		int pX = 400 - (player.getParty()[playerCurr].getBack().getWidth()/2);
-		int pY = 590-player.getParty()[playerCurr].getBack().getHeight();
 
-		g2.drawImage(player.getParty()[playerCurr].getBack(), pX, pY, null);
+		if(playerBall.getVisible())
+		{
+			g2.drawImage(playerBall.getImage(), playerBall.getX(), playerBall.getY(), null);
+		}
+		else
+		{
+			int pX = 400 - (player.getParty()[playerCurr].getBack().getWidth()/2);
+			int pY = 610-player.getParty()[playerCurr].getBack().getHeight();
+			g2.drawImage(player.getParty()[playerCurr].getBack(), pX, pY, null);
+	
+		}
 	}
 	public void updateText(Graphics2D g)
 	{
@@ -1043,10 +1061,17 @@ public class Battle extends JPanel {
 	}
 	public void loadOpponentMon(Graphics2D g2)
 	{
-		int oX = 793 - (opponent.getParty()[oppCurr].getFront().getWidth()/2);
-		int oY = 300 - opponent.getParty()[oppCurr].getFront().getHeight();
-
-		g2.drawImage(opponent.getParty()[oppCurr].getFront(), oX, oY, null);
+		if(opponentBall.getVisible())
+		{
+			g2.drawImage(opponentBall.getImage(), opponentBall.getX(), opponentBall.getY(), null);
+		}
+		else
+		{
+			int oX = 793 - (opponent.getParty()[oppCurr].getFront().getWidth()/2);
+			int oY = 320 - opponent.getParty()[oppCurr].getFront().getHeight();
+			
+			g2.drawImage(opponent.getParty()[oppCurr].getFront(), oX, oY, null);
+		}
 	}
 	public void drawOStats(Graphics2D g2)
 	{
@@ -1060,7 +1085,7 @@ public class Battle extends JPanel {
 			else
 				barColor = battleStats[3];
 
-			int width = battleStats[3].getWidth() * opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat();
+			int width = battleStats[3].getWidth() * (opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat());
 			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
@@ -1151,12 +1176,12 @@ public class Battle extends JPanel {
 			// Level Bar
 			int curLevel = player.getParty()[playerCurr].getCurExp();
 			int maxLevel = player.getParty()[playerCurr].getCurExpThreshold();
-			int level = (int) (battleStats[2].getWidth() * (double)((double)curLevel/(double)maxLevel));
+			int level = (int) ((double)battleStats[2].getWidth() * ((double)curLevel/(double)maxLevel));
 			// int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
 			//			System.out.println(level);
 			if(level > 0)
 			{
-				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, (int) level, battleStats[2].getHeight());
+				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
 				g2.drawImage(drawBar, 775, 417, null);
 			}
 
@@ -1222,6 +1247,10 @@ public class Battle extends JPanel {
 		opponent = newOpponent;
 		oppCurr = 0;
 		isWild = isW;
+		intro = true;
+		gameState = 1;
+		timer.start();
+		counter = 0;
 	}
 
 	public void setPlayerCur(int i) {
@@ -1230,6 +1259,7 @@ public class Battle extends JPanel {
 
 	public void refresh()
 	{
+		revalidate();
 		repaint();
 	}
 
@@ -1249,9 +1279,8 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charmander", "BBQ Dragon", 7));
-//		pranav.getParty()[0].setCurExp(2500);
-		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
+		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 7));
+		pranav.addPokemonToParty(new Pokemon("Charmander", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
 		pranav.addOnItem("Master Ball", 0, 2);
 		pranav.addKeyItem("Badge Case");
@@ -1259,17 +1288,20 @@ public class Battle extends JPanel {
 
 
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
-		NPC gary = new NPC(0,0, null);
-		gary.addPokemonToParty(new Pokemon("Bulbasaur", "Bulbasaur", 5));
-		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-		gary.getParty()[0].setCurHP(2);;
+		Pokemon[] temp = new Pokemon[6];
+		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
+		temp[1] = new Pokemon ("Fearow", "birdy", 25);
+		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
+//		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
+//		gary.getParty()[0].setCurHP(2);;
 
-		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
-		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
-		gary.getParty()[1].setCurHP(2);;
+		// gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+//		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
+//		gary.getParty()[1].setCurHP(2);;
 
 		panel = new Battle(pranav, gary);
 
+		panel.newBattle(pranav, gary, false);
 		frame.setContentPane(panel);
 		frame.setVisible(true);
 		frame.setResizable(false);

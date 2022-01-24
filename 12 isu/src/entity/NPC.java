@@ -8,6 +8,7 @@ import pokesetup.Pokemon;
 
 public class NPC extends Person 
 {
+	private String name;
 	private Pokemon[] party; // Party of 6 Pokemon
 	private boolean battleable; // Whether or not player has battled
 	private String loseFile; // txt file for when NPC has been beaten
@@ -15,10 +16,11 @@ public class NPC extends Person
 	// BufferedImage sprite, String direction, String textFile, boolean shown;
 
 	// Constructor
-	public NPC(Rectangle collision, String direction, String imageFile, int w, int h, String firstFile, String loseFile, Pokemon[] party)
+	public NPC(String name, Rectangle collision, String direction, String imageFile, int w, int h, String firstFile, String loseFile, Pokemon[] party)
 	{
 		super(collision, direction, imageFile, w, h, firstFile);
 
+		this.name = name;
 		this.party = party;
 		battleable = false;
 		this.loseFile = loseFile;
@@ -80,6 +82,10 @@ public class NPC extends Person
 	}
 
 	// Getters and Setters
+	public String getName()
+	{
+		return name;
+	}
 	public Pokemon[] getParty() {
 		return this.party;
 	}

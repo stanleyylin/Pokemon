@@ -27,6 +27,7 @@ public class Player {
 	
 	private ArrayList<Pokemon> box;
 	private Pokemon[] party;
+	private int pokeDollars;
 	private ArrayList<Item> pokeballs;
 	private ArrayList<Item> medicine;
 	private ArrayList<Item> keyItems;
@@ -50,6 +51,7 @@ public class Player {
 		
 		interacting = false;
 		talkingTo = null;
+		pokeDollars = 0;
 		
 		pokeballs = new ArrayList<Item>();
 		medicine = new ArrayList<Item>();
@@ -223,7 +225,15 @@ public class Player {
 		else
 			return keyItems;
 	}
+	public int getPokeDollars()
+	{
+		return pokeDollars;
+	}
 	
+	public void addPokeDollars(int add)
+	{
+		pokeDollars += add;
+	}
 	public void setScreenX(int set)
 	{
 		screenX = set;
