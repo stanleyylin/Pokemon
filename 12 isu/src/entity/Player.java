@@ -25,6 +25,7 @@ public class Player {
 	private boolean interacting;
 	private Person talkingTo;
 	
+	private ArrayList<Pokemon> box;
 	private Pokemon[] party;
 	private ArrayList<Item> pokeballs;
 	private ArrayList<Item> medicine;
@@ -43,7 +44,7 @@ public class Player {
 		direction = "down";
 		
 		this.party = new Pokemon[6];
-
+		this.box = new ArrayList<Pokemon>();
 		SpriteSheet player = new SpriteSheet("char1.png");
 		sprites = player.getSprites();
 		
@@ -245,6 +246,11 @@ public class Player {
 		temp.addItems(1);
 		keyItems.add(temp);
 	}
+	public void swapPokemon(Pokemon p, int i)
+	{
+		box.add(party[i]);
+		party[i] = p;
+	}
 	public void addOnItem(String item, int bagNum, int quantity) // 0-pokeballs, 1-medicine, 3-keyItems
 	{
 		Item temp = loadItems.getItem(item);
@@ -256,7 +262,15 @@ public class Player {
 		{
 			medicine.get(medicine.indexOf(temp)).addItems(quantity);
 		}
-
+	}
+	
+	public ArrayList<Pokemon> getBox()
+	{
+		return box;
+	}
+	public void addToBox(Pokemon p)
+	{
+		box.add(p);
 	}
 
 }

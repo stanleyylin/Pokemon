@@ -332,7 +332,8 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
-				inGrass();
+				if(moving != 0)
+					inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -409,7 +410,8 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
-				inGrass();
+				if(moving != 0)
+					inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -465,7 +467,8 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
-				inGrass();
+				if(moving != 0)
+					inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
@@ -501,7 +504,8 @@ public class Moving {
 		{
 			if(!checkGate(camera.getLocation().getGates()))
 			{
-				inGrass();
+				if(moving != 0)
+					inGrass();
 				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 			}
