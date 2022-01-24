@@ -445,7 +445,7 @@ public class Battle extends JPanel {
 
 				}
 
-				else if (counter == 150)
+				else if (counter == 125)
 				{
 					counter = 0;
 					if (checkFaint(opponent.getParty()[oppCurr])) {
@@ -569,7 +569,7 @@ public class Battle extends JPanel {
 					}
 
 				}
-				else if (counter >= 150)
+				else if (counter >= 125)
 				{
 					counter = 0;
 					if (checkFaint(player.getParty()[playerCurr])) {
@@ -1250,7 +1250,7 @@ public class Battle extends JPanel {
 
 		Player pranav = new Player(0,0);
 		pranav.addPokemonToParty(new Pokemon("Charmander", "BBQ Dragon", 7));
-		pranav.getParty()[0].setCurExp(2500);
+//		pranav.getParty()[0].setCurExp(2500);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
 		pranav.addOnItem("Master Ball", 0, 2);
