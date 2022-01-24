@@ -789,6 +789,39 @@ public class Battle extends JPanel {
 	public void useItem(String s) {
 		
 		showBattleScreen();
+		if (s.equals("Potion"))
+			player.getParty()[playerCurr].heal(20);
+		if (s.equals("Super Potion"))
+			player.getParty()[playerCurr].heal(50);
+		if (s.equals("Hyper Potion"))
+			player.getParty()[playerCurr].heal(200);
+		if (s.equals("Full Heal"))
+			player.getParty()[playerCurr].setStatus(null);
+		if (s.equals("Full Restore"))
+			player.getParty()[playerCurr].heal();
+		if (s.equals("Ether")) {
+			int n = getLeastPPMove();
+			int cur = player.getParty()[playerCurr].getCurMoves()[n].getCurPP();
+			player.getParty()[playerCurr].getCurMoves()[n].setCurPP(cur + 10);
+		}
+		if (s.equals("Elixir")) {
+			for (Move m : player.getParty()[playerCurr].getCurMoves())
+				m.setCurPP(m.getCurPP() + 10);
+		}
+
+		
+		gameState = 5;
+		timer.start();
+	}
+	
+	public Integer getLeastPPMove() {
+		TreeMap<Integer, Move> tm = new TreeMap<Integer,Move>();
+		tm.put(player.getParty()[playerCurr].getCurMoves()[0].getCurPP(), player.getParty()[playerCurr].getCurMoves()[0]);
+		tm.put(player.getParty()[playerCurr].getCurMoves()[1].getCurPP(), player.getParty()[playerCurr].getCurMoves()[1]);
+		tm.put(player.getParty()[playerCurr].getCurMoves()[2].getCurPP(), player.getParty()[playerCurr].getCurMoves()[2]);
+		tm.put(player.getParty()[playerCurr].getCurMoves()[3].getCurPP(), player.getParty()[playerCurr].getCurMoves()[3]);
+
+		return tm.firstKey();
 	}
 
 	public void setNextMon(int i) 
@@ -1090,6 +1123,7 @@ public class Battle extends JPanel {
 		pranav.addOnItem("Master Ball", 0, 2);
 		pranav.addKeyItem("Badge Case");
 		pranav.addKeyItem("Town Map");
+		
 
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);

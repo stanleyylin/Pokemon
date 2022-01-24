@@ -140,7 +140,11 @@ public class Pokemon {
 
 	public void levelUp() {
 		System.out.println("pokemon has lvled up");
+		int lostHP = this.HPstat-this.curHP;
 		this.level++;
+		this.heal();
+		this.curHP = this.curHP-lostHP;
+		
 
 		updateAllStats();
 		this.curExp = this.curExp - this.curExpThreshold;

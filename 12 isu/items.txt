@@ -9,7 +9,7 @@ Super Potion,Can be used to restore 50 HP to an injured Pokémon.,700,50,false,0
 Hyper Potion,Can be used to restore 200 HP to an injured Pokémon.,1200,200,false,0,false
 Full Restore,Fully restores the HP of a single Pokémon and heal any status conditions.,3000,-1,true,0,false
 Full Heal,Used to heal all the status conditions of a Pokémon.,600,0,true,0,false
-Ether,Restores 10 PP to a single selected move of a Pokémon.,1200,0,false,10,false
+Ether,Restores 10 PP to a the lowest remaining PP move of a Pokémon.,1200,0,false,10,false
 Elixir,Restores 10 PP to all the moves of a Pokémon.,3000,0,false,-10,false
 Revive,Revives fainted Pokémon. Also restores half of a fainted Pokémon's max HP.,1500,-2,true,0,true
 Max Revive,Revives fainted Pokémon. Also fully restores of a fainted Pokémon's max HP.,5000,-1,true,0,true
