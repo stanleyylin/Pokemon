@@ -30,49 +30,51 @@ public class Pokemon {
 		CONFUSED
 	}
 
-	int ID; //number of mon in dex
-	String name; //name of mon
-	String nickname; //u can give your pokemon nicknames
-	int expValue; //value of xp it gives when killed
-	int curExp;
-	int curExpThreshold;
-	Ability ability;//ability class
-	int curHP;
+	private int ID; //number of mon in dex
+	private String name; //name of mon
+	private String nickname; //u can give your pokemon nicknames
+	private int expValue; //value of xp it gives when killed
+	private int curExp; //curent exp pokemon has
+	private int curExpThreshold; //exp for pokemon to level up
+	private Ability ability;//ability class
+	private int curHP; // current hp
 
-	LoadImage loader = new LoadImage();
+	private LoadImage loader = new LoadImage();
 
-	int HPstat;
-	int atkStat;
-	int defStat;
-	int spAtkStat;
-	int spDefStat;
-	int spdStat;
+	//all stats based on current level
+	private 	int HPstat;
+	private int atkStat;
+	private int defStat;
+	private int spAtkStat;
+	private int spDefStat;
+	private int spdStat;
 
-	int[] baseStats = new int[6];
+	//base stats that are predetermined base on the species of pokemon
+	private int[] baseStats = new int[6];
 	//IVs are a random number generated from 1-31 that affect the actual pokestats
-	int[] IVs = new int[6];
+	private int[] IVs = new int[6];
 
 
 	//	TreeMap<Integer,Move> possibleMoves = new TreeMap<Integer,Move>();
-	ArrayList<Pair<Integer,Move>> possibleMoves = new ArrayList<Pair<Integer,Move>>();
-	Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
-	int level;
-	BufferedImage pokeFront;
-	BufferedImage pokeBack;
-	Type type; //type class
-	Random random = new Random();//random class (literally that) for the nextBoolean to function
-	boolean isFainted;
-	Status status;
-	boolean canEvolve;
-	int evolveLevel;
-	int[] curMonStatMods= {0,0,0,0};
+	private ArrayList<Pair<Integer,Move>> possibleMoves = new ArrayList<Pair<Integer,Move>>();
+	private Move[] attacks = new Move[4]; //a pokemon can have 4 moves at any give time
+	private int level; //level of the pokemon
+	private BufferedImage pokeFront; //front sprite
+	private BufferedImage pokeBack;  //back sprite
+	private Type type; //type class
+	private Random random = new Random();//random class (literally that) for the nextBoolean to function
+	private boolean isFainted;
+	private Status status;
+	private boolean canEvolve; //if the pokemon can evolve	
+	private int evolveLevel; //the level at which it evolves (if applicable)
+	private int[] curMonStatMods= {0,0,0,0}; //if the pokemon has any current stat modifiers & what they are
 
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
-	static HashMap <String, BlankMon> pokeStats = new HashMap<String, BlankMon>();
-
-	static TreeMap <Integer, BlankMon> statsForEvolve = new TreeMap<Integer,BlankMon>();
+	private static HashMap <String, BlankMon> pokeStats = new HashMap<String, BlankMon>();
+	//hashmap of the same stats but indexed by ID no instead for getting evolution (cuz pokemon always evolve into the next numbered mon)
+	private static TreeMap <Integer, BlankMon> statsForEvolve = new TreeMap<Integer,BlankMon>();
 
 	public Pokemon (String name, String nickname, int level) {
 		this.nickname = nickname;
@@ -123,16 +125,20 @@ public class Pokemon {
 			else
 				this.ability =  pokeStats.get(name).getAbility2();
 		}
+		//getting the moveList
 		this.possibleMoves = new ArrayList<Pair<Integer,Move>>(BlankMon.movesByMon.get(this.name));
 		generateMoves();
 		updateAllStats();
 
+		//setting the HP
 		this.curHP = this.HPstat;
-
+		
+		//setting up exp values
 		this.expValue = pokeStats.get(name).getExpValue();
 		this.curExp = 0;
 		this.curExpThreshold = getNewExpThreshold ();
 
+		//setting up evolution
 		this.canEvolve = pokeStats.get(name).getIfEvolve();
 		if (this.canEvolve)
 			this.evolveLevel = pokeStats.get(name).getEvLvl();
@@ -142,28 +148,26 @@ public class Pokemon {
 
 	}
 
+	//adds exp to this pokemonx xp tally when this pokemon beats another
 	public void giveExp(Pokemon p1) {
 
-		//		System.out.println(curExpThreshold);
 		double expDrop  =  (    ((p1.getExpDrop() * p1.getLevel()) / 5) *  Math.pow((2.0 * p1.getLevel() + 10) / (p1.getLevel() + this.level + 10),2.5));
 		this.curExp += expDrop;
-		//		System.out.println(this.curExp + "----" + this.curExpThreshold);
 	}
 
+	//increments thie pokemons level nby 1 and updates the states acoordingly.
 	public void levelUp() {
 		System.out.println("pokemon has lvled up");
 		int lostHP = this.HPstat-this.curHP;
 		this.level++;
+		updateAllStats();		
 		this.heal();
 		this.curHP = this.curHP-lostHP;
-
-
-		updateAllStats();
 		this.curExp = this.curExp - this.curExpThreshold;
 		this.curExpThreshold = getNewExpThreshold();
 	}
 
-
+	//finds the amount of exp required to get to the next level
 	public int getNewExpThreshold() {
 		return (12 * this.level * this.level) / 5;
 	}
@@ -188,6 +192,7 @@ public class Pokemon {
 			return false;
 	}
 
+	//takes the amount stats are to be modified and 
 	public double getStatModifier(int n) {
 		double d = (double)n;
 
@@ -220,8 +225,10 @@ public class Pokemon {
 		}
 
 		double STAB = 1.0;
-		//		if (this.type.equals(enemy.getType()))
-		//			STAB = 1.5;
+		
+		//this line could b problematic
+			if (this.type.equals(curMove.getType()))
+				STAB = 1.5;
 		int damage = 0;
 		if (curMove.getDamage() > 0)
 			damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);
@@ -256,8 +263,6 @@ public class Pokemon {
 			if (tempMoves.size() == 4)
 				break;
 		}
-
-
 		for (int i = 0; i < tempMoves.size(); i++) {
 			attacks[i] = tempMoves.get(i);
 		}
@@ -268,8 +273,12 @@ public class Pokemon {
 		//just in case hp stat is not updated
 		this.updateHpStat();
 		this.curHP = this.HPstat;
+		
+		for (int n : this.curMonStatMods)
+			n = 0;
 	}
 
+	//heals pokemon given the amount to heal by
 	public void heal(int amt) {
 		if ((this.curHP + amt) > this.HPstat)
 			this.setCurExp(this.HPstat);
@@ -277,13 +286,11 @@ public class Pokemon {
 			this.setCurHP(this.curHP + amt);
 	}
 
+	//evolves the pokemon 
 	public Pokemon evolve() {
 		int pokeID = this.ID + 1;
 		String newName = statsForEvolve.get(pokeID).getName();
 		return (new Pokemon (newName, this.nickname, this.level));
-
-
-
 	}
 
 	//updates the HP stat based on formula
@@ -325,6 +332,7 @@ public class Pokemon {
 
 
 	//must be done after all the blankmon methods
+	//adds all BlankMons into the program
 	public static void addAllPokemon () throws IOException, FileNotFoundException {
 
 		BufferedReader br = new BufferedReader (new FileReader(new File("Pokemon.csv")));
@@ -398,6 +406,8 @@ public class Pokemon {
 
 	}
 
+	
+	//getters & setters
 	public ArrayList getPossibleMoves() {
 		return this.possibleMoves;
 	}
