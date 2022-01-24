@@ -66,6 +66,7 @@ public class Battle extends JPanel {
 	boolean playerIsFainted;
 	boolean opponentIsFainted;
 	boolean isWild;
+	boolean justEvolved = false;
 
 	int pokeX = 792;
 	int pokeY = 100;
@@ -543,10 +544,10 @@ public class Battle extends JPanel {
 						message = "You have run out of usable pokemon!";
 						playerIsFainted = true;
 						repaint();
-						gameState = 0;
-						endBattle(true);
-						timer.stop();
-						return;
+						gameState = 8;
+						//						endBattle(true);
+						//						timer.stop();
+						//						return;
 					}
 				}
 
@@ -583,7 +584,52 @@ public class Battle extends JPanel {
 						opponentIsFainted = true;
 						repaint();
 						counter = 0;
-						gameState = 0;
+						gameState = 8;
+						//						endBattle(false);
+						//						timer.stop();
+						//						return;
+					}
+				}
+			}
+			if (gameState == 8) {
+				if (playerIsFainted) {
+					if (counter >= 50) {
+						counter = 0;
+						message = "";
+						endBattle(true);
+						timer.stop();
+
+						return;
+					}
+				}
+				else if (opponentIsFainted && (checkForEvolve() || justEvolved)) {
+					if (counter==50) {
+						message = "Your " + player.getParty()[playerCurr].getNickName() + " is evolving!";
+					}
+					else if (counter == 100) {
+
+						Pokemon newMon = player.getParty()[playerCurr].evolve();
+						justEvolved = true;
+						player.replace(playerCurr, newMon);
+					}
+					else if (counter == 115) {
+						System.out.println("test");
+
+						message = "Your " + player.getParty()[playerCurr].getNickName() + " has become a " + player.getParty()[playerCurr].getName()+"!";
+					}
+					else if (counter >= 150) {
+						justEvolved = false;
+						counter = 0;
+						message = "";
+						endBattle(true);
+						timer.stop();
+						return;
+					}
+				}
+				else {
+					if (counter >=50) {
+						counter = 0;
+						message = "";
 						endBattle(false);
 						timer.stop();
 						return;
@@ -619,7 +665,7 @@ public class Battle extends JPanel {
 		{
 			hideButtons();
 			showBag();
-			
+
 
 		}
 		// Go back to the main buttons
@@ -785,9 +831,9 @@ public class Battle extends JPanel {
 	public void pokeClicked(MouseEvent e) {
 		System.out.println();
 	}
-	
+
 	public void useItem(String s) {
-		
+
 		showBattleScreen();
 		if (s.equals("Potion"))
 			player.getParty()[playerCurr].heal(20);
@@ -809,18 +855,27 @@ public class Battle extends JPanel {
 				m.setCurPP(m.getCurPP() + 10);
 		}
 
-		
+
 		gameState = 5;
 		timer.start();
 	}
-	
+
+	public boolean checkForEvolve() {
+		if (player.getParty()[playerCurr].getIfEvolve() && player.getParty()[playerCurr].getLevel() >= player.getParty()[playerCurr].getEvolveLvl()) 
+			return true;
+
+		else return false;
+	}
+
+
+
 	public void backToMain() {
 		gameState = 0;
 		showButtons();
 		hideMoves();
 		showBattleScreen();
 	}
-	
+
 	public Integer getLeastPPMove() {
 		TreeMap<Integer, Move> tm = new TreeMap<Integer,Move>();
 		tm.put(player.getParty()[playerCurr].getCurMoves()[0].getCurPP(), player.getParty()[playerCurr].getCurMoves()[0]);
@@ -872,12 +927,14 @@ public class Battle extends JPanel {
 
 		if(gameState != 1)
 		{
-			loadPlayerMon(g2);
-			loadOpponentMon(g2);
-			if (!playerIsFainted)
+			if (!playerIsFainted) {
 				drawPStats(g2);
-			if (!opponentIsFainted)
+				loadPlayerMon(g2);
+			}
+			if (!opponentIsFainted) {
 				drawOStats(g2);
+				loadOpponentMon(g2);
+			}
 		}
 		if (gameState == 0 && message != null)
 			updateText(g2);
@@ -897,7 +954,8 @@ public class Battle extends JPanel {
 			updateText(g2);
 		if (gameState == 0 && message != null)
 			updateText(g2);
-
+		if (gameState == 8 && message != null)
+			updateText(g2);
 		if (frame.getContentPane().equals(selectionMenu))
 			selectionMenu.update(g2);
 	}
@@ -1106,7 +1164,7 @@ public class Battle extends JPanel {
 	{
 		repaint();
 	}
-	
+
 	public Pokemon getCurPlayerMon() {
 		return player.getParty()[playerCurr];
 	}
@@ -1123,20 +1181,25 @@ public class Battle extends JPanel {
 		catch (IOException e) {}
 
 		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 55));
-		pranav.getParty()[0].setCurExp(6000);
+		pranav.addPokemonToParty(new Pokemon("Charmeleon", "BBQ Dragon", 35));
+		pranav.getParty()[0].setCurExp(2500);
 		pranav.addPokemonToParty(new Pokemon("Persian", "catty", 32));
 		pranav.addOnItem("Potion", 1, 5);
 		pranav.addOnItem("Master Ball", 0, 2);
 		pranav.addKeyItem("Badge Case");
 		pranav.addKeyItem("Town Map");
-		
+
 
 		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
 		NPC gary = new NPC(0,0, null);
-		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 40));
+		gary.addPokemonToParty(new Pokemon("Machamp", "Machamp", 28));
 		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 36));
+		gary.getParty()[0].setCurHP(2);;
+
+		gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
+		gary.getParty()[1].setCurHP(2);;
+
 		panel = new Battle(pranav, gary);
 
 		frame.setContentPane(panel);

@@ -91,6 +91,10 @@ public class Player {
 		}
 	}
 	
+	public void replace(int n, Pokemon p1) {
+		this.party[n] = p1;
+	}
+	
 	public void battle(NPC enemy) {
 		
 		Pokemon curFriendlyMon = this.party[0];

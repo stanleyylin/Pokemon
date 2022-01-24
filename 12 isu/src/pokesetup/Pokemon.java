@@ -63,10 +63,14 @@ public class Pokemon {
 	Random random = new Random();//random class (literally that) for the nextBoolean to function
 	boolean isFainted;
 	Status status;
+	boolean canEvolve;
+	int evolveLevel;
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
 	static HashMap <String, BlankMon> pokeStats = new HashMap<String, BlankMon>();
+	
+	static TreeMap <Integer, BlankMon> statsForEvolve = new TreeMap<Integer,BlankMon>();
 
 	public Pokemon (String name, String nickname, int level) {
 		this.nickname = nickname;
@@ -126,6 +130,10 @@ public class Pokemon {
 		this.expValue = pokeStats.get(name).getExpValue();
 		this.curExp = 0;
 		this.curExpThreshold = getNewExpThreshold ();
+		
+		this.canEvolve = pokeStats.get(name).getIfEvolve();
+		if (this.canEvolve)
+			this.evolveLevel = pokeStats.get(name).getEvLvl();
 
 
 	}
@@ -237,6 +245,15 @@ public class Pokemon {
 	public void heal(int amt) {
 		this.setCurHP(this.curHP + amt);
 	}
+	
+	public Pokemon evolve() {
+			int pokeID = this.ID + 1;
+			String newName = statsForEvolve.get(pokeID).getName();
+			return (new Pokemon (newName, this.nickname, this.level));
+		
+		
+			
+	}
 
 	//updates the HP stat based on formula
 	public void updateHpStat () {
@@ -302,10 +319,12 @@ public class Pokemon {
 			String curAbilityStr = "";
 			String curAbilityStr2 = "";
 			int curExp = 0;
+			int curEvLvl = 0;
 
 			String[] curItems = curLine.split(",");
 			curID = Integer.parseInt(curItems[0]);
 			name = curItems[1];
+			
 			type1 = curItems[2];
 			type2 = curItems[3];
 			totalStat = Integer.parseInt(curItems[4]);
@@ -318,13 +337,15 @@ public class Pokemon {
 			generation = Integer.parseInt(curItems[11]);
 			isLegendary = Boolean.parseBoolean(curItems[12]);
 			curAbilityStr = curItems[13];
-
-			if (curItems.length == 16) {
+			if (curItems.length == 17) {
 				curAbilityStr2 = curItems[14];
 				curExp = Integer.parseInt(curItems[15]);
+				curEvLvl = Integer.parseInt(curItems[16]);
 			}
-			else if (count <= 151)
+			else if (count <= 151) {
 				curExp = Integer.parseInt(curItems[14]);
+				curEvLvl = Integer.parseInt(curItems[15]);
+			}
 
 			Ability a1 = BlankMon.abilityList.get(curAbilityStr);
 			Ability a2 = null;
@@ -334,8 +355,10 @@ public class Pokemon {
 
 			count++;
 
-			pokeStats.put(name, new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp));
-
+			BlankMon cur =new BlankMon(curID, name, type1,type2, curHP, curAtk, curDef, curSpAtk, curSpDef, curSpeed, generation, isLegendary, a1, a2, curExp, curEvLvl);
+			pokeStats.put(name, cur);
+			statsForEvolve.put(curID, cur);
+			
 
 
 
@@ -431,6 +454,17 @@ public class Pokemon {
 	}
 	public int getCurExpThreshold() {
 		return this.curExpThreshold;
+	}
+	
+	public boolean getIfEvolve() {
+		return this.canEvolve;
+	}
+	
+	public int getEvolveLvl() {
+		return this.evolveLevel;
+	}
+	public void setIfEvolve(boolean b) {
+		this.canEvolve = b;
 	}
 
 
