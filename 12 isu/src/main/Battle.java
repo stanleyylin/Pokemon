@@ -51,6 +51,10 @@ public class Battle extends JPanel {
 
 	int currMoveNo;
 	String currMove;
+	//	int[] curPlayerStats= {0,0,0,0};
+	//	int[] curEnemyStats= {0,0,0,0};
+	//attack,defense,special attack,special defense
+
 
 	// ANIMATION
 	static Timer timer; // Timer for animation
@@ -95,6 +99,9 @@ public class Battle extends JPanel {
 		playerIsFainted = false;
 		opponentIsFainted = false;
 		isWild = false;
+
+
+
 
 		// **** TO BE MIGRATED
 		selectionMenu = new PokeSelect(this, player, 0, true);
@@ -341,6 +348,33 @@ public class Battle extends JPanel {
 
 					System.out.println("" + player.getParty()[playerCurr].getCurExp() + "/" + player.getParty()[playerCurr].getCurExpThreshold());
 				}
+
+				if (counter == 75 && findMoveCategory(currMove).equals("Status")) {
+
+					Move curMove = BlankMon.getMoveList().get(currMove);
+					if (curMove.getStatMod()[0] > 0)
+						message = "enemy's attack has increased";
+					else if (curMove.getStatMod()[0] < 0)
+						message = "enemy's attack has fallen";
+
+					if (curMove.getStatMod()[1] > 0)
+						message = "enemy's defense has increased";
+					else if (curMove.getStatMod()[1] < 0)
+						message = "enemy's defense has fallen";
+
+					if (curMove.getStatMod()[2] > 0)
+						message = "enemy's sp. attack has increased";
+					else if (curMove.getStatMod()[2] < 0)
+						message = "enemy's sp. attack has fallen";
+
+					if (curMove.getStatMod()[3] > 0)
+						message = "enemy's sp. defense has increased";
+					else if (curMove.getStatMod()[3] < 0)
+						message = "enemy's sp. defense has fallen";
+
+
+				}
+
 				if(counter == 50)
 				{
 					if (player.getParty()[playerCurr].getStatus() != Pokemon.Status.FREEZE && player.getParty()[playerCurr].getStatus() != Pokemon.Status.SLEEP 
@@ -371,7 +405,7 @@ public class Battle extends JPanel {
 				}
 				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.FREEZE) {
 					int chanceOfThaw = 1 + (int)(Math.random() * (5));
-					if (chanceOfThaw == 5) {
+					if (chanceOfThaw == 4) {
 						message = "" + player.getParty()[playerCurr].getNickName() + " has thawed out!"; 
 						player.getParty()[playerCurr].setStatus(null);
 					}
@@ -380,7 +414,7 @@ public class Battle extends JPanel {
 
 				else if (counter == 75 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.SLEEP) {
 					int chanceOfWake = 1 + (int) (Math.random()*3);
-					if (chanceOfWake == 3) {
+					if (chanceOfWake == 2) {
 						message = "" + player.getParty()[playerCurr].getNickName() + " has woken up!";
 						player.getParty()[playerCurr].setStatus(null);
 					}
@@ -443,6 +477,33 @@ public class Battle extends JPanel {
 					else
 						message = "" + opponent.getParty()[oppCurr].getName() + " has used " + opponent.getParty()[oppCurr].getCurMoves()[enemyAttack].getName();
 				}
+
+				if (counter == 75 && opponent.getParty()[oppCurr].getCurMoves()[enemyAttack].getCategory().equals("Status")) {
+
+					Move curMove = opponent.getParty()[oppCurr].getCurMoves()[enemyAttack];
+					if (curMove.getStatMod()[0] > 0)
+						message = "enemy's attack has increased";
+					else if (curMove.getStatMod()[0] < 0)
+						message = "enemy's attack has fallen";
+
+					if (curMove.getStatMod()[1] > 0)
+						message = "enemy's defense has increased";
+					else if (curMove.getStatMod()[1] < 0)
+						message = "enemy's defense has fallen";
+
+					if (curMove.getStatMod()[2] > 0)
+						message = "enemy's sp. attack has increased";
+					else if (curMove.getStatMod()[2] < 0)
+						message = "enemy's sp. attack has fallen";
+
+					if (curMove.getStatMod()[3] > 0)
+						message = "enemy's sp. defense has increased";
+					else if (curMove.getStatMod()[3] < 0)
+						message = "enemy's sp. defense has fallen";
+
+
+				}
+
 				else if(counter == 50)
 				{
 					if (opponent.getParty()[oppCurr].getStatus() != Pokemon.Status.FREEZE && opponent.getParty()[oppCurr].getStatus()!= Pokemon.Status.SLEEP
@@ -718,6 +779,9 @@ public class Battle extends JPanel {
 		}
 	}
 
+
+
+
 	public void endBattle(boolean isPlayer) {
 		//it comes to this when u win/lose the battle
 
@@ -757,6 +821,10 @@ public class Battle extends JPanel {
 				count++;
 		}
 		return count;
+	}
+
+	public String findMoveCategory(String s) {
+		return BlankMon.getMoveList().get(s).getCategory();
 	}
 
 	// Shows/Hides back button

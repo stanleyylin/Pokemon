@@ -320,6 +320,10 @@ public class BlankMon {
 	public int getEvLvl() {
 		return this.evolveLevel;
 	}
+	
+	public static HashMap<String,Move> getMoveList() {
+		return moveList;
+	}
 
 
 }

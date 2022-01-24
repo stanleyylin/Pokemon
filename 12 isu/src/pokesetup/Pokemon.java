@@ -65,6 +65,8 @@ public class Pokemon {
 	Status status;
 	boolean canEvolve;
 	int evolveLevel;
+	int[] curMonStatMods= {0,0,0,0};
+
 
 
 	//hashmap of all predetermined pokemon stats sorted by their names (which are all unique)
@@ -134,6 +136,8 @@ public class Pokemon {
 		this.canEvolve = pokeStats.get(name).getIfEvolve();
 		if (this.canEvolve)
 			this.evolveLevel = pokeStats.get(name).getEvLvl();
+		
+		
 
 
 	}
@@ -183,19 +187,36 @@ public class Pokemon {
 		else 
 			return false;
 	}
+	
+	public double getStatModifier(int n) {
+		double d = (double)n;
+		
+		d = 1.0 + Math.abs(n) * 0.5;
+		
+		if (n < 0)
+			return 1/d;
+		return d;
+	}
 
 	//takes in which attack it is (from attack aray) and enemy in battle (sometimes it wont hit enemy and is a self move tho)
 	public void attack (Integer attack, Pokemon enemy) {
+		//both int arrays contains the status 
 		Move curMove = attacks[attack];
 		int A = 0;
 		int D = 0;
 		if (curMove.getCategory().equals("Special")) {
-			A = this.spAtkStat;
+			A = this.spAtkStat;	
+			A = (int) (A * getStatModifier(this.curMonStatMods[2]));
+			
 			D = enemy.getSpDefense();
+			D = (int) (D * getStatModifier(enemy.getStatMods()[3]));
 		}
 		else if (curMove.getCategory().equals("Physical")){
 			A = this.atkStat;
+			A = (int) (A * getStatModifier(this.curMonStatMods[0]));
+
 			D = enemy.getDefense();
+			D = (int) (D * getStatModifier(enemy.getStatMods()[1]));
 		}
 
 		double STAB = 1.0;
@@ -211,6 +232,13 @@ public class Pokemon {
 			if (curMove.getStatus() != null)
 				enemy.setStatus(curMove.getStatus());
 			enemy.setCurHP(enemy.getCurHP() - damage);
+			
+			for (int i = 0; i < 4; i++ ) {
+				
+				enemy.getStatMods()[i] = enemy.getStatMods()[i] + curMove.getStatMod()[i];
+				
+			}
+			
 		}
 
 	}
@@ -465,6 +493,10 @@ public class Pokemon {
 	}
 	public void setIfEvolve(boolean b) {
 		this.canEvolve = b;
+	}
+	
+	public int[] getStatMods() {
+		return this.curMonStatMods;
 	}
 
 

@@ -26,6 +26,7 @@ public class Move {
 	int prob; //the move can have a probability to do an alternative effect eg. burn or poison
 	int gen;
 	Pokemon.Status curStatus;
+	int[] statMod;
 
 	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen) {
 		this.name = name;
@@ -39,6 +40,7 @@ public class Move {
 		this.prob = prob;
 		this.gen = gen;
 		this.curStatus = null;
+		this.statMod = new int[4];
 	}
 	public Move (String name, Type type, String category, int damage, int accuracy, int pp, String TM, int prob, int gen, Pokemon.Status status) {
 		this.name = name;
@@ -52,6 +54,7 @@ public class Move {
 		this.prob = prob;
 		this.gen = gen;
 		this.curStatus = status;
+		this.statMod = new int[4];
 	}
 
 	public String toString() {
@@ -93,6 +96,9 @@ public class Move {
 	}
 	public Pokemon.Status getStatus() {
 		return this.curStatus;
+	}
+	public int[] getStatMod() {
+		return this.statMod;
 	}
 
 
