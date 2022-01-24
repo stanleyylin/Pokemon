@@ -264,7 +264,14 @@ public class Moving {
 		{
 			if(camera.getLocation().getGrass()[i].intersects(player))
 			{
-		
+				int temp = (int)(Math.random() * ((140) + 1));
+				//1% chance
+				if (temp == 40) {
+					System.out.println("cauight");
+//					main.startBattle(new NPC);
+					//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
+					//isWIld to true (so pokeballs can be used)
+				}
 			}
 		}
 		

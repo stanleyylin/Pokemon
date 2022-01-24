@@ -1,0 +1,33 @@
+Route 201
+Pidgey,Rattata,Oddish,Bellsprout
+3,4
+Route 202
+Pidgey,Rattata,Oddish,Bellsprout,Caterpie,Weedle
+4,6
+Route 203
+Rattata,Spearow,Ekans,Sandshrew,Mankey
+4,10
+Route 204
+Spearow,Rattata,Ekans,Sandshrew,Mankey,Psyduck
+6,14
+Route 205
+Rattata,Pidgey,Vulpix,Growlith,Jigglypuff,Pidgeotto,Abra
+11,16
+Route 206
+Pidgey,Rattata,Vulpix,Growlith,Jigglypuff,Pidgeotto,Psyduck,Abra
+15,20
+Route 207
+Vulpix,Growlithe,Pidgey,Pidgeotto,Rattata,Raticate,Jigglypuff,Abra,Ninetales,Arcanine,Kadabra
+19,24
+Route 208
+Vulpix,Growlithe,Pidgey,Pidgeooto,Rattata,Raticate,Jigglypuff,Abra,Ninetales,Arcanine,Kadabra
+24,29
+Route 209
+Rattata,Spearow,Nidoran♀,Nidoran♂,Raticate,Fearnow,Nidorina,Nidorino,Chansey
+28,34
+Route 210
+Rattata,Spearow,Raticate,Oddish,Gloom,Bellsprout,Weepinbell,Krabby,Farfetch'd,Kingler,Eevee
+26,32
+Route 211
+Pidgeotto,Drowzee,Raticate,Mr. Mime,Tauros,Scyther,Pinsir,Venonat,Gloom,Doduo,Dodrio,Vileplume,
+22,28

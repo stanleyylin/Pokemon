@@ -134,6 +134,8 @@ public class GamePanel extends JPanel implements Runnable
 			update();
 			repaint();
 			
+			//add start battle if bool == true here
+			
 			try
 			{
 				double remaining = nextPaint - System.nanoTime();
@@ -193,7 +195,10 @@ public class GamePanel extends JPanel implements Runnable
 	// Battle
 	public void startBattle()
 	{
-		
+//		main.battle(new NPC);
+		//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
+		//isWIld to true (so pokeballs can be used)
+
 	}
 	
 	public void showDialogue()
