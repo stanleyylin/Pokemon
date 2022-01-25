@@ -59,10 +59,7 @@ public class PokemonButton extends JPanel implements MouseListener
 		setLayout(null);
 		setOpaque(true);
 
-		if(pokeSelect.getInBattle())
-		{
-			addMouseListener(this);
-		}
+		addMouseListener(this);
 		visible = false;
 	}
 

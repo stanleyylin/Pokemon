@@ -37,9 +37,6 @@ public class Battle extends JPanel {
 	private BufferedImage background; // Background image
 	private BufferedImage[] battleStats;
 
-	private static JFrame frame;
-	private static Battle panel;
-
 	private boolean intro;
 	
 	Player player;
@@ -83,10 +80,6 @@ public class Battle extends JPanel {
 	static Button[] buttons;
 	static MoveSelect[] moves;
 
-	// **** To be migrated
-	private PokeSelect selectionMenu;
-	private Bag bag;
-
 	public Battle(Main main, Player player)
 	{
 		this.main = main;
@@ -102,14 +95,6 @@ public class Battle extends JPanel {
 		playerIsFainted = false;
 		opponentIsFainted = false;
 		isWild = false;
-		
-		// **** TO BE MIGRATED
-		selectionMenu = new PokeSelect(this, player, 0, true);
-		bag = new Bag(player, this);
-		if (isWild)
-			bag.loadScreen(2);
-		else
-			bag.loadScreen(1);
 
 		playerBall = new ImageHolder(0);
 		opponentBall = new ImageHolder(1);
@@ -600,7 +585,7 @@ public class Battle extends JPanel {
 				else if (counter >= 50) {
 					if (player.findNextAvailableMon()!=null) 
 					{
-						showPokeMenu();
+						main.openPokeSelect();
 						counter = 0;
 						gameState = 0;
 						timer.stop();
@@ -725,14 +710,16 @@ public class Battle extends JPanel {
 		else if(e.getSource().equals(buttons[1]))
 		{
 			hideButtons();
-			showPokeMenu();
+			main.openPokeSelect();
 		}
 		//Bag button (opens bag)
 		else if(e.getSource().equals(buttons[2]))
 		{
 			hideButtons();
-			showBag();
-
+			if(isWild)
+				main.openBag(2);
+			else
+				main.openBag(1);
 
 		}
 		// Go back to the main buttons
@@ -908,7 +895,7 @@ public class Battle extends JPanel {
 
 	public void useItem(String s) {
 
-		showBattleScreen();
+		main.openBattle();
 		if (s.equals("Potion"))
 			player.getParty()[playerCurr].heal(20);
 		if (s.equals("Super Potion"))
@@ -945,7 +932,7 @@ public class Battle extends JPanel {
 		gameState = 0;
 		showButtons();
 		hideMoves();
-		showBattleScreen();
+		main.openBattle();
 	}
 
 	public Integer getLeastPPMove() {
@@ -961,29 +948,28 @@ public class Battle extends JPanel {
 	public void setNextMon(int i) 
 	{
 		playerCurr = i;
-		showBattleScreen();
+		main.openBattle();
 		gameState = 3;
 		timer.start();
 	}
 
-	// Changing Screens
-	public void showPokeMenu() {
-		panel.setVisible(false);
-		frame.setContentPane(selectionMenu);
-		selectionMenu.setVisible(true);
-		selectionMenu.updatePokemon();
-		frame.pack();
-	}
-	public void showBattleScreen() {
-		frame.setContentPane(this);
-		this.setVisible(true);
-		frame.pack();
-	}
-	public void showBag() {
-		frame.setContentPane(bag);
-		bag.setVisible(true);
-		frame.pack();
-	}
+//	// Changing Screens
+//	public void showPokeMenu() {
+//		frame.setContentPane(selectionMenu);
+//		selectionMenu.setVisible(true);
+//		selectionMenu.updatePokemon();
+//		frame.pack();
+//	}
+//	public void showBattleScreen() {
+//		frame.setContentPane(this);
+//		this.setVisible(true);
+//		frame.pack();
+//	}
+//	public void showBag() {
+//		frame.setContentPane(bag);
+//		bag.setVisible(true);
+//		frame.pack();
+//	}
 
 	// Draw methods: Displays background, player/opponent pokemons and their stats.
 	public void paintComponent(Graphics g) {
@@ -1037,9 +1023,6 @@ public class Battle extends JPanel {
 		{
 			updateText(g2);
 		}
-		
-		if (frame.getContentPane().equals(selectionMenu))
-			selectionMenu.update(g2);
 	}
 
 	public void loadPlayerMon(Graphics2D g2)
@@ -1090,7 +1073,7 @@ public class Battle extends JPanel {
 			else
 				barColor = battleStats[3];
 
-			int width = battleStats[3].getWidth() * (opponent.getParty()[oppCurr].getCurHP() / opponent.getParty()[oppCurr].getHPStat());
+			int width = (int)((double)battleStats[3].getWidth() * ((double)opponent.getParty()[oppCurr].getCurHP() / (double)opponent.getParty()[oppCurr].getHPStat()));
 			if(width > 0)
 			{
 				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
@@ -1245,9 +1228,8 @@ public class Battle extends JPanel {
 		}
 	}
 
-	public void newBattle(Player newPlayer, NPC newOpponent, boolean isW)
+	public void newBattle(NPC newOpponent, boolean isW)
 	{
-		player = newPlayer;
 		playerCurr = 0;
 		opponent = newOpponent;
 		oppCurr = 0;
@@ -1297,8 +1279,8 @@ public class Battle extends JPanel {
 //		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
 //		temp[1] = new Pokemon ("Fearow", "birdy", 25);
 //		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
-////		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-////		gary.getParty()[0].setCurHP(2);;
+//		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
+//		gary.getParty()[0].setCurHP(2);;
 //
 //		// gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
 ////		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);

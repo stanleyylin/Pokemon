@@ -33,7 +33,8 @@ public class Main extends JFrame {
 	
 	private JPanel lastScreen;
 	
-	private static Player player;
+	private Player player;
+	NPC gary;
 	
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
@@ -47,16 +48,7 @@ public class Main extends JFrame {
 		gamePanel = new GamePanel(this, player);
 		box = new Box(this, player);
 		pokeMart = new PokeMart(this, player);
-		
-		Pokemon[] temp = new Pokemon[6];
-		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
-		temp[1] = new Pokemon ("Fearow", "birdy", 25);
-		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
-		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
-		battle = new Battle(this, player);
-		
-		bag = new Bag(this, player, battle);
-		
+	
 		try 
 		{
 			BlankMon.getAllMoves();
@@ -65,11 +57,28 @@ public class Main extends JFrame {
 			Pokemon.addAllPokemon();
 		} 
 		catch (IOException e) {}
+		// TESTER-------
+		Pokemon[] temp = new Pokemon[6];
+		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
+		temp[1] = new Pokemon ("Fearow", "birdy", 25);
+		gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
+		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+		//----------
 		
-		setContentPane(mainMenu);
+		battle = new Battle(this, player);
+		pokeSelect = new PokeSelect(battle, player, 0);
+		bag = new Bag(this, player, battle);
+		
+		startBattle(gary, false);
 	}
 	
-	// To open Game Panel
+	public void openMainMenu()
+	{
+		setContentPane(mainMenu);
+		setVisible(true);
+		pack();
+		mainMenu.setVisible();
+	}
 	public void openGamePanel()
 	{
 		setContentPane(gamePanel);
@@ -91,20 +100,42 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
-	public void openBag()
+	public void openBag(int state)
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
-		setContentPane(pokeMart);
+		bag.loadScreen(state);
+		setContentPane(bag);
 		setVisible(true);
 		pack();
 	}
-	public void openBattlePanel(NPC npc, boolean isWild)
+	public void startBattle(NPC npc, boolean isWild)
+	{
+		battle.newBattle(npc, isWild);
+		setContentPane(battle);
+		setVisible(true);
+		pack();
+	}
+	public void openBattle()
 	{
 		setContentPane(battle);
 		setVisible(true);
 		pack();
 	}
+	public void openPokeSelect()
+	{
+		setContentPane(pokeSelect);
+		setVisible(true);
+		pack();
+	}
 
+	//
+	//selectionMenu = new PokeSelect(this, player, 0, true);
+	// bag = new Bag(player, this);
+	
+	public JPanel getLastScreen()
+	{
+		return lastScreen;
+	}
 	
 	public static void main(String[] args) 
 	{

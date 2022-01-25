@@ -227,8 +227,8 @@ public class Pokemon {
 		double STAB = 1.0;
 		
 		//this line could b problematic
-			if (this.type.equals(curMove.getType()))
-				STAB = 1.5;
+//			if (this.type.equals(curMove.getType()))
+//				STAB = 1.5;
 		int damage = 0;
 		if (curMove.getDamage() > 0)
 			damage = (int) ((((((2*this.level)/5)+2)*curMove.getDamage()*A/D)/50+2) * STAB);

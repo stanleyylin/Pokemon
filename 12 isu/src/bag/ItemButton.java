@@ -41,7 +41,8 @@ public class ItemButton extends JPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) 
 	{
-		bag.selected(e);
+		if(visible)
+			bag.selected(e);
 	}
 
 	public void mousePressed(MouseEvent e) {}

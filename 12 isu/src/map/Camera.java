@@ -104,7 +104,7 @@ public class Camera {
 			loadNPC(building.getPeople());
 			for(Person p : building.getPeople())
 			{
-				if(p.getShown())
+				if(p.getShown() && p.getSprite() != null)
 				{
 					g2.drawImage(p.getSprite(), (int) p.getC().getX(), (int) p.getC().getY(), null);
 				}

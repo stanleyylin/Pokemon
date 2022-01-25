@@ -22,19 +22,19 @@ public class MainMenu extends JPanel implements MouseListener
 	private Main main;
 	
 	// Images
-	BufferedImage title;
-	BufferedImage subtitle;
-	BufferedImage[] buttons;
-	BufferedImage bg;
-	BufferedImage credit;
-	BufferedImage[] currButtons;
+	private BufferedImage title;
+	private BufferedImage subtitle;
+	private BufferedImage[] buttons;
+	private BufferedImage bg;
+	private BufferedImage credit;
+	private BufferedImage[] currButtons;
 	
-	static Timer timer; // Timer for animation
-	static boolean timerOn; // Is the timer on?
-	static int counter;
-	static float[] opacity;
-	static JFrame frame;
-	static JLabel[] label;
+	private Timer timer; // Timer for animation
+	private boolean timerOn; // Is the timer on?
+	private int counter;
+	private float[] opacity;
+	private JLabel[] label;
+	private boolean isVisible;
 	
 	public MainMenu(Main main)
 	{
@@ -100,8 +100,6 @@ public class MainMenu extends JPanel implements MouseListener
 		
 		counter = -25;
 		timer = new Timer(35, new TimerEventHandler ());
-		timerOn = true;
-		timer.start();
 	}
 	
 	// TimeEventHandler class is for the timer.
@@ -165,11 +163,14 @@ public class MainMenu extends JPanel implements MouseListener
 		repaint();
 	}
 
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
+	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	
+	public void setVisible()
+	{
+		timerOn = true;
+		timer.start();
+	}
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;

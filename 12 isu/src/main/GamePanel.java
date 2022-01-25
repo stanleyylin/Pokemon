@@ -196,7 +196,7 @@ public class GamePanel extends JPanel implements Runnable
 	public void startBattle()
 	{
 //		main.battle(new NPC);
-		main.openBattlePanel(null, true);
+		// main.openBattlePanel(null, true);
 		//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
 		//isWIld to true (so pokeballs can be used)
 
@@ -204,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable
 	public void startNPCBattle(NPC npc)
 	{
 		System.out.println("hello");
-		main.openBattlePanel(npc, false);
+		// main.openBattlePanel(npc, false);
 	}
 	
 	public void showDialogue()
@@ -227,6 +227,10 @@ public class GamePanel extends JPanel implements Runnable
 	public void openMart()
 	{
 		main.openMart();
+	}
+	public void openBag()
+	{
+		main.openBag(0);
 	}
 	
 	public void paintComponent(Graphics g) {

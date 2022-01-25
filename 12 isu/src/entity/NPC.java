@@ -26,6 +26,15 @@ public class NPC extends Person
 		this.loseFile = loseFile;
 	}
 	
+	public NPC(String name, Rectangle collision, String direction, String firstFile, String loseFile, Pokemon[] party)
+	{
+		super(collision, direction, firstFile);
+		this.name = name;
+		this.party = party;
+		battleable = false;
+		this.loseFile = loseFile;
+	}
+	
 	public void startBattle()
 	{
 		// helo

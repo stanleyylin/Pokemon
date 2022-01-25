@@ -212,10 +212,10 @@ public class Bag extends JPanel implements MouseListener
 					items[i].setVisible(true);
 				}
 			}
-			// display the last 4
+			// display the last 2
 			else
 			{
-				for(int i = 0; i < 4; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					if(selectedItem == null)
 						selectedItem = player.getBag(itemType).get(i+5);
@@ -225,6 +225,8 @@ public class Bag extends JPanel implements MouseListener
 						items[i].updateButton(player.getBag(itemType).get(i+5), false);
 					items[i].setVisible(true);
 				}
+				items[2].setVisible(false);
+				items[3].setVisible(false);
 				items[4].setVisible(false);
 			}
 		}
@@ -427,13 +429,15 @@ public class Bag extends JPanel implements MouseListener
 				player.sortByCost(0);
 			else if(itemType == 1)
 				player.sortByCost(1);
+			firstMed = true;
+			selectedItem = null;
 			updateItems();
 		}
 		else if(buttons[4].contains(x, y))
 		{
 			if(bagState == 0) // not in battle, in the map, stanley will do dis
 			{
-				
+				main.openGamePanel();
 			}
 			if(bagState == 1) // nPC battle
 			{
@@ -462,9 +466,7 @@ public class Bag extends JPanel implements MouseListener
 			}
 			if(bagState == 1) // nPC battle
 			{
-				
 				battle.useItem(selectedItem.getName());
-				
 			}
 			if(bagState == 2) // wild pokemon battle
 			{
@@ -485,25 +487,5 @@ public class Bag extends JPanel implements MouseListener
 	public void mouseEntered(MouseEvent e) {}
 
 	public void mouseExited(MouseEvent e) {}
-	
-	// Pranav: comment this out if needed; this is for testing
-//	public static void main(String[] args)
-//	{
-//		JFrame frame = new JFrame ("Pokemon");
-//		Player play = new Player(0, 0);
-//		Battle b = new Battle(play, null);
-//		play.addOnItem("Potion", 1, 5);
-//		play.addOnItem("Master Ball", 0, 2);
-//		play.addKeyItem("Badge Case");
-//		play.addKeyItem("Town Map");
-//		Bag panel = new Bag(play, b);
-//		panel.loadScreen(0);
-//		frame.add(panel);
-//		frame.setVisible(true);
-//		frame.setResizable(false);
-//		frame.pack();
-//		frame.setLocationRelativeTo(null);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
 
 }

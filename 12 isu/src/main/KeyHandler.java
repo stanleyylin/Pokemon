@@ -38,6 +38,10 @@ public class KeyHandler implements KeyListener {
 		{
 			game.openBox();
 		}
+		if(key == KeyEvent.VK_I)
+		{
+			game.openBag();
+		}
 		
 		if (key == KeyEvent.VK_P)
 		{

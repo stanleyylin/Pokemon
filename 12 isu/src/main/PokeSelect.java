@@ -29,14 +29,13 @@ public class PokeSelect extends JPanel {
 	private Button pokemonBack; // The back button, pranav: for now
 	// this will just call Battle but later on it will call main to switch screens
 
-	private boolean inBattle;
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 30);
 
 	private PokemonButton[] pokemons;
 	private Battle battle;
 
 
-	public PokeSelect(Battle battle, Player player, int curr, boolean inBattle)
+	public PokeSelect(Battle battle, Player player, int curr)
 	{
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
 		setLayout(null);
@@ -52,7 +51,6 @@ public class PokeSelect extends JPanel {
 
 		this.player = player;
 		this.curr = curr;
-		this.inBattle = inBattle;
 		this.battle = battle;
 		PokemonButton.setImages();
 
@@ -91,10 +89,8 @@ public class PokeSelect extends JPanel {
 	// Returns: void
 	public void buttonClick(MouseEvent e)
 	{
-		// This will eventually call main to switch screen
 		if(e.getSource().equals(pokemonBack))
-		{
-			System.out.println("go back");	
+		{	
 			battle.backToMain();
 		}
 	}
@@ -167,10 +163,6 @@ public class PokeSelect extends JPanel {
 	{
 		return curr;
 	}
-	public boolean getInBattle()
-	{
-		return inBattle;
-	}
 
 	// refresh is called by PokemonButton to ensure that the buttons are displayed properly
 	// No parameters/returns void
@@ -194,10 +186,7 @@ public class PokeSelect extends JPanel {
 
 		g2.setFont(font);
 		g2.setColor(Color.white);
-		if(inBattle)
-			g2.drawString("Choose a Pokemon!", 90, 660);
-		else
-			g2.drawString("Your Pokemon Party!", 90, 660);
+		g2.drawString("Choose a Pokemon!", 90, 660);
 
 	}
 	
