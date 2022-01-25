@@ -935,6 +935,13 @@ public class Battle extends JPanel {
 		hideMoves();
 		main.openBattle();
 	}
+	
+	public void openBattle()
+	{
+		gameState = 0;
+		showButtons();
+		main.openBattle();
+	}
 
 	public Integer getLeastPPMove() {
 		TreeMap<Integer, Move> tm = new TreeMap<Integer,Move>();
@@ -1015,11 +1022,6 @@ public class Battle extends JPanel {
 			}
 		}
 		
-		if(gameState == 4)
-		{
-			
-		}
-		
 		if (message != null) 
 		{
 			updateText(g2);
@@ -1033,7 +1035,7 @@ public class Battle extends JPanel {
 		{
 			g2.drawImage(playerBall.getImage(), playerBall.getX(), playerBall.getY(), null);
 		}
-		else
+		else if(!playerBall.getVisible() ||counter > 1)
 		{
 			int pX = 400 - (player.getParty()[playerCurr].getBack().getWidth()/2);
 			int pY = 610-player.getParty()[playerCurr].getBack().getHeight();
@@ -1054,7 +1056,7 @@ public class Battle extends JPanel {
 		{
 			g2.drawImage(opponentBall.getImage(), opponentBall.getX(), opponentBall.getY(), null);
 		}
-		else
+		else if(!opponentBall.getVisible() || counter > 1)
 		{
 			int oX = 793 - (opponent.getParty()[oppCurr].getFront().getWidth()/2);
 			int oY = 320 - opponent.getParty()[oppCurr].getFront().getHeight();

@@ -31,7 +31,7 @@ public class Button extends JLabel implements MouseListener {
 		addMouseListener(this);
 	}
 	
-	public Button(PokeSelect pokeSelect, BufferedImage unselected, BufferedImage selected, int width, int height)
+	public Button(PokeSelect pokeSelect, BufferedImage unselected, BufferedImage selected, int width, int height, boolean forBattle)
 	{
 		this.pokeSelect = pokeSelect;
 		this.unselected = new ImageIcon(unselected);

@@ -109,9 +109,6 @@ public class PokemonButton extends JPanel implements MouseListener
 	// NOTE IN THE FUTURE: need to have a boolean for inbattle functionalities vs outta battle
 	public void mouseClicked(MouseEvent e) 
 	{
-
-		System.out.println(poke);
-		
 		pokeSelect.pokemonSelected(e);
 	}
 

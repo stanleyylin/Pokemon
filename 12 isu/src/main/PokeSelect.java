@@ -74,7 +74,7 @@ public class PokeSelect extends JPanel {
 			BufferedImage back2 = loader.loadImage("res/battle/back2.png");
 			back2 = back2.getSubimage(0, 0, 1050, 219);
 			back2 = loader.resize(back2, 194, 40);
-			pokemonBack = new Button(this, back1, back2, 194, 40);
+			pokemonBack = new Button(this, back1, back2, 194, 40, false);
 		}
 		catch(IOException e) {}
 		pokemonBack.setBounds(767, 630, 194, 40);
@@ -91,7 +91,7 @@ public class PokeSelect extends JPanel {
 	{
 		if(e.getSource().equals(pokemonBack))
 		{	
-			battle.backToMain();
+			battle.openBattle();
 		}
 	}
 
@@ -109,7 +109,7 @@ public class PokeSelect extends JPanel {
 			System.out.println("cant do that");
 		
 		else {
-			battle.setNextMon( getPartyNo(curMon));
+			battle.setNextMon(getPartyNo(curMon));
 //			System.out.println(curr);
 		}
 		
@@ -189,43 +189,5 @@ public class PokeSelect extends JPanel {
 		g2.drawString("Choose a Pokemon!", 90, 660);
 
 	}
-	
-	public void setupFrame() {
-		
-	}
-
-	// PRANAV: delete this, this is just for testing
-//	public static void main(String[] args)
-//	{
-//		JFrame frame = new JFrame ("Pokemon");
-//		frame.setLocationRelativeTo(null);
-//		try {
-//			BlankMon.getAllMoves();
-//			BlankMon.getAllMoveLists();
-//			BlankMon.getAllAbilities();
-//			Pokemon.addAllPokemon();
-//		} 
-//		catch (IOException e) {}
-//
-//		Player pranav = new Player(0,0);
-//		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 69));
-//		pranav.getParty()[0].setCurHP(100);
-//		pranav.addPokemonToParty(new Pokemon("Persian", "Kiwi", 32));
-//		pranav.addPokemonToParty(new Pokemon("Machamp", "Punch", 54));
-//		pranav.getParty()[2].setIsFainted(true);;
-//		pranav.addPokemonToParty(new Pokemon("Bulbasaur", "Light Bulb", 54));
-//		pranav.addPokemonToParty(new Pokemon("Jigglypuff", "Jiggle", 44));
-//		pranav.addPokemonToParty(new Pokemon("Pikachu", "Zappy", 14));
-//		PokeSelect panel = new PokeSelect(pranav, 0, true);
-//
-//		frame.setContentPane(panel);
-//		frame.setVisible(true);
-//		frame.setResizable(false);
-//		frame.pack();
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-//		frame.setLocationRelativeTo(null);
-//	}
-
-
 
 }
