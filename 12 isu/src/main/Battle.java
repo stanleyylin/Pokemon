@@ -201,7 +201,7 @@ public class Battle extends JPanel {
 			BufferedImage back2 = loader.loadImage("res/battle/back2.png");
 			back2 = back2.getSubimage(0, 0, 1050, 219);
 			back2 = loader.resize(back2, 194, 40);
-			back = new Button(this, back1, back2, 194, 40);
+			back = new Button(this, back1, back2, 194, 40, true);
 		}
 		catch(IOException e) {}
 		back.setBounds(847, 526, 194, 40);
@@ -221,25 +221,25 @@ public class Battle extends JPanel {
 		// Fight Button
 		temp1 = loader.resize(buttonSheet.getSubimage(26, 0, 74, 46), 160, 100);
 		temp2 = loader.resize(buttonSheet.getSubimage(158, 0, 74, 46), 160, 100);
-		buttons[0] = new Button(this, temp1, temp2, 160, 100);
+		buttons[0] = new Button(this, temp1, temp2, 160, 100, true);
 		buttons[0].setBounds(59, 595, 160, 100);
 
 		// Pokemon button
 		temp1 = loader.resize(buttonSheet.getSubimage(14, 46, 102, 47), 220, 101);
 		temp2 = loader.resize(buttonSheet.getSubimage(145, 46, 102, 47), 220, 101);
-		buttons[1] = new Button(this, temp1, temp2, 220, 101);
+		buttons[1] = new Button(this, temp1, temp2, 220, 101, true);
 		buttons[1].setBounds(320, 595, 220, 101);
 
 		// Bag button
 		temp1 = loader.resize(buttonSheet.getSubimage(32, 96, 88, 41), 190, 89);
 		temp2 = loader.resize(buttonSheet.getSubimage(164, 96, 88, 41), 190, 89);
-		buttons[2] = new Button(this, temp1, temp2, 190, 89);
+		buttons[2] = new Button(this, temp1, temp2, 190, 89, true);
 		buttons[2].setBounds(650, 601, 190, 89);
 
 		// Run button
 		temp1 = loader.resize(buttonSheet.getSubimage(33, 143, 60, 44), 129, 95);
 		temp2 = loader.resize(buttonSheet.getSubimage(162, 143, 60, 44), 129, 95);
-		buttons[3] = new Button(this, temp1, temp2, 129, 95);
+		buttons[3] = new Button(this, temp1, temp2, 129, 95, true);
 		buttons[3].setBounds(894, 606, 129, 95);
 
 		MoveSelect.setImages();

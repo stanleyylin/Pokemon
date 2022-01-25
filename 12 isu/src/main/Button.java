@@ -13,14 +13,16 @@ public class Button extends JLabel implements MouseListener {
 	private ImageIcon unselected;
 	private ImageIcon selected;
 	private boolean displayed;
+	private boolean forBattle;
 	private Battle battle;
 	private PokeSelect pokeSelect;
 	
-	public Button(Battle battle, BufferedImage unselected, BufferedImage selected, int width, int height)
+	public Button(Battle battle, BufferedImage unselected, BufferedImage selected, int width, int height, boolean forBattle)
 	{
 		this.battle = battle;
 		this.unselected = new ImageIcon(unselected);
 		this.selected = new ImageIcon(selected);
+		this.forBattle = forBattle;
 		displayed = true;
 		
 		setPreferredSize(new Dimension(width, height));
@@ -44,9 +46,9 @@ public class Button extends JLabel implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) 
 	{
-		if(battle == null)
+		if(!forBattle)
 			pokeSelect.buttonClick(e);
-		else
+		else if(forBattle)
 			battle.buttonClick(e);
 		setIcon(unselected);
 	}

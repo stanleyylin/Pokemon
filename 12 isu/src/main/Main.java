@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
@@ -70,8 +71,8 @@ public class Main extends JFrame {
 		battle = new Battle(this, player);
 		pokeSelect = new PokeSelect(battle, player, 0);
 		bag = new Bag(this, player, battle);
-		
 		startBattle(gary, false);
+
 	}
 	
 	public void openMainMenu()
