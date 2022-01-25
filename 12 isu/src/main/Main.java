@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import bag.Bag;
 import bag.Item;
 import box.Box;
+import entity.NPC;
 import entity.Player;
 import pokemart.PokeMart;
 import pokesetup.BlankMon;
@@ -26,6 +27,7 @@ public class Main extends JFrame {
 	private Box box;
 	private PokeSelect pokeSelect;
 	private PokeMart pokeMart;
+	private Battle battle;
 	
 	private static Player player;
 	
@@ -73,6 +75,12 @@ public class Main extends JFrame {
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
 		setContentPane(pokeMart);
+		setVisible(true);
+		pack();
+	}
+	public void openBattlePanel(NPC npc, boolean isWild)
+	{
+		setContentPane(battle);
 		setVisible(true);
 		pack();
 	}

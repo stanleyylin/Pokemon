@@ -1,9 +1,9 @@
 Bulbasaur-1,Tackle;2,Growl;3,Vine Whip;6,Growth;9,Leech Seed;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;18,Seed Bomb;21,Take Down;24,Sweet Scent;27,Synthesis;30,Worry Seed;33,Double-Edge;36,Solar Beam
 Ivysaur-1,Tackle;2,Growl;3,Vine Whip;6,Growth;9,Leech Seed;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;35,Synthesis;40,Worry Seed;45,Double-Edge;50,Solar Beam
 Venesaur-1,Petal Blizzard;1,Petal Dance;1,Tackle;1,Growl;1,Vine Whip;1,Growth;9,Leech Seed;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;37,Synthesis;44,Worry Seed;51,Double-Edge;58,Solar Beam
-Charmander-1,Scratch;1,Growl;7,Ember;10,Smokescreen;16,Dragon Rage;19,Scary Face;25,Fire Fang;28,Flame Burst;34,Slash;37,Flamethrower;43,Fire Spin;46,Inferno
-Charmeleon-1,Scratch;1,Growl;1,Ember;7,Ember;10,Smokescreen;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;39,Slash;43,Flamethrower;50,Fire Spin;54,Inferno
-Charizard-1,Dragon Claw;1,Shadow Claw;1,Air Slash;1,Scratch;7,Ember;10,Smokescreen;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;36,Wing Attack;41,Slash;47,Flamethrower;56,Fire Spin;62,Inferno;71, Heat Wave;77,Flare Blitz
+Charmander-1,Scratch;1,Growl;7,Ember;16,Dragon Rage;19,Scary Face;25,Fire Fang;28,Flame Burst;34,Slash;37,Flamethrower;43,Fire Spin;46,Inferno
+Charmeleon-1,Scratch;1,Growl;1,Ember;7,Ember;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;39,Slash;43,Flamethrower;50,Fire Spin;54,Inferno
+Charizard-1,Dragon Claw;1,Shadow Claw;1,Air Slash;1,Scratch;7,Ember;17,Dragon Rage;21,Scary Face;28,Fire Fang;32,Flame Burst;36,Wing Attack;41,Slash;47,Flamethrower;56,Fire Spin;62,Inferno;71, Heat Wave;77,Flare Blitz
 Squirtle-1,Tackle;4,Tail Whip;7,Water Gun;10,Withdraw;13,Bubble;16,Bite;19,Rapid Spin;22,Protect;25,Water Pulse;28,Aqua Tail;31,Skull Bash;34,Iron Defense;37,Rain Dance;40,Hydro Pump
 Wartortle-1,Tackle;1,Tail Whip;1,Water Gun;4,Tail Whip;7,Water Gun;13,Bubble;16,Bite;20,Rapid Spin;24,Protect;28,Water Pulse;32,Aqua Tail;36,Skull Bash;40,Iron Defense;44,Rain Dance;48,Hydro Pump
 Blastoise-1,Flash Cannon;1,Tackle;1,Tail Whip;1,Water Gun;1,Withdraw;4,Tail Whip;7,Water Gun;10,Withdraw;13,Bubble;16,Bite;20,Rapid Spin;24,Protect;28,Water Pulse;32,Aqua Tail;39,Skull Bash;46,Iron Defense;53,Rain Dance;60,Hydro Pump
@@ -14,8 +14,8 @@ Weedle-1,Poison Sting;1,String Shot;15,Bug Bite
 Kakuna-1,Harden
 Beedrill-1,Fury Attack;13,Focus Energy;16,Twineedle;19,Rage;22,Pursuit;25,Toxic Spikes;28,Pin Missle;31,Agility;34,Assurance;37,Poison Jab;40,Endeavour;45,Fell Stinger
 Pidgey-1,Tackle;5,Sand Attack;9,Gust;13,Quick Attack;17,Whirlwind;21,Twister;25,Feather Dance;29,Agility;33,Wing Attack;37,Roost;41,Tailwind;49,Air Slash;53,Hurricane
-Pidgeotto-1,Tackle;1,Sand Attack;1,Gust;13,Quick Attack;17,Whirlwind;22,Twister;27,Feater Dance;32,Agility;37,Wing Attack;42,Roost;47,Tailwind;47,Air Slash;62,Hurricane
-Pidgeot-1,Hurricane;1,Tackle;1,Sand Attack;1,Gust;1,Quick Attack;17,Whirlwind;22,Twister;27,Feater Dance;32,Agility;38,Wing Attack;44,Roost;50,Tailwind;56;62,Air Slash;68,Hurricane
+Pidgeotto-1,Tackle;1,Sand Attack;1,Gust;13,Quick Attack;17,Whirlwind;22,Twister;32,Agility;37,Wing Attack;42,Roost;47,Tailwind;47,Air Slash;62,Hurricane
+Pidgeot-1,Hurricane;1,Tackle;1,Sand Attack;1,Gust;1,Quick Attack;17,Whirlwind;22,Twister;32,Agility;38,Wing Attack;44,Roost;50,Tailwind;62,Air Slash;68,Hurricane
 Rattata-1,Tackle;1,Tail Whip;4,Quick attack;7,Focus Energy;10,Bite;13,Pursuit;16,Hyper Fang;19,Sucker Punch;22,Crunch;25,Assurance;28,Super Fang;31,Double-Edge;34,Endeavour
 Ratticate-1,Swords Dance;1,Tackle;1,Tail Whip;1,Quick Attack;1,Focus Energy;4,Quick Attack;7,Focus Energy;10,Bite;13,Pursuit;16,Hyper Fang;19,Sucker Punch;20,Scary Face;24,Crunch;29,Assurance;34,Super Fang;39,Double-Edge;44,Endeavour
 Spearow-1,Peck;1,Growl;5,Leer;9,Fury Attack;13,Pursuit;17,Aerial Ace;25,Agility;29,Assurance;33,Roost;37,Drill Peck
