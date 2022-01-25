@@ -475,24 +475,24 @@ public class Battle extends JPanel {
 
 					Move curMove = opponent.getParty()[oppCurr].getCurMoves()[enemyAttack];
 					if (curMove.getStatMod()[0] > 0)
-						message = "Enemy's attack has increased!";
+						message = "Your attack has increased!";
 					else if (curMove.getStatMod()[0] < 0)
-						message = "Enemy's attack has fallen!";
+						message = "Your attack has fallen!";
 
 					if (curMove.getStatMod()[1] > 0)
-						message = "Enemy's defense has increased!";
+						message = "Your defense has increased!";
 					else if (curMove.getStatMod()[1] < 0)
-						message = "Enemy's defense has fallen!";
+						message = "Your defense has fallen!";
 
 					if (curMove.getStatMod()[2] > 0)
-						message = "Enemy's sp. attack has increased!";
+						message = "Your sp. attack has increased!";
 					else if (curMove.getStatMod()[2] < 0)
-						message = "Enemy's sp. attack has fallen!";
+						message = "Your sp. attack has fallen!";
 
 					if (curMove.getStatMod()[3] > 0)
-						message = "Enemy's sp. defense has increased!";
+						message = "Your sp. defense has increased!";
 					else if (curMove.getStatMod()[3] < 0)
-						message = "Enemy's sp. defense has fallen!";
+						message = "Your sp. defense has fallen!";
 
 
 				}
@@ -737,6 +737,7 @@ public class Battle extends JPanel {
 			hideMoves();
 			currMove = moves[0].getName();
 			currMoveNo = 0;
+			counter = 0;
 			gameState = 4;
 			timer.start();
 		}
@@ -877,7 +878,7 @@ public class Battle extends JPanel {
 	{
 		for(MoveSelect m : moves)
 		{
-			if(m.getName() != null)
+			if(m!= null)
 			{
 				Container parent = m.getParent();
 				parent.remove(m);

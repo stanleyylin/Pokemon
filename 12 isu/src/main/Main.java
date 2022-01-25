@@ -63,6 +63,8 @@ public class Main extends JFrame {
 		temp[1] = new Pokemon ("Fearow", "birdy", 25);
 		gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
 		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+		player.addPokemonToParty(new Pokemon ("Fearow", "swagg", 33));
+
 		//----------
 		
 		battle = new Battle(this, player);
