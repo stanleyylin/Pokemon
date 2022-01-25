@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import bag.Bag;
 import bag.Item;
 import box.Box;
+import entity.NPC;
 import entity.Player;
 import pokesetup.BlankMon;
 import pokesetup.Pokemon;
@@ -24,6 +25,7 @@ public class Main extends JFrame {
 	private Bag bag;
 	private Box box;
 	private PokeSelect pokeSelect;
+	private Battle battle;
 	
 	private static Player player;
 	
@@ -38,6 +40,8 @@ public class Main extends JFrame {
 		mainMenu = new MainMenu(this);
 		gamePanel = new GamePanel(this, player);
 		box = new Box(this, player);
+		battle = new Battle(this, player);
+		
 		try 
 		{
 			BlankMon.getAllMoves();
@@ -64,6 +68,14 @@ public class Main extends JFrame {
 		setContentPane(box);
 		setVisible(true);
 		pack();
+	}
+	
+	public void openBattlePanel(NPC npc, boolean isWild) {
+		battle.newBattle(player, npc, isWild);
+		setContentPane(battle);
+		setVisible(true);
+		pack();
+		
 	}
 
 	public static void main(String[] args) 

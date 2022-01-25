@@ -38,6 +38,11 @@ public class KeyHandler implements KeyListener {
 		{
 			game.openBox();
 		}
+		
+		if (key == KeyEvent.VK_P)
+		{
+			game.startBattle();
+		}
 		// main.moving - if its 0, its resting, if its above 0 its moving
 		if(game.getInteract() && key == KeyEvent.VK_X)
 		{

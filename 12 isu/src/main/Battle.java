@@ -30,6 +30,7 @@ import java.awt.font.TextAttribute;
 public class Battle extends JPanel {
 
 	private boolean wild;
+	private Main main;
 	private Random random = new Random();
 
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
@@ -86,11 +87,12 @@ public class Battle extends JPanel {
 	private PokeSelect selectionMenu;
 	private Bag bag;
 
-	public Battle(Player player, NPC opponent)
+	public Battle(Main main, Player player)
 	{
+		this.main = main;
 		this.player = player;
 		playerCurr = 0;
-		this.opponent = opponent;
+//		this.opponent = opponent;
 		this.isConfuse = false;
 		oppCurr = 0;
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
@@ -267,7 +269,8 @@ public class Battle extends JPanel {
 	// TimeEventHandler class is for the timer.
 	private class TimerEventHandler implements ActionListener
 	{
-		private String name = opponent.getName();
+		
+//		private String name = opponent.getName();
 		private int enemyAttack;
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
@@ -1110,7 +1113,7 @@ public class Battle extends JPanel {
 			g2.drawString(Integer.toString(opponent.getParty()[oppCurr].getLevel()), 328, 133);
 
 			// Opponent Pokeballs
-			if(!wild)
+			if(!isWild)
 			{
 				int counter = 0;
 				int pokeBallGap = 28;
@@ -1267,50 +1270,50 @@ public class Battle extends JPanel {
 		return player.getParty()[playerCurr];
 	}
 
-	public static void main(String[] args)
-	{
-		frame = new JFrame ("Pokemon");
-		try {
-			BlankMon.getAllMoves();
-			BlankMon.getAllMoveLists();
-			BlankMon.getAllAbilities();
-			Pokemon.addAllPokemon();
-		} 
-		catch (IOException e) {}
-
-		Player pranav = new Player(0,0);
-		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 7));
-		pranav.addPokemonToParty(new Pokemon("Charmander", "catty", 32));
-		pranav.addOnItem("Potion", 1, 5);
-		pranav.addOnItem("Master Ball", 0, 2);
-		pranav.addKeyItem("Badge Case");
-		pranav.addKeyItem("Town Map");
-
-
-		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
-		Pokemon[] temp = new Pokemon[6];
-		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
-		temp[1] = new Pokemon ("Fearow", "birdy", 25);
-		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
-//		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-//		gary.getParty()[0].setCurHP(2);;
-
-		// gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
-//		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
-//		gary.getParty()[1].setCurHP(2);;
-
-		panel = new Battle(pranav, gary);
-
-		panel.newBattle(pranav, gary, false);
-		frame.setContentPane(panel);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		frame.setLocationRelativeTo(null);
-
-
-	}
+//	public static void main(String[] args)
+//	{
+//		frame = new JFrame ("Pokemon");
+//		try {
+//			BlankMon.getAllMoves();
+//			BlankMon.getAllMoveLists();
+//			BlankMon.getAllAbilities();
+//			Pokemon.addAllPokemon();
+//		} 
+//		catch (IOException e) {}
+//
+//		Player pranav = new Player(0,0);
+//		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 7));
+//		pranav.addPokemonToParty(new Pokemon("Charmander", "catty", 32));
+//		pranav.addOnItem("Potion", 1, 5);
+//		pranav.addOnItem("Master Ball", 0, 2);
+//		pranav.addKeyItem("Badge Case");
+//		pranav.addKeyItem("Town Map");
+//
+//
+//		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
+//		Pokemon[] temp = new Pokemon[6];
+//		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
+//		temp[1] = new Pokemon ("Fearow", "birdy", 25);
+//		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
+////		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
+////		gary.getParty()[0].setCurHP(2);;
+//
+//		// gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+////		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
+////		gary.getParty()[1].setCurHP(2);;
+//
+//		panel = new Battle(pranav, gary);
+//
+//		panel.newBattle(pranav, gary, false);
+//		frame.setContentPane(panel);
+//		frame.setVisible(true);
+//		frame.setResizable(false);
+//		frame.pack();
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+//		frame.setLocationRelativeTo(null);
+//
+//
+//	}
 
 
 }
