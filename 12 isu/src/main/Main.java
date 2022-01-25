@@ -81,6 +81,7 @@ public class Main extends JFrame {
 		player.addOnItem("Potion", 1, 5);
 		player.addOnItem("Full Heal", 1, 5);
 		player.addOnItem("Master Ball", 0, 5);
+		player.addKeyItem("Town Map");
 
 
 //		startBattle(gary, true);
