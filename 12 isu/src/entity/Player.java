@@ -24,7 +24,7 @@ public class Player {
 	private BufferedImage[] sprites;
 	private boolean interacting;
 	private Person talkingTo;
-	
+
 	private ArrayList<Pokemon> box;
 	private Pokemon[] party;
 	private int pokeDollars;
@@ -32,7 +32,8 @@ public class Player {
 	private ArrayList<Item> medicine;
 	private ArrayList<Item> keyItems;
 	private LoadItems loadItems;
-	
+	private int badges;
+
 	public final static int width = 50;
 	public final static int height = 62;
 	public final int speed = 5;
@@ -43,23 +44,24 @@ public class Player {
 		this.screenY = screenY;
 
 		direction = "down";
-		
+
 		this.party = new Pokemon[6];
 		this.box = new ArrayList<Pokemon>();
 		SpriteSheet player = new SpriteSheet("char1.png");
 		sprites = player.getSprites();
-		
+
 		interacting = false;
 		talkingTo = null;
 		pokeDollars = 0;
-		
+		badges = 0;
+
 		pokeballs = new ArrayList<Item>();
 		medicine = new ArrayList<Item>();
 		keyItems = new ArrayList<Item>();
-		
+
 		loadItems();
 	}
-	
+
 	public void loadItems()
 	{
 		loadItems = new LoadItems();
@@ -68,7 +70,7 @@ public class Player {
 		pokeballs.add(loadItems.getItem("Great Ball"));
 		pokeballs.add(loadItems.getItem("Ultra Ball"));
 		pokeballs.add(loadItems.getItem("Master Ball"));
-		
+
 		// Medicine
 		medicine.add(loadItems.getItem("Potion"));
 		medicine.add(loadItems.getItem("Super Potion"));
@@ -77,11 +79,11 @@ public class Player {
 		medicine.add(loadItems.getItem("Full Heal"));
 		medicine.add(loadItems.getItem("Ether"));
 		medicine.add(loadItems.getItem("Elixir"));
-		
+
 		keyItems.add(loadItems.getItem("Town Map"));
 		keyItems.add(loadItems.getItem("Badge Case"));
 	}
-	
+
 	public void healParty() {
 		for (Pokemon p1: party)
 		{
@@ -89,51 +91,51 @@ public class Player {
 				p1.heal();
 		}
 	}
-	
-	
-	
+
+
+
 	public void replace(int n, Pokemon p1) {
 		this.party[n] = p1;
 	}
-	
+
 	public void battle(NPC enemy) {
-		
+
 		Pokemon curFriendlyMon = this.party[0];
 		Pokemon curEnemyMon = enemy.getParty()[0];
-		
+
 		//switch to battle screen
-		
-		
-//		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
-			//allow to pick attack/bag/pokemon/run
-			
-			//if attack
-			
-			//pick attack from buttons(0,1,2,3)
-			int selectedAttack = 1;
-			
-			curFriendlyMon.attack(selectedAttack, curEnemyMon);
-			//check if is dead & switch curEnemy mon/end battle if they run out
-//			if (curEnemyMon.)
-			
-			//randomly generates move(eventually should generate optimal move)
-			int enemyAttack = (int)Math.random() * (3 - 0 + 1) + 0;
-			
-			
-			//if bag
-			//implement items
-		
+
+
+		//		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
+		//allow to pick attack/bag/pokemon/run
+
+		//if attack
+
+		//pick attack from buttons(0,1,2,3)
+		int selectedAttack = 1;
+
+		curFriendlyMon.attack(selectedAttack, curEnemyMon);
+		//check if is dead & switch curEnemy mon/end battle if they run out
+		//			if (curEnemyMon.)
+
+		//randomly generates move(eventually should generate optimal move)
+		int enemyAttack = (int)Math.random() * (3 - 0 + 1) + 0;
+
+
+		//if bag
+		//implement items
+
 		if (findNextAvailableMon() == null)
 			System.out.println("you lost");
 		else if (findNextAvailableMon() == null)
 			System.out.println("you won!");
-		
+
 		//switch back to game screen
 
-		
-		
+
+
 	}
-	
+
 	public Pokemon findNextAvailableMon() {
 		for (Pokemon p1 : this.party) {
 			if (p1 == null)
@@ -148,18 +150,18 @@ public class Player {
 
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();
-//		System.out.println(temp);
+		//		System.out.println(temp);
 		if (temp >= 0)
 			party[temp] = pokemon;
-//		else
-//			System.out.println("your party is full");
+		//		else
+		//			System.out.println("your party is full");
 	}
-	
+
 	public int findNextPartySlot() {
 		for (int i = 0; i < 6; i++) 
 			if (party[i] == null )
 				return i;
-			return -1;
+		return -1;
 	}
 
 	public void printPokemon() {
@@ -167,10 +169,10 @@ public class Player {
 			if (p1 == null)
 				System.out.println("empty slot");
 			else
-			System.out.println(p1 + "\n");
+				System.out.println(p1 + "\n");
 		}
 	}
-	
+
 	public void sortByName(int bagNum)
 	{
 		if(bagNum == 0)
@@ -180,7 +182,7 @@ public class Player {
 		else
 			Collections.sort(keyItems);
 	}
-	
+
 	public void sortByCost(int bagNum)
 	{
 		if(bagNum == 0)
@@ -188,7 +190,7 @@ public class Player {
 		else if(bagNum == 1)
 			Collections.sort(medicine, new SortItemByCost());
 	}
-	
+
 	// Getters and Setters
 	public Pokemon[] getParty()
 	{
@@ -227,7 +229,7 @@ public class Player {
 	{
 		return pokeDollars;
 	}
-	
+
 	public void setPokeDollars(int set)
 	{
 		pokeDollars = set;
@@ -272,7 +274,7 @@ public class Player {
 			medicine.get(medicine.indexOf(temp)).addItems(quantity);
 		}
 	}
-	
+
 	public ArrayList<Pokemon> getBox()
 	{
 		return box;
@@ -280,6 +282,15 @@ public class Player {
 	public void addToBox(Pokemon p)
 	{
 		box.add(p);
+	}
+
+	public int getBadges() {
+		return this.badges;
+	}
+
+	public void addBadges() {
+		if (this.badges> 3)
+			this.badges++;
 	}
 
 }
