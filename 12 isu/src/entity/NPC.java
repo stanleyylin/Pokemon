@@ -39,6 +39,14 @@ public class NPC extends Person
 	{
 		// helo
 	}
+	
+	public void healParty() {
+		for (Pokemon p1: party)
+		{
+			if(p1 != null)
+				p1.heal();
+		}
+	}
 
 	public void generateParty(int maxMons, int minLvl, int maxLvl) {
 

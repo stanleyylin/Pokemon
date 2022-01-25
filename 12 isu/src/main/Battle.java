@@ -261,11 +261,44 @@ public class Battle extends JPanel {
 		// This method is called by the Timer, taking an ActionEvent as a parameter and returning void.
 		public void actionPerformed (ActionEvent event)
 		{
+			
+			if (gameState == -1) {
+				
+				if (isWild) {
+					if (counter == 0)
+						message = "got away safely!";
+					else if (counter >=50) {
+						counter = 0;
+						message = "";
+						endBattle(false);
+						timer.stop();
+						return;
+					}
+				}
+				else {
+					if (counter == 0)
+						message = "you can't run from a trainer!";
+					else if (counter >=50) {
+						counter = 0;
+						message = "";
+						gameState = 0;
+						showButtons();
+						timer.stop();
+					}
+				}
+				
+				
+				
+			}
+			
+			
+			
+			//within gamestate = -1 ---> if isWild "you got away" and then go to endBattle (false) else "you cant run from a trainer" and go to gameState 0 and reset stuff
+
+			
 			if(gameState == 1)
 			{
-				message = "You are being challenged by " 
-//			+ name 
-			+ "!";
+				message = "You are being challenged!";
 				if(counter == 50)
 				{
 					gameState = 2;
@@ -755,6 +788,17 @@ public class Battle extends JPanel {
 				main.openBag(1);
 
 		}
+		else if (e.getSource().equals(buttons[3])) {
+			
+			hideButtons();
+			
+			
+				gameState = -1;
+				counter = 0;
+				timer.start();
+				
+			
+		}
 		// Go back to the main buttons
 		else if(e.getSource().equals(back))
 		{
@@ -979,7 +1023,6 @@ public class Battle extends JPanel {
 		}
 		
 		
-		//ADD LINE TO SWITCH BACK TO BATTLE SCREEN HER
 		if(s.equals("Poke Ball")) {
 			gameState = 9;
 			curCatchChance = 1;
@@ -1334,9 +1377,10 @@ public class Battle extends JPanel {
 		oppCurr = 0;
 		isWild = isW;
 		intro = true;
+		opponent.healParty();
 		gameState = 1;
-		timer.start();
 		counter = 0;
+		timer.start();
 	}
 
 	public void setPlayerCur(int i) {

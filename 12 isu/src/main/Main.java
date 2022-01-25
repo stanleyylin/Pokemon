@@ -72,7 +72,6 @@ public class Main extends JFrame {
 		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
 		player.addToBox(new Pokemon ("Bulbasaur", "hello", 33));
 
-
 		//----------
 		
 		battle = new Battle(this, player);
