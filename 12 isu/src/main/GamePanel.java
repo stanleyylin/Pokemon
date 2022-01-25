@@ -41,7 +41,9 @@ public class GamePanel extends JPanel implements Runnable
 	private Player player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 ; 
 	
-	public GamePanel(Main main, Player player)
+	public GamePanel(
+			Main main, Player player
+			)
 	{	
 		this.main = main;
 		this.player = player;
@@ -49,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
-	    BufferedImage pokecentre1 = null, house1 = null;
+	    BufferedImage pokecentre1 = null, house1 = null, pokeMart1 = null, lab = null, playerHouse = null;
 	    
 	    // Loading the images
 	    LoadImage loader = new LoadImage();
@@ -61,6 +63,13 @@ public class GamePanel extends JPanel implements Runnable
 			pokecentre1 = loader.resize(pokecentre1, 739, 550);
 			house1 = loader.loadImage("res/house1.jpeg");
 			house1 = loader.resize(house1, 582, 436);
+			pokeMart1 = loader.loadImage("res/pokemart.png");
+			pokeMart1 = loader.resize(pokeMart1, 430, 493);
+			lab = loader.loadImage("res/lab.png");
+			lab = loader.resize(lab, 769, 513);
+			playerHouse = loader.loadImage("res/playerHouse.png");
+			playerHouse = loader.resize(playerHouse, 498, 288);
+			
 		}
 		catch(IOException e) {}
 		
@@ -83,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions1[11] = new Rectangle(720,480,75,50);
 
 	    Building[] buildings1 = new Building[4];
-		buildings1[0] = new Building(new Rectangle(390, 411, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
+		buildings1[0] = new Building(new Rectangle(390, 411, 45, 30), new Rectangle(445, 560, 25, 30), new Person[0], new Rectangle[0], playerHouse);//doesnt go back
 		buildings1[1] = new Building(new Rectangle(930, 390, 50, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[2] = new Building(new Rectangle(450, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[3] = new Building(new Rectangle(905, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
@@ -104,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions2[5] = new Rectangle(1230,960,500,500);
 	    collisions2[6] = new Rectangle(285,1011,669,500);
 	    collisions2[7] = new Rectangle(690,375,300,60);
-	    collisions2[8] = new Rectangle(1215,195,400,220);
+	    collisions2[8] = new Rectangle(1215,195,400,180);
 	    collisions2[9] = new Rectangle(276,675,180,185);
 	    collisions2[10] = new Rectangle(684,640,267,210);
 	    collisions2[11] = new Rectangle(654,819,36,46);
@@ -114,10 +123,10 @@ public class GamePanel extends JPanel implements Runnable
 
 	    Building[] buildings2 = new Building[5];
 		buildings2[0] = new Building(new Rectangle(300, 890, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
-		buildings2[1] = new Building(new Rectangle(345, 399, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b oaks lab
-		buildings2[2] = new Building(new Rectangle(780, 408, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
-		buildings2[3] = new Building(new Rectangle(1260, 420, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should be pokemart
-		buildings2[4] = new Building(new Rectangle(738, 870, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
+		buildings2[1] = new Building(new Rectangle(345, 399, 45, 28), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], lab);
+		buildings2[2] = new Building(new Rectangle(780, 420, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
+		buildings2[3] = new Building(new Rectangle(1300, 260, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1); //DOESNT WORK
+		buildings2[4] = new Building(new Rectangle(738, 900, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 
 	    Person[] people2 = new Person[1];
 		people2[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
@@ -129,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable
 	    //4. Oreburgh City
 	    
 	    Rectangle[] collisions4 = new Rectangle[12];
-	    collisions4[0] = new Rectangle(350,0,1560,510);
+	    collisions4[0] = new Rectangle(350,0,1560,400);
 	    collisions4[1] = new Rectangle(0,0,330,450);
 	    collisions4[2] = new Rectangle(0,690,426,456);
 	    collisions4[3] = new Rectangle(426,1065,2500,2500);
@@ -140,14 +149,14 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions4[8] = new Rectangle(2130,222,1000,354);
 	    collisions4[9] = new Rectangle(2265,0,1000,195);
 	    collisions4[10] = new Rectangle(2604,600,1000,1000);
-	    collisions4[11] = new Rectangle(2175,708,1000,190);
+	    collisions4[11] = new Rectangle(2175,708,1000,70);
 
 
 	    
 	    Building[] buildings4 = new Building[3];
 		buildings4[0] = new Building(new Rectangle(1224, 834, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b gym
 		buildings4[1] = new Building(new Rectangle(1380, 465, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
-		buildings4[2] = new Building(new Rectangle(2235, 855, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should be pokemart
+		buildings4[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 
 	    
 	    Person[] people4 = new Person[1];
@@ -172,7 +181,7 @@ public class GamePanel extends JPanel implements Runnable
 	    Building[] buildings5 = new Building[3];
 		buildings5[0] = new Building(new Rectangle(930, 1605, 45, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b champion battle
 		buildings5[1] = new Building(new Rectangle(750, 2175, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
-		buildings5[2] = new Building(new Rectangle(1140, 1845, 45, 50), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should be pokemart
+		buildings5[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 
 	    Person[] people5 = new Person[1];
 		people5[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
@@ -213,7 +222,7 @@ public class GamePanel extends JPanel implements Runnable
 		Rectangle[] collisionsPC = new Rectangle[0];
 		buildings10[0] = new Building(new Rectangle(1052, 882, 62, 56), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings10[1] = new Building(new Rectangle(818, 894, 62, 56), new Rectangle(535, 567, 81, 32), peoplePC, collisionsPC, pokecentre1);
-		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should be pokemart
+		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 		buildings10[3] = new Building(new Rectangle(2430, 915, 45, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b GYM
 
 		//-----
@@ -249,7 +258,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(heartHome,300,1200);
+		camera = new Camera(twinLeaf,300,1200);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;

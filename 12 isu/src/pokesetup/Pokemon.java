@@ -160,6 +160,7 @@ public class Pokemon {
 		System.out.println("pokemon has lvled up");
 		int lostHP = this.HPstat-this.curHP;
 		this.level++;
+		generateMoves();
 		updateAllStats();		
 		this.heal();
 		this.curHP = this.curHP-lostHP;
@@ -186,13 +187,13 @@ public class Pokemon {
 
 	public boolean equals (Object o) {
 		Pokemon p = (Pokemon) o;
-		if (this.name.equals(p.name))
+		if (this.name.equals(p.name) && this.level == p.level)
 			return true;
 		else 
 			return false;
 	}
 
-	//takes the amount stats are to be modified and 
+	//takes the amount stats are to be modified and finds the actual multiplier
 	public double getStatModifier(int n) {
 		double d = (double)n;
 
