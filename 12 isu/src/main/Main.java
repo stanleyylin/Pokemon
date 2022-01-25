@@ -65,13 +65,23 @@ public class Main extends JFrame {
 		gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
 		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
 		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+
 
 		//----------
 		
 		battle = new Battle(this, player);
 		pokeSelect = new PokeSelect(battle, player, 0);
 		bag = new Bag(this, player, battle);
-		startBattle(gary, false);
+		player.addOnItem("Great Ball", 0, 5);
+		player.addOnItem("Potion", 1, 5);
+		player.addOnItem("Master Ball", 0, 5);
+
+
+		startBattle(gary, true);
 
 	}
 	
@@ -130,6 +140,8 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	
+	
 
 	//
 	//selectionMenu = new PokeSelect(this, player, 0, true);

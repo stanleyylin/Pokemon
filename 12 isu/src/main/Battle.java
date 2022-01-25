@@ -69,6 +69,7 @@ public class Battle extends JPanel {
 	private boolean opponentIsFainted;
 	private boolean isWild;
 	private boolean justEvolved = false;
+	private double curCatchChance = 0;
 
 //	int pokeX = 792;
 //	int pokeY = 100;
@@ -673,7 +674,7 @@ public class Battle extends JPanel {
 						justEvolved = false;
 						counter = 0;
 						message = "";
-						endBattle(true);
+						endBattle(false);
 						timer.stop();
 						return;
 					}
@@ -686,6 +687,38 @@ public class Battle extends JPanel {
 						timer.stop();
 						return;
 					}
+				}
+			}
+			
+			if (gameState == 9) {
+				if (counter == 0) {
+					message = "you tried to catch " + opponent.getParty()[oppCurr].getName();
+				}
+				if (counter == 50) {
+					if (catchPokemon()) {
+						message = "you caught it!";
+						if (player.findNextPartySlot() >= 0)
+						player.addPokemonToParty(opponent.getParty()[oppCurr]);
+						else 
+							player.addToBox(opponent.getParty()[oppCurr]);
+						
+						for (Pokemon p1 : player.getParty()) 
+							if (p1 != null)
+							System.out.println(p1.getName());
+
+						
+					}
+					else 
+						message = "it got away...";
+						
+				}
+				
+				else if (counter >= 100) {
+					counter = 0;
+					message = "";
+					endBattle(false);
+					timer.stop();
+					return;
 				}
 			}
 
@@ -782,6 +815,8 @@ public class Battle extends JPanel {
 		//if(isPlayer)
 		//trigger the blackkscreen & pokemon centre animation
 
+		if (!isPlayer)
+			main.openGamePanel();
 		//else
 		//switch the screen back to overworld and have them give you dialogue + money
 	}
@@ -897,29 +932,89 @@ public class Battle extends JPanel {
 	public void useItem(String s) {
 
 		main.openBattle();
-		if (s.equals("Potion"))
+		
+		if (s.equals("Potion")) {
+			System.out.print("test");
 			player.getParty()[playerCurr].heal(20);
-		if (s.equals("Super Potion"))
+			gameState = 5;
+
+		}
+		if (s.equals("Super Potion")) {
 			player.getParty()[playerCurr].heal(50);
-		if (s.equals("Hyper Potion"))
+			gameState = 5;
+
+		}
+		
+		if (s.equals("Hyper Potion")) {
 			player.getParty()[playerCurr].heal(200);
-		if (s.equals("Full Heal"))
+			gameState = 5;
+
+		}
+		
+		if (s.equals("Full Heal")) {
 			player.getParty()[playerCurr].setStatus(null);
-		if (s.equals("Full Restore"))
+			gameState = 5;
+
+		}
+		
+		if (s.equals("Full Restore")) {
 			player.getParty()[playerCurr].heal();
+			gameState = 5;
+
+		}
+		
 		if (s.equals("Ether")) {
 			int n = getLeastPPMove();
 			int cur = player.getParty()[playerCurr].getCurMoves()[n].getCurPP();
 			player.getParty()[playerCurr].getCurMoves()[n].setCurPP(cur + 10);
+			gameState = 5;
+
 		}
+		
 		if (s.equals("Elixir")) {
 			for (Move m : player.getParty()[playerCurr].getCurMoves())
 				m.setCurPP(m.getCurPP() + 10);
+			gameState = 5;
+
+		}
+		
+		
+		//ADD LINE TO SWITCH BACK TO BATTLE SCREEN HER
+		if(s.equals("Poke Ball")) {
+			gameState = 9;
+			curCatchChance = 1;
+		}
+		if(s.equals("Great Ball")) {
+			main.openBattle();
+			gameState = 9;
+			curCatchChance = 1.5;
+		}
+		if(s.equals("Ultra Ball")) {
+			gameState = 9;
+			curCatchChance = 2;
+		}
+		if(s.equals("Master Ball")) {
+			gameState = 9;
+			curCatchChance = 255;
 		}
 
-
-		gameState = 5;
+		counter = 0;
 		timer.start();
+	}
+	
+	public boolean catchPokemon() {
+//		int catchNum = (int)  (((3 * opponent.getParty()[oppCurr].getHPStat() - 2 * opponent.getParty()[oppCurr].getCurHP()) * 150 * curCatchChance)/3 * opponent.getParty()[oppCurr].getHPStat());
+//		if (opponent.getParty()[oppCurr].getStatus() != null)
+//			catchNum *= 2;
+//		
+//		int testNum = (int) (Math.random() * 255)+1;
+//		
+//		if (catchNum <= testNum)
+//			return true;
+//		return false;
+		
+		return random.nextBoolean();
+		
 	}
 
 	public boolean checkForEvolve() {
@@ -932,7 +1027,8 @@ public class Battle extends JPanel {
 	public void backToMain() {
 		gameState = 0;
 		showButtons();
-		hideMoves();
+//		hideMoves();
+//		showMoves(player.getParty()[playerCurr].getAttacks());
 		main.openBattle();
 	}
 	

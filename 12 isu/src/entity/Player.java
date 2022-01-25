@@ -90,6 +90,8 @@ public class Player {
 		}
 	}
 	
+	
+	
 	public void replace(int n, Pokemon p1) {
 		this.party[n] = p1;
 	}
