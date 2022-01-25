@@ -506,6 +506,10 @@ public class Pokemon {
 	public int[] getStatMods() {
 		return this.curMonStatMods;
 	}
+	
+	public static TreeMap<Integer,BlankMon> getStatsForEvolve(){
+		return statsForEvolve;
+	}
 
 
 

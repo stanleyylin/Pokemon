@@ -25,7 +25,7 @@ public class NPC extends Person
 		battleable = false;
 		this.loseFile = loseFile;
 	}
-	
+
 	public NPC(String name, Rectangle collision, String direction, String firstFile, String loseFile, Pokemon[] party)
 	{
 		super(collision, direction, firstFile);
@@ -34,10 +34,22 @@ public class NPC extends Person
 		battleable = false;
 		this.loseFile = loseFile;
 	}
-	
+
 	public void startBattle()
 	{
 		// helo
+	}
+
+	public void generateParty(int maxMons, int minLvl, int maxLvl) {
+
+		int pSize = 1+ (int) (Math.random() * maxMons);
+
+		for (int i = 0; i< pSize; i++) {
+			int newLvl= minLvl+ (int) (Math.random() * (maxLvl-minLvl+1));
+			int newID = 1 + (int) (Math.random() * (151-1)+1);
+			party[i] = new Pokemon(Pokemon.getStatsForEvolve().get(newLvl).getName(),Pokemon.getStatsForEvolve().get(newLvl).getName(),newLvl);
+		}
+
 	}
 
 	public void addPokemonToParty(Pokemon pokemon) {
@@ -64,7 +76,7 @@ public class NPC extends Person
 				System.out.println(p1 + "\n");
 		}
 	}
-	
+
 	//	public Pokemon findNextAvailableMon() {
 	//		for (Pokemon p1 : this.party) {
 	//			if (p1 == null)
