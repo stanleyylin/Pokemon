@@ -41,10 +41,10 @@ public class GamePanel extends JPanel implements Runnable
 	private Player player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 ; 
 	
-	public GamePanel()
+	public GamePanel(Main main, Player player)
 	{	
-//		this.main = main;
-//		this.player = player;
+		this.main = main;
+		this.player = player;
 		
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -419,18 +419,18 @@ public class GamePanel extends JPanel implements Runnable
 		interact = set;
 	}
 	
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame ("Pokemon");
-		GamePanel panel = new GamePanel();
-		
-		frame.add(panel);
-		frame.addKeyListener(keyHandler);
-		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	public static void main(String[] args)
+//	{
+//		JFrame frame = new JFrame ("Pokemon");
+//		GamePanel panel = new GamePanel();
+//		
+//		frame.add(panel);
+//		frame.addKeyListener(keyHandler);
+//		frame.setVisible(true);
+//		frame.setResizable(false);
+//		frame.pack();
+//		frame.setLocationRelativeTo(null);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 
 }
