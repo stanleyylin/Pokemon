@@ -16,10 +16,12 @@ import java.awt.event.MouseListener;
 
 import main.Battle;
 import main.GamePanel;
+import main.Main;
 
-public class Bag extends JPanel implements MouseListener{
-	
-	private Player main; // The player
+public class Bag extends JPanel implements MouseListener
+{
+	private Main main;
+	private Player player; // The player
 	
 	private BufferedImage bg; // Background
 	private BufferedImage[] bagSprites; // left, right, down, up, back buttons
@@ -49,9 +51,10 @@ public class Bag extends JPanel implements MouseListener{
 	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 12);
 	
 	// Constructor
-	public Bag(Player p, Battle battle)
+	public Bag(Main main, Player player, Battle battle)
 	{
-		this.main = p;
+		this.main = main;
+		this.player = player;
 		this.battle = battle;
 		visible = false;
 		loadImages();
@@ -201,11 +204,11 @@ public class Bag extends JPanel implements MouseListener{
 				for(int i = 0; i < 5; i++)
 				{
 					if(selectedItem == null) // set first item as selected
-						selectedItem = main.getBag(itemType).get(i);
-					if(main.getBag(itemType).get(i).equals(selectedItem))
-						items[i].updateButton(main.getBag(itemType).get(i), true);
+						selectedItem = player.getBag(itemType).get(i);
+					if(player.getBag(itemType).get(i).equals(selectedItem))
+						items[i].updateButton(player.getBag(itemType).get(i), true);
 					else
-						items[i].updateButton(main.getBag(itemType).get(i), false);
+						items[i].updateButton(player.getBag(itemType).get(i), false);
 					items[i].setVisible(true);
 				}
 			}
@@ -215,11 +218,11 @@ public class Bag extends JPanel implements MouseListener{
 				for(int i = 0; i < 4; i++)
 				{
 					if(selectedItem == null)
-						selectedItem = main.getBag(itemType).get(i+5);
-					if(main.getBag(itemType).get(i+5).equals(selectedItem))
-						items[i].updateButton(main.getBag(itemType).get(i+5), true);
+						selectedItem = player.getBag(itemType).get(i+5);
+					if(player.getBag(itemType).get(i+5).equals(selectedItem))
+						items[i].updateButton(player.getBag(itemType).get(i+5), true);
 					else
-						items[i].updateButton(main.getBag(itemType).get(i+5), false);
+						items[i].updateButton(player.getBag(itemType).get(i+5), false);
 					items[i].setVisible(true);
 				}
 				items[4].setVisible(false);
@@ -229,19 +232,19 @@ public class Bag extends JPanel implements MouseListener{
 		else
 		{
 			// display the item buttons
-			for(int i = 0; i < main.getBag(itemType).size(); i++)
+			for(int i = 0; i < player.getBag(itemType).size(); i++)
 			{
 				if(selectedItem == null)
-					selectedItem = main.getBag(itemType).get(i);
+					selectedItem = player.getBag(itemType).get(i);
 				
-				if(main.getBag(itemType).get(i).equals(selectedItem))
-					items[i].updateButton(main.getBag(itemType).get(i), true);
+				if(player.getBag(itemType).get(i).equals(selectedItem))
+					items[i].updateButton(player.getBag(itemType).get(i), true);
 				else
-					items[i].updateButton(main.getBag(itemType).get(i), false);
+					items[i].updateButton(player.getBag(itemType).get(i), false);
 				items[i].setVisible(true);
 			}
 			// hide the rest of the buttons
-			for(int i = main.getBag(itemType).size(); i < 5; i++)
+			for(int i = player.getBag(itemType).size(); i < 5; i++)
 				items[i].setVisible(false);
 		}
 		this.repaint();
@@ -409,11 +412,11 @@ public class Bag extends JPanel implements MouseListener{
 		else if(buttons[2].contains(x, y)) // sort by name
 		{
 			if(itemType == 0)
-				main.sortByName(0);
+				player.sortByName(0);
 			else if(itemType == 1)
-				main.sortByName(1);
+				player.sortByName(1);
 			else if(itemType == 2)
-				main.sortByName(2);
+				player.sortByName(2);
 			firstMed = true;
 			selectedItem = null;
 			updateItems();
@@ -421,9 +424,9 @@ public class Bag extends JPanel implements MouseListener{
 		else if(buttons[3].contains(x, y)) // sort by cost, n/a for keyItems
 		{
 			if(itemType == 0)
-				main.sortByCost(0);
+				player.sortByCost(0);
 			else if(itemType == 1)
-				main.sortByCost(1);
+				player.sortByCost(1);
 			updateItems();
 		}
 		else if(buttons[4].contains(x, y))

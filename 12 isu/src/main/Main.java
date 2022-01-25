@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.HeadlessException;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,10 +10,12 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import bag.Bag;
 import bag.Item;
 import box.Box;
+import entity.NPC;
 import entity.Player;
 import pokemart.PokeMart;
 import pokesetup.BlankMon;
@@ -26,6 +29,9 @@ public class Main extends JFrame {
 	private Box box;
 	private PokeSelect pokeSelect;
 	private PokeMart pokeMart;
+	private Battle battle;
+	
+	private JPanel lastScreen;
 	
 	private static Player player;
 	
@@ -41,6 +47,15 @@ public class Main extends JFrame {
 		gamePanel = new GamePanel(this, player);
 		box = new Box(this, player);
 		pokeMart = new PokeMart(this, player);
+		
+		Pokemon[] temp = new Pokemon[6];
+		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
+		temp[1] = new Pokemon ("Fearow", "birdy", 25);
+		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
+		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
+		battle = new Battle(this, player);
+		
+		bag = new Bag(this, player, battle);
 		
 		try 
 		{
@@ -76,9 +91,18 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
-	public void startBattle()
+	public void openBag()
 	{
-		
+		removeKeyListener(gamePanel.getKeyHandler());
+		setContentPane(pokeMart);
+		setVisible(true);
+		pack();
+	}
+	public void openBattlePanel(NPC npc, boolean isWild)
+	{
+		setContentPane(battle);
+		setVisible(true);
+		pack();
 	}
 
 	
