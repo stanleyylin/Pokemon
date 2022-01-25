@@ -224,6 +224,10 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		main.openBox();
 	}
+	public void openMart()
+	{
+		main.openMart();
+	}
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;

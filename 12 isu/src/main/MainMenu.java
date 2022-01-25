@@ -98,7 +98,7 @@ public class MainMenu extends JPanel implements MouseListener
 		label[1] = new JLabel();
 		label[2] = new JLabel();
 		
-		counter = 0;
+		counter = -25;
 		timer = new Timer(35, new TimerEventHandler ());
 		timerOn = true;
 		timer.start();
@@ -179,10 +179,13 @@ public class MainMenu extends JPanel implements MouseListener
 			// title
 			if(counter >= 10 && counter <= 18)
 			{
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
+				opacity[0] += 0.1f;
 			}
 			else if(counter >= 18)
 			{
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[0]));
 				g2.drawImage(title, 247, 30, null);	
 			}
 			

@@ -72,9 +72,13 @@ public class Dialogue extends JPanel
 				else if(line.equals("*battle*"))
 				{
 					// call gamePanel
-					message = "";
+					message = "Good match!";
 				}
 				else if(line.equals("*store*"))
+				{
+					message = "Come back soon!";
+					gamePanel.openMart();
+				}
 				
 				revalidate();
 				repaint();

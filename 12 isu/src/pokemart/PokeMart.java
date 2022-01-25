@@ -22,9 +22,10 @@ import bag.SortItemByCost;
 import entity.Player;
 import getimages.LoadImage;
 import main.Battle;
+import main.Main;
 
 public class PokeMart extends JPanel implements MouseListener{
-	
+	private Main main;
 	private Player player; // The player
 	
 	private BufferedImage bg; // Background
@@ -58,8 +59,9 @@ public class PokeMart extends JPanel implements MouseListener{
 	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 11);
 	
 	// Constructor
-	public PokeMart(Player player)
+	public PokeMart(Main main, Player player)
 	{
+		this.main = main;
 		this.player = player;
 		visible = false;
 		tooPoor = false;
@@ -447,7 +449,7 @@ public class PokeMart extends JPanel implements MouseListener{
 		}
 		else if(buttons[4].contains(x, y)) // back
 		{
-			
+			main.openGamePanel();
 	
 		}
 		else if(itemType == 1 && !firstMed && buttons[5].contains(x, y))
