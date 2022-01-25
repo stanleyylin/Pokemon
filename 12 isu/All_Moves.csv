@@ -125,7 +125,7 @@ Dragon Breath,Dragon,Special,May paralyze opponent.,60,100,20,,30,2
 Dragon Claw,Dragon,Physical,,80,100,15,TM02,-,3
 Dragon Dance,Dragon,Status,Raises user's Attack and Speed.,-,-,20,,-,3
 Dragon Pulse,Dragon,Special,,85,100,10,,-,4
-Dragon Rage,Dragon,Special,Always inflicts 40 HP.,-,100,10,,-,1
+Dragon Rage,Dragon,Special,Always inflicts 40 HP.,60,100,10,,-,1
 Dragon Rush,Dragon,Physical,May cause flinching.,100,75,10,,20,4
 Dragon Tail,Dragon,Physical,"In battles, the opponent switches. In the wild, the Pokemon runs.",60,90,10,TM82,-,5
 Drain Punch,Fighting,Physical,User recovers half the HP inflicted on opponent.,75,100,10,,-,4
