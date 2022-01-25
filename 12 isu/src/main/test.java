@@ -218,6 +218,13 @@ public class test extends JPanel {
 		Location r202 = new Location("hearthome.png", collisions203, buildings203, people203, null);
 	}
 	
+	public void hello()
+	{
+		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), T208, new Rectangle(3021, 975, 52, 93));
+//		heartHome.addGate(gate11);
+//		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
+	}
+	
 	public static void main(String[] args)
 	{
 		ArrayList<Integer> hello = new ArrayList<>();

@@ -67,7 +67,7 @@ public class Box extends JPanel implements MouseListener{
 			if(i <= 2)
 				partyButtons[i].setBounds(50+114*i+13*i, 432, 114, 114);
 			else
-				partyButtons[i].setBounds(473+114*(i-3)+13*(i-3), 560, 114, 114);
+				partyButtons[i].setBounds(50+114*(i-3)+13*(i-3), 560, 114, 114);
 			
 			add(partyButtons[i]);
 		}
@@ -123,6 +123,12 @@ public class Box extends JPanel implements MouseListener{
 		repaint();
 	}
 	
+	public void startUp()
+	{
+		updateButtons();
+		repaint();
+		revalidate();
+	}
 	public void selected(int index)
 	{
 		boxButtons[selected/5][selected%5].setSelected(false);

@@ -70,6 +70,7 @@ public class Main extends JFrame {
 		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
 		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
 		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
+		player.addToBox(new Pokemon ("Bulbasaur", "hello", 33));
 
 
 		//----------
@@ -104,6 +105,7 @@ public class Main extends JFrame {
 	public void openBox() // pranav: press b when in gamepanel if u wanna test
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
+		box.startUp();
 		setContentPane(box);
 		setVisible(true);
 		pack();
