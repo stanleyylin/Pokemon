@@ -83,8 +83,8 @@ public class Main extends JFrame {
 		player.addOnItem("Master Ball", 0, 5);
 
 
-		startBattle(gary, true);
-
+//		startBattle(gary, true);
+		openGamePanel();
 	}
 	
 	public void openMainMenu()

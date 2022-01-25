@@ -134,34 +134,59 @@ public class GamePanel extends JPanel implements Runnable
 	    Location sandGem = new Location("sandgem.png",collisions2,buildings2,people2,null);
 
 	 //3. Jubilife City
-	    Rectangle[] collisions3 = new Rectangle[14];
+	    Rectangle[] collisions3 = new Rectangle[38];
 	    collisions3[0] = new Rectangle(0,0,143*3,240*3);
-	    collisions3[0] = new Rectangle(143*3,0*3,300*3,112*3);
-	    collisions3[0] = new Rectangle(185*3,111*3,139*3,53*3);
-	    collisions3[0] = new Rectangle(185*3,162*3,15*3,32*3);
-	    collisions3[0] = new Rectangle(248*3,162*3,13*3,26*3);
-	    collisions3[0] = new Rectangle(310*3,162*3,13*3,26*3);
-	    collisions3[0] = new Rectangle(369*3,114*3,79*3,122*3);
-	    collisions3[0] = new Rectangle(447*3,0*3,252*3,91*3);
-	    collisions3[0] = new Rectangle(521*3,91*3,136*3,83*3);
-	    collisions3[0] = new Rectangle(786*3,0*3,270*3,91*3);
-	    collisions3[0] = new Rectangle(808*3,91*3,248*3,97*3);
-	    collisions3[0] = new Rectangle(808*3,188*3,79*3,52*3);
-	    collisions3[0] = new Rectangle(921*3,188*3,135*3,72*3);
-	    collisions3[0] = new Rectangle(921*3,306*3,134*3,288*3);
-	    collisions3[0] = new Rectangle(808*3,323*3,63*3,33*3);
-	    collisions3[0] = new Rectangle(808*3,356*3,12*3,24*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    collisions3[0] = new Rectangle(0*3,0*3,0*3,0*3);
-	    
-	
-	    
+	    collisions3[1] = new Rectangle(143*3,0*3,300*3,112*3);
+	    collisions3[2] = new Rectangle(185*3,111*3,139*3,53*3);
+	    collisions3[3] = new Rectangle(185*3,162*3,15*3,32*3);
+	    collisions3[4] = new Rectangle(248*3,162*3,13*3,26*3);
+	    collisions3[5] = new Rectangle(310*3,162*3,13*3,26*3);
+	    collisions3[6] = new Rectangle(369*3,114*3,79*3,122*3);
+	    collisions3[7] = new Rectangle(447*3,0*3,252*3,91*3);
+	    collisions3[8] = new Rectangle(521*3,91*3,136*3,83*3);
+	    collisions3[9] = new Rectangle(786*3,0*3,270*3,91*3);
+	    collisions3[10] = new Rectangle(808*3,91*3,248*3,97*3);
+	    collisions3[11] = new Rectangle(808*3,188*3,79*3,52*3);
+	    collisions3[12] = new Rectangle(921*3,188*3,135*3,72*3);
+	    collisions3[13] = new Rectangle(921*3,306*3,134*3,288*3);
+	    collisions3[14] = new Rectangle(808*3,323*3,63*3,33*3);
+	    collisions3[15] = new Rectangle(808*3,356*3,12*3,24*3);
+	    collisions3[16] = new Rectangle(845*3,356*3,26*3,18*3);
+	    collisions3[17] = new Rectangle(808*3,429*3,79*3,48*3);
+	    collisions3[18] = new Rectangle(808*3,477*3,25*3,17*3);
+	    collisions3[19] = new Rectangle(862*3,477*3,25*3,20*3);
+	    collisions3[20] = new Rectangle(858*3,956*3,198*3,122*3);
+	    collisions3[21] = new Rectangle(808*3,718*3,248*3,80*3);
+	    collisions3[22] = new Rectangle(0*3,718*3,693*3,80*3);
+	    collisions3[23] = new Rectangle(0*3,320*3,153*3,392*3);
+	    collisions3[24] = new Rectangle(155*3,325*3,87*3,296*3);
+	    collisions3[25] = new Rectangle(170*3,387*3,64*3,42*3);
+	    collisions3[26] = new Rectangle(243*3,308*3,42*3,250*3);
+	    collisions3[27] = new Rectangle(285*3,308*3,49*3,213*3);
+	    collisions3[28] = new Rectangle(334*3,308*3,104*3,186*3);
+	    collisions3[29] = new Rectangle(438*3,238*3,64*3,73*3);
+	    collisions3[30] = new Rectangle(438*3,356*3,83*3,154*3);
+	    collisions3[31] = new Rectangle(547*3,433*3,92*3,61*3);
+	    collisions3[32] = new Rectangle(616*3,408*3,77*3,61*3);
+	    collisions3[33] = new Rectangle(673*3,464*3,21*3,39*3);
+	    collisions3[34] = new Rectangle(443*3,538*3,137*3,175*3);
+	    collisions3[35] = new Rectangle(600*3,550*3,73*3,77*3);
+	    collisions3[36] = new Rectangle(155*3,614*3,34*3,29*3);
+	    collisions3[37] = new Rectangle(222*3,619*3,22*3,34*3);
+
+	    Building[] buildings3 = new Building[5];
+		buildings3[0] = new Building(new Rectangle(199, 629, 21, 23), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // bottom left house
+		buildings3[1] = new Building(new Rectangle(336, 496, 33, 30), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], lab); // gym
+		buildings3[2] = new Building(new Rectangle(832, 474, 31, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1); // pokecenter
+		buildings3[3] = new Building(new Rectangle(822, 360, 21, 21), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1); // mart
+		buildings3[4] = new Building(new Rectangle(629, 629, 22, 22), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
+		buildings3[4] = new Building(new Rectangle(837, 222, 22, 22), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
+	   
+		Person[] people3 = new Person[1];
+		people3[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+
+	    Location jubilife = new Location("jubilife.png",collisions3,buildings3,people3,null);
+	  
 	    
 	 //4. Oreburgh City
 	    
@@ -184,7 +209,6 @@ public class GamePanel extends JPanel implements Runnable
 		buildings4[1] = new Building(new Rectangle(1380, 465, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
 		buildings4[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 
-	    
 	    Person[] people4 = new Person[1];
 		people4[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
 		
@@ -257,34 +281,23 @@ public class GamePanel extends JPanel implements Runnable
 		
 		// ROUTES
 	// Route 208
-		Rectangle[] collisions208 = new Rectangle[21];
-		collisions208[0] = new Rectangle(0, 0, 217*3, 149*3);
-		collisions208[1] = new Rectangle(217*3, 84*3, 807*3, 118*3);
-		collisions208[2] = new Rectangle(0, 149*3, 88*3, 299*3); 
-		collisions208[3] = new Rectangle(88*3, 315*3, 246*3, 133*3);
-		collisions208[4] = new Rectangle(260*3, 175*3, 82*3, 83*3);
-		collisions208[5] = new Rectangle(391*3, 199*3, 59*3, 177*3);
-		collisions208[6] = new Rectangle(435*3, 118*3, 44*3, 81*3);
-		collisions208[7] = new Rectangle(568*3, 118*3, 14*3, 98*3);
-		collisions208[8] = new Rectangle(512*3, 331*3, 33*3, 43*3);
-		collisions208[9] = new Rectangle(449*3, 297*3, 105*3, 33*3);
-		collisions208[10] = new Rectangle(334*3, 364*3, 290*3, 84*3); 
-		collisions208[11] = new Rectangle(568*3, 215*3, 34*3, 31*3);
-		collisions208[12] = new Rectangle(580*3, 290*3, 35*3, 31*3); 
-		collisions208[13] = new Rectangle(628*3, 188*3, 35*3, 195*3);
-		collisions208[14] = new Rectangle(624*3, 385*3, 79*3, 21*3);
-		collisions208[15] = new Rectangle(624*3, 405*3, 400*3, 42*3);
-		collisions208[16] = new Rectangle(862*3, 358*3, 162*3, 47*3);
-		collisions208[17] = new Rectangle(961*3, 188*3, 63*3, 125*3);
-		collisions208[18] = new Rectangle(703*3, 179*3, 25*3, 63*3); 
-		collisions208[19] = new Rectangle(729*3, 116*3, 35*3, 126*3);
-		collisions208[20] = new Rectangle(763*3, 116*3, 261*3, 72*3);
-
+		Rectangle[] collisions208 = new Rectangle[12];
+		collisions208[0] = new Rectangle(0*3, 0*3, 217*3, 251*3);
+		collisions208[1] = new Rectangle(0*3, 241*3, 108*3, 63*3);
+		collisions208[2] = new Rectangle(0*3, 297*3, 551*3, 151*3);
+		collisions208[3] = new Rectangle(217*3, 0*3, 807*3, 131*3);
+		collisions208[4] = new Rectangle(257*3, 182*3, 84*3, 79*3);
+		collisions208[5] = new Rectangle(389*3, 131*3, 166*3, 130*3);
+		collisions208[6] = new Rectangle(770*3, 131*3, 254*3, 65*3);
+		collisions208[7] = new Rectangle(944*3, 196*3, 80*3, 106*3);
+		collisions208[8] = new Rectangle(550*3, 387*3, 152*3, 23*3);
+		collisions208[9] = new Rectangle(550*3, 411*3, 474*3, 37*3);
+		collisions208[10] = new Rectangle(865*3, 364*3, 159*3, 46*3);
+		collisions208[11] = new Rectangle(770*3, 196*3, 31*3, 36*3);
 		Building[] buildings208 = new Building[1];
 		buildings208[0] = new Building(new Rectangle(2726, 574, 62, 56), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
 
 		Person[] people208 = new Person[0];
-		people208[0] = null;
 
 		Rectangle[] grass208 = new Rectangle[1];
 		grass208[0] = new Rectangle(2007, 738, 480, 471);
@@ -294,23 +307,21 @@ public class GamePanel extends JPanel implements Runnable
 		
 		
 	// Route 207
-		Rectangle[] collisions207 = new Rectangle[16];
-		collisions207[0] = new Rectangle(0, 0, 56*3, 194*3);
-		collisions207[1] = new Rectangle(0, 194*3, 35*3, 227*3);
-		collisions207[2] = new Rectangle(35*3, 90*3, 169*3, 13*3);
-		collisions207[3] = new Rectangle(194*3, 104*3, 10*3, 100*3);
-		collisions207[4] = new Rectangle(204*3, 192*2, 10*3, 79*3);
-		collisions207[5] = new Rectangle(214*3, 261*3, 50*3, 10*3);
-		collisions207[6] = new Rectangle(308*3, 192*3, 39*3, 44*3);
-		collisions207[7] = new Rectangle(322*3, 236, 26*3, 75*3);
-		collisions207[8] = new Rectangle(257*3, 305, 52*3, 11*3);
-		collisions207[9] = new Rectangle(243*3, 339*3, 48*3, 77*3);
-		collisions207[10] = new Rectangle(291*3, 316*3, 192*3, 100*3);
-		collisions207[11] = new Rectangle(356*3, 273*3, 88*3, 44*3);
-		collisions207[12] = new Rectangle(318*3, 0, 706*3, 65*3);
-		collisions207[13] = new Rectangle(884*3, 65*3, 140*3, 354*3);
-		collisions207[14] = new Rectangle(744*3, 272*3, 140*3, 144*3);
-		collisions207[15] = new Rectangle(591*3, 316*3, 100*3, 153*3);
+		Rectangle[] collisions207 = new Rectangle[11];
+		collisions207[0] = new Rectangle(0, 0, 220*3, 52*3);
+
+		collisions207[1] = new Rectangle(0, 61*3, 42*3, 355*3);
+		collisions207[2] = new Rectangle(42*3, 94*3, 160*3, 13*3);
+		collisions207[3] = new Rectangle(320*3, 0, 567*3, 85*3);
+		collisions207[4] = new Rectangle(888*3, 0, 227*3, 52*3);
+		collisions207[5] = new Rectangle(135*3, 888*3, 136*3, 270*3);
+		collisions207[6] = new Rectangle(194*3, 106*3, 13*3, 92*3);
+		
+		collisions207[7] = new Rectangle(207*3, 195*3, 75*3, 13*3);
+		
+		collisions207[8] = new Rectangle(42*3, 285*3, 100*3, 131*3);
+		collisions207[9] = new Rectangle(285*3, 343*3, 779*3, 73*3);
+		collisions207[10] = new Rectangle(752*3, 270*3, 272*3, 73*3);
 		
 		Building[] buildings207 = new Building[0];
 
@@ -350,7 +361,7 @@ public class GamePanel extends JPanel implements Runnable
 		grass203[2] = new Rectangle(618*3, 94*3, 172*3, 67*3);
 		grass203[3] = new Rectangle(680*3, 185*3, 138*3, 42*3);
 		
-		Location r203 = new Location("hearthome.png", collisions203, buildings203, people203, null);
+		Location r203 = new Location("203.png", collisions203, buildings203, people203, null);
 	
 		
 		
@@ -389,7 +400,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		
 	//  Route 201
-		Rectangle[] collisions201 = new Rectangle[12];
+		Rectangle[] collisions201 = new Rectangle[13];
 		collisions201[0] = new Rectangle(0, 0, 674*3, 127*3);
 		collisions201[1] = new Rectangle(674*3, 0, 366*3, 78*3);
 		collisions201[2] = new Rectangle(77*3, 129*3, 53*3, 24*3);
@@ -402,7 +413,7 @@ public class GamePanel extends JPanel implements Runnable
 		collisions201[9] = new Rectangle(297*3, 270*3, 438*3, 83*3);
 		collisions201[10] = new Rectangle(734*3, 294*3, 206*3, 58*3);
 		collisions201[11] = new Rectangle(940*3, 137*3, 100*3, 215*3);
-
+		collisions201[12] = new Rectangle(78*3, 179*3, 53*3, 36*3);
 		Building[] buildings201 = new Building[0];
 
 		Person[] people201 = new Person[0];
@@ -412,7 +423,7 @@ public class GamePanel extends JPanel implements Runnable
 		grass201[0] = new Rectangle(331*3, 215*3, 154*3, 27*3);
 		grass201[1] = new Rectangle(680*3, 89*3, 139*3, 120*3);
 		
-		Location r201 = new Location("201.png", collisions201, buildings201, people201, null);
+		Location r201 = new Location("201.png", collisions201, buildings201, people201, grass201);
 	
 	//  Route 202
 		Rectangle[] collisions202 = new Rectangle[15];
@@ -443,7 +454,7 @@ public class GamePanel extends JPanel implements Runnable
 		grass202[2] = new Rectangle(382*3, 190*3, 133*3, 80*3);
 		grass202[3] = new Rectangle(61*3, 286*3, 68*3, 116*3);
 		
-		Location r202 = new Location("hearthome.png", collisions203, buildings203, people203, null);
+		Location r202 = new Location("202.png", collisions202, buildings202, people202, grass202);
 
 		// GATES
 		
@@ -473,7 +484,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(twinLeaf,300,1200);
+		camera = new Camera(r202,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
