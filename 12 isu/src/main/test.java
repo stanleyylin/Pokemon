@@ -25,6 +25,7 @@ import entity.Nurse;
 import entity.Person;
 import entity.Player;
 import map.Building;
+import map.Gate;
 import map.Location;
 import pokesetup.BlankMon;
 import pokesetup.Pokemon;
@@ -221,8 +222,23 @@ public class test extends JPanel {
 	public void hello()
 	{
 		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), T208, new Rectangle(3021, 975, 52, 93));
-//		heartHome.addGate(gate11);
-//		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
+		twinLeaf.addGate(gate11);
+		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
+	}
+	
+	public Gate reverseGate(Gate g, int camX, int camY)
+	{
+		int edge = 0;
+		if(g.getAxis() == 0)
+			edge = 1;
+		else if(g.getAxis() == 1)
+			edge = 0;
+		else if(g.getAxis() == 2)
+			edge = 3;
+		else 
+			edge = 2;
+
+		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1());
 	}
 	
 	public static void main(String[] args)

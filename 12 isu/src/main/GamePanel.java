@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions2[0] = new Rectangle(0,0,930,360);
 	    collisions2[1] = new Rectangle(0,585,255,1025);
 	    collisions2[2] = new Rectangle(0,0,510,390);
-	    collisions2[3] = new Rectangle(945,0,189,105);
+	    collisions2[3] = new Rectangle(1218,0,189,105);
 	    collisions2[4] = new Rectangle(1410,0,300,1200);
 	    collisions2[5] = new Rectangle(1230,960,500,500);
 	    collisions2[6] = new Rectangle(285,1011,669,500);
@@ -457,8 +457,54 @@ public class GamePanel extends JPanel implements Runnable
 		Location r202 = new Location("202.png", collisions202, buildings202, people202, grass202);
 
 		// GATES
+		Gate gate1 = new Gate(2,77*3,116*3,twinLeaf,new Rectangle(219*3,0,60*3,40*3),r201,new Rectangle(229*3,310*3,67*3,42*3));
+		twinLeaf.addGate(gate1);
+		r201.addGate(reverseGate(gate1, 70*3, 0));
 		
-//	// Route 208
+		Gate gate2 = new Gate(0,0,19*3,r201,new Rectangle(1011*3,89*3,20*3,2*3),sandGem,new Rectangle(0,152*3,31*3,40*3));
+		r201.addGate(gate2);
+		sandGem.addGate(reverseGate(gate2, 680*3, 0));
+		
+		Gate gate3 = new Gate(2,250*3,212*3,sandGem,new Rectangle(317*3,0,90*3,31*3),r202,new Rectangle(420*3,421*3,90*3,31*3));
+		sandGem.addGate(gate3);
+		r202.addGate(reverseGate(gate3, 136*3, 0));
+		
+		Gate gate4 = new Gate(2,562*3,558*3,r202,new Rectangle(237*3,0,59*3,27*3),jubilife,new Rectangle(695*3,735*3,109*3,63*3));
+		r202.addGate(gate4);
+		jubilife.addGate(reverseGate(gate4, 86*3, 0));
+		
+		Gate gate5 = new Gate(1,0,128*3,jubilife,new Rectangle(1003*3,269*3,48*3,48*3),r203,new Rectangle(0,281*3,46*3,33*3));
+		jubilife.addGate(gate5);
+		r203.addGate(reverseGate(gate5, 659*3, 159*3));
+		
+		Gate gate6 = new Gate(1,0,71*3,r203,new Rectangle(905*3,132*3,18*3,24*3),oreburg,new Rectangle(17*3,17*3,19*3,24*3));
+		r203.addGate(gate6);
+		oreburg.addGate(reverseGate(gate6, 616*3, 0));
+		
+		Gate gate7 = new Gate(2,30*3,176*3,oreburg,new Rectangle(657*3,171*3,43*3,112*3),r207,new Rectangle(145*3,374*3,96*3,42*3));
+		oreburg.addGate(gate7);
+		r207.addGate(reverseGate(gate7, 410*3, 0));
+			
+		Gate gate8 = new Gate(1,0,139*3,r207,new Rectangle(866*3,92*3,16*3,40*3),r208,new Rectangle(105*3,258*3,22*3,30*3));
+		r207.addGate(gate8);
+		r208.addGate(reverseGate(gate8, 0, 374*3));
+			
+		// Fun fact, this is reversed
+		Gate gate9 = new Gate(0, r208.getBG().getWidth()-screenWidth, r208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), r208, new Rectangle(3021, 975, 52, 93));
+		heartHome.addGate(gate9);
+		r208.addGate(reverseGate(gate9, 0, heartHome.getBG().getHeight()-screenHeight));		
+
+		Gate gate10 = new Gate(2,0,568*3,jubilife,new Rectangle(702*3,0,78*3,36*3),r204,new Rectangle(186*3,786*3,67*3,36*3));
+		jubilife.addGate(gate10);
+		r204.addGate(reverseGate(gate10, 0*3, 0*3));
+		
+		Gate gate11 = new Gate(2,0,568*3,r204,new Rectangle(158*3,0,50*3,25*3),floaroma,new Rectangle(135*3,743*3,83*3,65*3));
+		r204.addGate(gate11);
+		floaroma.addGate(reverseGate(gate11, 0, 0));
+		
+		
+		
+		//	// Route 208
 //		// Collisions
 //		Rectangle[] collisions208 = new Rectangle[1];
 //		collisions208[0] = new Rectangle(2286, 0, 787, 541); // leftmost up trees
@@ -484,7 +530,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(r202,300,300);
+		camera = new Camera(sandGem,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;

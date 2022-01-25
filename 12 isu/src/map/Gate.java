@@ -35,11 +35,11 @@ public class Gate {
 		c.setX(camX2);
 		c.setY(camY2);
 		c.setBuilding(null);
-		l2.setEdgeReachedX(true);
-		l2.setEdgeReachedY(true);
+		l2.setEdgeReachedX(false);
+		l2.setEdgeReachedY(false);
 		if(axis == 0) // gate on left --> gate on right
 		{
-			p.setScreenX((int) r2.getX()-c.getX()-Player.width);
+			p.setScreenX((int) r2.getX()-c.getX());
 			p.setScreenY((int) r2.getY()-c.getY());
 		}
 		else if(axis == 1) // gate on right --> gate on left
