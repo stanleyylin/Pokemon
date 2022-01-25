@@ -277,7 +277,9 @@ public class Battle extends JPanel {
 		{
 			if(gameState == 1)
 			{
-				message = "You are being challenged by " + name + "!";
+				message = "You are being challenged by " 
+//			+ name 
+			+ "!";
 				if(counter == 50)
 				{
 					gameState = 2;
@@ -1302,7 +1304,7 @@ public class Battle extends JPanel {
 ////		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
 ////		gary.getParty()[1].setCurHP(2);;
 //
-//		panel = new Battle(pranav, gary);
+//		panel = new Battle(main,player);
 //
 //		panel.newBattle(pranav, gary, false);
 //		frame.setContentPane(panel);
