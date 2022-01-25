@@ -206,14 +206,6 @@ public class GamePanel extends JPanel implements Runnable
 		collisions10[17] = new Rectangle(2280,720,360,210); // gym
 
 
-
-
-
-
-
-
-
-
 		// Buildings -----
 		Building[] buildings10 = new Building[4];
 		Person[] peoplePC = new Person[1];
