@@ -282,7 +282,7 @@ public class Pokemon {
 	//heals pokemon given the amount to heal by
 	public void heal(int amt) {
 		if ((this.curHP + amt) > this.HPstat)
-			this.setCurExp(this.HPstat);
+			this.heal();
 		else
 			this.setCurHP(this.curHP + amt);
 	}
