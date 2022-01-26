@@ -38,17 +38,18 @@ public class Battle extends JPanel {
 	private BufferedImage[] battleStats;
 
 	private boolean intro;
+	private boolean isTrainer;
 	
-	Player player;
-	int playerCurr;
-	NPC opponent;
-	int oppCurr;
+	private Player player;
+	private int playerCurr;
+	private NPC opponent;
+	private int oppCurr;
 
-	boolean curLevelUp;
-	boolean isConfuse;
+	private boolean curLevelUp;
+	private boolean isConfuse;
 
-	int currMoveNo;
-	String currMove;
+	private int currMoveNo;
+	private String currMove;
 	//	int[] curPlayerStats= {0,0,0,0};
 	//	int[] curEnemyStats= {0,0,0,0};
 	//attack,defense,special attack,special defense
@@ -96,7 +97,7 @@ public class Battle extends JPanel {
 		playerIsFainted = false;
 		opponentIsFainted = false;
 		isWild = false;
-
+		isTrainer = false;
 		playerBall = new ImageHolder(0);
 		opponentBall = new ImageHolder(1);
 
@@ -858,10 +859,16 @@ public class Battle extends JPanel {
 	public void endBattle(boolean isPlayer) {
 		//it comes to this when u win/lose the battle
 
-
 		if (!isPlayer) {
 			player.setPokeDollars(player.getPokeDollars() + 1000);
+			if(isTrainer)
+			{
+				player.addBadges();
+				isTrainer = false;
+				opponent.changeFile();
+			}
 		}
+		
 		
 		main.openGamePanel();
 
@@ -1393,7 +1400,10 @@ public class Battle extends JPanel {
 	public void setPlayerCur(int i) {
 		this.playerCurr = i;
 	}
-
+	public void setTrainer(boolean set)
+	{
+		isTrainer = set;
+	}
 	public void refresh()
 	{
 		revalidate();
@@ -1404,50 +1414,6 @@ public class Battle extends JPanel {
 		return player.getParty()[playerCurr];
 	}
 
-//	public static void main(String[] args)
-//	{
-//		frame = new JFrame ("Pokemon");
-//		try {
-//			BlankMon.getAllMoves();
-//			BlankMon.getAllMoveLists();
-//			BlankMon.getAllAbilities();
-//			Pokemon.addAllPokemon();
-//		} 
-//		catch (IOException e) {}
-//
-//		Player pranav = new Player(0,0);
-//		pranav.addPokemonToParty(new Pokemon("Charizard", "BBQ Dragon", 7));
-//		pranav.addPokemonToParty(new Pokemon("Charmander", "catty", 32));
-//		pranav.addOnItem("Potion", 1, 5);
-//		pranav.addOnItem("Master Ball", 0, 2);
-//		pranav.addKeyItem("Badge Case");
-//		pranav.addKeyItem("Town Map");
-//
-//
-//		//		pranav.addPokemonToParty(new Pokemon("Machamp", "strong", 22));
-//		Pokemon[] temp = new Pokemon[6];
-//		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
-//		temp[1] = new Pokemon ("Fearow", "birdy", 25);
-//		NPC gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
-//		gary.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-//		gary.getParty()[0].setCurHP(2);;
-//
-//		// gary.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
-////		gary.getParty()[1].setStatus(Pokemon.Status.FREEZE);
-////		gary.getParty()[1].setCurHP(2);;
-//
-//		panel = new Battle(main,player);
-//
-//		panel.newBattle(pranav, gary, false);
-//		frame.setContentPane(panel);
-//		frame.setVisible(true);
-//		frame.setResizable(false);
-//		frame.pack();
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-//		frame.setLocationRelativeTo(null);
-//
-//
-//	}
 
 
 }

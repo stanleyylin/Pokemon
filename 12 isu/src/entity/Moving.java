@@ -243,7 +243,7 @@ public class Moving {
 				}
 			}
 		}
-		else if (camera.getBuilding() != null && main.direction.equals("down"))
+		else if (camera.getBuilding() != null && !main.direction.equals("up"))
 		{
 			int bounds = 10;
 			Rectangle player = new Rectangle(main.getScreenX()+bounds, main.getScreenY()+bounds, Player.width-bounds, Player.height-bounds);

@@ -79,7 +79,12 @@ public class Dialogue extends JPanel
 					message = "Come back soon!";
 					gamePanel.openMart();
 				}
-					
+				else if(line.equals("*trainer*"))
+				{
+					gamePanel.setTrainer();
+					gamePanel.startNPCBattle((NPC)npc);
+					message = "Good battle!";
+				}
 				revalidate();
 				repaint();
 				gamePanel.revalidate();

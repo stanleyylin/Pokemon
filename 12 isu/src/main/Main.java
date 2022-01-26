@@ -166,6 +166,10 @@ public class Main extends JFrame {
 	{
 		return lastScreen;
 	}
+	public void setTrainer()
+	{
+		battle.setTrainer(true);
+	}
 	
 	public static void main(String[] args) 
 	{

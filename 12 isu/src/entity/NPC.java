@@ -114,6 +114,10 @@ public class NPC extends Person
 	}
 
 	// Getters and Setters
+	public void changeFile()
+	{
+		textFile = loseFile;
+	}
 	public String getName()
 	{
 		return name;
@@ -127,7 +131,7 @@ public class NPC extends Person
 	}
 	public String getLines()
 	{
-		return "npc1.txt";
+		return textFile;
 	}	
 	public void setBattleable(boolean set)
 	{
