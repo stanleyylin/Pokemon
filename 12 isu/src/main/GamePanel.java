@@ -298,6 +298,11 @@ public class GamePanel extends JPanel implements Runnable
 		buildings208[0] = new Building(new Rectangle(2726, 574, 62, 56), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
 
 		Person[] people208 = new Person[0];
+		people208[0] = new NPC("hiker", new Rectangle(570*3,237*3,45,75),"down", "Watch your step there, bud", "Stay safe!",null);
+		((NPC) people208[0]).generateParty(2,14,17);
+		people208[1] = new NPC("jett", new Rectangle(880*3,295*3,45,75),"left", "Woah what do you think you're doing!", "just kidding :p",null);
+		((NPC) people208[1]).generateParty(3,13,17);
+
 
 		Rectangle[] grass208 = new Rectangle[1];
 		grass208[0] = new Rectangle(2007, 738, 480, 471);
@@ -325,8 +330,11 @@ public class GamePanel extends JPanel implements Runnable
 		
 		Building[] buildings207 = new Building[0];
 
-		Person[] people207 = new Person[0];
-		// people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		Person[] people207 = new Person[2];
+		people207[0] = new NPC("hiker", new Rectangle(655*3,135*3,45,75),"up", "What a lovely day for a battle", "Guess I can go for a walk..",null);
+		((NPC) people207[0]).generateParty(2,13,16);
+		people207[1] = new NPC("scout", new Rectangle(655*3,80*3,45,75),"down", "See my twin over there", "We're indentical twins",null);
+		((NPC) people207[1]).generateParty(2,14,16);
 
 		Rectangle[] grass207 = new Rectangle[1];
 		grass207[0] = new Rectangle(49*3, 141*3, 132*3, 141*3);
@@ -352,8 +360,14 @@ public class GamePanel extends JPanel implements Runnable
 
 		Building[] buildings203 = new Building[0];
 
-		Person[] people203 = new Person[0];
-		// people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		Person[] people203 = new Person[3];
+		people203[0] = new NPC("joanna", new Rectangle(250*3,260*3,45,75),"down", "Good afternoon young fella", "Dagnabit I lost",null);
+		((NPC) people203[0]).generateParty(2,9,13);
+		people203[1] = new NPC("ken", new Rectangle(500*3,240*3,45,75),"down", "Konichiwa!", "Sayonara..",null);
+		((NPC) people203[1]).generateParty(2,10,14);
+		people203[2] = new NPC("quavo", new Rectangle(695*3,225*3,45,75),"left", "Welcome to the forest!", "Head into the cave to the next town",null);
+		((NPC) people203[2]).generateParty(2,11,15);
+
 
 		Rectangle[] grass203 = new Rectangle[4];
 		grass203[0] = new Rectangle(90*3, 164*3, 60*3, 72*3);
@@ -386,8 +400,17 @@ public class GamePanel extends JPanel implements Runnable
 
 		Building[] buildings204 = new Building[0];
 		
-		Person[] people204 = new Person[0];
-		// people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		Person[] people204 = new Person[5];
+		people204[0] = new NPC("lass", new Rectangle(190*3,672*3,45,75),"right", "Floaroma town is north of here", "Safe journeys!",null);
+		((NPC) people204[0]).generateParty(2,9,13);
+		people204[1] = new NPC("sam", new Rectangle(205*3,440*3,45,75),"left", "I am the stairmaster!", "get it :p",null);
+		((NPC) people204[1]).generateParty(2,9,13);
+		people204[2] = new NPC("sam", new Rectangle(252*3,340*3,45,75),"right", "Wonder what's on the other side of the sea", "Could it be freedom..?",null);
+		((NPC) people204[2]).generateParty(3,14,16);
+		people204[3] = new NPC("michelle", new Rectangle(270*3,222*3,45,75),"down", "Keep heading north to find the champ", "Good luck young trainer!",null);
+		((NPC) people204[3]).generateParty(3,15,18);
+		people204[4] = new NPC("dababy", new Rectangle(245*3,67*3,45,75),"down", "waaahhhhhhhh!", "goo goo ga ga",null);
+		((NPC) people204[4]).generateParty(3,17,21);
 
 		Rectangle[] grass204 = new Rectangle[4];
 		grass204[0] = new Rectangle(158*3, 51*3, 47*3, 73*3);
@@ -417,7 +440,11 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings201 = new Building[0];
 
 		Person[] people201 = new Person[0];
-		// people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		people201[0] = new NPC ("gary", new Rectangle(710*3, 235*3,60,75),"left","So this is your first battle eh..?","Wow, you're a natural!",null);
+		((NPC) people201[0]).generateParty(1,5,8);
+		people201[1] = new NPC("reginald", new Rectangle(920*3,135*3,45,76),"left","Let's battle!","Darn it, I lost",null);
+		((NPC) people201[1]).generateParty(1,5,8);
+
 
 		Rectangle[] grass201 = new Rectangle[2];
 		grass201[0] = new Rectangle(331*3, 215*3, 154*3, 27*3);
@@ -445,8 +472,13 @@ public class GamePanel extends JPanel implements Runnable
 		
 		Building[] buildings202 = new Building[0];
 
-		Person[] people202 = new Person[0];
-		// people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		Person[] people202 = new Person[3];
+		people202[0] = new NPC("joe", new Rectangle(370*3,260*3,45,75), "down", "Hey hey hey!", "Hey hey hey!",null);
+		((NPC) people202[0]).generateParty(2,6,11);
+		people202[1]= new NPC ("jon", new Rectangle(125*3,200*3,45,75), "down", "Look at my hat!", "My distraction didn't work ...",null);
+		((NPC) people202[1]).generateParty(2,6,11);
+		people202[2] = new NPC("mikey", new Rectangle(430*3,85*3,45,75), "down", "Wonderful weather we're having!", "The sun is warm",null);
+		((NPC) people202[2]).generateParty(2,7,13);
 
 		Rectangle[] grass202 = new Rectangle[4];
 		grass202[0] = new Rectangle(81*3, 97*3, 75*3, 53*3);
