@@ -273,11 +273,10 @@ public class Moving {
 				if (temp == 35) {
 					System.out.println("cauight");
 					
-//					NPC wildMon = new NPC("wild",null,null,null.null);
+					NPC wildMon = new NPC("wild",new Rectangle(0,0,0,0),"down",null,null, null);
+					wildMon.generateParty(1, 4, 16);
 					
-//					main.startBattle(new NPC);
-					//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
-					//isWIld to true (so pokeballs can be used)
+					game.wildEncounter(wildMon, true);
 				}
 			}
 		}
