@@ -14,6 +14,8 @@ import entity.Player;
 import getimages.LoadImage;
 
 public class KeyItemsPanel extends JPanel implements MouseListener{
+	
+	//panel for key items(badge case & town map)
 
 	private Main main;
 	private Player player;
@@ -23,6 +25,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 	private BufferedImage BadgeCase;
 	boolean curImg;
 	
+	//cosntructor
 	public KeyItemsPanel(Main main, Player player) {
 		
 		this.main = main;
@@ -43,7 +46,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 	}
 	
 	
-	
+	//updates the badge count and image accordingly
 	public void updateBadgeCount() {
 		try {
 			BadgeCase = loader.loadImage("badges"  + player.getBadges()+ ".png" );
@@ -51,10 +54,12 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		}
 	}
 	
+	//sets the current image as either map or case
 	public void setCurImg(boolean b) {
 		curImg = b;
 	}
 	
+	//paint component
 	public void paintComponent (Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		if (curImg)

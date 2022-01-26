@@ -21,6 +21,7 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class PokeSelect extends JPanel {
+	//pokemon selection class 
 
 	private Player player; // The player object to access pokemon party
 	private int curr; // The current pokemon on screen
@@ -34,7 +35,7 @@ public class PokeSelect extends JPanel {
 	private PokemonButton[] pokemons;
 	private Battle battle;
 
-
+	//constructor
 	public PokeSelect(Battle battle, Player player, int curr)
 	{
 		setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));

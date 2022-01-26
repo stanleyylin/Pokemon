@@ -15,6 +15,8 @@ public class ImageHolder {
 	private int index;
 	private BufferedImage curr;
 	int counter = 0;
+	
+	//constructor
 	public ImageHolder(int type)
 	{
 		if(type == 0)
@@ -31,7 +33,8 @@ public class ImageHolder {
 		index = 0;
 		curr = sprites[0];
 	}
-
+	
+	//load pokeball sprites
 	public void loadBalls(boolean big)
 	{
 		sprites = new BufferedImage[11];
@@ -57,6 +60,7 @@ public class ImageHolder {
 			sprites[10] = loader.resize(sprites[10], 41, 54);
 	}
 	
+	//load status sprites
 	public void loadStatus(boolean increase)
 	{
 		sprites = new BufferedImage[3];

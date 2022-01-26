@@ -10,13 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Button extends JLabel implements MouseListener {
-	private ImageIcon unselected;
-	private ImageIcon selected;
-	private boolean displayed;
-	private boolean forBattle;
-	private Battle battle;
-	private PokeSelect pokeSelect;
+	private ImageIcon unselected; //icon for unselected buttons
+	private ImageIcon selected; //icon for selected buttons
+	private boolean displayed; //if is displayed
+	private boolean forBattle; //if the button is for battle
+	private Battle battle; //batle object
+	private PokeSelect pokeSelect; //pokemon selection object
 	
+	//constructor for battle
 	public Button(Battle battle, BufferedImage unselected, BufferedImage selected, int width, int height, boolean forBattle)
 	{
 		this.battle = battle;
@@ -31,6 +32,7 @@ public class Button extends JLabel implements MouseListener {
 		addMouseListener(this);
 	}
 	
+	//constructor for pokeselect
 	public Button(PokeSelect pokeSelect, BufferedImage unselected, BufferedImage selected, int width, int height, boolean forBattle)
 	{
 		this.pokeSelect = pokeSelect;
@@ -44,6 +46,7 @@ public class Button extends JLabel implements MouseListener {
 		addMouseListener(this);
 	}
 	
+	//mouselistener methods
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(!forBattle)
@@ -64,15 +67,4 @@ public class Button extends JLabel implements MouseListener {
 			setIcon(unselected);
 	}
 	
-//	public void display()
-//	{
-//		displayed = true;
-//		setIcon(unselected);
-//	}
-//	
-//	public void hide()
-//	{
-//		displayed = false;
-//		setIcon(null);
-//	}
 }

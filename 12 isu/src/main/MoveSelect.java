@@ -26,6 +26,8 @@ import pokesetup.Pokemon;
 import pokesetup.Type;
 
 public class MoveSelect extends JPanel {
+	//class for move selection menu
+	
 	// Visibility
 	private boolean displayed = false;
 	
@@ -50,6 +52,7 @@ public class MoveSelect extends JPanel {
 	// Font
 	private Font font1 = new Font("Pokemon GB", Font.BOLD, 13);
 	
+	//constructor
 	public MoveSelect(Battle battle)
 	{
 		setPreferredSize(new Dimension(width, height));
@@ -95,6 +98,7 @@ public class MoveSelect extends JPanel {
 		repaint();
 	}
 	
+	//sets the images based on the moves typing and name
 	public static void setImages()
 	{
 		LoadImage loader = new LoadImage();
@@ -136,7 +140,7 @@ public class MoveSelect extends JPanel {
 	
 	}
 	
-	
+	//updates pokemon if there are any changes 
 	public void updatePokemon(String name, Type type, int curPP, int pp)
 	{
 		this.name = name;
@@ -169,6 +173,7 @@ public class MoveSelect extends JPanel {
 		return button;
 	}
 	
+	//paint component
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		if(!displayed)

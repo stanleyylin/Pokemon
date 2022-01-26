@@ -15,6 +15,8 @@ import getimages.LoadImage;
 
 public class Instructions extends JPanel implements MouseListener 
 {
+	//this is just a jpanel class for instructions.png
+	
 	private Main main;
 	private BufferedImage image;
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 30);

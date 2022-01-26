@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable
 	
 	private Player player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 	
+	//constructor
 	public GamePanel(Main main, Player player)
 	{	
 		this.main = main;
@@ -643,10 +644,12 @@ public class GamePanel extends JPanel implements Runnable
 		}
 	}
 	
+	//when you find wild pokemon
 	public void wildEncounter(NPC n, boolean b) {
 		main.startBattle(n, b);
 	}
 	
+	//updates the screen
 	public void update() 
 	{
 		moving.changeSprite();
@@ -680,6 +683,8 @@ public class GamePanel extends JPanel implements Runnable
 //
 //		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1(),true);
 //	}
+	
+	//creates interaction message
 	public void interactMessage(Graphics g)
 	{
 		g.setFont(font);
@@ -687,11 +692,13 @@ public class GamePanel extends JPanel implements Runnable
 		g.drawString("Press X to interact!", 375, 623);
 	}
 	
+	//starts battle w npc
 	public void startNPCBattle(NPC npc)
 	{
 		main.startBattle(npc, false);
 	}
 	
+	//shows/hides dialogue on screen
 	public void showDialogue()
 	{
 		this.add(dialogue);
@@ -721,6 +728,7 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		main.openMainMenu();
 	}
+	//paint component
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		

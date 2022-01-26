@@ -176,6 +176,7 @@ public class PokemonButton extends JPanel implements MouseListener
 		repaint();
 	}
 
+	//paint component
 	public void paintComponent(Graphics g) 
 	{
 		if(visible)

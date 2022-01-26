@@ -19,6 +19,8 @@ import java.io.IOException;
 
 public class MainMenu extends JPanel implements MouseListener
 {
+	//main menu screen that comes up when u open the game
+	
 	private Main main;
 	
 	// Images
@@ -36,6 +38,7 @@ public class MainMenu extends JPanel implements MouseListener
 	private JLabel[] label;
 	private boolean isVisible;
 	
+	//constructor
 	public MainMenu(Main main)
 	{
 		this.main = main;
@@ -113,7 +116,7 @@ public class MainMenu extends JPanel implements MouseListener
 		}
 	}
 	
-	@Override
+	//mouse listener methods
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
@@ -163,6 +166,7 @@ public class MainMenu extends JPanel implements MouseListener
 		timer.start();
 	}
 	
+	//paint component
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(bg, 0, 0, null);

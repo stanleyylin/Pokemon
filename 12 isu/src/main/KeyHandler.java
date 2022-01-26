@@ -8,6 +8,8 @@ import entity.Moving;
 import entity.Player;
 
 public class KeyHandler implements KeyListener {
+	
+	//keylistener class
 
 	private GamePanel game;
 	private Player main;
@@ -15,6 +17,7 @@ public class KeyHandler implements KeyListener {
 	private boolean pressed;
 	private boolean xPressed; 
 	
+	//constructor
 	public KeyHandler(GamePanel game, Player main, Moving move)
 	{
 		this.game = game;
