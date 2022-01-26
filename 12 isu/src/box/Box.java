@@ -23,22 +23,23 @@ public class Box extends JPanel implements MouseListener{
 	private Main main;
 	private Player player;
 	
-	private BufferedImage GUI;
-	private BufferedImage button;
+	private BufferedImage GUI; //box GUI
+	private BufferedImage button; //button for swap
 	
-	private boolean swapping;
+	private boolean swapping; //if swapping or not
 	
-	private Rectangle[] buttons;
+	private Rectangle[] buttons; //the pokemon are buttons so java knows which one is clicked
 	
-	private BoxPokemon[][] boxButtons;
-	private BoxPokemon[] partyButtons;
-	private int selected = 0;
-	private int boxNum = 0;
+	private BoxPokemon[][] boxButtons; //stores all box pokemon buttons
+	private BoxPokemon[] partyButtons; //stores all party pokemon buttons
+	private int selected = 0; //stores which party is selected
+	private int boxNum = 0; //stores which box is selected
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	private Font title = new Font("Pokemon GB", Font.PLAIN, 30);
 	private Font desFont = new Font("Pokemon GB", Font.PLAIN, 14);
 	
+	//constructor
 	public Box(Main main, Player player)
 	{
 		this.main = main;
@@ -81,6 +82,7 @@ public class Box extends JPanel implements MouseListener{
 		swapping = false;
 	}
 
+	//loads the images into the box
 	public void loadImages()
 	{
 		LoadImage loader = new LoadImage();
@@ -95,6 +97,7 @@ public class Box extends JPanel implements MouseListener{
 		} catch(IOException e) {}
 	}
 	
+	//updates the pokemon buttons based on who is in party/box
 	public void updateButtons()
 	{
 		for(int i = 0; i < 5; i++)
@@ -117,18 +120,22 @@ public class Box extends JPanel implements MouseListener{
 				partyButtons[i].hidePokemon();
 		}
 	}
+	//refreshes the box paint compoennt
 	public void refresh()
 	{
 		revalidate();
 		repaint();
 	}
 	
+	//creates the box and draws all buttons
 	public void startUp()
 	{
 		updateButtons();
 		repaint();
 		revalidate();
 	}
+	
+	//sets a pokemon button as selected when clicked
 	public void selected(int index)
 	{
 		boxButtons[selected/5][selected%5].setSelected(false);
@@ -136,6 +143,7 @@ public class Box extends JPanel implements MouseListener{
 		refresh();
 	}
 	
+	//swaps a pokemon from party and box
 	public void swap(int partyIndex)
 	{
 		player.swapPokemon(boxButtons[selected/5][selected%5].getPokemon(), partyIndex);
@@ -144,7 +152,7 @@ public class Box extends JPanel implements MouseListener{
 		swapping = false;
 	}
 	
-
+	//displays hexagon around the pokemon that is selected
 	public void displaySelected(Graphics2D g2)
 	{
 		if(player.getBox().size() > 0)
@@ -161,6 +169,7 @@ public class Box extends JPanel implements MouseListener{
 		g2.drawString("Swap!", 185, 315);
 	}
 	
+	//paint component
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(GUI, 0, 0, null);
@@ -184,6 +193,7 @@ public class Box extends JPanel implements MouseListener{
 	}
 
 
+	//mouse listener methods
 	public void mouseClicked(MouseEvent e) 
 	{
 		int x = e.getX();

@@ -84,6 +84,7 @@ public class PokeMart extends JPanel implements MouseListener{
 		loadScreen();
 	}
 	
+	//loads items from file
 	public void loadItems()
 	{
 		LoadItems loadItems = new LoadItems();

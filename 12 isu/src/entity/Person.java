@@ -9,17 +9,18 @@ import java.awt.*;
 
 public class Person {
 
-	protected Rectangle collision;
-	protected Rectangle interaction;
-	protected String imageFile;
-	protected BufferedImage sprite;
-	protected String direction;
+	protected Rectangle collision; //collision box
+	protected Rectangle interaction; //interaction box
+	protected String imageFile; //image file path
+	protected BufferedImage sprite; //image sprite
+	protected String direction;// direction they are facing
 
-	protected String textFile;
+	protected String textFile; 
 	protected boolean shown;
 	
 	private static LoadImage loader = new LoadImage();
 	
+	//constructor
 	public Person(Rectangle collision, String direction, String imageFile, int w, int h, String textFile)
 	{
 		this.collision = collision;

@@ -13,25 +13,27 @@ import main.GamePanel;
 import java.awt.*;
 
 public class Location {
+	//stores each town/city/route as  a location object
 	
-	private BufferedImage background;
-	private Rectangle[] collisions;
-	private Rectangle[] grass;
-	private Building[] buildings;
-	private Person[] people;
-	private boolean xEdgeReached;
-	private boolean yEdgeReached;
+	private BufferedImage background; //background map
+	private Rectangle[] collisions; //all collisions
+	private Rectangle[] grass; //all grass  patches
+	private Building[] buildings; //all buildings
+	private Person[] people; //all people
+	private boolean xEdgeReached; //if the horizontal edge is reached
+	private boolean yEdgeReached; //if the vertical edge is reached
 	
-	public final int maxX;
-	public final int maxY;
+	public final int maxX; //max horizontal size
+	public final int maxY; //max vertical size
 	
-	private int lastX;
+	private int lastX; 
 	private int lastY;
-	private int cameraX;
-	private int cameraY;
+	private int cameraX; //camera x coord
+	private int cameraY; //camera y coord
 	
 	private ArrayList<Gate> gates;
 	
+	//constructor
 	public Location(String file, Rectangle[] collisions, Building[] buildings, Person[] people, Rectangle[] grass)
 	{
 		this.collisions = collisions;

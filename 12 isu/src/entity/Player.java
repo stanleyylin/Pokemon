@@ -18,28 +18,29 @@ import java.awt.image.BufferedImage;
 
 public class Player {
 
-	protected int screenX;
-	protected int screenY;
-	public String direction;
-	private BufferedImage[] sprites;
-	private boolean interacting;
-	private Person talkingTo;
+	protected int screenX; //x position on screen
+	protected int screenY; //y position on screen
+	public String direction; //direction player is facing
+	private BufferedImage[] sprites; //array of sprites
+	private boolean interacting; // if the player is interacting w anyone
+	private Person talkingTo; //the person they are talking to
 	
-	private boolean hasWon;
+	private boolean hasWon; //if the player has won a battle
 	
-	private ArrayList<Pokemon> box;
-	private Pokemon[] party;
-	private int pokeDollars;
-	private ArrayList<Item> pokeballs;
-	private ArrayList<Item> medicine;
-	private ArrayList<Item> keyItems;
+	private ArrayList<Pokemon> box; //the players box
+	private Pokemon[] party; //the players current party
+	private int pokeDollars;//the players current currency
+	private ArrayList<Item> pokeballs; //items in bag (pokeballs)
+	private ArrayList<Item> medicine;//items in bag (medicine)
+	private ArrayList<Item> keyItems;//items in bag (key items)
 	private LoadItems loadItems;
-	private int badges;
+	private int badges; //(num of badges player has)
 
 	public final static int width = 50;
 	public final static int height = 62;
 	public final int speed = 5;
 
+	//constructor
 	public Player(int screenX, int screenY)
 	{
 		this.screenX = screenX;
@@ -63,6 +64,7 @@ public class Player {
 		loadItems();
 	}
 
+	//loads items from file
 	public void loadItems()
 	{
 		loadItems = new LoadItems();
@@ -81,10 +83,9 @@ public class Player {
 		medicine.add(loadItems.getItem("Ether"));
 		medicine.add(loadItems.getItem("Elixir"));
 
-//		keyItems.add(loadItems.getItem("Town Map"));
-//		keyItems.add(loadItems.getItem("Badge Case"));
 	}
 
+	//heals party to full
 	public void healParty() {
 		for (Pokemon p1: party)
 		{
@@ -94,49 +95,12 @@ public class Player {
 	}
 
 
-
+	//replaces a party mon w the given mon
 	public void replace(int n, Pokemon p1) {
 		this.party[n] = p1;
 	}
 
-	public void battle(NPC enemy) {
-
-		Pokemon curFriendlyMon = this.party[0];
-		Pokemon curEnemyMon = enemy.getParty()[0];
-
-		//switch to battle screen
-
-
-		//		while ( findNextAvailableMon(this.party) != null || findNextAvailableMon(enemy.getParty()) != null) {
-		//allow to pick attack/bag/pokemon/run
-
-		//if attack
-
-		//pick attack from buttons(0,1,2,3)
-		int selectedAttack = 1;
-
-		curFriendlyMon.attack(selectedAttack, curEnemyMon);
-		//check if is dead & switch curEnemy mon/end battle if they run out
-		//			if (curEnemyMon.)
-
-		//randomly generates move(eventually should generate optimal move)
-		int enemyAttack = (int)Math.random() * (3 - 0 + 1) + 0;
-
-
-		//if bag
-		//implement items
-
-		if (findNextAvailableMon() == null)
-			System.out.println("you lost");
-		else if (findNextAvailableMon() == null)
-			System.out.println("you won!");
-
-		//switch back to game screen
-
-
-
-	}
-
+	//finds next alive pokemon
 	public Pokemon findNextAvailableMon() {
 		for (Pokemon p1 : this.party) {
 			if (p1 == null)
@@ -149,15 +113,14 @@ public class Player {
 		return null;
 	}
 
+	//adds pokemon to party innext given slot
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();
-		//		System.out.println(temp);
 		if (temp >= 0)
 			party[temp] = pokemon;
-		//		else
-		//			System.out.println("your party is full");
 	}
 
+	//finds next open party slot
 	public int findNextPartySlot() {
 		for (int i = 0; i < 6; i++) 
 			if (party[i] == null )
@@ -165,6 +128,7 @@ public class Player {
 		return -1;
 	}
 
+	//prints all pokenames
 	public void printPokemon() {
 		for (Pokemon p1 : party) {
 			if (p1 == null)
@@ -174,6 +138,7 @@ public class Player {
 		}
 	}
 
+	//sorts each item category by name
 	public void sortByName(int bagNum)
 	{
 		if(bagNum == 0)
@@ -184,6 +149,7 @@ public class Player {
 			Collections.sort(keyItems);
 	}
 
+	//sorts each item category by cost
 	public void sortByCost(int bagNum)
 	{
 		if(bagNum == 0)

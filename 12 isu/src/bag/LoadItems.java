@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class LoadItems {
+	//class that reads items in from file
+	
 	
 	private static HashMap<String,Item> itemList = new HashMap<String,Item>();
 	

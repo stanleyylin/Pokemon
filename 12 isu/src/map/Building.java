@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Building {
-	private Person[] people;
-	private Rectangle[] collisions;
+	private Person[] people; //all people in a building
+	private Rectangle[] collisions; //all collisions in a building
 	
-	private Rectangle entrance;
-	private Rectangle exit;
+	private Rectangle entrance; //entrance collision
+	private Rectangle exit; //exit collision
 	
-	private BufferedImage bg;
-	public final int maxX;
+	private BufferedImage bg; //background image
+	public final int maxX; 
 	public final int maxY;
 	public final int screenX;
 	public final int screenY;
@@ -23,6 +23,7 @@ public class Building {
 	private boolean xEdgeReached;
 	private boolean yEdgeReached;
 	
+	//constructor
 	public Building(Rectangle entrance, Rectangle exit, Person[] people, Rectangle[] collisions,  BufferedImage bg)
 	{
 		this.entrance = entrance;

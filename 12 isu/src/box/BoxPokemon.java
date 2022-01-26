@@ -18,13 +18,13 @@ import pokesetup.Pokemon;
 
 public class BoxPokemon extends JPanel implements MouseListener {
 	
-	private Pokemon pokemon;
-	private boolean inParty;
-	private BufferedImage pokeSprite;
+	private Pokemon pokemon; // instance of a pokemon
+	private boolean inParty; // if the pokemon is in a party
+	private BufferedImage pokeSprite; //the pokemons sprite
 	
-	private Box box;
-	private boolean isSelected;
-	private boolean isVisible;
+	private Box box; // the box object
+	private boolean isSelected; //stores whether a pokemon is selected
+	private boolean isVisible; //stores whether a pokemon is visible
 	
 	private static BufferedImage hex1; // white
 	private static BufferedImage hex2; // dark
@@ -33,6 +33,7 @@ public class BoxPokemon extends JPanel implements MouseListener {
 	
 	private BufferedImage hexagon;
 	
+	//constructor
 	public BoxPokemon(Box box, int index)
 	{
 		this.box = box;
@@ -47,6 +48,7 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		this.index = index;
 	}
 	
+	//places the hexagon where the mouse is
 	public static void setHex()
 	{
 		LoadImage loader = new LoadImage();
@@ -64,7 +66,7 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		catch(IOException e) {}
 	}
 	
-	
+	//updates the pokemon sprites based on its location
 	public void updatePokemon(Pokemon p, boolean inParty)
 	{
 		LoadImage loader = new LoadImage();
@@ -79,6 +81,7 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		box.refresh();
 	}
 	
+	//hides pokemon if it is moved
 	public void hidePokemon()
 	{
 		isVisible = false;
@@ -87,6 +90,7 @@ public class BoxPokemon extends JPanel implements MouseListener {
 		box.refresh();
 	}
 	
+	//paint component
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(isVisible)

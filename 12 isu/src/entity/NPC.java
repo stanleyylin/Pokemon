@@ -27,6 +27,7 @@ public class NPC extends Person
 		this.loseFile = loseFile;
 	}
 
+	//constructor if they are not on screen (or a sprite already existed on the map)
 	public NPC(String name, Rectangle collision, String direction, String firstFile, String loseFile, Pokemon[] party)
 	{
 		super(collision, direction, firstFile);
@@ -39,7 +40,7 @@ public class NPC extends Person
 		this.loseFile = loseFile;
 	}
 
-	
+	//heals NPC party
 	public void healParty() {
 		for (Pokemon p1: party)
 		{
@@ -48,6 +49,7 @@ public class NPC extends Person
 		}
 	}
 
+	//generates party of random pokemons
 	public void generateParty(int maxMons, int minLvl, int maxLvl) {
 
 		int pSize = 1+ (int) (Math.random() * maxMons);
@@ -63,15 +65,14 @@ public class NPC extends Person
 
 	}
 
+	//adds given pokemon to party
 	public void addPokemonToParty(Pokemon pokemon) {
 		int temp = this.findNextPartySlot();
-		//		System.out.println(temp);
 		if (temp >= 0)
 			party[temp] = pokemon;
-		//		else
-		//			System.out.println("your party is full");
 	}
 
+	//finds next available party slot
 	public int findNextPartySlot() {
 		for (int i = 0; i < 6; i++) 
 			if (party[i] == null )
@@ -79,6 +80,7 @@ public class NPC extends Person
 		return -1;
 	}
 
+	//prints pokemon names
 	public void printPokemon() {
 		for (Pokemon p1 : party) {
 			if (p1 == null)
@@ -88,18 +90,7 @@ public class NPC extends Person
 		}
 	}
 
-	//	public Pokemon findNextAvailableMon() {
-	//		for (Pokemon p1 : this.party) {
-	//			if (p1 == null)
-	//				break;
-	//			if (p1.getIsFainted()) 
-	//				continue;
-	//			else
-	//				return p1;
-	//		}
-	//		return null;
-	//	}
-
+	//finds next alive mon
 	public int findNextAvailableMon() {
 		for (int i = 0; i < 6; i++) {
 			if (this.party[i] == null)

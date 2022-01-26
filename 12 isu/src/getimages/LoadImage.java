@@ -8,12 +8,14 @@ import javax.imageio.ImageIO;
 public class LoadImage {
 	private BufferedImage image;
 	
+	//constructor
 	public BufferedImage loadImage(String pathway) throws IOException
 	{
 		image = ImageIO.read(new File(pathway));
 		return image;
 	}
 	
+	//resizes image with int coordinates
 	public BufferedImage resize(BufferedImage prev, int width, int height)
 	{
 		Image tmp = prev.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -24,6 +26,7 @@ public class LoadImage {
 		return prev;
 	}
 	
+	//resizes image with double coordinates
 	public BufferedImage resize(BufferedImage prev, double width, double height)
 	{
 		Image tmp = prev.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);

@@ -37,19 +37,21 @@ public class Battle extends JPanel {
 	private BufferedImage background; // Background image
 	private BufferedImage[] battleStats;
 
-	private boolean intro;
-	private boolean isTrainer;
+	private boolean intro; //if the intro is playing
+	private boolean isTrainer; //if it is a trainer or not
 	
-	private Player player;
-	private int playerCurr;
-	private NPC opponent;
-	private int oppCurr;
+	private Player player; //player obj
+	private int playerCurr; //current players pokemon
+	private NPC opponent; //opponent as an NPC obj
+	private int oppCurr;//opponents current pokemon
 
-	private boolean curLevelUp;
-	private boolean isConfuse;
+	private boolean curLevelUp; //if you leveled up
+	private boolean isConfuse;//if you are confused
 
-	private int currMoveNo;
-	private String currMove;
+	private int currMoveNo; //the selected move number
+	private String currMove; //the selected move
+	
+	
 	//	int[] curPlayerStats= {0,0,0,0};
 	//	int[] curEnemyStats= {0,0,0,0};
 	//attack,defense,special attack,special defense
@@ -65,23 +67,22 @@ public class Battle extends JPanel {
 	// 7 - opponent faint, 8 - game end
 	private static int counter;
 	private static float[] opacity;
-	private String message;
-	private boolean playerIsFainted;
-	private boolean opponentIsFainted;
-	private boolean isWild;
-	private boolean justEvolved = false;
-	private double curCatchChance = 0;
+	private String message; //current message to be displayed
+	private boolean playerIsFainted; //if the player's mon is fainted
+	private boolean opponentIsFainted; //if the opponent's mon is fainted
+	private boolean isWild; //if the pokemon is wild or not
+	private boolean justEvolved = false; //if the pokemon has just evolved
+	private double curCatchChance = 0;//chance of catching current pokemon
 
-//	int pokeX = 792;
-//	int pokeY = 100;
-	private ImageHolder playerBall;
-	private ImageHolder opponentBall;
+	private ImageHolder playerBall; //image of players pokeball
+	private ImageHolder opponentBall;//image of opponents pokeball
 	
-	BufferedImage[] statuses = new BufferedImage[5];
-	static Button back;
-	static Button[] buttons;
-	static MoveSelect[] moves;
+	BufferedImage[] statuses = new BufferedImage[5]; //image array of all the statuses
+	static Button back; //back button
+	static Button[] buttons; //main buttons (fight,pokemon,item,run)
+	static MoveSelect[] moves;//move buttons
 
+	//constructor
 	public Battle(Main main, Player player)
 	{
 		this.main = main;
@@ -111,6 +112,7 @@ public class Battle extends JPanel {
 
 	}
 	
+	//method to load images on screen
 	public void loadImages()
 	{
 		LoadImage loader = new LoadImage();
@@ -255,6 +257,7 @@ public class Battle extends JPanel {
 		public void actionPerformed (ActionEvent event)
 		{
 			
+			//gamestate where the pokemon is being caught or running
 			if (gameState == -1) {
 				
 				if (isWild) {
@@ -286,9 +289,8 @@ public class Battle extends JPanel {
 			
 			
 			
-			//within gamestate = -1 ---> if isWild "you got away" and then go to endBattle (false) else "you cant run from a trainer" and go to gameState 0 and reset stuff
 
-			
+			//gamestate where ytou are starting the battle
 			if(gameState == 1)
 			{
 				message = "You are being challenged!";
@@ -299,6 +301,7 @@ public class Battle extends JPanel {
 				}
 			}
 
+			//gamestate where opp is throwing out their mon
 			if (gameState == 2) {
 				message = "Opponent has sent out " + opponent.getParty()[oppCurr].getName() + "!";
 				if(counter == 0 || counter == 1)
@@ -325,9 +328,9 @@ public class Battle extends JPanel {
 					}
 				}
 			}
+			
+			//gaemstate where you are throwing our your mon
 			if (gameState == 3) {
-				//AT THE MOMENT, SWITCHING MONS WILL END THEIR TURN, SO IT SHOULD B CHANGED SUCH THAT IF YOU
-				//WERE TO SWITHC MONS IN BATTLE(OUT OF CHOICE) it continues the mvoe (gamestate goes to 5 rather than 0)
 				message  = "Go get them, " + player.getParty()[playerCurr].getNickName();
 
 				if(counter == 0 || counter == 1)
@@ -352,6 +355,7 @@ public class Battle extends JPanel {
 			}
 
 
+			//gaemstate where you use move (also checks for statuses & stat modifiers)
 			if (gameState == 4) 
 			{
 				if (counter == 0)
@@ -369,7 +373,6 @@ public class Battle extends JPanel {
 					else
 						message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
 
-					System.out.println("" + player.getParty()[playerCurr].getCurExp() + "/" + player.getParty()[playerCurr].getCurExpThreshold());
 				}
 
 				if (counter == 75 && findMoveCategory(currMove).equals("Status")) 
@@ -480,6 +483,8 @@ public class Battle extends JPanel {
 					return;
 				}
 			}
+			
+			//gamestate where enym is using a move (checks for statuses & stat modifiers)
 			else if (gameState == 5) {
 				if(counter == 0)
 				{
@@ -608,6 +613,8 @@ public class Battle extends JPanel {
 					}
 				}
 			}
+			
+			//gamestat where friendly pokemon has fainted
 			if (gameState == 6) {
 				if (counter == 0) 
 					message = "" + player.getParty()[playerCurr].getNickName() + " has fainted!";
@@ -626,14 +633,12 @@ public class Battle extends JPanel {
 						playerIsFainted = true;
 						repaint();
 						gameState = 8;
-//						endBattle(true);
-//						timer.stop();
-//						return;
 					}
 				}
 
 			}
 
+			//gamestate where enemy pokmemon has fainted
 			if (gameState == 7) {
 				if (counter == 0) {
 					message = "" + opponent.getParty()[oppCurr].getName() + " has fainted!";
@@ -672,6 +677,7 @@ public class Battle extends JPanel {
 					}
 				}
 			}
+			//battle ending gamestate
 			if (gameState == 8) {
 				if (playerIsFainted) {
 					if (counter >= 50) {
@@ -694,7 +700,6 @@ public class Battle extends JPanel {
 						player.replace(playerCurr, newMon);
 					}
 					else if (counter == 115) {
-						System.out.println("test");
 
 						message = "Your " + player.getParty()[playerCurr].getNickName() + " has become a " + player.getParty()[playerCurr].getName()+"!";
 					}
@@ -718,6 +723,7 @@ public class Battle extends JPanel {
 				}
 			}
 			
+			//pokeball gamestate
 			if (gameState == 9) {
 				if (counter == 0) {
 					message = "you tried to catch " + opponent.getParty()[oppCurr].getName();
@@ -730,9 +736,6 @@ public class Battle extends JPanel {
 						else 
 							player.addToBox(opponent.getParty()[oppCurr]);
 						
-						for (Pokemon p1 : player.getParty()) 
-							if (p1 != null)
-							System.out.println(p1.getName());
 
 						
 					}
@@ -783,6 +786,7 @@ public class Battle extends JPanel {
 				main.openBag(1);
 
 		}
+		//run button
 		else if (e.getSource().equals(buttons[3])) {
 			
 			hideButtons();
@@ -803,6 +807,7 @@ public class Battle extends JPanel {
 			showButtons();
 		}
 
+		//first move
 		else if (e.getSource().equals(moves[0].getJLabel()))
 		{
 			hideBack();
@@ -813,6 +818,7 @@ public class Battle extends JPanel {
 			gameState = 4;
 			timer.start();
 		}
+		//second move
 		else if(e.getSource().equals(moves[1].getJLabel()))
 		{
 			hideBack();
@@ -823,6 +829,7 @@ public class Battle extends JPanel {
 			gameState = 4;
 			timer.start();
 		}
+		//third move
 		else if(e.getSource().equals(moves[2].getJLabel()))
 		{
 			hideBack();
@@ -833,6 +840,7 @@ public class Battle extends JPanel {
 			gameState = 4;
 			timer.start();
 		}
+		//fourth move
 		else if (e.getSource().equals(moves[3].getJLabel()))
 		{
 			hideBack();
@@ -847,9 +855,8 @@ public class Battle extends JPanel {
 
 
 
-
+	//it comes to this when u win/lose the battle
 	public void endBattle(boolean isPlayer) {
-		//it comes to this when u win/lose the battle
 
 		if (!isPlayer) {
 			player.setPokeDollars(player.getPokeDollars() + 1000);
@@ -865,29 +872,33 @@ public class Battle extends JPanel {
 		main.openGamePanel();
 
 	}
-
+	//attacks the enemy
 	public void pAttack(String attack) 
 	{
 		player.getParty()[playerCurr].attack(currMoveNo, opponent.getParty()[oppCurr]); //attacks the opponent
 		player.getParty()[playerCurr].getCurMoves()[currMoveNo].useMove(); //subtracts 1 pp
 	}
+	//enemy attacks you
 	public void oAttack(int enemyAttack) {
 		opponent.getParty()[oppCurr].attack(enemyAttack, player.getParty()[playerCurr]); //attacks the player
 	}
+	//checks if pokemon is fainted
 	public boolean checkFaint(Pokemon p1) {
 		if (p1.getCurHP()<=0)
 			return true;
 		return false;
 	}
+	//what it does if pokemon is fainted
 	public void pokeFaint(Pokemon p1) {
 		p1.setCurHP(0);
 		p1.setIsFainted(true);
-		System.out.println("" + p1.getName() +" has fainted");
 	}
+	//adds poison or burn damage (1/8 total health)
 	public void addPoisonOrBurn (Pokemon p1) {
 		int burnDmg = p1.getHPStat()/8;
 		p1.setCurHP(p1.getCurHP() - burnDmg);
 	}
+	//returns count of pokemon in party atm
 	public int pokeCount(Pokemon[] party) {
 		int count = 0;
 		for (Pokemon p1 : party) {
@@ -897,6 +908,7 @@ public class Battle extends JPanel {
 		return count;
 	}
 
+	//finds category of move
 	public String findMoveCategory(String s) {
 		return BlankMon.getMoveList().get(s).getCategory();
 	}
@@ -976,13 +988,13 @@ public class Battle extends JPanel {
 	public void pokeClicked(MouseEvent e) {
 		System.out.println();
 	}
-
+	
+	//when items are used these are their effects in battle
 	public void useItem(String s) {
 
 		main.openBattle();
 		
 		if (s.equals("Potion")) {
-			System.out.print("test");
 			player.getParty()[playerCurr].heal(20);
 			gameState = 5;
 
@@ -1049,6 +1061,7 @@ public class Battle extends JPanel {
 		timer.start();
 	}
 	
+	//chance to catch pokemon
 	public boolean catchPokemon() {
 //		int catchNum = (int)  (((3 * opponent.getParty()[oppCurr].getHPStat() - 2 * opponent.getParty()[oppCurr].getCurHP()) * 150 * curCatchChance)/3 * opponent.getParty()[oppCurr].getHPStat());
 //		if (opponent.getParty()[oppCurr].getStatus() != null)
@@ -1064,6 +1077,7 @@ public class Battle extends JPanel {
 		
 	}
 
+	//checks if pokemon can evolve
 	public boolean checkForEvolve() {
 		if (player.getParty()[playerCurr].getIfEvolve() && player.getParty()[playerCurr].getLevel() >= player.getParty()[playerCurr].getEvolveLvl()) 
 			return true;
@@ -1071,6 +1085,7 @@ public class Battle extends JPanel {
 		else return false;
 	}
 
+	//go back to main
 	public void backToMain() {
 		gameState = 0;
 		showButtons();
@@ -1079,6 +1094,7 @@ public class Battle extends JPanel {
 		main.openBattle();
 	}
 	
+	//open battle
 	public void openBattle()
 	{
 		gameState = 0;
@@ -1086,6 +1102,7 @@ public class Battle extends JPanel {
 		main.openBattle();
 	}
 
+	//gets least pp move
 	public Integer getLeastPPMove() {
 		TreeMap<Integer, Move> tm = new TreeMap<Integer,Move>();
 		tm.put(player.getParty()[playerCurr].getCurMoves()[0].getCurPP(), player.getParty()[playerCurr].getCurMoves()[0]);
@@ -1096,6 +1113,7 @@ public class Battle extends JPanel {
 		return tm.firstKey();
 	}
 
+	//sets next mon as currmon once pokemon dies
 	public void setNextMon(int i) 
 	{
 		playerCurr = i;
@@ -1171,6 +1189,7 @@ public class Battle extends JPanel {
 		}
 	}
 
+	//loads players mon graphics
 	public void loadPlayerMon(Graphics2D g2)
 	{
 
@@ -1186,6 +1205,7 @@ public class Battle extends JPanel {
 	
 		}
 	}
+	//updates text
 	public void updateText(Graphics2D g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
@@ -1193,6 +1213,7 @@ public class Battle extends JPanel {
 		g2.setColor(Color.WHITE);
 		g2.drawString(message, 69, 648);
 	}
+	//loads opp mon
 	public void loadOpponentMon(Graphics2D g2)
 	{
 		if(opponentBall.getVisible())
@@ -1207,6 +1228,7 @@ public class Battle extends JPanel {
 			g2.drawImage(opponent.getParty()[oppCurr].getFront(), oX, oY, null);
 		}
 	}
+	//draws opp pokemon stats
 	public void drawOStats(Graphics2D g2)
 	{
 		if(opponent.getParty()[oppCurr] != null)
@@ -1282,6 +1304,8 @@ public class Battle extends JPanel {
 
 		}
 	}
+	
+	//draws your pokemon stats
 	public void drawPStats(Graphics2D g2)
 	{
 		if(player.getParty()[playerCurr] != null)
@@ -1374,6 +1398,7 @@ public class Battle extends JPanel {
 		}
 	}
 
+	//starts a new battle
 	public void newBattle(NPC newOpponent, boolean isW)
 	{
 		playerCurr = 0;

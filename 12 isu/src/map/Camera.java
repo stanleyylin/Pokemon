@@ -10,14 +10,15 @@ import main.GamePanel;
 
 public class Camera {
 	
-	private int worldX;
-	private int worldY;
-	private Location location;
-	private Building building;
+	private int worldX; //the x coord of the world the cam is on
+	private int worldY; //the y coord of the world the cam is on
+	private Location location; //the location obj that the cam is looking at 
+	private Building building; // the building obj that the cam is looking at
 
 	private final int screenWidth = GamePanel.screenWidth;
 	private final int screenHeight = GamePanel.screenHeight;
 	
+	//constructor
 	public Camera(Location location, int worldX, int worldY)
 	{
 		this.location = location;
@@ -25,6 +26,7 @@ public class Camera {
 		this.worldY = worldY;
 	}
 
+	//loads NPC into the map or building
 	void loadNPC(Person[] people)
 	{
 		if(building == null)

@@ -35,6 +35,7 @@ public class Moving {
 		spriteCounter = 0;
 	}
 	
+	//checks collisions with players current position via camera
 	void checkCollisions(Rectangle[] collisions, boolean cameraXOn, boolean cameraYOn)
 	{
 		int camX = 0;
@@ -98,6 +99,7 @@ public class Moving {
 		}
 	}
 	
+	//checks if player is colliding with gate
 	void checkGate(ArrayList<Gate> gates)
 	{
 		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
@@ -116,6 +118,7 @@ public class Moving {
 		}
 	}
 	
+	//checks if player can interact with anything
 	void interact()
 	{
 		int camX = 0;
@@ -161,6 +164,7 @@ public class Moving {
 		}
 	}
 	
+	//checks collisions with a person
 	void checkCollisions(Person[] people, boolean cameraXOn, boolean cameraYOn)
 	{
 		int camX = 0;
@@ -226,6 +230,7 @@ public class Moving {
 		}
 	}
 	
+	//checks if colliding with a door 
 	void doorEntered()
 	{
 		if(camera.getBuilding() == null && main.direction == "up")
@@ -259,6 +264,7 @@ public class Moving {
 		}
 	}
 	
+	//checks if in grass and has chance of pokemon popping up
 	void inGrass()
 	{
 		if(camera.getLocation().getGrass() == null)
@@ -275,7 +281,7 @@ public class Moving {
 				if (temp == 35) {
 					
 					NPC wildMon = new NPC("wild",new Rectangle(0,0,0,0),"down",null,null, null);
-					wildMon.generateParty(1, 4, 16);
+					wildMon.generateParty(1, 8, 28);
 					
 					game.wildEncounter(wildMon, true);
 				}
@@ -284,6 +290,7 @@ public class Moving {
 		
 	}
 	
+	//changes sprite with next in sprite sheet
 	public void changeSprite()
 	{
 		spriteCounter += 1;
@@ -302,6 +309,7 @@ public class Moving {
 		}
 	}
 	
+	//moves the player in the horizontal direction
 	public void movePlayerX()
 	{
 		if(moving > 0)
@@ -379,6 +387,7 @@ public class Moving {
 			checkGate(camera.getLocation().getGates());
 	}
 	
+	//moves the player in the vertical direction
 	public void movePlayerY()
 	{
 		if(moving > 0)
@@ -457,6 +466,7 @@ public class Moving {
 	
 	}
 	
+	//moves the camera in the horizontal direction
 	public void moveCameraX() 
 	{
 		if(moving > 0)
@@ -494,6 +504,7 @@ public class Moving {
 			checkGate(camera.getLocation().getGates());
 	}
 	
+	//moves the camera in the vertical direction
 	public void moveCameraY()
 	{
 		if(moving > 0)
@@ -530,6 +541,7 @@ public class Moving {
 			checkGate(camera.getLocation().getGates());
 	}
 	
+	//draws the player in its current position and sprite
 	public void draw(Graphics2D g2)
 	{
 		if(moving == 1)

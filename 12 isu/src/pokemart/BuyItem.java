@@ -15,18 +15,21 @@ import bag.Bag;
 import bag.Item;
 
 public class BuyItem extends JPanel implements MouseListener {
+	//class that allows you to buy items
+	
 	private PokeMart pokeMart;
 	private Item item;
 	
-	private static BufferedImage selected;
-	private static BufferedImage deselected;
-	private BufferedImage icon;
+	private static BufferedImage selected; //if an item is selected
+	private static BufferedImage deselected; //if an item is deselected
+	private BufferedImage icon; //an item icon
 	
 	private boolean select;
 	private boolean visible;
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 18);
 	
+	//constructor
 	public BuyItem(PokeMart pokeMart)
 	{
 		this.pokeMart = pokeMart;
@@ -36,12 +39,14 @@ public class BuyItem extends JPanel implements MouseListener {
 		setLayout(null);
 	}
 	
+	//sets images to selected or deselected
 	public static void setImages(BufferedImage select, BufferedImage deselect)
 	{
 		selected = select;
 		deselected = deselect;
 	}
 
+	//mouse listener methods
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(visible)
@@ -70,6 +75,7 @@ public class BuyItem extends JPanel implements MouseListener {
 		revalidate();
 	}
 	
+	//paint component
 	public void paintComponent(Graphics g) 
 	{
 		

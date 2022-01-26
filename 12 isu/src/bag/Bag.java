@@ -20,6 +20,9 @@ import main.Main;
 
 public class Bag extends JPanel implements MouseListener
 {
+	//the players bag that holds items
+	
+	
 	private Main main;
 	private Player player; // The player
 	

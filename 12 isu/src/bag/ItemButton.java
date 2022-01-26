@@ -12,18 +12,21 @@ import java.awt.event.MouseListener;
 
 
 public class ItemButton extends JPanel implements MouseListener {
-	private Bag bag;
-	private Item item;
+	//class for button objects that items use
 	
-	private static BufferedImage selected;
-	private static BufferedImage deselected;
-	private BufferedImage icon;
+	private Bag bag; //players bag
+	private Item item; //item object
 	
-	private boolean select;
-	private boolean visible;
+	private static BufferedImage selected; //icon when selected
+	private static BufferedImage deselected; //icon when not selected
+	private BufferedImage icon; //icon generally
+	
+	private boolean select; //stores if an icon is selected
+	private boolean visible; //stores if an icon is visible
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
 	
+	//constructor
 	public ItemButton(Bag bag)
 	{
 		this.bag = bag;
@@ -33,12 +36,14 @@ public class ItemButton extends JPanel implements MouseListener {
 		setLayout(null);
 	}
 	
+	//sets the images as selected or deselected
 	public static void setImages(BufferedImage select, BufferedImage deselect)
 	{
 		selected = select;
 		deselected = deselect;
 	}
 
+	//mouselistener methods
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(visible)
@@ -60,6 +65,7 @@ public class ItemButton extends JPanel implements MouseListener {
 		select = selected;
 	}
 	
+	//sets the icon visible and repaints it
 	public void setVisible(boolean b)
 	{
 		visible = b;
