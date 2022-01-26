@@ -69,6 +69,7 @@ public class Main extends JFrame {
 		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
+		
 
 		openMainMenu();
 	}

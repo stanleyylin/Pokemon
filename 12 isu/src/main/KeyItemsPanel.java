@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -25,6 +26,8 @@ public class KeyItemsPanel extends JPanel{
 		
 		this.main = main;
 		this.player = player;
+		
+		setPreferredSize(new Dimension (1280,720));
 		
 		try {
 			RegionMap = loader.loadImage("regionMap.png");
