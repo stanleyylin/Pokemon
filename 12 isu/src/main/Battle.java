@@ -491,6 +491,8 @@ public class Battle extends JPanel {
 				if(counter == 0)
 				{
 					enemyAttack = (int) (Math.random() * 4);
+					while (opponent.getParty()[oppCurr].getCurMoves()[enemyAttack] == null)
+						enemyAttack--;
 
 					if (opponent.getParty()[oppCurr].getStatus() == Pokemon.Status.FREEZE) {
 						message = "" + opponent.getParty()[oppCurr].getName() + " is frozen.";
@@ -811,7 +813,7 @@ public class Battle extends JPanel {
 		else if (e.getSource().equals(moves[0].getJLabel()))
 		{
 			hideBack();
-//			hideMoves();
+			hideMoves();
 			currMove = moves[0].getName();
 			currMoveNo = 0;
 			counter = 0;
@@ -820,7 +822,7 @@ public class Battle extends JPanel {
 		}
 		else if(e.getSource().equals(moves[1].getJLabel()))
 		{
-			hideBack();
+//			hideBack();
 			hideMoves();
 			currMove = moves[1].getName();
 			currMoveNo = 1;
@@ -830,7 +832,7 @@ public class Battle extends JPanel {
 		}
 		else if(e.getSource().equals(moves[2].getJLabel()))
 		{
-			hideBack();
+//			hideBack();
 			hideMoves();
 			counter = 0;
 			currMove = moves[2].getName();
@@ -840,7 +842,7 @@ public class Battle extends JPanel {
 		}
 		else if (e.getSource().equals(moves[3].getJLabel()))
 		{
-			hideBack();
+//			hideBack();
 			hideMoves();
 			counter = 0;
 			currMove = moves[3].getName();
@@ -911,9 +913,11 @@ public class Battle extends JPanel {
 	public void hideBack()
 	{
 		Container parent = back.getParent();
+		if (parent != null) {
 		parent.remove(back);
 		parent.revalidate();
 		parent.repaint();
+		}
 	}
 	// Shows/hides the main buttons (fight/pokemon/run/bag)
 	// void, no parameters
@@ -957,7 +961,8 @@ public class Battle extends JPanel {
 	{
 		for(MoveSelect m : moves)
 		{
-			if(m!= null)
+			if(m.getName()
+					!= null)
 			{
 				Container parent = m.getParent();
 				parent.remove(m);
@@ -1377,6 +1382,8 @@ public class Battle extends JPanel {
 		oppCurr = 0;
 		isWild = isW;
 		intro = true;
+		playerIsFainted = false;
+		opponentIsFainted = false;
 		opponent.healParty();
 		gameState = 1;
 		counter = 0;

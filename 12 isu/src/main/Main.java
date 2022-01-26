@@ -58,7 +58,9 @@ public class Main extends JFrame {
 		gamePanel = new GamePanel(this, player);
 		box = new Box(this, player);
 		pokeMart = new PokeMart(this, player);
-		battle = new Battle(this,player);
+		battle = new Battle(this,player);	
+		bag = new Bag(this,player,battle);
+		pokeSelect = new PokeSelect(battle, player,0);
 		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",7));
 	
 		
