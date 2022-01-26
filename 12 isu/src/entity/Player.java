@@ -293,7 +293,7 @@ public class Player {
 		return hasWon;
 	}
 	public void addBadges() {
-		if (this.badges< 3)
+		if (this.badges<= 3)
 			this.badges++;
 	}
 
