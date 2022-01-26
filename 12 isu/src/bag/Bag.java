@@ -471,11 +471,13 @@ public class Bag extends JPanel implements MouseListener
 			if(bagState == 1) // nPC battle
 			{
 				battle.useItem(selectedItem.getName());
+				selectedItem.useOneItem();
 				main.openBattle();
 			}
 			if(bagState == 2) // wild pokemon battle
 			{
 				battle.useItem(selectedItem.getName());
+				selectedItem.useOneItem();
 				main.openBattle();
 			}
 			

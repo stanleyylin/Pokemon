@@ -129,6 +129,9 @@ public class Item implements Comparable<Item> {
 	{
 		quantity += add;
 	}
+	public void useOneItem() {
+		this.quantity--;
+	}
 
 }
 

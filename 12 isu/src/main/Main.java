@@ -62,7 +62,7 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",7));
+		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",32));
 		keyItemsPanel = new KeyItemsPanel(this,player);
 	
 		// TESTER-------
@@ -134,6 +134,7 @@ public class Main extends JFrame {
 	}
 	public void openPokeSelect()
 	{
+		pokeSelect.updatePokemon();
 		setContentPane(pokeSelect);
 		setVisible(true);
 		pack();
