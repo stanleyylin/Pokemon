@@ -207,49 +207,36 @@ public class MainMenu extends JPanel implements MouseListener
 			if(counter >= 26 && counter <= 34)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[2]));
-				g2.drawImage(currButtons[0], 365, 310, null);
+				g2.drawImage(currButtons[0], 365, 320, null);
 				opacity[2] += 0.1f;
 			}
 			else if(counter >= 34)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[2]));
-				g2.drawImage(currButtons[0], 365, 310, null);
-			}
-			
-			// button 2/3
-			if(counter >= 34 && counter <= 42)
-			{
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[3]));
-				g2.drawImage(currButtons[1], 340, 390, null);
-				opacity[3] += 0.1f;
-			}
-			else if(counter >= 42)
-			{
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[3]));
-				g2.drawImage(currButtons[1], 340, 390, null);
+				g2.drawImage(currButtons[0], 365, 320, null);
 			}
 			
 			// button 3/3
-			if(counter >= 42 && counter <= 50)
+			if(counter >= 34 && counter <= 42)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[4]));
-				g2.drawImage(currButtons[2], 285, 470, null);
+				g2.drawImage(currButtons[2], 285, 420, null);
 				opacity[4] += 0.1f;
 			}
-			else if(counter >= 50)
+			else if(counter >= 42)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[4]));
-				g2.drawImage(currButtons[2], 285, 470, null);
+				g2.drawImage(currButtons[2], 285, 420, null);
 			}
 			
 			// credit
-			if(counter >= 50 && counter <= 58)
+			if(counter >= 42 && counter <= 50)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[5]));
 				g2.drawImage(credit, 310, 641, null);
 				opacity[5] += 0.1f;
 			}
-			else if(counter >= 58)
+			else if(counter >= 50)
 			{
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity[5]));
 				g2.drawImage(credit, 310, 641, null);
@@ -263,9 +250,8 @@ public class MainMenu extends JPanel implements MouseListener
 		{
 			g2.drawImage(title, 247, 30, null);	
 			g2.drawImage(subtitle, 328, 150, null);
-			g2.drawImage(currButtons[0], 365, 310, null);
-			g2.drawImage(currButtons[1], 340, 390, null);
-			g2.drawImage(currButtons[2], 285, 470, null);
+			g2.drawImage(currButtons[0], 365, 320, null);
+			g2.drawImage(currButtons[2], 285, 420, null);
 			g2.drawImage(credit, 310, 641, null);
 		}
 	}

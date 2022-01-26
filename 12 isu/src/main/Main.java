@@ -59,33 +59,8 @@ public class Main extends JFrame {
 		} 
 		catch (IOException e) {}
 		// TESTER-------
-		Pokemon[] temp = new Pokemon[6];
-		temp[0] = new Pokemon("Bulbasaur", "Bulby", 12);
-		temp[1] = new Pokemon ("Fearow", "birdy", 25);
-		gary = new NPC("Trainer Peppa", new Rectangle(12, 12, 12, 12), "up", "Up", 0,0, "hi", "hi", temp);
-		player.addPokemonToParty(new Pokemon ("Fearow", "birdy", 25));
-		player.getParty()[0].setStatus(Pokemon.Status.FREEZE);
-		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
-		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
-		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
-		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
-		player.addPokemonToParty(new Pokemon ("Charizard", "swagg", 33));
-		player.addToBox(new Pokemon ("Bulbasaur", "hello", 33));
-
-		//----------
-		
-		battle = new Battle(this, player);
-		pokeSelect = new PokeSelect(battle, player, 0);
-		bag = new Bag(this, player, battle);
-		player.addOnItem("Great Ball", 0, 5);
-		player.addOnItem("Potion", 1, 5);
-		player.addOnItem("Full Heal", 1, 5);
-		player.addOnItem("Master Ball", 0, 5);
-		player.addKeyItem("Town Map");
-
-
-//		startBattle(gary, true);
-		openGamePanel();
+	
+		openMainMenu();
 	}
 	
 	public void openMainMenu()

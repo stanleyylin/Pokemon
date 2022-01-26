@@ -514,9 +514,9 @@ public class GamePanel extends JPanel implements Runnable
 		Gate gate5b = new Gate(627*3,true,104*3,false,290*3,165*3,new Rectangle(0,274*3,70*3,42*3),jubilife);
 		r203.addGate(gate5b);
 		
-		Gate gate6 = new Gate(0,true,0,true,62*3,170*3,new Rectangle(905*3,132*3,18*3,24*3),oreburg);
+		Gate gate6 = new Gate(0,true,30*3,true,62*3,170*3,new Rectangle(905*3,132*3,18*3,24*3),oreburg);
 		r203.addGate(gate6);
-		Gate gate6b = new Gate(615,true,0,true,229*3,132*3,new Rectangle(17*3,17*3,19*3,24*3),r203);
+		Gate gate6b = new Gate(615*3,true,0,true,232*3,132*3,new Rectangle(0,170*3,19*3,24*3),r203);
 		oreburg.addGate(gate6b);
 		
 		Gate gate7 = new Gate(0,true,176*3,true,180*3,133*3,new Rectangle(651*3,0*3,43*3,80*3),r207);
@@ -648,18 +648,14 @@ public class GamePanel extends JPanel implements Runnable
 	}
 	
 	// Battle
-	public void startBattle()
+	public void startWildBattle()
 	{
-//		main.battle(new NPC);
-		// main.openBattlePanel(null, true);
-		//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
-		//isWIld to true (so pokeballs can be used)
+		//
 
 	}
 	public void startNPCBattle(NPC npc)
 	{
-		System.out.println("hello");
-		// main.openBattlePanel(npc, false);
+		main.startBattle(npc, false);
 	}
 	
 	public void showDialogue()
@@ -687,7 +683,10 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		main.openBag(0);
 	}
-	
+	public void openMainMenu()
+	{
+		main.openMainMenu();
+	}
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		

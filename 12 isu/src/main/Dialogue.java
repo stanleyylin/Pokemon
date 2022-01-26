@@ -71,8 +71,8 @@ public class Dialogue extends JPanel
 				}
 				else if(line.equals("*battle*"))
 				{
-					// call gamePanel
 					message = "Good match!";
+					((NPC) npc).startBattle();
 				}
 				else if(line.equals("*store*"))
 				{
