@@ -859,8 +859,11 @@ public class Battle extends JPanel {
 		//if(isPlayer)
 		//trigger the blackkscreen & pokemon centre animation
 
-		if (!isPlayer)
+		if (!isPlayer) {
 			main.openGamePanel();
+			player.setPokeDollars(player.getPokeDollars() + 1000);
+		}
+		
 		//else
 		//switch the screen back to overworld and have them give you dialogue + money
 	}
