@@ -89,7 +89,7 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",32));
+		player.addPokemonToParty(new Pokemon ("Charmander", "Oak's Flame",80));
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		

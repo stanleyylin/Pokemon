@@ -17,6 +17,7 @@ import map.Building;
 import map.Camera;
 import map.Gate;
 import map.Location;
+import pokesetup.Pokemon;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable
@@ -94,12 +95,30 @@ public class GamePanel extends JPanel implements Runnable
 	    Person[] trainer1 = new NPC[1];
 	    
 	    trainer1[0] = new NPC("Trainer", new Rectangle(561,302,50,63),"down", "trainer1.txt", "trainer2.txt",null);
+	    ((NPC) trainer1[0]).addPokemonToParty(new Pokemon ("Geodude","Geodude",9));
+	    ((NPC) trainer1[0]).addPokemonToParty(new Pokemon ("Onix","Onix",13));
+	    
 	    Person[] trainer2 = new NPC[1];
 	    trainer2[0] = new NPC("Trainer", new Rectangle(561,302,50,63), "down", "trainer1.txt", "trainer2.txt",null);
+	    ((NPC) trainer2[0]).addPokemonToParty(new Pokemon ("Starmie","Starmie",14));
+	    ((NPC) trainer2[0]).addPokemonToParty(new Pokemon ("Wartortle","Wartortle",16));
+
 	    Person[] trainer3 = new NPC[1];
 	    trainer3[0] = new NPC("Trainer", new Rectangle(561,302,50,63), "down", "trainer1.txt", "trainer2.txt",null);
+	    ((NPC) trainer3[0]).addPokemonToParty(new Pokemon ("Kadabra","Kadabra",21));
+	    ((NPC) trainer3[0]).addPokemonToParty(new Pokemon ("Slowbro","Slowbro",18));
+	    ((NPC) trainer3[0]).addPokemonToParty(new Pokemon ("Snorlax","Snorlax",23));
+
+
+	    
 	    Person[] champs = new NPC[1];
 	    champs[0] = new NPC("Champ", new Rectangle(510,223,54,74), "down", "trainer1.txt", "trainer2.txt",null);
+	    ((NPC) champs[0]).addPokemonToParty(new Pokemon ("Gyarados","Gyarados",27));
+	    ((NPC) champs[0]).addPokemonToParty(new Pokemon ("Aerodactyl","Aerodactyl",31));
+	    ((NPC) champs[0]).addPokemonToParty(new Pokemon ("Charizard","Charizard",33));
+	    ((NPC) champs[0]).addPokemonToParty(new Pokemon ("Dragonite","Dragonite",36));
+
+
 	    
 	    // Building pokeMart = new Building()
 	    // MAPS
