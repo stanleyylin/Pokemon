@@ -4,6 +4,7 @@ package entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import pokesetup.BlankMon;
 import pokesetup.Pokemon;
 
 public class NPC extends Person 
@@ -30,7 +31,10 @@ public class NPC extends Person
 	{
 		super(collision, direction, firstFile);
 		this.name = name;
+		if (party != null)
 		this.party = party;
+		else
+			this.party = new Pokemon[6];
 		battleable = false;
 		this.loseFile = loseFile;
 	}
@@ -54,8 +58,11 @@ public class NPC extends Person
 
 		for (int i = 0; i< pSize; i++) {
 			int newLvl= minLvl+ (int) (Math.random() * (maxLvl-minLvl+1));
-			int newID = 1 + (int) (Math.random() * (151-1)+1);
-			party[i] = new Pokemon(Pokemon.getStatsForEvolve().get(newLvl).getName(),Pokemon.getStatsForEvolve().get(newLvl).getName(),newLvl);
+			
+			
+			
+			int newID = 1 + (int) (Math.random() * (80-1)+1);
+			party[i] = new Pokemon(Pokemon.getStatsForEvolve().get(newID).getName(),Pokemon.getStatsForEvolve().get(newID).getName(),newLvl);
 		}
 
 	}

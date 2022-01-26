@@ -1,6 +1,6 @@
 Bulbasaur-1,Tackle;2,Growl;3,Vine Whip;6,Growth;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;18,Seed Bomb;21,Take Down;24,Sweet Scent;27,Synthesis;30,Worry Seed;33,Double-Edge;36,Solar Beam
 Ivysaur-1,Tackle;2,Growl;3,Vine Whip;6,Growth;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;35,Synthesis;40,Worry Seed;45,Double-Edge;50,Solar Beam
-Venesaur-1,Petal Blizzard;1,Petal Dance;1,Tackle;1,Growl;1,Vine Whip;1,Growth;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;37,Synthesis;44,Worry Seed;51,Double-Edge;58,Solar Beam
+Venusaur-1,Petal Blizzard;1,Petal Dance;1,Tackle;1,Growl;1,Vine Whip;1,Growth;12,Razor Leaf;15,Poison Powder;15,Sleep Powder;20,Seed Bomb;25,Take Down;30,Sweet Scent;37,Synthesis;44,Worry Seed;51,Double-Edge;58,Solar Beam
 Charmander-1,Scratch;1,Growl;7,Ember;16,Dragon Rage;25,Fire Fang;28,Flame Burst;34,Slash;37,Flamethrower;43,Fire Spin;46,Inferno
 Charmeleon-1,Scratch;1,Growl;1,Ember;7,Ember;17,Dragon Rage;28,Fire Fang;32,Flame Burst;39,Slash;43,Flamethrower;50,Fire Spin;54,Inferno
 Charizard-1,Dragon Claw;1,Shadow Claw;1,Air Slash;1,Scratch;7,Ember;17,Dragon Rage;28,Fire Fang;32,Flame Burst;36,Wing Attack;41,Slash;47,Flamethrower;56,Fire Spin;62,Inferno;71, Heat Wave;77,Flare Blitz
@@ -17,7 +17,7 @@ Pidgey-1,Tackle;5,Sand Attack;9,Gust;13,Quick Attack;17,Whirlwind;21,Twister;25,
 Pidgeotto-1,Tackle;1,Sand Attack;1,Gust;13,Quick Attack;17,Whirlwind;22,Twister;32,Agility;37,Wing Attack;42,Roost;47,Tailwind;47,Air Slash;62,Hurricane
 Pidgeot-1,Hurricane;1,Tackle;1,Sand Attack;1,Gust;1,Quick Attack;17,Whirlwind;22,Twister;32,Agility;38,Wing Attack;44,Roost;50,Tailwind;62,Air Slash;68,Hurricane
 Rattata-1,Tackle;1,Tail Whip;4,Quick attack;7,Focus Energy;10,Bite;13,Pursuit;16,Hyper Fang;19,Sucker Punch;22,Crunch;25,Assurance;28,Super Fang;31,Double-Edge;34,Endeavour
-Ratticate-1,Swords Dance;1,Tackle;1,Tail Whip;1,Quick Attack;1,Focus Energy;4,Quick Attack;7,Focus Energy;10,Bite;13,Pursuit;16,Hyper Fang;19,Sucker Punch;24,Crunch;29,Assurance;34,Super Fang;39,Double-Edge;44,Endeavour
+Raticate-1,Swords Dance;1,Tackle;1,Tail Whip;1,Quick Attack;1,Focus Energy;4,Quick Attack;7,Focus Energy;10,Bite;13,Pursuit;16,Hyper Fang;19,Sucker Punch;24,Crunch;29,Assurance;34,Super Fang;39,Double-Edge;44,Endeavour
 Spearow-1,Peck;1,Growl;5,Leer;9,Fury Attack;13,Pursuit;17,Aerial Ace;25,Agility;29,Assurance;33,Roost;37,Drill Peck
 Fearow-1,Drill Run;1,Pluck;1,Peck;1,Growl;1,Leer;1,Fury Attack;5,Leer;9,Fury Attack;13,Pursuit;17,Aerial Ace;29,Agility;35,Assurance;41,Roost;47,Drill Peck;53,Drill Run
 Ekans-1,Wrap;1,Leer;4,Poison Sting;9,Bite;12,Glare;17,Screech;20,Acid;25,Stockpile;25,Swallow;25,Spit Up;28,Acid Spray;33,Mud Bomb;36,Gastro Acid;38,Belch;41,Haze;44,Coil;49,Gunk Shot
@@ -25,7 +25,7 @@ Arbok-1,Ice Fang;1,Thunder Fang;1,Fire Fang;1,Wrap;1,Leer;1,Poison Sting;1,Bite;
 Pikachu-1,Tail Whipl1,Thunder Shock;5,Growl;7,Play Nice;10,Quick Attack;13,Thunder Wave;18,Electro Ball;23,Nuzzle;26,Slam;29,Thunderbolt;34,Feint;37,Agility;42,Discharge;45,Light Screen;50,Thunder
 Raichu-1,Thunder Shock;1,Tail Whip;1,Quick Attack;1,Thunderbolt
 Sandshrew-1,Scratch;1,Defense Curl;3,Sand Attack;5,Poison Sting;7,Rollout;9,Rapid Spin;11,Swift;14,Fury Cutter;17,Magnitude;20,Fury Swipes;23,Sand Tomb;26,Slash;30,Dig;34,Gyro Ball;38,Swords Dance;42,Sandstorm;46,Earthquake
-SandSlash-1,Scratch;1,Defense Curl;1,Sand Attack;1,Poison Sting;7,Rollout;9,Rapid Spin;11,Swift;14,Fury Cutter;17,Magnitude;20,Fury Swipes;22,Crush Claw;23,Sand Tomb;26,Slash;30,Dig;34,Hyro Ball;38,Swords Dance;42,Sandstorm;46,Earthquake
+Sandslash-1,Scratch;1,Defense Curl;1,Sand Attack;1,Poison Sting;7,Rollout;9,Rapid Spin;11,Swift;14,Fury Cutter;17,Magnitude;20,Fury Swipes;22,Crush Claw;23,Sand Tomb;26,Slash;30,Dig;34,Hyro Ball;38,Swords Dance;42,Sandstorm;46,Earthquake
 Nidoran♀-1,Growth;1,Scratch;7,Tail Whip;9,Double Kick;13,Poison Sting;19,Fury Swipes;21,Bite;25,Helping Hand;31,Toxic Spikes;33,Flatter;37,Crunch;43,Captivate;45,Poison Fang
 Nidorina-1,Growl;1,Scratch;7,Tail Whip;9,Double kick;13,Poison Sting;20,Fury Swipes;23,Bite;28,Helping Hand;35,Toxic Spikes;38,Flatter;43,Crunch;50,Captivate;58,Poison Fang
 Nidoqueen-1,Superpower;1,Scratch;1,Tail Whip;1,Double Kick;1,Poison Sting;23,Chip Away;35,Body Slam;43,Earth Power;58,Superpower
@@ -70,7 +70,7 @@ Bellsprout-1,Vine Whip;7,Growth;11,Wrap;13,Sleep Powder;15,Poison Powder;17,Stun
 Weepinbell-1,Vine Whip;1,Growth;1,Wrap;7,Growth;11,Wrap;13,Sleep Powder;15,Poison Powder;17,Stun Spore;23,Acid;27,Knock Off;29,Sweet Scent;35,Gastro Acid;39,Razor Leaf;41,Slam;47,Wring Out
 Victreebel-1,Stockpile;1,Swallow;1,Spit Up;1,Vine Whip;1,Sleep Powder;1,Sleep Scent;1,Razor Leaf;27,Leaf Tornado;47,Leaf Storm;47,Leaf Blade
 Tentacool-1,Poison Sting;5,Supersonic;8,Constrict;12,Acid;15,Toxic Spikes;19,Bubble Beam;22,Wrap;26,Acid Spray;29,Barrier;33,Water Pulse;36,Poison Jab;40,Screech;43,Hex;47,Hydro Pump;50,Sludge Wave;54,Wring Out
-Tentracruel-1,Reflect Type;1,Wring Out;1,Poison Sting;1,Supersonic;1,Constrict;5,Supersonic;8,Constrict;12,Acid;15,Toxic Spikes;19,Bubble Beam;22,Wrap;26,Acid Spray;29,Barrier;34,Water Pulse;38,Poison Jab;43,Screech;47,Hex;52,Hydro Pump;56,Sludge Wave;61,Wring Out
+Tentacruel-1,Reflect Type;1,Wring Out;1,Poison Sting;1,Supersonic;1,Constrict;5,Supersonic;8,Constrict;12,Acid;15,Toxic Spikes;19,Bubble Beam;22,Wrap;26,Acid Spray;29,Barrier;34,Water Pulse;38,Poison Jab;43,Screech;47,Hex;52,Hydro Pump;56,Sludge Wave;61,Wring Out
 Geodude-1,Tackle;1,Defense Curl;4,Mud Sport;8,Rock Polish;11,Rollout;15,Magnitude;18,Rock Throw;22,Rock Blast;25,Smack Down;29,Self-Destruct;32,Bulldoze;36,Stealth Rock;39,Earthquake;43,Explosion;46,Double-Edge;50,Stone Edge
 Graveler-1,Tackle;1,Defense Curl;1,Mud Sport;1,Rock Polish;4,Mud Sport;8,Rock Polish;11,Rollout;15,Magnitude;18,Rock Throw;22,Rock Blast;27,Smack Down;31,Self-Destruct;36,Bulldoze;42,Stealth Rock;47,Earthquake;53,Explosion;48,Double-Edge;64,Stone Edge
 Golem-1,Heavy Slam;1,Tackle;1,Defense Curl;1,Mud Sport;1,Rock Polish;4,Mud Sport;8,Rock Polish;11,Steamroller;15,Magnitude;18,Rock Throw;22,Rock Blast;27,Smack Down;31,Self-Destruct;36,Bulldoze;42,Stealth Rock;47,Earthquake;53,Explosion;58,Double-Edge;64,Stone Edge;69,Heavy Slam

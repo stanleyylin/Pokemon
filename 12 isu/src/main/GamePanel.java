@@ -297,7 +297,7 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings208 = new Building[1];
 		buildings208[0] = new Building(new Rectangle(2726, 574, 62, 56), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
 
-		Person[] people208 = new Person[0];
+		Person[] people208 = new Person[2];
 		people208[0] = new NPC("hiker", new Rectangle(570*3,237*3,45,75),"down", "Watch your step there, bud", "Stay safe!",null);
 		((NPC) people208[0]).generateParty(2,14,17);
 		people208[1] = new NPC("jett", new Rectangle(880*3,295*3,45,75),"left", "Woah what do you think you're doing!", "just kidding :p",null);
@@ -439,7 +439,7 @@ public class GamePanel extends JPanel implements Runnable
 		collisions201[12] = new Rectangle(78*3, 179*3, 53*3, 36*3);
 		Building[] buildings201 = new Building[0];
 
-		Person[] people201 = new Person[0];
+		Person[] people201 = new Person[2];
 		people201[0] = new NPC ("gary", new Rectangle(710*3, 235*3,60,75),"left","So this is your first battle eh..?","Wow, you're a natural!",null);
 		((NPC) people201[0]).generateParty(1,5,8);
 		people201[1] = new NPC("reginald", new Rectangle(920*3,135*3,45,76),"left","Let's battle!","Darn it, I lost",null);

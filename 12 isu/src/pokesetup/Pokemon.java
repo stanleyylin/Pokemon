@@ -382,7 +382,7 @@ public class Pokemon {
 				curExp = Integer.parseInt(curItems[15]);
 				curEvLvl = Integer.parseInt(curItems[16]);
 			}
-			else if (count <= 151) {
+			else if (count <= 145) {
 				curExp = Integer.parseInt(curItems[14]);
 				curEvLvl = Integer.parseInt(curItems[15]);
 			}
@@ -510,6 +510,11 @@ public class Pokemon {
 	public static TreeMap<Integer,BlankMon> getStatsForEvolve(){
 		return statsForEvolve;
 	}
+	
+	public static HashMap<String, BlankMon> getPokeStats() {
+		return pokeStats;
+	}
+	
 
 
 

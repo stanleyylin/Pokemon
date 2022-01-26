@@ -270,8 +270,11 @@ public class Moving {
 			{
 				int temp = (int)(Math.random() * ((140) + 1));
 				//1% chance
-				if (temp == 40) {
+				if (temp == 35) {
 					System.out.println("cauight");
+					
+//					NPC wildMon = new NPC("wild",null,null,null.null);
+					
 //					main.startBattle(new NPC);
 					//basically this will make an npc w just one mon and then we can makethe constructor have the boolean
 					//isWIld to true (so pokeballs can be used)

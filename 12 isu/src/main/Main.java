@@ -44,12 +44,6 @@ public class Main extends JFrame {
 	{
 		player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
 		
-		// Initialization
-		mainMenu = new MainMenu(this);
-		gamePanel = new GamePanel(this, player);
-		box = new Box(this, player);
-		pokeMart = new PokeMart(this, player);
-	
 		try 
 		{
 			BlankMon.getAllMoves();
@@ -58,6 +52,14 @@ public class Main extends JFrame {
 			Pokemon.addAllPokemon();
 		} 
 		catch (IOException e) {}
+		
+		// Initialization
+		mainMenu = new MainMenu(this);
+		gamePanel = new GamePanel(this, player);
+		box = new Box(this, player);
+		pokeMart = new PokeMart(this, player);
+	
+		
 		// TESTER-------
 	
 		openMainMenu();
