@@ -81,6 +81,14 @@ public class Main extends JFrame {
 		pack();
 		addKeyListener(gamePanel.getKeyHandler());
 	}
+	public void finishBattle(boolean playerWon)
+	{
+		
+		setContentPane(gamePanel);
+		setVisible(true);
+		pack();
+		addKeyListener(gamePanel.getKeyHandler());
+	}
 	public void openBox() // pranav: press b when in gamepanel if u wanna test
 	{
 		removeKeyListener(gamePanel.getKeyHandler());

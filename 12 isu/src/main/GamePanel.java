@@ -39,11 +39,8 @@ public class GamePanel extends JPanel implements Runnable
 	// Player Variables
 	
 	private Player player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
-; 
 	
-	public GamePanel(
-			Main main, Player player
-			)
+	public GamePanel(Main main, Player player)
 	{	
 		this.main = main;
 		this.player = player;
@@ -73,8 +70,38 @@ public class GamePanel extends JPanel implements Runnable
 		}
 		catch(IOException e) {}
 		
+	    Rectangle[] centCollision = new Rectangle[7];
+	    centCollision[0] = new Rectangle(377, 194, 43, 119);
+	    centCollision[1] = new Rectangle(146, 194, 43, 401);
+	    centCollision[2] = new Rectangle(188, 131, 188, 126);
+	    centCollision[3] = new Rectangle(147, 598, 730, 36);
+	    centCollision[4] = new Rectangle(419, 272, 272, 40411);
+	    centCollision[5] = new Rectangle(648, 111, 264, 147);
+	    centCollision[6] = new Rectangle(880, 257, 31, 366);
+	    Person[] pokeNurse = new Person[1];
+	    Person nurse = new Nurse(new Rectangle(573, 951, 51, 72), "nurse.png", 24, 17, "nurse.txt");
+	   
+	    Rectangle[] storeCollisions = new Rectangle[7];
+	    storeCollisions[0] = new Rectangle(0, 0, 322, 718);
+	    storeCollisions[1] = new Rectangle(322, 0, 750, 198);
+	    storeCollisions[2] = new Rectangle(717, 113, 355, 605);
+	    storeCollisions[3] = new Rectangle(410, 207, 138, 45);
+	    storeCollisions[4] = new Rectangle(322, 345, 138, 45);
+	    storeCollisions[5] = new Rectangle(569, 345, 140, 73);
+	    storeCollisions[6] = new Rectangle(322, 605, 437, 133);
+	    
+	    Person[] merchants = new Person[1];
+	    merchants[0] = new Person(new Rectangle(373, 189, 51, 72), "right", "merchant.png", 24, 17, "merchant.txt");
+	    
+	    // Building pokeMart = new Building()
 	    // MAPS
 	    
+	    //buildings10[0] = new Building(new Rectangle(788, 864, 54, 55), new Rectangle(535, 567, 81, 32), null, null, pokecentre1);
+//		buildings10[1] = new Building(new Rectangle(1017, 853, 60, 54), new Rectangle(540, 543, 5, 1), null, null, house1);
+//		
+//		// People
+//		Person[] people10 = new Person[1];
+//		people10[0] = new Person(new Rectangle(573, 951, 51, 72), "down", "nurse.png", 17, 24);
 	//1. Twinleaf City
 	    Rectangle[] collisions1 = new Rectangle[12];
 	    collisions1[0] = new Rectangle(0,0,520,120);
@@ -91,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions1[11] = new Rectangle(720,480,75,50);
 
 	    Building[] buildings1 = new Building[4];
-		buildings1[0] = new Building(new Rectangle(390, 411, 45, 30), new Rectangle(445, 560, 25, 30), new Person[0], new Rectangle[0], playerHouse);//doesnt go back
+		buildings1[0] = new Building(new Rectangle(390, 411, 45, 45), new Rectangle(445, 560, 25, 30), new Person[0], new Rectangle[0], playerHouse);//doesnt go back
 		buildings1[1] = new Building(new Rectangle(930, 390, 50, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[2] = new Building(new Rectangle(450, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[3] = new Building(new Rectangle(905, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
@@ -124,12 +151,12 @@ public class GamePanel extends JPanel implements Runnable
 	    Building[] buildings2 = new Building[5];
 		buildings2[0] = new Building(new Rectangle(300, 890, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings2[1] = new Building(new Rectangle(345, 399, 45, 28), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], lab);
-		buildings2[2] = new Building(new Rectangle(780, 420, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
-		buildings2[3] = new Building(new Rectangle(1300, 260, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1); //DOESNT WORK
+		buildings2[2] = new Building(new Rectangle(780, 420, 45, 34), new Rectangle(540, 543, 5, 1), pokeNurse, centCollision, pokecentre1);
+		buildings2[3] = new Building(new Rectangle(1300, 260, 45, 50), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1); //DOESNT WORK
 		buildings2[4] = new Building(new Rectangle(738, 900, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 
-	    Person[] people2 = new Person[1];
-		people2[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+	    Person[] people2 = new Person[0];
+		
 
 	    Location sandGem = new Location("sandgem.png",collisions2,buildings2,people2,null);
 
@@ -177,8 +204,8 @@ public class GamePanel extends JPanel implements Runnable
 	    Building[] buildings3 = new Building[5];
 		buildings3[0] = new Building(new Rectangle(199, 629, 21, 23), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // bottom left house
 		buildings3[1] = new Building(new Rectangle(336, 496, 33, 30), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], lab); // gym
-		buildings3[2] = new Building(new Rectangle(832, 474, 31, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1); // pokecenter
-		buildings3[3] = new Building(new Rectangle(822, 360, 21, 21), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1); // mart
+		buildings3[2] = new Building(new Rectangle(832, 474, 31, 28), new Rectangle(540, 543, 5, 1), pokeNurse, centCollision, pokecentre1); // pokecenter
+		buildings3[3] = new Building(new Rectangle(822, 360, 21, 21), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1); // mart
 		buildings3[4] = new Building(new Rectangle(629, 629, 22, 22), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
 		buildings3[4] = new Building(new Rectangle(837, 222, 22, 22), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
 	   
@@ -206,11 +233,10 @@ public class GamePanel extends JPanel implements Runnable
 
 	    Building[] buildings4 = new Building[3];
 		buildings4[0] = new Building(new Rectangle(1224, 834, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b gym
-		buildings4[1] = new Building(new Rectangle(1380, 465, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
+		buildings4[1] = new Building(new Rectangle(1380, 465, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], centCollision, pokecentre1);
 		buildings4[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 
-	    Person[] people4 = new Person[1];
-		people4[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+	    Person[] people4 = new Person[0];
 		
 		Location oreburg = new Location("oreburgh.png",collisions4,buildings4,people4,null);
 	// 5: Floarama City
@@ -228,8 +254,8 @@ public class GamePanel extends JPanel implements Runnable
 
 	    Building[] buildings5 = new Building[3];
 		buildings5[0] = new Building(new Rectangle(930, 1605, 45, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b champion battle
-		buildings5[1] = new Building(new Rectangle(750, 2175, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], pokecentre1);
-		buildings5[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
+		buildings5[1] = new Building(new Rectangle(750, 2175, 45, 34), new Rectangle(540, 543, 5, 1), pokeNurse, centCollision, pokecentre1);
+		buildings5[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1);
 
 	    Person[] people5 = new Person[1];
 		people5[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
@@ -264,12 +290,12 @@ public class GamePanel extends JPanel implements Runnable
 
 		// Buildings -----
 		Building[] buildings10 = new Building[4];
-		Person[] peoplePC = new Person[1];
-		peoplePC[0] = new Nurse(new Rectangle(519, 225, 46, 55), "nurse.png", 17, 24, "nurse.txt");
+		Person[] peoplePC = new Person[0];
+		
 		Rectangle[] collisionsPC = new Rectangle[0];
 		buildings10[0] = new Building(new Rectangle(1052, 882, 62, 56), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
-		buildings10[1] = new Building(new Rectangle(818, 894, 62, 56), new Rectangle(535, 567, 81, 32), peoplePC, collisionsPC, pokecentre1);
-		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
+		buildings10[1] = new Building(new Rectangle(818, 894, 62, 56), new Rectangle(535, 567, 81, 32), pokeNurse, centCollision, pokecentre1);
+		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1);
 		buildings10[3] = new Building(new Rectangle(2430, 915, 45, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b GYM
 
 		//-----
@@ -300,14 +326,14 @@ public class GamePanel extends JPanel implements Runnable
 		Person[] people208 = new Person[2];
 		people208[0] = new NPC("hiker", new Rectangle(570*3,237*3,45,75),"down", "Watch your step there, bud", "Stay safe!",null);
 		((NPC) people208[0]).generateParty(2,14,17);
-		people208[1] = new NPC("jett", new Rectangle(880*3,295*3,45,75),"left", "Woah what do you think you're doing!", "just kidding :p",null);
+		people208[1] = new NPC("Jett", new Rectangle(880*3,295*3,45,75),"left", "npc1.txt", "npc2.txt",null);
 		((NPC) people208[1]).generateParty(3,13,17);
 
 
 		Rectangle[] grass208 = new Rectangle[1];
 		grass208[0] = new Rectangle(2007, 738, 480, 471);
 		
-		Location r208 = new Location("208.png", collisions208, buildings208, people208, null);
+		Location r208 = new Location("208.png", collisions208, buildings208, people208, grass208);
 	
 		
 		
@@ -331,9 +357,9 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings207 = new Building[0];
 
 		Person[] people207 = new Person[2];
-		people207[0] = new NPC("hiker", new Rectangle(655*3,135*3,45,75),"up", "What a lovely day for a battle", "Guess I can go for a walk..",null);
+		people207[0] = new NPC("hiker", new Rectangle(655*3,135*3,45,75),"up", "npc1.txt", "npc2.txt.",null);
 		((NPC) people207[0]).generateParty(2,13,16);
-		people207[1] = new NPC("scout", new Rectangle(655*3,80*3,45,75),"down", "See my twin over there", "We're indentical twins",null);
+		people207[1] = new NPC("scout", new Rectangle(655*3,80*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people207[1]).generateParty(2,14,16);
 
 		Rectangle[] grass207 = new Rectangle[1];
@@ -361,11 +387,11 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings203 = new Building[0];
 
 		Person[] people203 = new Person[3];
-		people203[0] = new NPC("joanna", new Rectangle(250*3,260*3,45,75),"down", "Good afternoon young fella", "Dagnabit I lost",null);
+		people203[0] = new NPC("joanna", new Rectangle(250*3,260*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people203[0]).generateParty(2,9,13);
-		people203[1] = new NPC("ken", new Rectangle(500*3,240*3,45,75),"down", "Konichiwa!", "Sayonara..",null);
+		people203[1] = new NPC("ken", new Rectangle(500*3,240*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people203[1]).generateParty(2,10,14);
-		people203[2] = new NPC("quavo", new Rectangle(695*3,225*3,45,75),"left", "Welcome to the forest!", "Head into the cave to the next town",null);
+		people203[2] = new NPC("quavo", new Rectangle(695*3,225*3,45,75),"left", "npc1.txt", "npc2.txt",null);
 		((NPC) people203[2]).generateParty(2,11,15);
 
 
@@ -375,7 +401,7 @@ public class GamePanel extends JPanel implements Runnable
 		grass203[2] = new Rectangle(618*3, 94*3, 172*3, 67*3);
 		grass203[3] = new Rectangle(680*3, 185*3, 138*3, 42*3);
 		
-		Location r203 = new Location("203.png", collisions203, buildings203, people203, null);
+		Location r203 = new Location("203.png", collisions203, buildings203, people203, grass203);
 	
 		
 		
@@ -401,15 +427,15 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings204 = new Building[0];
 		
 		Person[] people204 = new Person[5];
-		people204[0] = new NPC("lass", new Rectangle(190*3,672*3,45,75),"right", "Floaroma town is north of here", "Safe journeys!",null);
+		people204[0] = new NPC("lass", new Rectangle(190*3,672*3,45,75),"right", "npc1.txt", "npc2.txt",null);
 		((NPC) people204[0]).generateParty(2,9,13);
-		people204[1] = new NPC("sam", new Rectangle(205*3,440*3,45,75),"left", "I am the stairmaster!", "get it :p",null);
+		people204[1] = new NPC("sam", new Rectangle(205*3,440*3,45,75),"left", "npc1.txt", "npc2.txt",null);
 		((NPC) people204[1]).generateParty(2,9,13);
-		people204[2] = new NPC("sam", new Rectangle(252*3,340*3,45,75),"right", "Wonder what's on the other side of the sea", "Could it be freedom..?",null);
+		people204[2] = new NPC("sam", new Rectangle(252*3,340*3,45,75),"right", "npc1.txt", "npc2.txt",null);
 		((NPC) people204[2]).generateParty(3,14,16);
-		people204[3] = new NPC("michelle", new Rectangle(270*3,222*3,45,75),"down", "Keep heading north to find the champ", "Good luck young trainer!",null);
+		people204[3] = new NPC("michelle", new Rectangle(270*3,222*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people204[3]).generateParty(3,15,18);
-		people204[4] = new NPC("dababy", new Rectangle(245*3,67*3,45,75),"down", "waaahhhhhhhh!", "goo goo ga ga",null);
+		people204[4] = new NPC("dababy", new Rectangle(245*3,67*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people204[4]).generateParty(3,17,21);
 
 		Rectangle[] grass204 = new Rectangle[4];
@@ -442,7 +468,7 @@ public class GamePanel extends JPanel implements Runnable
 		Person[] people201 = new Person[2];
 		people201[0] = new NPC ("gary", new Rectangle(710*3, 235*3,60,75),"left","So this is your first battle eh..?","Wow, you're a natural!",null);
 		((NPC) people201[0]).generateParty(1,5,8);
-		people201[1] = new NPC("reginald", new Rectangle(920*3,135*3,45,76),"left","Let's battle!","Darn it, I lost",null);
+		people201[1] = new NPC("reginald", new Rectangle(920*3,135*3,45,76),"left","npc1.txt","npc2.txt",null);
 		((NPC) people201[1]).generateParty(1,5,8);
 
 
@@ -465,7 +491,7 @@ public class GamePanel extends JPanel implements Runnable
 		collisions202[8] = new Rectangle(129*3, 155*3, 27*3, 34*3);
 		collisions202[9] = new Rectangle(61*3, 155*3, 68*3, 58*3);
 		collisions202[10] = new Rectangle(243*3, 138*3, 123*3, 139*3);
-		collisions202[11] = new Rectangle(129*3, 270*3, 27*3, 84*3); // 
+		collisions202[11] = new Rectangle(129*3, 270*3, 27*3, 84*3); 
 		collisions202[12] = new Rectangle(244*3, 315*3, 121*3, 38*3);
 		collisions202[13] = new Rectangle(61*3, 402*3, 288*3, 50*3);
 		collisions202[14] = new Rectangle(349*3, 421*3, 65*3, 31*3);
@@ -473,11 +499,11 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings202 = new Building[0];
 
 		Person[] people202 = new Person[3];
-		people202[0] = new NPC("joe", new Rectangle(370*3,260*3,45,75), "down", "Hey hey hey!", "Hey hey hey!",null);
+		people202[0] = new NPC("Joe", new Rectangle(370*3,260*3,45,75), "down", "npc1.txt", "npc2.txt",null);
 		((NPC) people202[0]).generateParty(2,6,11);
-		people202[1]= new NPC ("jon", new Rectangle(125*3,200*3,45,75), "down", "Look at my hat!", "My distraction didn't work ...",null);
+		people202[1]= new NPC ("Jon", new Rectangle(125*3,200*3,45,75), "down", "npc1.txt", "npc2.txt",null);
 		((NPC) people202[1]).generateParty(2,6,11);
-		people202[2] = new NPC("mikey", new Rectangle(430*3,85*3,45,75), "down", "Wonderful weather we're having!", "The sun is warm",null);
+		people202[2] = new NPC("Mikey", new Rectangle(430*3,85*3,45,75), "down", "npc1.txt", "npc2.txt",null);
 		((NPC) people202[2]).generateParty(2,7,13);
 
 		Rectangle[] grass202 = new Rectangle[4];
@@ -570,7 +596,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(jubilife,300,300);
+		camera = new Camera(r208,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
@@ -706,6 +732,13 @@ public class GamePanel extends JPanel implements Runnable
 		if(interact)
 		{
 			interactMessage(g);
+		}
+		if(!player.getWon())
+		{
+			interactMessage(g);
+			player.setInteracting(false);
+			hideDialogue();
+			keyHandler.setXPressed(false);
 		}
 	}
 	

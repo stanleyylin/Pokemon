@@ -26,7 +26,7 @@ public class Dialogue extends JPanel
 	private boolean end;
 	private Person npc;
 	
-	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
+	private Font font = new Font("Pokemon GB", Font.PLAIN, 20);
 	
 	public Dialogue(GamePanel gamePanel, Player player)
 	{
@@ -63,27 +63,35 @@ public class Dialogue extends JPanel
 		{	
 			if((line = br.readLine()) != null)
 			{
-				message = line;
-				if(line.equals("*heal*"))
+				if(!player.getWon())
 				{
-					((Nurse) npc).heal(player);
-					message = "";
+					player.healParty();
+					message = "I healed your pokemon. Safe travels!";
 				}
-				else if(line.equals("*battle*"))
+				else
 				{
-					message = "Good match!";
-					((NPC) npc).startBattle();
+					message = line;
+					if(line.equals("*heal*"))
+					{
+						((Nurse) npc).heal(player);
+						message = "";
+					}
+					else if(line.equals("*battle*"))
+					{
+						message = "...";
+						((NPC) npc).startBattle();
+					}
+					else if(line.equals("*store*"))
+					{
+						message = "Come back soon!";
+						gamePanel.openMart();
+					}
+					
+					revalidate();
+					repaint();
+					gamePanel.revalidate();
+					gamePanel.repaint();
 				}
-				else if(line.equals("*store*"))
-				{
-					message = "Come back soon!";
-					gamePanel.openMart();
-				}
-				
-				revalidate();
-				repaint();
-				gamePanel.revalidate();
-				gamePanel.repaint();
 			}
 			else // ended
 			{

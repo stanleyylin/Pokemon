@@ -30,7 +30,7 @@ public class Person {
 		if(direction.equals("left"))
 			interaction = new Rectangle((int)collision.getX()-42, (int)collision.getY()-15, 42, 62);
 		else if(direction.equals("right"))
-			interaction = new Rectangle((int)collision.getX()+(int)collision.getWidth(), (int)collision.getY()-15, 42, 62);
+			interaction = new Rectangle((int)collision.getX()+(int)collision.getWidth(), (int)collision.getY()-15, 62, 62);
 		else if(direction.equals("up"))
 			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()-42, 62, 42);
 		else if(direction.equals("down"))

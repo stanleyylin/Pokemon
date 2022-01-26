@@ -24,7 +24,9 @@ public class Player {
 	private BufferedImage[] sprites;
 	private boolean interacting;
 	private Person talkingTo;
-
+	
+	private boolean hasWon;
+	
 	private ArrayList<Pokemon> box;
 	private Pokemon[] party;
 	private int pokeDollars;
@@ -287,7 +289,10 @@ public class Player {
 	public int getBadges() {
 		return this.badges;
 	}
-
+	public boolean getWon()
+	{
+		return hasWon;
+	}
 	public void addBadges() {
 		if (this.badges> 3)
 			this.badges++;
