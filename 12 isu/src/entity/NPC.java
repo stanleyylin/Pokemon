@@ -57,7 +57,7 @@ public class NPC extends Person
 			
 			
 			
-			int newID = 1 + (int) (Math.random() * (80-1)+1);
+			int newID = 1 + (int) (Math.random() * ((135-1)+1));
 			party[i] = new Pokemon(Pokemon.getStatsForEvolve().get(newID).getName(),Pokemon.getStatsForEvolve().get(newID).getName(),newLvl);
 		}
 

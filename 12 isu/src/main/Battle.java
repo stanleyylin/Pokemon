@@ -822,7 +822,7 @@ public class Battle extends JPanel {
 		}
 		else if(e.getSource().equals(moves[1].getJLabel()))
 		{
-//			hideBack();
+			hideBack();
 			hideMoves();
 			currMove = moves[1].getName();
 			currMoveNo = 1;
@@ -832,7 +832,7 @@ public class Battle extends JPanel {
 		}
 		else if(e.getSource().equals(moves[2].getJLabel()))
 		{
-//			hideBack();
+			hideBack();
 			hideMoves();
 			counter = 0;
 			currMove = moves[2].getName();
@@ -842,7 +842,7 @@ public class Battle extends JPanel {
 		}
 		else if (e.getSource().equals(moves[3].getJLabel()))
 		{
-//			hideBack();
+			hideBack();
 			hideMoves();
 			counter = 0;
 			currMove = moves[3].getName();

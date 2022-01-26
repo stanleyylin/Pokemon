@@ -68,6 +68,7 @@ public class Main extends JFrame {
 		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
+		player.addOnItem("Poke Ball", 0, 5);
 		
 
 		openMainMenu();
