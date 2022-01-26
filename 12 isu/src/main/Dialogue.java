@@ -15,19 +15,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+// This class is to display dialogue
 @SuppressWarnings("serial")
 public class Dialogue extends JPanel
 {
-	private GamePanel gamePanel;
-	private Player player;
-	private BufferedImage dialogueBox;
-	private BufferedReader br;
-	private String message = "";
-	private boolean end;
-	private Person npc;
+	private GamePanel gamePanel; // the gamePanel
+	private Player player; // player
+	private BufferedImage dialogueBox; // box for text
+	private BufferedReader br; // Read in text file
+	private String message = ""; // message to display
+	private Person npc; // The person interacting with
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 20);
 	
+	// Constructor
 	public Dialogue(GamePanel gamePanel, Player player)
 	{
 		this.gamePanel = gamePanel;
@@ -43,10 +44,11 @@ public class Dialogue extends JPanel
 		} catch(IOException e) {}
 	}
 	
+	// Starting the dialogue with someone
+	// takes in the person
 	public void startDialogue(Person p)
 	{
 		npc = p;
-		end = false;
 		try 
 		{
 			br = new BufferedReader(new FileReader("res/dialogue/"+npc.getLines()));
@@ -55,7 +57,7 @@ public class Dialogue extends JPanel
 		}
 		nextLine();
 	}
-	
+	// Display the next lien
 	public void nextLine()
 	{
 		String line;
@@ -89,7 +91,7 @@ public class Dialogue extends JPanel
 				repaint();
 				gamePanel.revalidate();
 				gamePanel.repaint();
-				if(line.equals("See you around!"))
+				if(line.equals("See you around!") || line.equals("Good battle!"))
 				{
 					player.healParty();
 					player.setInteracting(false);
@@ -107,6 +109,7 @@ public class Dialogue extends JPanel
 		gamePanel.getKeyHandler().setXPressed(false);
 	}
 	
+	// Painting
 	public void paintComponent(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;

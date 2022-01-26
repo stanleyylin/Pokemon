@@ -671,9 +671,6 @@ public class Battle extends JPanel {
 						repaint();
 						counter = 0;
 						gameState = 8;
-//						endBattle(false);
-//						timer.stop();
-//						return;
 					}
 				}
 			}
@@ -863,6 +860,7 @@ public class Battle extends JPanel {
 			if(isTrainer)
 			{
 				player.addBadges();
+				System.out.println(player.getBadges());
 				if(player.getBadges() == 4)
 				{
 					main.openCongratulations();
@@ -929,9 +927,9 @@ public class Battle extends JPanel {
 	{
 		Container parent = back.getParent();
 		if (parent != null) {
-		parent.remove(back);
-		parent.revalidate();
-		parent.repaint();
+			parent.remove(back);
+			parent.revalidate();
+			parent.repaint();
 		}
 	}
 	// Shows/hides the main buttons (fight/pokemon/run/bag)
@@ -940,10 +938,13 @@ public class Battle extends JPanel {
 	{
 		for(Button b : buttons)
 		{
-			Container parent = b.getParent();
-			parent.remove(b);
-			parent.revalidate();
-			parent.repaint();
+			try
+			{
+				Container parent = b.getParent();
+				parent.remove(b);
+				parent.revalidate();
+				parent.repaint();
+			} catch(NullPointerException e) {}
 		}
 	}
 	public void showButtons()
@@ -976,13 +977,15 @@ public class Battle extends JPanel {
 	{
 		for(MoveSelect m : moves)
 		{
-			if(m.getName()
-					!= null)
+			if(m.getName()!= null)
 			{
 				Container parent = m.getParent();
-				parent.remove(m);
-				parent.revalidate();
-				parent.repaint();
+				try
+				{
+					parent.remove(m);
+					parent.revalidate();
+					parent.repaint();
+				} catch(NullPointerException e) {}
 				m.setDisplayed(false);
 				m.repaint();
 			}
@@ -993,7 +996,8 @@ public class Battle extends JPanel {
 		System.out.println();
 	}
 	
-	//when items are used these are their effects in battle
+	// When items are used these are their effects in battle
+	// Takes in String which is the item, returns void
 	public void useItem(String s) {
 
 		main.openBattle();
@@ -1065,23 +1069,13 @@ public class Battle extends JPanel {
 		timer.start();
 	}
 	
-	//chance to catch pokemon
+	// Chance to catch pokemon
 	public boolean catchPokemon() {
-//		int catchNum = (int)  (((3 * opponent.getParty()[oppCurr].getHPStat() - 2 * opponent.getParty()[oppCurr].getCurHP()) * 150 * curCatchChance)/3 * opponent.getParty()[oppCurr].getHPStat());
-//		if (opponent.getParty()[oppCurr].getStatus() != null)
-//			catchNum *= 2;
-//		
-//		int testNum = (int) (Math.random() * 255)+1;
-//		
-//		if (catchNum <= testNum)
-//			return true;
-//		return false;
-		
 		return random.nextBoolean();
 		
 	}
 
-	//checks if pokemon can evolve
+	// Checks if pokemon can evolve
 	public boolean checkForEvolve() {
 		if (player.getParty()[playerCurr].getIfEvolve() && player.getParty()[playerCurr].getLevel() >= player.getParty()[playerCurr].getEvolveLvl()) 
 			return true;
@@ -1093,8 +1087,6 @@ public class Battle extends JPanel {
 	public void backToMain() {
 		gameState = 0;
 		showButtons();
-//		hideMoves();
-//		showMoves(player.getParty()[playerCurr].getAttacks());
 		main.openBattle();
 	}
 	
@@ -1125,24 +1117,6 @@ public class Battle extends JPanel {
 		gameState = 3;
 		timer.start();
 	}
-
-//	// Changing Screens
-//	public void showPokeMenu() {
-//		frame.setContentPane(selectionMenu);
-//		selectionMenu.setVisible(true);
-//		selectionMenu.updatePokemon();
-//		frame.pack();
-//	}
-//	public void showBattleScreen() {
-//		frame.setContentPane(this);
-//		this.setVisible(true);
-//		frame.pack();
-//	}
-//	public void showBag() {
-//		frame.setContentPane(bag);
-//		bag.setVisible(true);
-//		frame.pack();
-//	}
 
 	// Draw methods: Displays background, player/opponent pokemons and their stats.
 	public void paintComponent(Graphics g) {
@@ -1402,7 +1376,8 @@ public class Battle extends JPanel {
 		}
 	}
 
-	//starts a new battle
+	// Starts a new battle
+	// Takes in the opponent (NPC) and isW (is the pokemon wild?)
 	public void newBattle(NPC newOpponent, boolean isW)
 	{
 		playerCurr = 0;

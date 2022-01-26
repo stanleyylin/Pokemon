@@ -1,5 +1,6 @@
 package main;
 
+// Main controls the JFrame
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -32,6 +33,7 @@ import pokesetup.Pokemon;
 
 public class Main extends JFrame {
 	
+	// All the different panels
 	private MainMenu mainMenu;
 	private GamePanel gamePanel;
 	private Bag bag;
@@ -43,17 +45,20 @@ public class Main extends JFrame {
 	private Instructions instructions;
 	private Congratulations congrats;
 	
+	// The player
 	private Player player;
-	NPC gary;
 	
+	// Music
 	private Clip music, battleMusic;
 	
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
 	
+	// Constructor
 	public Main()
 	{
 		player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
+		// Getting the font
 		try 
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -63,6 +68,7 @@ public class Main extends JFrame {
 		catch (FontFormatException e) {} 
 		catch (IOException e) {}
 		
+		// Audio sound
 		try
 		{
 			AudioInputStream sound = AudioSystem.getAudioInputStream(new File ("res/music.wav"));
@@ -92,12 +98,11 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		player.addPokemonToParty(new Pokemon ("Charmander", "Oak's Flame",80));
+		player.addPokemonToParty(new Pokemon ("Charmander", "Oak's Flame",7));
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
+		congrats = new Congratulations(this);
 		
-		
-		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
 		player.addOnItem("Poke Ball", 0, 5);
@@ -105,6 +110,7 @@ public class Main extends JFrame {
 		openMainMenu();
 	}
 	
+	// Opens the main menu
 	public void openMainMenu()
 	{
 		if(battleMusic != null)
@@ -117,6 +123,7 @@ public class Main extends JFrame {
 		pack();
 		mainMenu.setVisible();
 	}
+	// Opens the game panel
 	public void openGamePanel()
 	{
 		battleMusic.stop();
@@ -128,6 +135,7 @@ public class Main extends JFrame {
 		pack();
 		addKeyListener(gamePanel.getKeyHandler());
 	}
+	// Ends the battle and returns to game panel
 	public void finishBattle(boolean playerWon)
 	{
 		
@@ -136,7 +144,8 @@ public class Main extends JFrame {
 		pack();
 		addKeyListener(gamePanel.getKeyHandler());
 	}
-	public void openBox() // pranav: press b when in gamepanel if u wanna test
+	// Opens box
+	public void openBox() 
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
 		box.startUp();
@@ -144,6 +153,7 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	// Opens the store
 	public void openMart()
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
@@ -151,6 +161,7 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	// Opens the bag
 	public void openBag(int state)
 	{
 		removeKeyListener(gamePanel.getKeyHandler());
@@ -159,6 +170,7 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	// Starts a new battle
 	public void startBattle(NPC npc, boolean isWild)
 	{
 		music.stop();
@@ -170,16 +182,14 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	// Returns to battle
 	public void openBattle()
 	{
-		music.stop();
-		battleMusic.start();
-		battleMusic.setFramePosition (0);
-		battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
 		setContentPane(battle);
 		setVisible(true);
 		pack();
 	}
+	// Opens pokemon selection
 	public void openPokeSelect()
 	{
 		pokeSelect.updatePokemon();
@@ -187,6 +197,7 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	// Opens the map
 	public void openMap() {
 		keyItemsPanel.setCurImg(true);
 		setContentPane(keyItemsPanel);
@@ -195,6 +206,7 @@ public class Main extends JFrame {
 		validate();
 
 	}
+	// Opens the case
 	public void openCase() {
 		keyItemsPanel.setCurImg(false);
 		setContentPane(keyItemsPanel);
@@ -204,6 +216,7 @@ public class Main extends JFrame {
 		keyItemsPanel.revalidate();
 
 	}
+	// Opens the instructions
 	public void openInstructions()
 	{
 		setContentPane(instructions);
@@ -212,6 +225,7 @@ public class Main extends JFrame {
 		instructions.repaint();
 		instructions.revalidate();
 	}
+	// Opens congrats
 	public void openCongratulations()
 	{
 		setContentPane(congrats);
@@ -222,11 +236,6 @@ public class Main extends JFrame {
 	}
 
 	
-
-	//
-	//selectionMenu = new PokeSelect(this, player, 0, true);
-	// bag = new Bag(player, this);
-	
 	public void setTrainer()
 	{
 		battle.setTrainer(true);
@@ -235,7 +244,7 @@ public class Main extends JFrame {
 	public static void main(String[] args) 
 	{
 		Main main = new Main();
-//		main.setResizable(false);
+		main.setResizable(false);
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setVisible(true);
 		main.pack();

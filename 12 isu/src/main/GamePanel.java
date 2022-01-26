@@ -669,22 +669,7 @@ public class GamePanel extends JPanel implements Runnable
 		}
 	}
 	
-//	public Gate reverseGate(Gate g, int camX, int camY)
-//	{
-//		int edge = 0;
-//		if(g.getAxis() == 0)
-//			edge = 1;
-//		else if(g.getAxis() == 1)
-//			edge = 0;
-//		else if(g.getAxis() == 2)
-//			edge = 3;
-//		else 
-//			edge = 2;
-//
-//		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1(),true);
-//	}
-	
-	//creates interaction message
+	// Displays the message
 	public void interactMessage(Graphics g)
 	{
 		g.setFont(font);
@@ -692,13 +677,12 @@ public class GamePanel extends JPanel implements Runnable
 		g.drawString("Press X to interact!", 375, 623);
 	}
 	
-	//starts battle w npc
+	// Starts an NPC battle
 	public void startNPCBattle(NPC npc)
 	{
 		main.startBattle(npc, false);
 	}
-	
-	//shows/hides dialogue on screen
+	//Show and hide dialogue
 	public void showDialogue()
 	{
 		this.add(dialogue);
@@ -706,12 +690,17 @@ public class GamePanel extends JPanel implements Runnable
 	}
 	public void hideDialogue()
 	{
-		Container parent = dialogue.getParent();
-		parent.remove(dialogue);
-		parent.revalidate();
-		parent.repaint();
+		try
+		{
+			Container parent = dialogue.getParent();
+			parent.remove(dialogue);
+			parent.revalidate();
+			parent.repaint();
+		}
+		catch(NullPointerException e) {}
 	}
 	
+	// Open screen methods
 	public void openBox()
 	{
 		main.openBox();
@@ -728,7 +717,7 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		main.openMainMenu();
 	}
-	//paint component
+	// Painting the screen
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -745,13 +734,6 @@ public class GamePanel extends JPanel implements Runnable
 		{
 			interactMessage(g);
 		}
-//		if(!player.getWon())
-//		{
-//			interactMessage(g);
-//			player.setInteracting(false);
-//			hideDialogue();
-//			keyHandler.setXPressed(false);
-//		}
 	}
 	
 	// Getters and Setters
