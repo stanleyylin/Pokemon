@@ -145,7 +145,19 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions1[11] = new Rectangle(720,480,75,50);
 
 	    Building[] buildings1 = new Building[4];
-		buildings1[0] = new Building(new Rectangle(390, 411, 45, 45), new Rectangle(445, 560, 25, 30), new Person[0], new Rectangle[0], playerHouse);//doesnt go back
+	    Rectangle[] houseCollisions = new Rectangle[8];
+	    houseCollisions[0] = new Rectangle(0, 143, 184, 411);
+	    houseCollisions[1] = new Rectangle(184, 143, 290, 39);
+	    houseCollisions[2] = new Rectangle(297, 191, 116, 80);
+	    houseCollisions[3] = new Rectangle(474, 152, 461, 108);
+	    houseCollisions[4] = new Rectangle(881, 260, 54, 195);
+	    houseCollisions[5] = new Rectangle(141, 534, 188, 40);
+	    houseCollisions[6] = new Rectangle(474, 534, 131, 40);
+	    houseCollisions[7] = new Rectangle(605, 521, 333, 34);
+	    Person[] mom = new Person[1];
+	    mom[0] = new Person(new Rectangle(378, 280, 48, 54), "down", "mom.png", 1, 58, 66, "mom.txt");
+
+		buildings1[0] = new Building(new Rectangle(390, 411, 45, 45), new Rectangle(327, 522, 147, 52), mom, houseCollisions, playerHouse);
 		buildings1[1] = new Building(new Rectangle(930, 390, 50, 60), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[2] = new Building(new Rectangle(450, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings1[3] = new Building(new Rectangle(905, 780, 45, 30), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
@@ -236,8 +248,7 @@ public class GamePanel extends JPanel implements Runnable
 		buildings3[4] = new Building(new Rectangle(629*3, 629*3, 22*3, 22*3), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
 		buildings3[4] = new Building(new Rectangle(837*3, 222*3, 22*3, 22*3), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
 	   
-		Person[] people3 = new Person[1];
-		people3[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+		Person[] people3 = new Person[0];
 
 	    Location jubilife = new Location("jubilife.png",collisions3,buildings3,people3,null);
 	  
@@ -285,8 +296,7 @@ public class GamePanel extends JPanel implements Runnable
 		buildings5[1] = new Building(new Rectangle(750, 2175, 45, 34), new Rectangle(540, 543, 5, 1), pokeNurse, centCollision, pokecentre1);
 		buildings5[2] = new Building(new Rectangle(380*3, 611*3, 24*3, 21*3), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1);
 
-	    Person[] people5 = new Person[1];
-		people5[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
+	    Person[] people5 = new Person[0];
 
 		Location floaroma = new Location("floaroma.png",collisions5,buildings5,people5,null);
 
@@ -323,11 +333,9 @@ public class GamePanel extends JPanel implements Runnable
 		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1);
 		buildings10[3] = new Building(new Rectangle(2430, 915, 45, 60), new Rectangle(540, 543, 5, 1), trainer3, new Rectangle[0], gym3);//should b GYM
 
-		//-----
-		//People
 		Person[] people10 = new Person[1];
 		people10[0] = new Person(new Rectangle(665, 922, 51, 72), "down", "nurse.png", 17, 24, "d1.txt");
-		//Grass: None
+
 		Location heartHome = new Location("hearthome.png", collisions10, buildings10, people10, null);
 		
 		// ROUTES
@@ -547,7 +555,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		Gate gate2 = new Gate(0,true,0,true,52*3,171*3,new Rectangle(1005*3,95*3,35*3,46*3),sandGem);
 		r201.addGate(gate2);
-		Gate gate2b = new Gate(680,false,0,false,265*3,133*3,new Rectangle(0,151*3,31*3,37*3),r201);
+		Gate gate2b = new Gate(2000,false,0,false,265*3,100*3,new Rectangle(0,151*3,31*3,37*3),r201);
 		sandGem.addGate(gate2b);
 		
 		Gate gate3 = new Gate(250*3,true,212*3,true,192*3,167*3,new Rectangle(317*3,0,90*3,31*3),r202);
@@ -595,12 +603,11 @@ public class GamePanel extends JPanel implements Runnable
 		Gate gate11b = new Gate(0,true,0,true,180*3,123*3,new Rectangle(135*3,743*3,83*3,65*3),r204);
 		floaroma.addGate(gate11b);
 		
-
 		// Functionalities
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
-		camera = new Camera(twinLeaf,300,1200);
-	    moving = new Moving(this, player, camera);
+		camera = new Camera(twinLeaf,50,200);   
+		moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
 	    gameThread = new Thread(this);

@@ -863,6 +863,10 @@ public class Battle extends JPanel {
 			if(isTrainer)
 			{
 				player.addBadges();
+				if(player.getBadges() == 4)
+				{
+					main.openCongratulations();
+				}
 				isTrainer = false;
 				opponent.changeFile();
 			}

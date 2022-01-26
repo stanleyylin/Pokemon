@@ -49,6 +49,34 @@ public class Person {
 		}
 	}
 	
+	public Person(Rectangle collision, String direction, String imageFile, int size, int w, int h, String textFile)
+	{
+		this.collision = collision;
+		this.direction = direction;
+		this.imageFile = imageFile;
+		this.textFile = textFile;
+		
+		if(direction.equals("left"))
+			interaction = new Rectangle((int)collision.getX()-42, (int)collision.getY()-15, 42, 62);
+		else if(direction.equals("right"))
+			interaction = new Rectangle((int)collision.getX()+(int)collision.getWidth(), (int)collision.getY()-15, 62, 100);
+		else if(direction.equals("up"))
+			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()-42, 62, 42);
+		else if(direction.equals("down"))
+			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()+(int)collision.getHeight(), 62, 42);
+		shown = true;
+		
+		try
+		{
+			sprite = loader.loadImage("res/sprites/" + imageFile);
+			sprite = sprite.getSubimage(0, 0, w, h);
+			sprite = loader.resize(sprite, w*size, h*size);
+		}
+		catch(IOException e) {
+			
+		}
+	}
+	
 	// Invisible NPC (png is already on background)
 	public Person(Rectangle collision, String direction, String textFile)
 	{

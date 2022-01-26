@@ -89,6 +89,12 @@ public class Dialogue extends JPanel
 				repaint();
 				gamePanel.revalidate();
 				gamePanel.repaint();
+				if(line.equals("See you around!"))
+				{
+					player.healParty();
+					player.setInteracting(false);
+					gamePanel.hideDialogue();
+				}
 			}
 			else // ended
 			{

@@ -12,10 +12,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -39,7 +41,7 @@ public class Main extends JFrame {
 	private Battle battle;
 	private KeyItemsPanel keyItemsPanel;
 	private Instructions instructions;
-	private JPanel lastScreen;
+	private Congratulations congrats;
 	
 	private Player player;
 	NPC gary;
@@ -65,6 +67,7 @@ public class Main extends JFrame {
 		{
 			AudioInputStream sound = AudioSystem.getAudioInputStream(new File ("res/music.wav"));
 			music = AudioSystem.getClip();
+
 			music.open(sound);
 			sound = AudioSystem.getAudioInputStream(new File ("res/battle.wav"));
 			battleMusic = AudioSystem.getClip();
@@ -93,6 +96,7 @@ public class Main extends JFrame {
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		
+		
 		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
@@ -103,7 +107,8 @@ public class Main extends JFrame {
 	
 	public void openMainMenu()
 	{
-		battleMusic.stop();
+		if(battleMusic != null)
+			battleMusic.stop();
 		music.start();
 		music.setFramePosition (0);
 		music.loop(Clip.LOOP_CONTINUOUSLY);
@@ -207,17 +212,21 @@ public class Main extends JFrame {
 		instructions.repaint();
 		instructions.revalidate();
 	}
-	
+	public void openCongratulations()
+	{
+		setContentPane(congrats);
+		setVisible(true);
+		pack();
+		congrats.repaint();
+		congrats.revalidate();
+	}
+
 	
 
 	//
 	//selectionMenu = new PokeSelect(this, player, 0, true);
 	// bag = new Bag(player, this);
 	
-	public JPanel getLastScreen()
-	{
-		return lastScreen;
-	}
 	public void setTrainer()
 	{
 		battle.setTrainer(true);
