@@ -500,7 +500,7 @@ public class GamePanel extends JPanel implements Runnable
 		Building[] buildings201 = new Building[0];
 
 		Person[] people201 = new Person[2];
-		people201[0] = new NPC ("gary", new Rectangle(710*3, 235*3,60,75),"left","So this is your first battle eh..?","Wow, you're a natural!",null);
+		people201[0] = new NPC ("gary", new Rectangle(710*3, 235*3,60,75),"left","npc1.txt","npc2.txt",null);
 		((NPC) people201[0]).generateParty(1,5,8);
 		people201[1] = new NPC("reginald", new Rectangle(920*3,135*3,45,76),"left","npc1.txt","npc2.txt",null);
 		((NPC) people201[1]).generateParty(1,5,8);
@@ -611,6 +611,7 @@ public class GamePanel extends JPanel implements Runnable
 		moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
+	    battling = false;
 	    gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -646,7 +647,12 @@ public class GamePanel extends JPanel implements Runnable
 	
 	//when you find wild pokemon
 	public void wildEncounter(NPC n, boolean b) {
-		main.startBattle(n, b);
+		if(!battling)
+		{
+			keyHandler.resetKeys();
+			battling = true;
+			main.startBattle(n, b);
+		}
 	}
 	
 	//updates the screen
@@ -680,6 +686,7 @@ public class GamePanel extends JPanel implements Runnable
 	// Starts an NPC battle
 	public void startNPCBattle(NPC npc)
 	{
+		keyHandler.resetKeys();
 		main.startBattle(npc, false);
 	}
 	//Show and hide dialogue
@@ -764,6 +771,10 @@ public class GamePanel extends JPanel implements Runnable
 	public void setInteract(boolean set)
 	{
 		interact = set;
+	}
+	public void setBattling(boolean set)
+	{
+		battling = set;
 	}
 	
 //	public static void main(String[] args)

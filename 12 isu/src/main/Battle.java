@@ -408,7 +408,7 @@ public class Battle extends JPanel {
 
 					int paraChance = 1 + (int)(Math.random() * (4));
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS && paraChance == 4) {
-						message = "" + player.getParty() + " has gotten over its paralysis!";
+						message = "" + player.getParty()[playerCurr].getNickName() + " has gotten over its paralysis!";
 						player.getParty()[playerCurr].setStatus(null);
 					}
 					if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
@@ -746,6 +746,7 @@ public class Battle extends JPanel {
 				}
 				
 				else if (counter >= 100) {
+	
 					counter = 0;
 					message = "";
 					endBattle(false);
@@ -864,17 +865,15 @@ public class Battle extends JPanel {
 			if(isTrainer)
 			{
 				player.addBadges();
-				System.out.println(player.getBadges());
 				if(player.getBadges() == 4)
 				{
 					main.openCongratulations();
 				}
 				isTrainer = false;
-				opponent.changeFile();
 			}
 		}
 		
-		
+		main.setBattling(false);
 		main.openGamePanel();
 
 	}

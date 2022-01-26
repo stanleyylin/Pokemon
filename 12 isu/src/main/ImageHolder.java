@@ -102,7 +102,8 @@ public class ImageHolder {
 	public void nextImage()
 	{
 		index++;
-		curr = sprites[index];
+		if(index < sprites.length)
+			curr = sprites[index];
 	}
 	public void reset()
 	{

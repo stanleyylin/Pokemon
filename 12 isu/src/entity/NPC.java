@@ -23,7 +23,7 @@ public class NPC extends Person
 
 		this.name = name;
 		this.party = party;
-		battleable = false;
+		battleable = true;
 		this.loseFile = loseFile;
 	}
 
@@ -36,7 +36,7 @@ public class NPC extends Person
 		this.party = party;
 		else
 			this.party = new Pokemon[6];
-		battleable = false;
+		battleable = true;
 		this.loseFile = loseFile;
 	}
 

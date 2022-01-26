@@ -59,6 +59,7 @@ public class KeyHandler implements KeyListener {
 				if(main.isInteracting())
 				{
 					game.getDialogue().nextLine();
+					resetKeys();
 				}
 				else
 				{
@@ -121,6 +122,11 @@ public class KeyHandler implements KeyListener {
 	
 	}
 	
+	public void resetKeys()
+	{
+		move.setMoving(0);
+		pressed = false;
+	}
 	public void setXPressed(boolean set)
 	{
 		xPressed = set;

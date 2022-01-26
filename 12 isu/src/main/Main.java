@@ -98,7 +98,10 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		player.addPokemonToParty(new Pokemon ("Charmander", "Oak's Flame",7));
+		Pokemon charm = new Pokemon ("Charmander", "Oak's Flame",12);
+		charm.giveExp(charm);
+		player.addPokemonToParty(charm);
+		
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		congrats = new Congratulations(this);
@@ -178,6 +181,7 @@ public class Main extends JFrame {
 		battleMusic.setFramePosition (0);
 		battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
 		battle.newBattle(npc, isWild);
+		removeKeyListener(gamePanel.getKeyHandler());
 		setContentPane(battle);
 		setVisible(true);
 		pack();
@@ -240,7 +244,10 @@ public class Main extends JFrame {
 	{
 		battle.setTrainer(true);
 	}
-	
+	public void setBattling(boolean set)
+	{
+		gamePanel.setBattling(set);
+	}
 	public static void main(String[] args) 
 	{
 		Main main = new Main();

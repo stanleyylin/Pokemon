@@ -25,7 +25,7 @@ public class Dialogue extends JPanel
 	private BufferedReader br; // Read in text file
 	private String message = ""; // message to display
 	private Person npc; // The person interacting with
-	
+	private String currentFile;
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 20);
 	
 	// Constructor
@@ -63,9 +63,13 @@ public class Dialogue extends JPanel
 		String line;
 		try 
 		{	
-			if((line = br.readLine()) != null)
+			if(br != null && (line = br.readLine()) != null)
 			{
 				message = line;
+				if(line.equals("Ready to Battle?!") && !((NPC)npc).getBattleable())
+				{
+					message = "You already battled me!";
+				}
 				if(line.equals("*heal*"))
 				{
 					player.healParty();
@@ -81,7 +85,7 @@ public class Dialogue extends JPanel
 					message = "Come back soon!";
 					gamePanel.openMart();
 				}
-				else if(line.equals("*trainer*"))
+				else if(line.equals("*trainer*") && ((NPC)npc).getBattleable())
 				{
 					gamePanel.setTrainer();
 					gamePanel.startNPCBattle((NPC)npc);
@@ -91,11 +95,12 @@ public class Dialogue extends JPanel
 				repaint();
 				gamePanel.revalidate();
 				gamePanel.repaint();
-				if(line.equals("See you around!") || line.equals("Good battle!"))
+				if(line.equals("See you around!") || line.equals("Until next time!"))
 				{
 					player.healParty();
 					player.setInteracting(false);
 					gamePanel.hideDialogue();
+					gamePanel.setBattling(false);
 				}
 			}
 			else // ended
@@ -103,6 +108,7 @@ public class Dialogue extends JPanel
 				player.healParty();
 				player.setInteracting(false);
 				gamePanel.hideDialogue();
+				gamePanel.setBattling(false);
 			}
 		} 
 		catch (IOException e) {}
