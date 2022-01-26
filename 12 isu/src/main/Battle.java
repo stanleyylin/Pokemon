@@ -370,6 +370,8 @@ public class Battle extends JPanel {
 						message = "" + player.getParty()[playerCurr].getNickName() + " is confused.";
 					else if (player.getParty()[playerCurr].getStatus() == Pokemon.Status.PARALYSIS)
 						message = "" + player.getParty()[playerCurr].getNickName() + " is paralyzed";
+					else if (player.getParty()[playerCurr].getCurMoves()[currMoveNo].getCurPP() == 0)
+						message = "This move is out of pp!";
 					else
 						message = player.getParty()[playerCurr].getNickName() + " has used " + currMove + "!";
 
@@ -422,6 +424,8 @@ public class Battle extends JPanel {
 				else if (counter == 100 && player.getParty()[playerCurr].getStatus() == Pokemon.Status.CONFUSED) {
 					if (isConfuse)
 						player.getParty()[playerCurr].attack(currMoveNo, player.getParty()[playerCurr]);
+					else if (player.getParty()[playerCurr].getCurMoves()[currMoveNo].getCurPP() == 0)
+						System.out.println();
 					else
 						pAttack(moves[currMoveNo].getName());
 
