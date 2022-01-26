@@ -811,7 +811,7 @@ public class Battle extends JPanel {
 		else if (e.getSource().equals(moves[0].getJLabel()))
 		{
 			hideBack();
-			hideMoves();
+//			hideMoves();
 			currMove = moves[0].getName();
 			currMoveNo = 0;
 			counter = 0;

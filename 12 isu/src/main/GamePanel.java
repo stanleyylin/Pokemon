@@ -607,6 +607,10 @@ public class GamePanel extends JPanel implements Runnable
 		}
 	}
 	
+	public void wildEncounter(NPC n, boolean b) {
+		main.startBattle(n, b);
+	}
+	
 	public void update() 
 	{
 		moving.changeSprite();
