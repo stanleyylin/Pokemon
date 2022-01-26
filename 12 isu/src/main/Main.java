@@ -31,6 +31,7 @@ public class Main extends JFrame {
 	private PokeSelect pokeSelect;
 	private PokeMart pokeMart;
 	private Battle battle;
+	private KeyItemsPanel keyItemsPanel;
 	
 	private JPanel lastScreen;
 	
@@ -62,10 +63,13 @@ public class Main extends JFrame {
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
 		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",7));
+		keyItemsPanel = new KeyItemsPanel(this,player);
 	
 		
 		// TESTER-------
-	
+		player.addKeyItem("Town Map");
+		player.addKeyItem("Badge Case");
+
 		openMainMenu();
 	}
 	
@@ -133,6 +137,21 @@ public class Main extends JFrame {
 		setVisible(true);
 		pack();
 	}
+	public void openMap() {
+		keyItemsPanel.setCurImg(true);
+		setContentPane(keyItemsPanel);
+		setVisible(true);
+		pack();
+		validate();
+
+	}
+	public void openCase() {
+		keyItemsPanel.setCurImg(false);
+		setContentPane(keyItemsPanel);
+		setVisible(true);
+		pack();
+
+	}
 	
 	
 
@@ -148,7 +167,7 @@ public class Main extends JFrame {
 	public static void main(String[] args) 
 	{
 		Main main = new Main();
-		main.setResizable(false);
+//		main.setResizable(false);
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setVisible(true);
 		main.pack();

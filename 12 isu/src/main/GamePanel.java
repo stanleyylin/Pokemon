@@ -733,13 +733,13 @@ public class GamePanel extends JPanel implements Runnable
 		{
 			interactMessage(g);
 		}
-		if(!player.getWon())
-		{
-			interactMessage(g);
-			player.setInteracting(false);
-			hideDialogue();
-			keyHandler.setXPressed(false);
-		}
+//		if(!player.getWon())
+//		{
+//			interactMessage(g);
+//			player.setInteracting(false);
+//			hideDialogue();
+//			keyHandler.setXPressed(false);
+//		}
 	}
 	
 	// Getters and Setters

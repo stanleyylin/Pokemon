@@ -461,9 +461,12 @@ public class Bag extends JPanel implements MouseListener
 		}
 		else if(canUseItem(selectedItem) && buttons[7].contains(x, y))
 		{
-			if(bagState == 0) // not in battle, in the map, stanley will do dis
+			if(bagState == 0) // not in battle
 			{
-				
+				if (selectedItem.getName().equals("Town Map"))
+					main.openMap();
+				else if (selectedItem.getName().equals("Badge Case"))
+					main.openCase();
 			}
 			if(bagState == 1) // nPC battle
 			{

@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -49,11 +50,12 @@ public class KeyItemsPanel extends JPanel{
 	}
 	
 	public void paintComponent (Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
 		if (curImg)
-			g.drawImage(RegionMap, 0,0, null);
+			g2.drawImage(RegionMap, 0,0, null);
 		else {
 			updateBadgeCount();
-			g.drawImage(BadgeCase, 0,0, null);
+			g2.drawImage(BadgeCase, 0,0, null);
 	}}
 	
 	
