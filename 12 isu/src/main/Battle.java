@@ -185,14 +185,6 @@ public class Battle extends JPanel {
 		}
 		catch(IOException e) {}
 
-		try 
-		{
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/PokemonGb-RAeo.ttf")));
-
-		} 
-		catch (FontFormatException e) {} 
-		catch (IOException e) {}
 
 		// Back Button
 		try

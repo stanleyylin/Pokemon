@@ -117,21 +117,17 @@ public class MainMenu extends JPanel implements MouseListener
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		if(x>=365 && x<=365+currButtons[0].getWidth() && y>=310 && y <=310+currButtons[0].getHeight())
+		if(x>=365 && x<=365+currButtons[0].getWidth() && y>=320 && y <=320+currButtons[0].getHeight())
 		{
 			currButtons[0] = buttons[0];
 			repaint();
 			main.openGamePanel();
 		}
-		else if(x>=340 && x<=340+currButtons[0].getWidth() && y>=390 && y <=390+currButtons[0].getHeight())
-		{
-			currButtons[1] = buttons[2];
-			repaint();
-		}
-		else if(x>=285 && x<=285+currButtons[0].getWidth() && y>=470 && y <=470+currButtons[0].getHeight())
+		else if(x>=285 && x<=285+currButtons[0].getWidth() && y>=420 && y <=420+currButtons[0].getHeight())
 		{
 			currButtons[2] = buttons[4];
 			repaint();
+			main.openInstructions();
 		}
 		
 	}
@@ -139,17 +135,12 @@ public class MainMenu extends JPanel implements MouseListener
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		if(x>=365 && x<=365+currButtons[0].getWidth() && y>=310 && y <=310+currButtons[0].getHeight())
+		if(x>=365 && x<=365+currButtons[0].getWidth() && y>=320 && y <=320+currButtons[0].getHeight())
 		{
 			currButtons[0] = buttons[1];
 			repaint();
 		}
-		else if(x>=340 && x<=340+currButtons[0].getWidth() && y>=390 && y <=390+currButtons[0].getHeight())
-		{
-			currButtons[1] = buttons[3];
-			repaint();
-		}
-		else if(x>=285 && x<=285+currButtons[0].getWidth() && y>=470 && y <=470+currButtons[0].getHeight())
+		else if(x>=285 && x<=285+currButtons[0].getWidth() && y>=420 && y <=420+currButtons[0].getHeight())
 		{
 			currButtons[2] = buttons[5];
 			repaint();

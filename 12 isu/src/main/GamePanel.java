@@ -45,8 +45,8 @@ public class GamePanel extends JPanel implements Runnable
 		this.main = main;
 		this.player = player;
 		
-		
 		// Setting up the panel
+		setFocusable(true);
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
 	    BufferedImage pokecentre1 = null, house1 = null, pokeMart1 = null, lab = null, playerHouse = null;

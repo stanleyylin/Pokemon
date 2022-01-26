@@ -15,7 +15,6 @@ import getimages.LoadImage;
 
 public class KeyItemsPanel extends JPanel implements MouseListener{
 
-	
 	private Main main;
 	private Player player;
 	private LoadImage loader = new LoadImage();
@@ -29,7 +28,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		this.main = main;
 		this.player = player;
 		
-		setPreferredSize(new Dimension (1280,720));
+		setPreferredSize(new Dimension (1080,720));
 		
 		try {
 			RegionMap = loader.loadImage("regionMap.png");
@@ -72,15 +71,10 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 
 
 	public void mouseClicked(MouseEvent e) {
-		main.openGamePanel();
-	}
-
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
 		
 	}
+
+	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

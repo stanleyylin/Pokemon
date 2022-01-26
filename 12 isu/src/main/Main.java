@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
@@ -10,6 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -32,11 +38,13 @@ public class Main extends JFrame {
 	private PokeMart pokeMart;
 	private Battle battle;
 	private KeyItemsPanel keyItemsPanel;
-	
+	private Instructions instructions;
 	private JPanel lastScreen;
 	
 	private Player player;
 	NPC gary;
+	
+	private Clip music, battleMusic;
 	
 	public final static int screenWidth = 1080;
 	public final static int screenHeight = 720;
@@ -44,6 +52,25 @@ public class Main extends JFrame {
 	public Main()
 	{
 		player = new Player(screenWidth/2-Player.width/2, screenHeight/2-Player.height/2);
+		try 
+		{
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/PokemonGb-RAeo.ttf")));
+
+		} 
+		catch (FontFormatException e) {} 
+		catch (IOException e) {}
+		
+		try
+		{
+			AudioInputStream sound = AudioSystem.getAudioInputStream(new File ("res/music.wav"));
+			music = AudioSystem.getClip();
+			music.open(sound);
+			sound = AudioSystem.getAudioInputStream(new File ("res/battle.wav"));
+			battleMusic = AudioSystem.getClip();
+			battleMusic.open(sound);
+			
+		} catch(Exception e) {}
 		
 		try 
 		{
@@ -64,18 +91,22 @@ public class Main extends JFrame {
 		pokeSelect = new PokeSelect(battle, player,0);
 		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",32));
 		keyItemsPanel = new KeyItemsPanel(this,player);
-	
+		instructions = new Instructions(this);
+		
 		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
 		player.addOnItem("Poke Ball", 0, 5);
-		
 
 		openMainMenu();
 	}
 	
 	public void openMainMenu()
 	{
+		battleMusic.stop();
+		music.start();
+		music.setFramePosition (0);
+		music.loop(Clip.LOOP_CONTINUOUSLY);
 		setContentPane(mainMenu);
 		setVisible(true);
 		pack();
@@ -83,6 +114,10 @@ public class Main extends JFrame {
 	}
 	public void openGamePanel()
 	{
+		battleMusic.stop();
+		music.start();
+		music.setFramePosition (0);
+		music.loop(Clip.LOOP_CONTINUOUSLY);
 		setContentPane(gamePanel);
 		setVisible(true);
 		pack();
@@ -121,6 +156,10 @@ public class Main extends JFrame {
 	}
 	public void startBattle(NPC npc, boolean isWild)
 	{
+		music.stop();
+		battleMusic.start();
+		battleMusic.setFramePosition (0);
+		battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
 		battle.newBattle(npc, isWild);
 		setContentPane(battle);
 		setVisible(true);
@@ -128,6 +167,10 @@ public class Main extends JFrame {
 	}
 	public void openBattle()
 	{
+		music.stop();
+		battleMusic.start();
+		battleMusic.setFramePosition (0);
+		battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
 		setContentPane(battle);
 		setVisible(true);
 		pack();
@@ -155,6 +198,14 @@ public class Main extends JFrame {
 		keyItemsPanel.repaint();
 		keyItemsPanel.revalidate();
 
+	}
+	public void openInstructions()
+	{
+		setContentPane(instructions);
+		setVisible(true);
+		pack();
+		instructions.repaint();
+		instructions.revalidate();
 	}
 	
 	
