@@ -82,8 +82,8 @@ public class Player {
 		medicine.add(loadItems.getItem("Ether"));
 		medicine.add(loadItems.getItem("Elixir"));
 
-		keyItems.add(loadItems.getItem("Town Map"));
-		keyItems.add(loadItems.getItem("Badge Case"));
+//		keyItems.add(loadItems.getItem("Town Map"));
+//		keyItems.add(loadItems.getItem("Badge Case"));
 	}
 
 	public void healParty() {

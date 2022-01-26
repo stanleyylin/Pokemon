@@ -65,7 +65,6 @@ public class Main extends JFrame {
 		player.addPokemonToParty(new Pokemon ("Charmander", "Charmander",7));
 		keyItemsPanel = new KeyItemsPanel(this,player);
 	
-		
 		// TESTER-------
 		player.addKeyItem("Town Map");
 		player.addKeyItem("Badge Case");
