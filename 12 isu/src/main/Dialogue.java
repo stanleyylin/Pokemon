@@ -73,7 +73,7 @@ public class Dialogue extends JPanel
 					message = line;
 					if(line.equals("*heal*"))
 					{
-						((Nurse) npc).heal(player);
+						player.healParty();
 						message = "";
 					}
 					else if(line.equals("*battle*"))

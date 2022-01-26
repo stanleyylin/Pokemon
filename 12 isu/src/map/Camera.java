@@ -32,7 +32,9 @@ public class Camera {
 			for(Person c : people)
 			{
 				if(c.getSprite() == null)
+				{
 					continue;
+				}
 				if(c.getC().getX() > worldX-c.getC().getWidth() && c.getC().getX() < worldX+GamePanel.screenWidth+c.getC().getWidth())
 				{
 					if(c.getC().getY() > worldY-c.getC().getHeight() && c.getC().getY() < worldY+GamePanel.screenHeight+c.getC().getHeight())

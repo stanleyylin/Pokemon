@@ -147,6 +147,8 @@ public class Moving {
 		{
 			for(int i = 0; i < camera.getBuilding().getPeople().length; i++)
 			{
+				if(camera.getBuilding().getPeople()[i].equals(null))
+					break;
 				if(camera.getBuilding().getPeople()[i].getI().intersects(player))
 				{
 					game.setInteract(true);
@@ -271,7 +273,6 @@ public class Moving {
 				int temp = (int)(Math.random() * ((140) + 1));
 				//1% chance
 				if (temp == 35) {
-					System.out.println("cauight");
 					
 					NPC wildMon = new NPC("wild",new Rectangle(0,0,0,0),"down",null,null, null);
 					wildMon.generateParty(1, 4, 16);

@@ -38,7 +38,7 @@ public class Player {
 
 	public final static int width = 50;
 	public final static int height = 62;
-	public final int speed = 8;
+	public final int speed = 5;
 
 	public Player(int screenX, int screenY)
 	{
@@ -56,7 +56,7 @@ public class Player {
 		talkingTo = null;
 		pokeDollars = 0;
 		badges = 0;
-
+		hasWon = true;
 		pokeballs = new ArrayList<Item>();
 		medicine = new ArrayList<Item>();
 		keyItems = new ArrayList<Item>();

@@ -30,7 +30,7 @@ public class Person {
 		if(direction.equals("left"))
 			interaction = new Rectangle((int)collision.getX()-42, (int)collision.getY()-15, 42, 62);
 		else if(direction.equals("right"))
-			interaction = new Rectangle((int)collision.getX()+(int)collision.getWidth(), (int)collision.getY()-15, 62, 62);
+			interaction = new Rectangle((int)collision.getX()+(int)collision.getWidth(), (int)collision.getY()-15, 62, 100);
 		else if(direction.equals("up"))
 			interaction = new Rectangle((int)collision.getX()-15, (int)collision.getY()-42, 62, 42);
 		else if(direction.equals("down"))
@@ -43,7 +43,9 @@ public class Person {
 			sprite = sprite.getSubimage(0, 0, w, h);
 			sprite = loader.resize(sprite, w*3, h*3);
 		}
-		catch(IOException e) {}
+		catch(IOException e) {
+			
+		}
 	}
 	
 	// Invisible NPC (png is already on background)

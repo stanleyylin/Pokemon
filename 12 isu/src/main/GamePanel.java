@@ -45,11 +45,12 @@ public class GamePanel extends JPanel implements Runnable
 		this.main = main;
 		this.player = player;
 		
+		
 		// Setting up the panel
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 	    setBackground(Color.BLACK);
 	    BufferedImage pokecentre1 = null, house1 = null, pokeMart1 = null, lab = null, playerHouse = null;
-	    
+	    BufferedImage gym1 = null, gym2 = null, gym3 = null, champ = null;
 	    // Loading the images
 	    LoadImage loader = new LoadImage();
 		
@@ -66,32 +67,29 @@ public class GamePanel extends JPanel implements Runnable
 			lab = loader.resize(lab, 769, 513);
 			playerHouse = loader.loadImage("res/playerHouse.png");
 			playerHouse = loader.resize(playerHouse, 498, 288);
-			
+//			gym1 = loader.loadImage("res/gym1.png");
+//			gym1 = loader.resize(gym1, screenWidth, screenHeight)
 		}
 		catch(IOException e) {}
 		
-	    Rectangle[] centCollision = new Rectangle[7];
-	    centCollision[0] = new Rectangle(377, 194, 43, 119);
-	    centCollision[1] = new Rectangle(146, 194, 43, 401);
-	    centCollision[2] = new Rectangle(188, 131, 188, 126);
-	    centCollision[3] = new Rectangle(147, 598, 730, 36);
-	    centCollision[4] = new Rectangle(419, 272, 272, 40411);
-	    centCollision[5] = new Rectangle(648, 111, 264, 147);
-	    centCollision[6] = new Rectangle(880, 257, 31, 366);
+	    Rectangle[] centCollision = new Rectangle[5];
+	    centCollision[0] = new Rectangle(0, 0, 43, 720);
+	    centCollision[1] = new Rectangle(191, 594, 697, 223);
+	    centCollision[2] = new Rectangle(385, 225, 300, 126);
+	    centCollision[3] = new Rectangle(191, 0, 697, 223);
+	    centCollision[4] = new Rectangle(888, 112, 192, 720);
 	    Person[] pokeNurse = new Person[1];
-	    Person nurse = new Nurse(new Rectangle(573, 951, 51, 72), "nurse.png", 24, 17, "nurse.txt");
+	    pokeNurse[0] = new Nurse(new Rectangle(530, 225, 51, 72), "nurse.png", 17, 24, "nurse.txt");
 	   
-	    Rectangle[] storeCollisions = new Rectangle[7];
-	    storeCollisions[0] = new Rectangle(0, 0, 322, 718);
-	    storeCollisions[1] = new Rectangle(322, 0, 750, 198);
-	    storeCollisions[2] = new Rectangle(717, 113, 355, 605);
-	    storeCollisions[3] = new Rectangle(410, 207, 138, 45);
-	    storeCollisions[4] = new Rectangle(322, 345, 138, 45);
-	    storeCollisions[5] = new Rectangle(569, 345, 140, 73);
-	    storeCollisions[6] = new Rectangle(322, 605, 437, 133);
+	    Rectangle[] storeCollisions = new Rectangle[0];
+//	    storeCollisions[0] = new Rectangle(98, 72, 646, 224);
+//	    //storeCollisions[1] = new Rectangle(322, 72, 440, 113);
+////	    storeCollisions[1] = new Rectangle(322, 184, 207, 140);
+////	    storeCollisions[2] = new Rectangle(759, 72, 646, 224);
+//	    storeCollisions[1] = new Rectangle(322, 605, 437, 133);
 	    
 	    Person[] merchants = new Person[1];
-	    merchants[0] = new Person(new Rectangle(373, 189, 51, 72), "right", "merchant.png", 24, 17, "merchant.txt");
+	    merchants[0] = new Person(new Rectangle(373, 189, 51, 90), "right", "merchant.png", 24, 37, "merchant.txt");
 	    
 	    // Building pokeMart = new Building()
 	    // MAPS
@@ -290,9 +288,6 @@ public class GamePanel extends JPanel implements Runnable
 
 		// Buildings -----
 		Building[] buildings10 = new Building[4];
-		Person[] peoplePC = new Person[0];
-		
-		Rectangle[] collisionsPC = new Rectangle[0];
 		buildings10[0] = new Building(new Rectangle(1052, 882, 62, 56), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);
 		buildings10[1] = new Building(new Rectangle(818, 894, 62, 56), new Rectangle(535, 567, 81, 32), pokeNurse, centCollision, pokecentre1);
 		buildings10[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1);
@@ -552,7 +547,7 @@ public class GamePanel extends JPanel implements Runnable
 			
 		Gate gate8 = new Gate(0,true,209*3,true,158*3,60*3,new Rectangle(866*3,92*3,16*3,40*3),r208);
 		r207.addGate(gate8);
-		Gate gate8b = new Gate(663*3,true,0,true,133*3,125*3,new Rectangle(105*3,258*3,22*3,30*3),r207);
+		Gate gate8b = new Gate(663*3,false,0,true,133*3,125*3,new Rectangle(105*3,258*3,22*3,30*3),r207);
 		r208.addGate(gate8b);
 			
 		Gate gate9 = new Gate(r208.getBG().getWidth()-screenWidth, true, r208.getBG().getHeight()-screenHeight, true, 120*3, 150*3,new Rectangle(283, 1973, 54, 109), r208);
@@ -596,7 +591,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(r207,300,300);
+		camera = new Camera(heartHome,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
