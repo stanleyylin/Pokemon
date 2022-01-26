@@ -375,7 +375,8 @@ public class Moving {
 				}
 			}
 		}
-		checkGate(camera.getLocation().getGates());
+		if(camera.getBuilding() == null)
+			checkGate(camera.getLocation().getGates());
 	}
 	
 	public void movePlayerY()
@@ -451,7 +452,8 @@ public class Moving {
 				}
 			}
 		}
-		checkGate(camera.getLocation().getGates());
+		if(camera.getBuilding() == null)
+			checkGate(camera.getLocation().getGates());
 	
 	}
 	
@@ -488,7 +490,8 @@ public class Moving {
 		}
 		doorEntered();
 		interact();
-		checkGate(camera.getLocation().getGates());
+		if(camera.getBuilding() == null)
+			checkGate(camera.getLocation().getGates());
 	}
 	
 	public void moveCameraY()
@@ -523,7 +526,8 @@ public class Moving {
 		}
 		doorEntered();
 		interact();
-		checkGate(camera.getLocation().getGates());
+		if(camera.getBuilding() == null)
+			checkGate(camera.getLocation().getGates());
 	}
 	
 	public void draw(Graphics2D g2)

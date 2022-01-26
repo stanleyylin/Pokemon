@@ -67,8 +67,14 @@ public class GamePanel extends JPanel implements Runnable
 			lab = loader.resize(lab, 769, 513);
 			playerHouse = loader.loadImage("res/playerHouse.png");
 			playerHouse = loader.resize(playerHouse, 498, 288);
-//			gym1 = loader.loadImage("res/gym1.png");
-//			gym1 = loader.resize(gym1, screenWidth, screenHeight)
+			gym1 = loader.loadImage("res/gym1.png");
+			gym1 = loader.resize(gym1, gym1.getWidth()*2, gym1.getHeight()*2);
+			gym2 = loader.loadImage("res/gym2.png");
+			gym2 = loader.resize(gym2, gym2.getWidth()*2, gym2.getHeight()*2);
+			gym3 = loader.loadImage("res/gym3.png");
+			gym3 = loader.resize(gym3, gym3.getWidth()*2, gym3.getHeight()*2);
+			champ = loader.loadImage("res/champ.png");
+			champ = loader.resize(champ, champ.getWidth()*2, champ.getHeight()*2);
 		}
 		catch(IOException e) {}
 		
@@ -82,14 +88,14 @@ public class GamePanel extends JPanel implements Runnable
 	    pokeNurse[0] = new Nurse(new Rectangle(530, 225, 51, 72), "nurse.png", 17, 24, "nurse.txt");
 	   
 	    Rectangle[] storeCollisions = new Rectangle[0];
-//	    storeCollisions[0] = new Rectangle(98, 72, 646, 224);
-//	    //storeCollisions[1] = new Rectangle(322, 72, 440, 113);
-////	    storeCollisions[1] = new Rectangle(322, 184, 207, 140);
-////	    storeCollisions[2] = new Rectangle(759, 72, 646, 224);
-//	    storeCollisions[1] = new Rectangle(322, 605, 437, 133);
+
 	    
 	    Person[] merchants = new Person[1];
 	    merchants[0] = new Person(new Rectangle(373, 189, 51, 90), "right", "merchant.png", 24, 37, "merchant.txt");
+	    
+//	    Person[] trainer1 = new NPC[1];
+//	    trainer1[0] = new NPC("Trainer Doot", new Rectangle(245*3,67*3,45,75),"down", "npc1.txt", "npc2.txt",null);
+	    
 	    
 	    // Building pokeMart = new Building()
 	    // MAPS
@@ -201,7 +207,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	    Building[] buildings3 = new Building[5];
 		buildings3[0] = new Building(new Rectangle(199, 629, 21, 23), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // bottom left house
-		buildings3[1] = new Building(new Rectangle(336, 496, 33, 30), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], lab); // gym
+		buildings3[1] = new Building(new Rectangle(336, 496, 33, 30), new Rectangle(520, 580, 5, 1), new Person[0], new Rectangle[0], gym1); // gym
 		buildings3[2] = new Building(new Rectangle(832, 474, 31, 28), new Rectangle(540, 543, 5, 1), pokeNurse, centCollision, pokecentre1); // pokecenter
 		buildings3[3] = new Building(new Rectangle(822, 360, 21, 21), new Rectangle(435, 585, 18, 1), merchants, storeCollisions, pokeMart1); // mart
 		buildings3[4] = new Building(new Rectangle(629, 629, 22, 22), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1); // house
@@ -215,23 +221,23 @@ public class GamePanel extends JPanel implements Runnable
 	    
 	 //4. Oreburgh City
 	    
-	    Rectangle[] collisions4 = new Rectangle[12];
+	    Rectangle[] collisions4 = new Rectangle[13];
 	    collisions4[0] = new Rectangle(350,0,1560,400);
 	    collisions4[1] = new Rectangle(0,0,330,450);
 	    collisions4[2] = new Rectangle(0,690,426,456);
 	    collisions4[3] = new Rectangle(426,1065,2500,2500);
 	    collisions4[4] = new Rectangle(2385,696,2500,2500);
-	    collisions4[5] = new Rectangle(780,678,663,240);
+	    collisions4[5] = new Rectangle(259*3,226*3,62*3,43*3);
 	    collisions4[6] = new Rectangle(1740,489,180,240);
 	    collisions4[7] = new Rectangle(2760,465,1000,1000);
 	    collisions4[8] = new Rectangle(2130,222,1000,354);
 	    collisions4[9] = new Rectangle(2265,0,1000,195);
 	    collisions4[10] = new Rectangle(2604,600,1000,1000);
 	    collisions4[11] = new Rectangle(2175,708,1000,70);
-
+	    collisions4[12] = new Rectangle(370*3,210*3,107*3,59*3);
 	    Building[] buildings4 = new Building[3];
-		buildings4[0] = new Building(new Rectangle(1224, 834, 45, 28), new Rectangle(540, 543, 5, 1), new Person[0], new Rectangle[0], house1);//should b gym
-		buildings4[1] = new Building(new Rectangle(1380, 465, 45, 34), new Rectangle(540, 543, 5, 1), new Person[0], centCollision, pokecentre1);
+		buildings4[0] = new Building(new Rectangle(1230, 807, 30*3, 32*3), new Rectangle(540, 543, 15, 3), new Person[0], new Rectangle[0], gym1);//should b gym
+		buildings4[1] = new Building(new Rectangle(748*3, 273*3, 24*3, 23*3), new Rectangle(540, 543, 15, 1), pokeNurse, centCollision, pokecentre1);
 		buildings4[2] = new Building(new Rectangle(1380, 1395, 45, 50), new Rectangle(435, 585, 18, 1), new Person[0], new Rectangle[0], pokeMart1);
 
 	    Person[] people4 = new Person[0];
@@ -319,7 +325,7 @@ public class GamePanel extends JPanel implements Runnable
 		buildings208[0] = new Building(new Rectangle(2726, 574, 62, 56), new Rectangle(540, 543, 81, 32), new Person[0], new Rectangle[0], house1);
 
 		Person[] people208 = new Person[2];
-		people208[0] = new NPC("hiker", new Rectangle(570*3,237*3,45,75),"down", "Watch your step there, bud", "Stay safe!",null);
+		people208[0] = new NPC("hiker", new Rectangle(570*3,237*3,45,75),"down", "npc1.txt", "npc2.txt",null);
 		((NPC) people208[0]).generateParty(2,14,17);
 		people208[1] = new NPC("Jett", new Rectangle(880*3,295*3,45,75),"left", "npc1.txt", "npc2.txt",null);
 		((NPC) people208[1]).generateParty(3,13,17);
@@ -545,14 +551,14 @@ public class GamePanel extends JPanel implements Runnable
 		Gate gate7b = new Gate(497*3,true,0,true,180*3,150*3,new Rectangle(153*3,375*3,70*3,42*3),oreburg);
 		r207.addGate(gate7b);
 			
-		Gate gate8 = new Gate(0,true,209*3,true,158*3,60*3,new Rectangle(866*3,92*3,16*3,40*3),r208);
+		Gate gate8 = new Gate(0,true,209*3,true,170*3,60*3,new Rectangle(866*3,92*3,16*3,40*3),r208);
 		r207.addGate(gate8);
-		Gate gate8b = new Gate(663*3,false,0,true,133*3,125*3,new Rectangle(105*3,258*3,22*3,30*3),r207);
+		Gate gate8b = new Gate(663*3,true,0,true,133*3,125*3,new Rectangle(105*3,258*3,22*3,30*3),r207);
 		r208.addGate(gate8b);
 			
 		Gate gate9 = new Gate(r208.getBG().getWidth()-screenWidth, true, r208.getBG().getHeight()-screenHeight, true, 120*3, 150*3,new Rectangle(283, 1973, 54, 109), r208);
 		heartHome.addGate(gate9);
-		Gate gate9b = new Gate(0, true,heartHome.getBG().getHeight()-screenHeight, true,120*3, 150*3, new Rectangle(3021, 975, 52, 93), heartHome);		
+		Gate gate9b = new Gate(0, true,heartHome.getBG().getHeight()-screenHeight, true,140*3, 150*3, new Rectangle(3021, 975, 52, 93), heartHome);		
 		r208.addGate(gate9b);
 		
 		Gate gate10 = new Gate(0,true,582*3,true,208*3,152*3,new Rectangle(702*3,0,78*3,36*3),r204);
@@ -591,7 +597,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(heartHome,300,300);
+		camera = new Camera(oreburg,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
@@ -672,12 +678,6 @@ public class GamePanel extends JPanel implements Runnable
 		g.drawString("Press X to interact!", 375, 623);
 	}
 	
-	// Battle
-	public void startWildBattle()
-	{
-		//
-
-	}
 	public void startNPCBattle(NPC npc)
 	{
 		main.startBattle(npc, false);

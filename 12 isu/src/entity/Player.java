@@ -54,13 +54,12 @@ public class Player {
 
 		interacting = false;
 		talkingTo = null;
-		pokeDollars = 0;
 		badges = 0;
 		hasWon = true;
 		pokeballs = new ArrayList<Item>();
 		medicine = new ArrayList<Item>();
 		keyItems = new ArrayList<Item>();
-
+		pokeDollars = 5000;
 		loadItems();
 	}
 
@@ -294,7 +293,7 @@ public class Player {
 		return hasWon;
 	}
 	public void addBadges() {
-		if (this.badges> 3)
+		if (this.badges< 3)
 			this.badges++;
 	}
 

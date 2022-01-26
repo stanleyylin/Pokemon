@@ -63,38 +63,31 @@ public class Dialogue extends JPanel
 		{	
 			if((line = br.readLine()) != null)
 			{
-				if(!player.getWon())
+				message = line;
+				if(line.equals("*heal*"))
 				{
 					player.healParty();
-					message = "I healed your pokemon. Safe travels!";
+					message = "";
 				}
-				else
+				else if(line.equals("*battle*"))
 				{
-					message = line;
-					if(line.equals("*heal*"))
-					{
-						player.healParty();
-						message = "";
-					}
-					else if(line.equals("*battle*"))
-					{
-						message = "...";
-						((NPC) npc).startBattle();
-					}
-					else if(line.equals("*store*"))
-					{
-						message = "Come back soon!";
-						gamePanel.openMart();
-					}
-					
-					revalidate();
-					repaint();
-					gamePanel.revalidate();
-					gamePanel.repaint();
+					gamePanel.startNPCBattle((NPC)npc);
+					message = "See you later!";
 				}
+				else if(line.equals("*store*"))
+				{
+					message = "Come back soon!";
+					gamePanel.openMart();
+				}
+					
+				revalidate();
+				repaint();
+				gamePanel.revalidate();
+				gamePanel.repaint();
 			}
 			else // ended
 			{
+				player.healParty();
 				player.setInteracting(false);
 				gamePanel.hideDialogue();
 			}

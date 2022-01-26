@@ -20,9 +20,9 @@ public class Gate {
 	public Gate(int camX2, boolean camXReached, int camY2, boolean camYReached, int screenX, int screenY, Rectangle r1, Location l2)
 	{
 		this.camX2 = camX2;
-		this.camXReached = camXReached;
+		this.camXReached = false;
 		this.camY2 = camY2;
-		this.camYReached = camYReached;
+		this.camYReached = false;
 		this.screenX = screenX;
 		this.screenY = screenY;
 		this.r1 = r1;

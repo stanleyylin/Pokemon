@@ -39,10 +39,6 @@ public class NPC extends Person
 		this.loseFile = loseFile;
 	}
 
-	public void startBattle()
-	{
-		// helo
-	}
 	
 	public void healParty() {
 		for (Pokemon p1: party)
@@ -131,10 +127,7 @@ public class NPC extends Person
 	}
 	public String getLines()
 	{
-		if(battleable)
-			return textFile;
-		else
-			return loseFile;
+		return "npc1.txt";
 	}	
 	public void setBattleable(boolean set)
 	{

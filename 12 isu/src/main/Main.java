@@ -150,6 +150,8 @@ public class Main extends JFrame {
 		setContentPane(keyItemsPanel);
 		setVisible(true);
 		pack();
+		keyItemsPanel.repaint();
+		keyItemsPanel.revalidate();
 
 	}
 	
