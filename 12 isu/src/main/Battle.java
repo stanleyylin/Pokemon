@@ -1224,11 +1224,15 @@ public class Battle extends JPanel {
 				barColor = battleStats[3];
 
 			int width = (int)((double)battleStats[3].getWidth() * ((double)opponent.getParty()[oppCurr].getCurHP() / (double)opponent.getParty()[oppCurr].getHPStat()));
-			if(width > 0)
+				
+			try
 			{
-				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
-				g2.drawImage(drawBar, 152, 144, this);
-			}
+				if(width > 0)
+				{
+					BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
+					g2.drawImage(drawBar, 152, 144, this);
+				}
+			}catch(RasterFormatException e) {}
 
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
@@ -1302,11 +1306,15 @@ public class Battle extends JPanel {
 				barColor = battleStats[3];
 
 			int width = battleStats[3].getWidth() * player.getParty()[playerCurr].getCurHP() / player.getParty()[playerCurr].getHPStat();
-			if(width > 0)
+			
+			try
 			{
-				BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
-				g2.drawImage(drawBar, 859, 368, null);
-			}
+				if(width > 0)
+				{
+					BufferedImage drawBar = barColor.getSubimage(0, 0, width, barColor.getHeight());
+					g2.drawImage(drawBar, 859, 368, null);
+				}
+			}catch(RasterFormatException e) {}
 
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
@@ -1319,11 +1327,13 @@ public class Battle extends JPanel {
 			int level = (int) ((double)battleStats[2].getWidth() * ((double)curLevel/(double)maxLevel));
 			// int level = battleStats[2].getWidth() * (player.getParty()[playerCurr].getCurExp() / player.getParty()[playerCurr].getCurExpThreshold());
 			//			System.out.println(level);
-			if(level > 0)
-			{
-				BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
-				g2.drawImage(drawBar, 775, 417, null);
-			}
+			try {
+				if(level > 0)
+				{
+					BufferedImage drawBar = battleStats[2].getSubimage(0, 0, level, battleStats[2].getHeight());
+					g2.drawImage(drawBar, 775, 417, null);
+				}
+			}catch(RasterFormatException e) {}
 
 			// Player Name
 			g2.setColor(Color.BLACK);
