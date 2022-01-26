@@ -164,7 +164,7 @@ public class GamePanel extends JPanel implements Runnable
 	    collisions3[26] = new Rectangle(243*3,308*3,42*3,250*3);
 	    collisions3[27] = new Rectangle(285*3,308*3,49*3,213*3);
 	    collisions3[28] = new Rectangle(334*3,308*3,104*3,186*3);
-	    collisions3[29] = new Rectangle(438*3,238*3,64*3,73*3);
+	    collisions3[29] = new Rectangle(438*3,288*3,64*3,63*3);
 	    collisions3[30] = new Rectangle(438*3,356*3,83*3,154*3);
 	    collisions3[31] = new Rectangle(547*3,433*3,92*3,61*3);
 	    collisions3[32] = new Rectangle(616*3,408*3,77*3,61*3);
@@ -457,51 +457,60 @@ public class GamePanel extends JPanel implements Runnable
 		Location r202 = new Location("202.png", collisions202, buildings202, people202, grass202);
 
 		// GATES
-		Gate gate1 = new Gate(2,77*3,116*3,twinLeaf,new Rectangle(219*3,0,60*3,40*3),r201,new Rectangle(229*3,310*3,67*3,42*3));
+		Gate gate1 = new Gate(0,true,112*3,true,250*3,160*3,new Rectangle(219*3,0,60*3,40*3),r201);
 		twinLeaf.addGate(gate1);
-		r201.addGate(reverseGate(gate1, 70*3, 0));
+		Gate gate1b = new Gate(60*3,true,0,true,188*3,57*3,new Rectangle(229*3,310*3,67*3,42*3),twinLeaf);
+		r201.addGate(gate1b);
 		
-		Gate gate2 = new Gate(0,0,19*3,r201,new Rectangle(1011*3,89*3,20*3,2*3),sandGem,new Rectangle(0,152*3,31*3,40*3));
+		Gate gate2 = new Gate(0,true,0,true,52*3,171*3,new Rectangle(1005*3,95*3,35*3,46*3),sandGem);
 		r201.addGate(gate2);
-		sandGem.addGate(reverseGate(gate2, 680*3, 0));
+		Gate gate2b = new Gate(680,false,0,false,265*3,133*3,new Rectangle(0,151*3,31*3,37*3),r201);
+		sandGem.addGate(gate2b);
 		
-		Gate gate3 = new Gate(2,250*3,212*3,sandGem,new Rectangle(317*3,0,90*3,31*3),r202,new Rectangle(420*3,421*3,90*3,31*3));
+		Gate gate3 = new Gate(250*3,true,212*3,true,192*3,167*3,new Rectangle(317*3,0,90*3,31*3),r202);
 		sandGem.addGate(gate3);
-		r202.addGate(reverseGate(gate3, 136*3, 0));
+		Gate gate3b = new Gate(137*3,true,0,true,209*3,57*3,new Rectangle(418*3,415*3,90*3,37*3),sandGem);
+		r202.addGate(gate3b);
 		
-		Gate gate4 = new Gate(2,562*3,558*3,r202,new Rectangle(237*3,0,59*3,27*3),jubilife,new Rectangle(695*3,735*3,109*3,63*3));
+		Gate gate4 = new Gate(567*3,false,558*3,true,173*3,145*3,new Rectangle(240*3,0,59*3,27*3),jubilife);
 		r202.addGate(gate4);
-		jubilife.addGate(reverseGate(gate4, 86*3, 0));
+		Gate gate4b = new Gate(86*3,false,0,true,171*3,40*3,new Rectangle(691*3,759*3,110*3,39*3),r202);
+		jubilife.addGate(gate4b);
 		
-		Gate gate5 = new Gate(1,0,128*3,jubilife,new Rectangle(1003*3,269*3,48*3,48*3),r203,new Rectangle(0,281*3,46*3,33*3));
+		Gate gate5 = new Gate(0,true,132*3,true,74*3,190*3,new Rectangle(984*3,266*3,72*3,48*3),r203);
 		jubilife.addGate(gate5);
-		r203.addGate(reverseGate(gate5, 659*3, 159*3));
+		Gate gate5b = new Gate(627*3,true,104*3,false,290*3,165*3,new Rectangle(0,274*3,70*3,42*3),jubilife);
+		r203.addGate(gate5b);
 		
-		Gate gate6 = new Gate(1,0,71*3,r203,new Rectangle(905*3,132*3,18*3,24*3),oreburg,new Rectangle(17*3,17*3,19*3,24*3));
+		Gate gate6 = new Gate(0,true,0,true,62*3,170*3,new Rectangle(905*3,132*3,18*3,24*3),oreburg);
 		r203.addGate(gate6);
-		oreburg.addGate(reverseGate(gate6, 616*3, 0));
+		Gate gate6b = new Gate(615,true,0,true,229*3,132*3,new Rectangle(17*3,17*3,19*3,24*3),r203);
+		oreburg.addGate(gate6b);
 		
-		Gate gate7 = new Gate(2,30*3,176*3,oreburg,new Rectangle(657*3,171*3,43*3,112*3),r207,new Rectangle(145*3,374*3,96*3,42*3));
+		Gate gate7 = new Gate(0,true,176*3,true,180*3,133*3,new Rectangle(651*3,0*3,43*3,80*3),r207);
 		oreburg.addGate(gate7);
-		r207.addGate(reverseGate(gate7, 410*3, 0));
+		Gate gate7b = new Gate(497*3,true,0,true,180*3,150*3,new Rectangle(153*3,375*3,70*3,42*3),oreburg);
+		r207.addGate(gate7b);
 			
-		Gate gate8 = new Gate(1,0,139*3,r207,new Rectangle(866*3,92*3,16*3,40*3),r208,new Rectangle(105*3,258*3,22*3,30*3));
+		Gate gate8 = new Gate(0,true,209*3,true,158*3,60*3,new Rectangle(866*3,92*3,16*3,40*3),r208);
 		r207.addGate(gate8);
-		r208.addGate(reverseGate(gate8, 0, 374*3));
+		Gate gate8b = new Gate(663*3,true,0,true,133*3,125*3,new Rectangle(105*3,258*3,22*3,30*3),r207);
+		r208.addGate(gate8b);
 			
-		// Fun fact, this is reversed
-		Gate gate9 = new Gate(0, r208.getBG().getWidth()-screenWidth, r208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), r208, new Rectangle(3021, 975, 52, 93));
+		Gate gate9 = new Gate(r208.getBG().getWidth()-screenWidth, true, r208.getBG().getHeight()-screenHeight, true, 120*3, 150*3,new Rectangle(283, 1973, 54, 109), r208);
 		heartHome.addGate(gate9);
-		r208.addGate(reverseGate(gate9, 0, heartHome.getBG().getHeight()-screenHeight));		
-
-		Gate gate10 = new Gate(2,0,568*3,jubilife,new Rectangle(702*3,0,78*3,36*3),r204,new Rectangle(186*3,786*3,67*3,36*3));
+		Gate gate9b = new Gate(0, true,heartHome.getBG().getHeight()-screenHeight, true,120*3, 150*3, new Rectangle(3021, 975, 52, 93), heartHome);		
+		r208.addGate(gate9b);
+		
+		Gate gate10 = new Gate(0,true,582*3,true,208*3,152*3,new Rectangle(702*3,0,78*3,36*3),r204);
 		jubilife.addGate(gate10);
-		r204.addGate(reverseGate(gate10, 0*3, 0*3));
+		Gate gate10b = new Gate(568*3,true,0,true,180*3,119*3,new Rectangle(186*3,786*3,67*3,36*3),jubilife);
+		r204.addGate(gate10b);
 		
-		Gate gate11 = new Gate(2,0,568*3,r204,new Rectangle(158*3,0,50*3,25*3),floaroma,new Rectangle(135*3,743*3,83*3,65*3));
+		Gate gate11 = new Gate(0,true,568*3,true,177*3,120*3,new Rectangle(158*3,0,50*3,25*3),floaroma);
 		r204.addGate(gate11);
-		floaroma.addGate(reverseGate(gate11, 0, 0));
-		
+		Gate gate11b = new Gate(0,true,0,true,180*3,33*3,new Rectangle(135*3,743*3,83*3,65*3),r204);
+		floaroma.addGate(gate11b);
 		
 		
 		//	// Route 208
@@ -521,8 +530,7 @@ public class GamePanel extends JPanel implements Runnable
 	
 		// {0, hearthome.getHeight()-screenHeight, }
 
-//	// Gate: 11-HeartHome and 208
-//		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), T208, new Rectangle(3021, 975, 52, 93));
+//	// Gate: 11-HeartHome and 208/		Gate gate11 = new Gate(0, T208.getBG().getWidth()-screenWidth, T208.getBG().getHeight()-screenHeight, heartHome, new Rectangle(283, 1973, 54, 109), T208, new Rectangle(3021, 975, 52, 93));
 //		heartHome.addGate(gate11);
 //		T208.addGate(reverseGate(gate11, 0, heartHome.getBG().getHeight()-screenHeight));		
 		
@@ -530,7 +538,7 @@ public class GamePanel extends JPanel implements Runnable
 		dialogue = new Dialogue(this, player);
 		dialogue.setBounds(8, 8, 1064, 172);
 //		camera = new Camera(heartHome, 300, 1200);
-		camera = new Camera(sandGem,300,300);
+		camera = new Camera(jubilife,300,300);
 	    moving = new Moving(this, player, camera);
 	    keyHandler = new KeyHandler(this, player, moving);
 	    interact = false;
@@ -586,20 +594,20 @@ public class GamePanel extends JPanel implements Runnable
 		}
 	}
 	
-	public Gate reverseGate(Gate g, int camX, int camY)
-	{
-		int edge = 0;
-		if(g.getAxis() == 0)
-			edge = 1;
-		else if(g.getAxis() == 1)
-			edge = 0;
-		else if(g.getAxis() == 2)
-			edge = 3;
-		else 
-			edge = 2;
-
-		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1());
-	}
+//	public Gate reverseGate(Gate g, int camX, int camY)
+//	{
+//		int edge = 0;
+//		if(g.getAxis() == 0)
+//			edge = 1;
+//		else if(g.getAxis() == 1)
+//			edge = 0;
+//		else if(g.getAxis() == 2)
+//			edge = 3;
+//		else 
+//			edge = 2;
+//
+//		return new Gate(edge, camX, camY, g.getL2(), g.getR2(), g.getL1(), g.getR1(),true);
+//	}
 	public void interactMessage(Graphics g)
 	{
 		g.setFont(font);
@@ -656,7 +664,7 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("test", 0, 0);
 			test = false;
 		}
-		
+
 		camera.draw(g2);
 		moving.draw(g2);
 		

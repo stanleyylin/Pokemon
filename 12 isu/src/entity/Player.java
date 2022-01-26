@@ -36,7 +36,7 @@ public class Player {
 
 	public final static int width = 50;
 	public final static int height = 62;
-	public final int speed = 5;
+	public final int speed = 8;
 
 	public Player(int screenX, int screenY)
 	{

@@ -98,18 +98,22 @@ public class Moving {
 		}
 	}
 	
-	boolean checkGate(ArrayList<Gate> gates)
+	void checkGate(ArrayList<Gate> gates)
 	{
 		Rectangle player = new Rectangle(camera.getX() + main.getScreenX(), camera.getY() + main.getScreenY(), Player.width, Player.height);
 		for(Gate g : gates)
 		{
 			if(g.getR1().intersects(player))
 			{
-				g.changeLocation(camera, main);
-				return true;
+				camera.setLocation(g.getL2());
+				camera.setX(g.getCamX());
+				camera.setY(g.getCamY());
+				camera.getLocation().setEdgeReachedX(g.getXEdge());
+				camera.getLocation().setEdgeReachedY(g.getYEdge());
+				main.setScreenX(g.getScreenX());
+				main.setScreenY(g.getScreenY());
 			}
 		}
-		return false;
 	}
 	
 	void interact()
@@ -337,13 +341,10 @@ public class Moving {
 		// Check collisions
 		if(camera.getBuilding() == null)
 		{
-			if(!checkGate(camera.getLocation().getGates()))
-			{
-				if(moving != 0)
-					inGrass();
-				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-			}
+			if(moving != 0)
+				inGrass();
+			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 		}
 		else
 		{
@@ -371,6 +372,7 @@ public class Moving {
 				}
 			}
 		}
+		checkGate(camera.getLocation().getGates());
 	}
 	
 	public void movePlayerY()
@@ -415,13 +417,10 @@ public class Moving {
 		// Check collisions
 		if(camera.getBuilding() == null)
 		{
-			if(!checkGate(camera.getLocation().getGates()))
-			{
-				if(moving != 0)
-					inGrass();
-				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-			}
+			if(moving != 0)
+				inGrass();
+			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 		}
 		else
 		{
@@ -449,6 +448,7 @@ public class Moving {
 				}
 			}
 		}
+		checkGate(camera.getLocation().getGates());
 	
 	}
 	
@@ -472,13 +472,11 @@ public class Moving {
 		
 		if(camera.getBuilding() == null)
 		{
-			if(!checkGate(camera.getLocation().getGates()))
-			{
-				if(moving != 0)
-					inGrass();
-				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-			}
+			if(moving != 0)
+				inGrass();
+			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+
 		}
 		else
 		{
@@ -487,6 +485,7 @@ public class Moving {
 		}
 		doorEntered();
 		interact();
+		checkGate(camera.getLocation().getGates());
 	}
 	
 	public void moveCameraY()
@@ -509,13 +508,10 @@ public class Moving {
 		
 		if(camera.getBuilding() == null)
 		{
-			if(!checkGate(camera.getLocation().getGates()))
-			{
-				if(moving != 0)
-					inGrass();
-				checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-				checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
-			}
+			if(moving != 0)
+				inGrass();
+			checkCollisions(camera.getLocation().getCollisions(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
+			checkCollisions(camera.getLocation().getPeople(), !camera.getLocation().getEdgeReachedX(), !camera.getLocation().getEdgeReachedY());
 		}
 		else
 		{
@@ -524,6 +520,7 @@ public class Moving {
 		}
 		doorEntered();
 		interact();
+		checkGate(camera.getLocation().getGates());
 	}
 	
 	public void draw(Graphics2D g2)
