@@ -101,7 +101,9 @@ public class Main extends JFrame {
 		Pokemon charm = new Pokemon ("Charmander", "Oak's Flame",12);
 		charm.giveExp(charm);
 		player.addPokemonToParty(charm);
-		
+		player.addBadges();
+		player.addBadges();
+		player.addBadges();
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		congrats = new Congratulations(this);

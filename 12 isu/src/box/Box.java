@@ -145,7 +145,7 @@ public class Box extends JPanel implements MouseListener{
 	
 	//swaps a pokemon from party and box
 	public void swap(int partyIndex)
-	{å
+	{
 		player.swapPokemon(boxButtons[selected/5][selected%5].getPokemon(), partyIndex);
 		updateButtons();
 		refresh();

@@ -90,7 +90,10 @@ public class Player {
 		for (Pokemon p1: party)
 		{
 			if(p1 != null)
+			{
 				p1.heal();
+				p1.setStatus(null);
+			}
 		}
 	}
 

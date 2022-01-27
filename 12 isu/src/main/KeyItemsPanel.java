@@ -35,7 +35,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		
 		try {
 			RegionMap = loader.loadImage("regionMap.png");
-			BadgeCase = loader.loadImage("badges0.png");
+			BadgeCase = loader.loadImage("badges0.jpeg");
 		} catch (IOException e) {
 		}
 		curImg = true;
@@ -49,7 +49,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 	//updates the badge count and image accordingly
 	public void updateBadgeCount() {
 		try {
-			BadgeCase = loader.loadImage("badges"  + player.getBadges()+ ".png" );
+			BadgeCase = loader.loadImage("badges"  + player.getBadges()+ ".jpeg" );
 		} catch (IOException e) {
 		}
 	}
@@ -71,6 +71,8 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		else {
 			updateBadgeCount();
 			g2.drawImage(BadgeCase, 0,0, null);
+			g2.setFont(font);
+			g2.drawString("Click anywhere to go back!", 200, 600);
 		}
 	}
 
