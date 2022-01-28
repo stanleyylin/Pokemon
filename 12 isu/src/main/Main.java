@@ -98,37 +98,32 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		// 1
-		Pokemon snore = new Pokemon ("Snorlax", "Sleepy",23);
-		player.addPokemonToParty(snore);
-		// 2
-		Pokemon charm = new Pokemon ("Charizard", "Oak's Flame",24);
+		
+		// CUSTOMIZATION (add your Pokemon here for testing)
+		// Party: 1
+		Pokemon charm = new Pokemon ("Charizard", "Oak's Flame",12);
 		charm.giveExp(charm);
 		player.addPokemonToParty(charm);
-		// 3
-		Pokemon jigglypuff = new Pokemon ("Jigglypuff", "Puff",25);
+		// Party: 2
+		Pokemon jigglypuff = new Pokemon ("Jigglypuff", "Puff",12);
 		player.addPokemonToParty(jigglypuff);
-		// 4
-		Pokemon zappy = new Pokemon ("Pikachu", "Pikachu",23);
-		player.addPokemonToParty(zappy);
-		// 5
-		Pokemon pig = new Pokemon ("Mew", "Mew",17);
-		player.addPokemonToParty(pig);
-		// 6
-		Pokemon dragon = new Pokemon ("Gyarados", "Gyarados",30);
-		player.addPokemonToParty(dragon);
-		// box 1
-		Pokemon fire = new Pokemon ("Mewtwo", "MewTwo",45);
-		player.addToBox(fire);
-//		player.addBadges();
-		Pokemon charm = new Pokemon ("Charmander", "Oak's Flame",7);
-		charm.giveExp(charm);
-		player.addPokemonToParty(charm);
-		player.addToBox(charm);
-//		player.addToBox(new Pokemon("Charmander", "Charmander", 20));
-		//		player.addBadges();
-//		player.addBadges();
-//		player.addBadges();
+		// Party: 3
+		Pokemon sleepy = new Pokemon ("Snorlax", "Sleepy",12);
+		player.addPokemonToParty(sleepy);
+		// Party: 4
+		Pokemon squirtle = new Pokemon ("Squirtle", "Squirtle",12);
+		player.addPokemonToParty(squirtle);
+		// Party: 5
+		Pokemon mew = new Pokemon ("Mew", "Mew",12);
+		player.addPokemonToParty(mew);
+		// Party: 6
+		Pokemon bulb = new Pokemon ("Bulbasaur", "Bulby",12);
+		player.addPokemonToParty(bulb);	
+		// Box 1
+		Pokemon zappy = new Pokemon ("Pikachu", "Pikachu",15);
+		player.addToBox(zappy);
+
+		
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		congrats = new Congratulations(this);
