@@ -121,6 +121,12 @@ public class Main extends JFrame {
 		Pokemon fire = new Pokemon ("Mewtwo", "MewTwo",45);
 		player.addToBox(fire);
 //		player.addBadges();
+		Pokemon charm = new Pokemon ("Charmander", "Oak's Flame",7);
+		charm.giveExp(charm);
+		player.addPokemonToParty(charm);
+		player.addToBox(charm);
+//		player.addToBox(new Pokemon("Charmander", "Charmander", 20));
+		//		player.addBadges();
 //		player.addBadges();
 //		player.addBadges();
 		keyItemsPanel = new KeyItemsPanel(this,player);
