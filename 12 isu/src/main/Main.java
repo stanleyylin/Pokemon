@@ -98,12 +98,31 @@ public class Main extends JFrame {
 		battle = new Battle(this,player);	
 		bag = new Bag(this,player,battle);
 		pokeSelect = new PokeSelect(battle, player,0);
-		Pokemon charm = new Pokemon ("Charmander", "Oak's Flame",12);
+		// 1
+		Pokemon snore = new Pokemon ("Snorlax", "Sleepy",23);
+		player.addPokemonToParty(snore);
+		// 2
+		Pokemon charm = new Pokemon ("Charizard", "Oak's Flame",24);
 		charm.giveExp(charm);
 		player.addPokemonToParty(charm);
-		player.addBadges();
-		player.addBadges();
-		player.addBadges();
+		// 3
+		Pokemon jigglypuff = new Pokemon ("Jigglypuff", "Puff",25);
+		player.addPokemonToParty(jigglypuff);
+		// 4
+		Pokemon zappy = new Pokemon ("Pikachu", "Pikachu",23);
+		player.addPokemonToParty(zappy);
+		// 5
+		Pokemon pig = new Pokemon ("Mew", "Mew",17);
+		player.addPokemonToParty(pig);
+		// 6
+		Pokemon dragon = new Pokemon ("Gyarados", "Gyarados",30);
+		player.addPokemonToParty(dragon);
+		// box 1
+		Pokemon fire = new Pokemon ("Mewtwo", "MewTwo",45);
+		player.addToBox(fire);
+//		player.addBadges();
+//		player.addBadges();
+//		player.addBadges();
 		keyItemsPanel = new KeyItemsPanel(this,player);
 		instructions = new Instructions(this);
 		congrats = new Congratulations(this);

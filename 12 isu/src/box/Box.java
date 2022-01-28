@@ -32,7 +32,7 @@ public class Box extends JPanel implements MouseListener{
 	
 	private BoxPokemon[][] boxButtons; //stores all box pokemon buttons
 	private BoxPokemon[] partyButtons; //stores all party pokemon buttons
-	private int selected = 0; //stores which party is selected
+	private int selected = -1; //stores which party is selected
 	private int boxNum = 0; //stores which box is selected
 	
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 22);
@@ -110,7 +110,8 @@ public class Box extends JPanel implements MouseListener{
 					boxButtons[i][k].hidePokemon();
 			}
 		}
-		boxButtons[selected/5][selected%5].setSelected(true);
+		if(selected >= 0)
+			boxButtons[selected/5][selected%5].setSelected(true);
 		
 		for(int i = 0; i < 6; i++)
 		{
@@ -138,7 +139,8 @@ public class Box extends JPanel implements MouseListener{
 	//sets a pokemon button as selected when clicked
 	public void selected(int index)
 	{
-		boxButtons[selected/5][selected%5].setSelected(false);
+		if(selected >= 0)
+			boxButtons[selected/5][selected%5].setSelected(false);
 		selected = index;
 		refresh();
 	}
@@ -155,7 +157,7 @@ public class Box extends JPanel implements MouseListener{
 	//displays hexagon around the pokemon that is selected
 	public void displaySelected(Graphics2D g2)
 	{
-		if(player.getBox().size() > 0)
+		if(player.getBox().size() > 0 && selected >= 0)
 		{
 			g2.drawImage(player.getBox().get(selected+boxNum*25).getFront(), 0, 105, null);
 			g2.setFont(desFont);
@@ -192,7 +194,6 @@ public class Box extends JPanel implements MouseListener{
 		g2.drawString("Box " + (boxNum+1) + ":", 680, 62);
 	}
 
-
 	//mouse listener methods
 	public void mouseClicked(MouseEvent e) 
 	{
@@ -200,7 +201,8 @@ public class Box extends JPanel implements MouseListener{
 		int y = e.getY();
 		if(buttons[3].contains(x, y)) // swap
 		{
-			swapping = true;
+			if(selected >= 0) 
+				swapping = true;
 			repaint();
 		}
 		else if(buttons[0].contains(x, y)) // back

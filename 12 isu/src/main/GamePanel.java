@@ -478,7 +478,7 @@ public class GamePanel extends JPanel implements Runnable
 		grass204[2] = new Rectangle(59*3, 537*3, 161*3, 104*3);
 		grass204[3] = new Rectangle(29*3, 646*3, 71*3, 35*3);
 		
-		Location r204 = new Location("204.png", collisions204, buildings204, people204, null);
+		Location r204 = new Location("204.png", collisions204, buildings204, people204, grass204);
 		
 		
 		

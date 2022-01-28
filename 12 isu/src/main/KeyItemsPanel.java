@@ -22,7 +22,8 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 	private LoadImage loader = new LoadImage();
 	private Font font = new Font("Pokemon GB", Font.PLAIN, 30);
 	private BufferedImage RegionMap;
-	private BufferedImage BadgeCase;
+	private BufferedImage BadgeCase[];
+	BufferedImage current;
 	boolean curImg;
 	
 	//cosntructor
@@ -32,14 +33,17 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		this.player = player;
 		
 		setPreferredSize(new Dimension (1080,720));
-		
+		BadgeCase = new BufferedImage[4];
 		try {
 			RegionMap = loader.loadImage("regionMap.png");
-			BadgeCase = loader.loadImage("badges0.jpeg");
+			BadgeCase[0] = loader.loadImage("badges0.jpeg");
+			BadgeCase[1] = loader.loadImage("badges1.jpeg");
+			BadgeCase[2] = loader.loadImage("badges2.jpeg");
+			BadgeCase[3] = loader.loadImage("badges3.jpeg");
 		} catch (IOException e) {
 		}
 		curImg = true;
-		
+		current = BadgeCase[0];
 		addMouseListener(this);
 		//true means map
 		//false means badge case
@@ -48,10 +52,10 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 	
 	//updates the badge count and image accordingly
 	public void updateBadgeCount() {
-		try {
-			BadgeCase = loader.loadImage("badges"  + player.getBadges()+ ".jpeg" );
-		} catch (IOException e) {
-		}
+		if(player.getBadges() >= 4)
+			main.openCongratulations();
+		else
+			current = BadgeCase[player.getBadges()];
 	}
 	
 	//sets the current image as either map or case
@@ -70,7 +74,7 @@ public class KeyItemsPanel extends JPanel implements MouseListener{
 		}
 		else {
 			updateBadgeCount();
-			g2.drawImage(BadgeCase, 0,0, null);
+			g2.drawImage(current, 0,0, null);
 			g2.setFont(font);
 			g2.drawString("Click anywhere to go back!", 200, 600);
 		}

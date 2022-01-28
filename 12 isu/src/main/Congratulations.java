@@ -34,6 +34,8 @@ public class Congratulations extends JPanel implements MouseListener
 			image = loader.loadImage("res/congratulations.png");			
 		}
 		catch(IOException e) {}
+		repaint();
+		revalidate();
 	}
 	
 	public void paintComponent (Graphics g) {

@@ -859,17 +859,17 @@ public class Battle extends JPanel {
 
 	//it comes to this when u win/lose the battle
 	public void endBattle(boolean isPlayer) {
-
 		if (!isPlayer) {
 			player.setPokeDollars(player.getPokeDollars() + 1000);
 			if(isTrainer)
 			{
 				player.addBadges();
+				isTrainer = false;
 				if(player.getBadges() == 4)
 				{
 					main.openCongratulations();
+					return;
 				}
-				isTrainer = false;
 			}
 		}
 		
@@ -1035,9 +1035,12 @@ public class Battle extends JPanel {
 		}
 		
 		if (s.equals("Ether")) {
-			int n = getLeastPPMove();
-			int cur = player.getParty()[playerCurr].getCurMoves()[n].getCurPP();
-			player.getParty()[playerCurr].getCurMoves()[n].setCurPP(cur + 10);
+			try
+			{
+				int n = getLeastPPMove();
+				int cur = player.getParty()[playerCurr].getCurMoves()[n].getCurPP();
+				player.getParty()[playerCurr].getCurMoves()[n].setCurPP(cur + 10);
+			} catch(Exception e) {}
 			gameState = 5;
 
 		}

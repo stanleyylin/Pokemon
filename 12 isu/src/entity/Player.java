@@ -53,6 +53,8 @@ public class Player {
 		SpriteSheet player = new SpriteSheet("char1.png");
 		sprites = player.getSprites();
 
+		badges = 0;
+		
 		interacting = false;
 		talkingTo = null;
 		badges = 0;
