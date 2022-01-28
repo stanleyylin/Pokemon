@@ -1046,8 +1046,11 @@ public class Battle extends JPanel {
 		}
 		
 		if (s.equals("Elixir")) {
-			for (Move m : player.getParty()[playerCurr].getCurMoves())
-				m.setCurPP(m.getCurPP() + 10);
+			try
+			{
+				for (Move m : player.getParty()[playerCurr].getCurMoves())
+					m.setCurPP(m.getCurPP() + 10);
+			} catch(Exception e) {}
 			gameState = 5;
 
 		}
