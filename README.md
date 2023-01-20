@@ -30,7 +30,7 @@ Collect items, Pokemons, and badges! Gotta catch 'em all!
 ---
 
 For the full demo:
-youtu.be/_E63nommrts
+https://youtu.be/_E63nommrts
 
 
 
