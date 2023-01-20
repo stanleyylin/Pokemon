@@ -5,7 +5,7 @@ Welcome to the world of Pokemon! This is a full-fledged Pokemon game created pur
 ---
 
 To play... 🤩
-1. Download the zipped file. 📥
+1. Download the zipped file (PlayPokemon.zip). 📥
 2. Unzip the file. 
 3. Open Pokemon.jar file. If this does not work, import the folder into Eclipse. Go to src/main/ and run the main.class.
 4. Enjoy! 🥳
