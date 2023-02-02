@@ -27,6 +27,7 @@ Animated turn-based battle system against a computer bot. Fight wild pokemon and
 ![image](/Demos/Bag_Demo.png)
 
 Collect items, Pokemons, and badges! Gotta catch 'em all!
+Items can be sorted as well!
 
 ---
 
