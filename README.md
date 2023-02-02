@@ -12,7 +12,7 @@ To play... 🤩
 
 ---
 # Features 
-Sound on 🔈!
+Sound on 🔈 (apologies for the background noises though)!
 ## Interactive Map 😛
 https://user-images.githubusercontent.com/88297063/213599113-9d01591f-27d6-44f0-8587-52eb6a5eb0ac.mp4
 
