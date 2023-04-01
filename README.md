@@ -1,6 +1,7 @@
 ![image](/Demos/header.png)
 
-Welcome to the world of Pokemon! This is a full-fledged Pokemon game created purely in Java.
+Welcome to the world of Pokemon! This is a full-fledged Pokemon game created purely in Java. 
+See the full demo!: https://youtu.be/_E63nommrts
 
 ---
 
@@ -30,9 +31,5 @@ Collect items, Pokemons, and badges! Gotta catch 'em all!
 Items can be sorted as well!
 
 ---
-
-For the full demo:
-https://youtu.be/_E63nommrts
-
 
 
